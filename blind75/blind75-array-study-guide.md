@@ -552,6 +552,16 @@ public int maxProfitMultiple(int[] prices) {
 
 **🔗 LeetCode Link:** [Contains Duplicate - LeetCode #217](https://leetcode.com/problems/contains-duplicate/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the simplest way to check if any element appears twice?
+2. If you could only scan through the array once, what would you need to remember?
+3. How could sorting the array help solve this problem?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.
 
@@ -564,7 +574,55 @@ Input: nums = [1,2,3,4]
 Output: false
 ```
 
-### Knowledge Prerequisites
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: What Information Do We Need to Track?
+> **Guided Question:** As you examine each number in the array, what's the key question you need to answer about it?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The key question is: **"Have I seen this number before?"**
+
+This means we need a way to remember which numbers we've already encountered. The moment we see a number we've seen before, we can immediately return `true`.
+
+</details>
+
+#### Step 2: How Can We Remember What We've Seen?
+> **Guided Question:** What data structure is perfect for quickly checking if an element exists in a collection?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A **HashSet** (or Set) is ideal because:
+- Adding an element: O(1) average time
+- Checking if element exists: O(1) average time  
+- Perfect for the "have I seen this before?" question
+
+Alternative approach: **Sort the array first**, then check adjacent elements. This would be O(n log n) time but O(1) extra space.
+
+</details>
+
+#### Step 3: Can We Optimize Further?
+> **Guided Question:** The HashSet approach uses O(n) extra space. Can we solve this problem without extra space?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Yes! We can **sort the array in-place** and then check adjacent elements:
+- Sort: O(n log n) time, O(1) extra space
+- Check adjacent pairs: O(n) time
+- Total: O(n log n) time, O(1) space
+
+**Trade-off analysis:**
+- HashSet: O(n) time, O(n) space - faster but uses more memory
+- Sorting: O(n log n) time, O(1) space - slower but memory efficient
+
+The optimal choice depends on whether you prioritize time or space efficiency.
+
+</details>
+
+### 📋 Knowledge Prerequisites
 - HashSet operations (add, contains)
 - Set data structure properties
 - Array iteration
@@ -714,6 +772,39 @@ public boolean containsDuplicate(int[] nums) {
 4. **Null handling**: Consider how to handle null values if they're allowed
 5. **Integer overflow**: Generally not relevant for this problem, but consider in variations
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create a HashSet to store seen numbers
+- [ ] Iterate through the array once
+- [ ] For each number, check if it exists in the set
+- [ ] If found, return true immediately
+- [ ] If not found, add to set and continue
+- [ ] If loop completes, return false
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is a HashSet better than an ArrayList for checking duplicates?
+2. **Complexity Analysis:** What's the time and space complexity of each approach (HashSet vs sorting)?
+3. **Trade-offs:** When would you choose the sorting approach over the HashSet approach?
+4. **Pattern Recognition:** How does this "have I seen it before?" pattern apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing HashSet solution: ___/5
+- [ ] Implementing sorting solution: ___/5
+- [ ] Explaining the trade-offs: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ### Follow-up Questions
 
 1. **What if array contains duplicates of specific elements?** Count frequency of each element
@@ -774,6 +865,16 @@ public boolean containsNearbyDuplicate(int[] nums, int k) {
 
 **🔗 LeetCode Link:** [Product of Array Except Self - LeetCode #238](https://leetcode.com/problems/product-of-array-except-self/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the most straightforward way to calculate the product of all elements except the current one?
+2. Why do you think the problem specifically prohibits using division?
+3. If you had to split this calculation into parts, how might you break it down?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. The algorithm must run in O(n) time and without using the division operation.
 
@@ -788,7 +889,67 @@ answer[2] = 1*2*4 = 8
 answer[3] = 1*2*3 = 6
 ```
 
-### Knowledge Prerequisites
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Why Can't We Use Division?
+> **Guided Question:** The most obvious approach is to calculate the total product and divide by each element. Why do you think this approach is prohibited?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**The division restriction reveals deeper thinking requirements:**
+
+1. **Zero handling**: If any element is 0, the total product becomes 0, and dividing by 0 is undefined
+2. **Precision issues**: Division might introduce floating-point errors
+3. **Algorithm elegance**: Forces us to think about the mathematical relationship differently
+
+The constraint pushes us toward a more fundamental insight about how to decompose the problem.
+
+</details>
+
+#### Step 2: How Can We Break Down Each Result?
+> **Guided Question:** For position `i`, what does `answer[i]` represent in terms of the elements to the left and right of position `i`?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+For any position `i`, the result is:
+**`answer[i] = (product of all elements to the left of i) × (product of all elements to the right of i)`**
+
+Example with `[1,2,3,4]`:
+- `answer[0] = (nothing to left) × (2×3×4) = 1 × 24 = 24`
+- `answer[1] = (1) × (3×4) = 1 × 12 = 12` 
+- `answer[2] = (1×2) × (4) = 2 × 4 = 8`
+- `answer[3] = (1×2×3) × (nothing to right) = 6 × 1 = 6`
+
+This suggests we need **prefix products** (left) and **suffix products** (right).
+
+</details>
+
+#### Step 3: Can We Optimize the Space?
+> **Guided Question:** We could create separate arrays for left and right products. But can we reduce the space complexity?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Yes! We can optimize to O(1) extra space:**
+
+1. **First pass**: Store left products directly in the result array
+2. **Second pass**: Multiply each position by right products computed on-the-fly
+
+Example walkthrough:
+- After first pass: `result = [1, 1, 2, 6]` (left products)
+- Second pass (right to left):
+  - `result[3] = 6 × 1 = 6`, `rightProduct = 4`
+  - `result[2] = 2 × 4 = 8`, `rightProduct = 4×3 = 12`  
+  - `result[1] = 1 × 12 = 12`, `rightProduct = 12×2 = 24`
+  - `result[0] = 1 × 24 = 24`
+
+**Key insight**: We can compute right products incrementally while updating the result!
+
+</details>
+
+### 📋 Knowledge Prerequisites
 - Array manipulation and indexing
 - Understanding of mathematical products
 - Prefix and suffix computations
@@ -968,6 +1129,38 @@ private void calculateProducts(int[] nums, int index, int leftProduct, int right
 4. **Space complexity counting**: Result array typically doesn't count toward space complexity
 5. **Modifying input**: Don't modify the original nums array
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the space-optimized solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize result array with same length as input
+- [ ] First pass (left to right): Fill result with left products
+- [ ] Initialize a variable to track right product
+- [ ] Second pass (right to left): Multiply result by accumulated right products
+- [ ] Update right product at each step for next iteration
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does this approach work without division?
+2. **Complexity Analysis:** What's the time and space complexity of the optimized solution?
+3. **Edge Cases:** How would this solution handle arrays with zeros or negative numbers?
+4. **Pattern Recognition:** How does this prefix/suffix pattern apply to other array problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the prefix/suffix concept: ___/5
+- [ ] Implementing the two-pass solution: ___/5
+- [ ] Optimizing space complexity: ___/5
+- [ ] Explaining why division is prohibited: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try implementing both the O(n) space and O(1) space versions
+
 ### Follow-up Questions
 
 1. **What if division was allowed?** Calculate total product, divide by each element
@@ -1042,6 +1235,16 @@ class ProductRangeQuery {
 
 **🔗 LeetCode Link:** [Maximum Subarray - LeetCode #53](https://leetcode.com/problems/maximum-subarray/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the brute force approach to check every possible subarray?
+2. If you're building a subarray and it becomes negative, what does that suggest?
+3. What decision do you need to make at each element: extend the current subarray or start fresh?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
 
@@ -1052,7 +1255,76 @@ Output: 6
 Explanation: [4,-1,2,1] has the largest sum = 6.
 ```
 
-### Knowledge Prerequisites
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: What's the Key Decision at Each Element?
+> **Guided Question:** As you process each element, you face a choice: should you extend the previous subarray by including this element, or start a new subarray from this element?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**The core insight is a greedy choice at each position:**
+
+At element `nums[i]`, we choose:
+- **Extend**: `currentSum + nums[i]` (add to existing subarray)
+- **Start fresh**: `nums[i]` (begin new subarray)
+
+We pick whichever gives the larger value: `max(nums[i], currentSum + nums[i])`
+
+This works because if `currentSum` is negative, it can only hurt our result, so we're better off starting fresh.
+
+</details>
+
+#### Step 2: How Do We Track the Global Maximum?
+> **Guided Question:** Making the optimal local choice gives us the best subarray ending at position `i`. But how do we find the globally optimal subarray?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**We need to track two things:**
+1. **Current subarray sum**: Best sum ending at current position
+2. **Global maximum**: Best sum seen so far across all positions
+
+At each step:
+```
+currentSum = max(nums[i], currentSum + nums[i])  // Local choice
+maxSum = max(maxSum, currentSum)                 // Global tracking
+```
+
+**Example walkthrough** with `[-2,1,-3,4,-1,2,1,-5,4]`:
+- Position 0: current=−2, max=−2
+- Position 1: current=max(1,−2+1)=1, max=max(−2,1)=1
+- Position 2: current=max(−3,1+(−3))=−2, max=max(1,−2)=1
+- Position 3: current=max(4,−2+4)=4, max=max(1,4)=4
+- Position 4: current=max(−1,4+(−1))=3, max=max(4,3)=4
+- Continue...
+
+</details>
+
+#### Step 3: Why Does This Greedy Approach Work?
+> **Guided Question:** How can we be sure that making locally optimal choices leads to the globally optimal solution?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**This is Kadane's Algorithm, and here's why it works:**
+
+**Key insight**: If a prefix sum becomes negative, it cannot help any future subarray.
+
+**Proof sketch**: 
+- Suppose the optimal subarray is `[i, j]` but our algorithm starts fresh at some position `k` where `i < k ≤ j`
+- This means the sum from `i` to `k-1` was negative
+- But then the subarray `[k, j]` would have a larger sum than `[i, j]`, contradicting optimality
+
+**The greedy choice property**: The optimal subarray either:
+1. Ends exactly at the current position (captured by our local maximum)
+2. Ends at some future position (will be captured when we reach it)
+
+By always making the locally optimal choice and tracking the global maximum, we guarantee finding the optimal solution.
+
+</details>
+
+### 📋 Knowledge Prerequisites
 - Array traversal and manipulation
 - Understanding of subarray vs subsequence
 - Dynamic programming concepts
@@ -1252,6 +1524,39 @@ public int maxSubArray(int[] nums) {
 4. **Reset timing**: In clearer Kadane's, reset after updating maximum, not before
 5. **Initialization**: Proper initialization of max values is crucial
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing Kadane's algorithm from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize currentSum and maxSum with first element
+- [ ] Iterate through remaining elements
+- [ ] At each position, decide: extend or start fresh
+- [ ] Update currentSum with the better choice
+- [ ] Update maxSum if currentSum is larger
+- [ ] Return maxSum
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why can we safely discard negative prefix sums?
+2. **Complexity Analysis:** What's the time and space complexity of Kadane's algorithm?
+3. **Greedy vs DP:** How does this greedy approach relate to dynamic programming?
+4. **Pattern Recognition:** How does this "optimal substructure" principle apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding Kadane's algorithm: ___/5
+- [ ] Implementing the solution: ___/5
+- [ ] Explaining why it works: ___/5
+- [ ] Handling edge cases (all negative): ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try implementing the brute force O(n²) solution for comparison
+
 ### Follow-up Questions
 
 1. **Return the actual subarray, not just the sum?** Track start and end indices
@@ -1331,6 +1636,16 @@ private int kadane(int[] nums) {
 
 **🔗 LeetCode Link:** [Maximum Product Subarray - LeetCode #152](https://leetcode.com/problems/maximum-product-subarray/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How is this different from the Maximum Subarray (sum) problem you just solved?
+2. What happens when you multiply by a negative number? How might this affect your strategy?
+3. What role do zeros play in this problem?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Given an integer array `nums`, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
 
@@ -1345,7 +1660,81 @@ Output: 0
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 ```
 
-### Knowledge Prerequisites
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Why Can't We Just Adapt Kadane's Algorithm?
+> **Guided Question:** In Maximum Subarray, we could safely discard negative prefixes. Why doesn't the same logic work for products?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Products behave very differently from sums:**
+
+1. **Negative × Negative = Positive**: A negative product might become positive when multiplied by another negative number
+2. **Sign flips**: The "worst" product at one position might become the "best" product at the next position
+
+Example: `[-2, -3, 4]`
+- At position 0: current product = -2 (bad)
+- At position 1: current product = (-2) × (-3) = 6 (now good!)
+- The negative product we had was actually valuable
+
+**Key insight**: We can't just discard negative products like we did with negative sums.
+
+</details>
+
+#### Step 2: What Information Do We Need to Track?
+> **Guided Question:** If we can't discard negative products, what's the minimum information we need to track at each position to make optimal decisions?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**We need to track both extremes:**
+
+1. **Maximum product** ending at current position
+2. **Minimum product** ending at current position
+
+**Why both?** Because the minimum (most negative) product might become the maximum when multiplied by a negative number.
+
+At each position `i`, we have three choices:
+- Start fresh: `nums[i]`
+- Extend max product: `maxProduct × nums[i]`  
+- Extend min product: `minProduct × nums[i]`
+
+The new max and min are:
+```
+newMax = max(nums[i], maxProduct × nums[i], minProduct × nums[i])
+newMin = min(nums[i], maxProduct × nums[i], minProduct × nums[i])
+```
+
+</details>
+
+#### Step 3: How Do Zeros Affect Our Strategy?
+> **Guided Question:** What happens when we encounter a zero in the array? How should this change our tracking?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Zeros act as "reset points":**
+
+1. **Any product involving zero becomes zero**
+2. **Zeros split the array into independent subproblems**
+3. **Zero might be the answer** if all other subarrays have negative products
+
+When we hit a zero:
+- Both maxProduct and minProduct become 0
+- We essentially start fresh from the next element
+- But we still need to consider 0 as a potential answer
+
+**Example**: `[-2, 0, -1]`
+- Before 0: maxProduct = -2, minProduct = -2  
+- At 0: maxProduct = 0, minProduct = 0, answer = max(previous_answer, 0)
+- After 0: We start fresh with -1
+
+**Strategy**: Reset our tracking when we hit zero, but keep the global maximum updated.
+
+</details>
+
+### 📋 Knowledge Prerequisites
 - Understanding of subarray concept
 - Handling positive and negative number products
 - Dynamic programming principles
@@ -1588,6 +1977,40 @@ private int maxProductInSegment(List<Integer> nums) {
 4. **Sign flip logic**: Incorrectly handling when max and min should swap
 5. **Empty array handling**: Edge case when array is empty or has no valid subarrays
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the dual-tracking solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize maxProduct, minProduct, and result with first element
+- [ ] Iterate through remaining elements
+- [ ] For each element, calculate three candidates: element itself, max×element, min×element
+- [ ] Update maxProduct to the maximum of these three candidates
+- [ ] Update minProduct to the minimum of these three candidates
+- [ ] Update global result if maxProduct is larger
+- [ ] Return result
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we need to track both maximum and minimum products?
+2. **Complexity Analysis:** What's the time and space complexity compared to Maximum Subarray?
+3. **Sign Behavior:** How does the algorithm handle the sign flips correctly?
+4. **Pattern Recognition:** How does this "dual tracking" pattern apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding why we track min and max: ___/5
+- [ ] Implementing the dual-tracking logic: ___/5
+- [ ] Handling zeros and negative numbers: ___/5
+- [ ] Explaining the differences from Maximum Subarray: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try walking through examples with different negative number patterns
+
 ### Follow-up Questions
 
 1. **What if we allow empty subarrays?** Return max of 0 and computed result
@@ -1651,6 +2074,16 @@ public double maxProductDouble(double[] nums) {
 
 **🔗 LeetCode Link:** [Find Minimum in Rotated Sorted Array - LeetCode #153](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. In a rotated sorted array, where would the minimum element typically be located?
+2. How can you determine which half of the array to search without checking every element?
+3. What property of a sorted array can you exploit even after rotation?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in O(log n) time.
 
@@ -1663,6 +2096,42 @@ Explanation: The original array was [1,2,3,4,5] rotated 3 times.
 Input: nums = [4,5,6,7,0,1,2]
 Output: 0
 ```
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Rotation Point
+> **Guided Question:** In a rotated sorted array like [3,4,5,1,2], what makes the minimum element special compared to its neighbors?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The minimum element is the only element that's smaller than both its neighbors (or smaller than its left neighbor if it's at the end). More importantly, the minimum element is where the "break" in the sorted order occurs - it's the rotation point where the array was split and rearranged.
+
+Key insight: The minimum element divides the array into two sorted subarrays.
+</details>
+
+#### Step 2: Binary Search Modification
+> **Guided Question:** In regular binary search, you compare nums[mid] with target. What should you compare nums[mid] with to decide which half contains the minimum?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Compare nums[mid] with nums[right]! If nums[mid] > nums[right], the minimum must be in the right half because the sorted order is broken there. If nums[mid] ≤ nums[right], the right half is properly sorted, so the minimum is in the left half (including mid).
+
+This is the key insight that makes binary search work on rotated arrays.
+</details>
+
+#### Step 3: Maintaining the Search Space
+> **Guided Question:** How do you ensure you don't accidentally skip over the minimum element when updating left and right pointers?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When nums[mid] > nums[right], set left = mid + 1 (minimum is definitely to the right).
+When nums[mid] ≤ nums[right], set right = mid (NOT mid - 1!) because mid could be the minimum.
+
+The search terminates when left == right, pointing to the minimum element.
+</details>
 
 ### Knowledge Prerequisites
 - Binary search algorithm and its variations
@@ -1920,11 +2389,54 @@ public int findRotationCount(int[] nums) {
 }
 ```
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left = 0, right = nums.length - 1
+- [ ] Set up while loop with condition left < right
+- [ ] Calculate mid = left + (right - left) / 2
+- [ ] Compare nums[mid] with nums[right] to determine which half to search
+- [ ] Update pointers: left = mid + 1 OR right = mid (never mid - 1)
+- [ ] Return nums[left] when left == right
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you explain why we compare nums[mid] with nums[right] instead of nums[left]?
+2. **Complexity Analysis:** Why is this O(log n) time and O(1) space?
+3. **Trade-offs:** What's the difference between setting right = mid vs right = mid - 1?
+4. **Pattern Recognition:** How does this technique apply to other rotated array problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ---
 
 ## 8. Search in Rotated Sorted Array
 
 **🔗 LeetCode Link:** [Search in Rotated Sorted Array - LeetCode #33](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How can you determine which half of a rotated sorted array is actually sorted?
+2. Once you know which half is sorted, how do you decide whether to search that half or the other half?
+3. What's the key insight that allows binary search to work despite the rotation?
+
+*Take a moment to think through these questions before continuing...*
 
 ### Problem Statement
 There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`. Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with O(log n) runtime complexity.
@@ -1937,6 +2449,49 @@ Output: 4
 Input: nums = [4,5,6,7,0,1,2], target = 3
 Output: -1
 ```
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Identifying the Sorted Half
+> **Guided Question:** In array [4,5,6,7,0,1,2] with mid pointing to 7, how can you tell which half (left or right) is properly sorted?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Compare nums[left] with nums[mid]. If nums[left] ≤ nums[mid], the left half is sorted. Otherwise, the right half is sorted.
+
+In [4,5,6,7,0,1,2]: nums[0]=4 ≤ nums[3]=7, so left half [4,5,6,7] is sorted.
+Key insight: At least one half is always properly sorted in a rotated array.
+</details>
+
+#### Step 2: Deciding Which Half to Search
+> **Guided Question:** Once you know the left half [4,5,6,7] is sorted and you're looking for target=0, how do you decide whether to search this sorted half or the other half?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Check if target lies within the range of the sorted half. For a sorted left half, check if nums[left] ≤ target ≤ nums[mid].
+
+target=0: Is 4 ≤ 0 ≤ 7? No! So target cannot be in the sorted left half.
+Search the right half instead: [0,1,2].
+
+This eliminates half the search space while maintaining O(log n) complexity.
+</details>
+
+#### Step 3: Handling the Rotation Point
+> **Guided Question:** What happens when your search space contains the rotation point, and how does the algorithm still work?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The algorithm naturally handles the rotation point because we always identify which half is sorted first. When one half contains the rotation point, the other half is guaranteed to be properly sorted.
+
+As we narrow down the search space, we eventually either:
+1. Find the target directly, or
+2. Reduce to a space where normal binary search works
+
+The key is that we never lose the ability to determine "which side is sorted" until we find our answer.
+</details>
 
 ### Knowledge Prerequisites
 - Binary search algorithm and variations
@@ -2308,11 +2863,55 @@ public int searchInsert(int[] nums, int target) {
 }
 ```
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left = 0, right = nums.length - 1
+- [ ] Set up while loop with condition left <= right
+- [ ] Calculate mid = left + (right - left) / 2
+- [ ] Check if nums[mid] == target (found!)
+- [ ] Determine which half is sorted: compare nums[left] with nums[mid]
+- [ ] Check if target is in the sorted half's range
+- [ ] Update left or right pointer accordingly
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we compare nums[left] ≤ nums[mid] to determine if left half is sorted?
+2. **Complexity Analysis:** How do we maintain O(log n) despite the rotation complexity?
+3. **Trade-offs:** What's the difference between this approach and finding the rotation point first?
+4. **Pattern Recognition:** How does this technique extend to finding the rotation point itself?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ---
 
 ## 9. 3Sum
 
 **🔗 LeetCode Link:** [3Sum - LeetCode #15](https://leetcode.com/problems/3sum/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How can you reduce the 3Sum problem to multiple 2Sum problems?
+2. What role does sorting play in avoiding duplicate triplets?
+3. How can you use two pointers to efficiently find pairs that sum to a target?
+
+*Take a moment to think through these questions before continuing...*
 
 ### Problem Statement
 Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets.
@@ -2326,6 +2925,50 @@ nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
 The distinct triplets are [-1,0,1] and [-1,-1,2].
 ```
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Breaking Down the Problem
+> **Guided Question:** If you fix the first element of a triplet, how does the problem change? What simpler problem does it become?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When you fix the first element (say nums[i]), you need to find two elements that sum to -nums[i]. This is exactly the Two Sum problem!
+
+For nums = [-1,0,1,2,-1,-4], if you fix first element as -1:
+- Need to find two elements that sum to -(-1) = 1
+- Search in remaining array: [0,1,2,-1,-4]
+- This transforms 3Sum into multiple 2Sum problems
+</details>
+
+#### Step 2: Why Sorting Helps
+> **Guided Question:** How does sorting the array help with both efficiency and avoiding duplicates?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Sorting enables two key optimizations:
+1. **Two-pointer technique**: In sorted array, you can use left/right pointers moving towards each other
+2. **Easy duplicate handling**: Identical elements are adjacent, so you can skip them easily
+
+For sorted [-4,-1,-1,0,1,2], duplicates like -1,-1 are together, making it easy to skip the second -1 when it's the fixed element.
+</details>
+
+#### Step 3: Two-Pointer Technique
+> **Guided Question:** Once you've fixed an element and have a sorted remaining array, how do you efficiently find pairs that sum to the target?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use two pointers: left (start of remaining array) and right (end of remaining array).
+
+If nums[left] + nums[right] == target: Found a triplet!
+If nums[left] + nums[right] < target: Sum too small, move left pointer right
+If nums[left] + nums[right] > target: Sum too large, move right pointer left
+
+This avoids the O(n²) nested loop needed for the naive 2Sum approach.
+</details>
 
 ### Knowledge Prerequisites
 - Two-pointer technique
@@ -2663,11 +3306,54 @@ public List<List<Integer>> fourSum(int[] nums, int target) {
 }
 ```
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Sort the array first
+- [ ] Set up outer loop to fix the first element (skip duplicates)
+- [ ] Initialize left and right pointers for the remaining array
+- [ ] Use two-pointer technique to find pairs
+- [ ] Handle duplicates for both left and right pointers
+- [ ] Add valid triplets to result
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does fixing one element reduce 3Sum to the 2Sum problem?
+2. **Complexity Analysis:** How does the two-pointer technique achieve O(n²) instead of O(n³)?
+3. **Trade-offs:** What's the benefit of sorting vs using a HashSet for the inner 2Sum?
+4. **Pattern Recognition:** How does this approach extend to 4Sum or k-Sum problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ---
 
 ## 10. Container With Most Water
 
 **🔗 LeetCode Link:** [Container With Most Water - LeetCode #11](https://leetcode.com/problems/container-with-most-water/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What determines the area of water between two lines, and which measurement limits the total area?
+2. If you start with the widest possible container, when would it make sense to make it narrower?
+3. Why might a greedy approach work here - always moving the pointer at the shorter line?
+
+*Take a moment to think through these questions before continuing...*
 
 ### Problem Statement
 You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `ith` line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container that can hold the most water. Return the maximum amount of water a container can store.
@@ -2679,6 +3365,58 @@ Output: 49
 Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. 
 In this case, the max area of water (blue section) that the container can contain is 49.
 ```
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Area Formula
+> **Guided Question:** If you have two lines at positions i and j with heights height[i] and height[j], what determines how much water the container can hold?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Water area = min(height[i], height[j]) × (j - i)
+
+The water level is limited by the shorter line (bottleneck principle). The width is the distance between the lines. You can't hold more water than the height of the shorter line allows.
+
+Example: Lines at positions 1 and 8 with heights 8 and 7:
+Area = min(8, 7) × (8 - 1) = 7 × 7 = 49
+</details>
+
+#### Step 2: The Greedy Insight
+> **Guided Question:** If you start with the widest container (leftmost and rightmost lines), which pointer should you move to potentially find a larger area?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Always move the pointer at the shorter line!
+
+Why? If you move the pointer at the taller line:
+- Width decreases (j - i gets smaller)
+- Height stays the same (still limited by the shorter line)
+- Area can only decrease or stay the same
+
+If you move the pointer at the shorter line:
+- Width decreases, BUT
+- Height might increase (if you find a taller line)
+- Area could potentially increase
+
+This greedy choice is always optimal!
+</details>
+
+#### Step 3: Why This Greedy Approach Works
+> **Guided Question:** How can you be sure that moving the shorter line's pointer doesn't miss the optimal solution?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Consider any container formed by keeping the shorter line and moving the taller line inward. Every such container will have:
+1. Smaller width than current container
+2. Same or smaller height (limited by the unmoved shorter line)
+
+Therefore, none of these containers can be better than the current one. By moving the shorter line's pointer, we eliminate all these suboptimal possibilities in one step.
+
+This proves that the greedy approach explores all potentially optimal solutions.
+</details>
 
 ### Knowledge Prerequisites
 - Two-pointer technique
@@ -2971,6 +3709,40 @@ The two-pointer approach works because of this key insight: if we have pointers 
 - Therefore, we can safely move pointer `i` without missing any optimal solutions
 
 This greedy choice property ensures that the two-pointer approach explores all potentially optimal solutions while maintaining O(n) time complexity.
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left = 0, right = height.length - 1
+- [ ] Initialize maxArea = 0
+- [ ] Set up while loop with condition left < right
+- [ ] Calculate current area: min(height[left], height[right]) × (right - left)
+- [ ] Update maxArea if current area is larger
+- [ ] Move the pointer at the shorter line inward
+- [ ] Return maxArea
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is it always optimal to move the pointer at the shorter line?
+2. **Complexity Analysis:** How does the greedy approach achieve O(n) time complexity?
+3. **Trade-offs:** What's the key insight that makes this greedy approach work?
+4. **Pattern Recognition:** How does this principle apply to other optimization problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: You've completed all 10 Array problems!
+- If confidence is <3: Review the guided discovery section again
+- Consider exploring the follow-up questions and related problems
 
 ---
 

@@ -22,6 +22,80 @@ render_with_liquid: false
 
 **🔗 LeetCode Link:** [Longest Substring Without Repeating Characters - LeetCode #3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the main challenge in finding a substring without repeating characters?
+2. How could you track which characters you've already seen in your current substring?
+3. When you encounter a duplicate character, what should happen to your substring window?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Core Challenge
+> **Guided Question:** What makes a substring "valid" in this problem, and what breaks that validity?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A valid substring has all unique characters. The moment we encounter a character we've already seen in our current substring, we need to adjust our approach. The key insight is that we need to maintain a "window" of characters where all are unique.
+
+</details>
+
+#### Step 2: Naive Approach - Check All Possibilities
+> **Guided Question:** What would be the most straightforward way to check every possible substring?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+We could check every possible substring by using two nested loops - one for the start position and one for the end position. For each substring, we'd check if all characters are unique. This gives us O(n³) time complexity - n² for generating all substrings and n for checking uniqueness.
+
+</details>
+
+#### Step 3: Sliding Window Optimization
+> **Guided Question:** Instead of checking every substring, how could you maintain a "window" that's always valid and expand/contract it efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The sliding window technique! Use two pointers (left and right) to maintain a window of unique characters. Expand the right pointer to include new characters, and when you hit a duplicate, move the left pointer to eliminate the duplicate. Use a HashMap to track character positions for efficient duplicate detection and window adjustment.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left pointer, right pointer, and HashMap for character tracking
+- [ ] Expand right pointer and add characters to your tracking structure
+- [ ] When duplicate found, update left pointer to skip past the duplicate
+- [ ] Track the maximum window size seen so far
+- [ ] Return the maximum length
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the sliding window approach work better than checking all substrings?
+2. **Complexity Analysis:** What's the time complexity and why is it O(n) instead of O(n²)?
+3. **Trade-offs:** What's the space complexity trade-off we're making for better time complexity?
+4. **Pattern Recognition:** What other problems might benefit from the sliding window technique?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ### Problem Statement
 Given a string `s`, find the length of the **longest substring** without repeating characters.
 
@@ -169,6 +243,81 @@ public int lengthOfLongestSubstring(String s) {
 ## 2. Longest Repeating Character Replacement
 
 **🔗 LeetCode Link:** [Longest Repeating Character Replacement - LeetCode #424](https://leetcode.com/problems/longest-repeating-character-replacement/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the key insight about which characters to replace in a window to make them all the same?
+2. How can you determine if a window is "valid" (can be made uniform with at most k replacements)?
+3. What happens to your window when you have too many characters that need to be replaced?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Replacement Strategy
+> **Guided Question:** In any window of characters, which characters should you keep and which should you replace to get the longest possible uniform substring?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You should keep the most frequent character in the window and replace all others! If a window has 'A' appearing 3 times and 'B' appearing 2 times, you'd keep the A's and replace the B's. This minimizes the number of replacements needed.
+
+</details>
+
+#### Step 2: Window Validity Check
+> **Guided Question:** How can you mathematically determine if a window can be made uniform with at most k replacements?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The number of replacements needed = window_size - max_frequency_in_window. So a window is valid when: window_size - max_frequency ≤ k. When this condition is violated, you need to shrink the window.
+
+</details>
+
+#### Step 3: Sliding Window with Frequency Tracking
+> **Guided Question:** How can you efficiently maintain the window while tracking character frequencies and the maximum frequency?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use a sliding window with frequency counting! Expand the right pointer while tracking character counts and maximum frequency. When the window becomes invalid (needs more than k replacements), contract the left pointer. The key optimization: you don't need to recalculate max frequency when shrinking - just track the maximum you've seen.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left pointer, frequency array/map, and max frequency tracker
+- [ ] Expand right pointer and update character frequency
+- [ ] Update maximum frequency seen in current window
+- [ ] Check if window is valid (window_size - max_frequency ≤ k)
+- [ ] If invalid, shrink window by moving left pointer
+- [ ] Track maximum valid window size
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is it optimal to always keep the most frequent character in the window?
+2. **Complexity Analysis:** Why don't we need to recalculate max frequency when shrinking the window?
+3. **Trade-offs:** What's the benefit of using an array vs HashMap for frequency counting?
+4. **Pattern Recognition:** How does this relate to the previous sliding window problem?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 You are given a string `s` and an integer `k`. You can choose any character of the string and change it to any other uppercase English letter. You can perform this operation at most `k` times. Return the length of the longest substring containing the same letter you can get after performing the above operations.
@@ -318,6 +467,81 @@ public int characterReplacement(String s, int k) {
 ## 3. Minimum Window Substring
 
 **🔗 LeetCode Link:** [Minimum Window Substring - LeetCode #76](https://leetcode.com/problems/minimum-window-substring/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What does it mean for a window to "contain" all characters from the target string?
+2. How would you track whether your current window satisfies all the requirements?
+3. Once you find a valid window, how can you try to make it smaller while keeping it valid?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Window Validity
+> **Guided Question:** When is a window "valid" - what exactly needs to be satisfied for it to contain all required characters?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A window is valid when it contains at least the required count of each character from the target string. If target has "AAB", your window must have at least 2 A's and 1 B (it can have more). You need to track both required frequencies and current window frequencies.
+
+</details>
+
+#### Step 2: Two-Phase Sliding Window Strategy
+> **Guided Question:** What should be your strategy for finding the minimum window - should you expand first or contract first?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use a two-phase approach: First expand the right pointer until you have a valid window (contains all required characters), then contract the left pointer to minimize the window while maintaining validity. This ensures you find the smallest possible window.
+
+</details>
+
+#### Step 3: Efficient Validity Tracking
+> **Guided Question:** Instead of checking all character frequencies every time, how can you efficiently track when a window becomes valid or invalid?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use a "formed" counter that tracks how many distinct characters have met their required frequency. When a character's count reaches its requirement, increment "formed". When it drops below, decrement "formed". Window is valid when formed equals the number of distinct required characters.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create frequency map for target string characters
+- [ ] Initialize window frequency map and validity tracking
+- [ ] Expand right pointer until window is valid
+- [ ] Once valid, try contracting left pointer to minimize window
+- [ ] Update minimum window when a smaller valid window is found
+- [ ] Continue until right pointer reaches end
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is the two-phase expand-then-contract approach optimal?
+2. **Complexity Analysis:** What's the time complexity and why is each character visited at most twice?
+3. **Trade-offs:** How does the "formed" counter optimization improve efficiency?
+4. **Pattern Recognition:** How does this template matching pattern apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 Given two strings `s` and `t`, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such window, return an empty string.
@@ -545,6 +769,80 @@ public String minWindow(String s, String t) {
 
 **🔗 LeetCode Link:** [Valid Anagram - LeetCode #242](https://leetcode.com/problems/valid-anagram/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What mathematical property must be true about two strings for them to be anagrams?
+2. What's the fastest way to check if two strings have the same character frequencies?
+3. Are there any shortcuts you can take before doing a full character-by-character comparison?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Anagram Properties
+> **Guided Question:** What fundamental characteristics must two anagrammatic strings share?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Two strings are anagrams if and only if they contain exactly the same characters with exactly the same frequencies. This means they must also have the same length - if lengths differ, they can't be anagrams. This gives us a quick early exit condition.
+
+</details>
+
+#### Step 2: Naive Approach - Sorting
+> **Guided Question:** What's the most straightforward way to check if two strings have the same characters with the same frequencies?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Sort both strings and compare them! If they're anagrams, sorted versions will be identical. This is simple to implement: convert to char arrays, sort both, and compare. Time complexity is O(n log n) due to sorting.
+
+</details>
+
+#### Step 3: Optimization - Frequency Counting
+> **Guided Question:** Can you verify anagrams in linear time without sorting?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Yes! Count character frequencies in both strings and compare. You can do this in one pass: increment count for characters in first string, decrement for characters in second string. If all counts are zero at the end, they're anagrams. This achieves O(n) time complexity with O(1) space for fixed character sets.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Check if string lengths are equal (early exit if not)
+- [ ] Create frequency counting structure (array for ASCII or HashMap for Unicode)
+- [ ] Count frequencies of first string (increment)
+- [ ] Count frequencies of second string (decrement)
+- [ ] Check if all frequencies are zero
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the increment/decrement counting approach work?
+2. **Complexity Analysis:** What's the time and space complexity of each approach?
+3. **Trade-offs:** When would you choose sorting vs frequency counting?
+4. **Pattern Recognition:** How does this frequency comparison technique apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ### Problem Statement
 Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise. An anagram is a word formed by rearranging the letters of another word, using all letters exactly once.
 
@@ -712,6 +1010,79 @@ public boolean isAnagram(String s, String t) {
 ## 5. Group Anagrams
 
 **🔗 LeetCode Link:** [Group Anagrams - LeetCode #49](https://leetcode.com/problems/group-anagrams/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How can you identify which strings should be grouped together?
+2. What would be a good "key" to represent a group of anagrams?
+3. What data structure would efficiently allow you to group strings by their anagram key?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Finding a Canonical Form
+> **Guided Question:** What could serve as a unique identifier that would be the same for all anagrams in a group?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+All anagrams will have the same characters in the same frequencies. So if you create a "canonical form" - like sorting the characters or creating a frequency signature - all anagrams will map to the same canonical form. This becomes your grouping key!
+
+</details>
+
+#### Step 2: Choosing the Right Canonical Form
+> **Guided Question:** What are the different ways to create a canonical form, and what are the trade-offs?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Two main approaches: 1) Sort the characters (simple but O(k log k) per string), or 2) Create a frequency signature like "a2b1c1" (O(k) per string but more complex). Sorting is easier to implement and works for any character set, while frequency counting is faster but requires careful key construction.
+
+</details>
+
+#### Step 3: HashMap Grouping Strategy
+> **Guided Question:** Once you have a canonical form for each string, how do you efficiently group them?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use a HashMap where the key is the canonical form and the value is a list of strings that share that form. Iterate through each string, compute its canonical form, and add it to the appropriate group in the HashMap. Finally, return all the groups as a list of lists.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create a HashMap to store groups (canonical form → list of strings)
+- [ ] For each string, compute its canonical form (sorting or frequency signature)
+- [ ] Add the string to the appropriate group in the HashMap
+- [ ] Convert HashMap values to a list of lists and return
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the canonical form approach work for grouping anagrams?
+2. **Complexity Analysis:** What's the overall time complexity when using sorting vs frequency counting?
+3. **Trade-offs:** What are the pros and cons of different canonical form strategies?
+4. **Pattern Recognition:** How does this grouping pattern apply to other problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.
@@ -884,6 +1255,80 @@ private String getFrequencyKey(String str) {
 ## 6. Valid Parentheses
 
 **🔗 LeetCode Link:** [Valid Parentheses - LeetCode #20](https://leetcode.com/problems/valid-parentheses/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What makes a sequence of brackets "valid" - what rules must be followed?
+2. When you encounter a closing bracket, what do you need to check?
+3. What data structure naturally handles "most recent" items in a Last-In-First-Out manner?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Validation Rules
+> **Guided Question:** What exactly makes a bracket sequence valid or invalid? Think about the order and matching requirements.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A valid sequence requires: 1) Every opening bracket has a matching closing bracket of the same type, 2) Brackets are closed in the correct order (most recent opening bracket should be closed first), and 3) No closing bracket appears without a corresponding opening bracket. This creates a nested structure where brackets must be properly paired.
+
+</details>
+
+#### Step 2: Recognizing the LIFO Pattern
+> **Guided Question:** When you encounter a closing bracket like ')', which opening bracket should it match with?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+It should match with the most recently encountered unmatched opening bracket. This is a classic Last-In-First-Out (LIFO) pattern - the last opening bracket we saw should be the first one to be closed. A stack data structure naturally implements LIFO behavior, making it perfect for tracking opening brackets.
+
+</details>
+
+#### Step 3: Stack-Based Algorithm Design
+> **Guided Question:** How would you use a stack to track and validate the bracket matching process?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Push opening brackets onto a stack. When you encounter a closing bracket, check if the stack is empty (invalid) or if the top of the stack matches the closing bracket type. If it matches, pop the stack; if not, the sequence is invalid. At the end, the stack should be empty for a valid sequence. This elegantly handles both the matching and ordering requirements.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize a stack to track opening brackets
+- [ ] Iterate through each character in the string
+- [ ] Push opening brackets onto the stack
+- [ ] For closing brackets, check if stack is empty or top doesn't match
+- [ ] Return true only if stack is empty at the end
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the stack approach naturally handle the "most recent first" requirement?
+2. **Complexity Analysis:** What's the time and space complexity, and why is this optimal?
+3. **Trade-offs:** Could you solve this without a stack, and what would be the drawbacks?
+4. **Pattern Recognition:** What other problems involve nested structures that could use similar stack-based approaches?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. An input string is valid if:
@@ -1080,6 +1525,80 @@ public boolean isValid(String s) {
 ## 7. Valid Palindrome
 
 **🔗 LeetCode Link:** [Valid Palindrome - LeetCode #125](https://leetcode.com/problems/valid-palindrome/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What characters should you ignore when checking if a phrase is a palindrome?
+2. How can you efficiently compare characters from both ends of a string without creating a new string?
+3. What would happen if you cleaned the string first versus checking character validity on-the-fly?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Palindrome Requirements
+> **Guided Question:** What preprocessing is needed to check if "A man, a plan, a canal: Panama" is a palindrome?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You need to ignore case differences and non-alphanumeric characters. After removing spaces, punctuation, and converting to lowercase, "A man, a plan, a canal: Panama" becomes "amanaplanacanalpanama", which reads the same forwards and backwards. The key insight is that only letters and digits matter for the comparison.
+
+</details>
+
+#### Step 2: Two Approaches - Clean vs. Skip
+> **Guided Question:** Should you create a cleaned string first, or process characters on-the-fly? What are the trade-offs?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You can either: 1) Create a cleaned string first (easy to understand, uses O(n) extra space), or 2) Use two pointers and skip invalid characters on-the-fly (more complex logic, but O(1) space). The two-pointer approach is more efficient as it avoids creating a new string and handles the validation in a single pass.
+
+</details>
+
+#### Step 3: Two-Pointer Technique with Character Skipping
+> **Guided Question:** How would you implement the two-pointer approach while handling character validation and case insensitivity?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use left and right pointers starting from both ends. Skip non-alphanumeric characters by advancing the appropriate pointer. When both pointers point to valid characters, compare them in a case-insensitive manner. If they don't match, it's not a palindrome. Continue until pointers meet or cross. This elegantly handles both the character filtering and palindrome checking in one pass.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize left and right pointers at string ends
+- [ ] Skip non-alphanumeric characters from both sides
+- [ ] Compare characters in case-insensitive manner
+- [ ] Return false immediately on mismatch
+- [ ] Return true when pointers meet/cross
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is the two-pointer approach more space-efficient than preprocessing?
+2. **Complexity Analysis:** What's the time complexity, and why do we only visit each character at most twice?
+3. **Trade-offs:** When might the preprocessing approach be preferable despite using more space?
+4. **Pattern Recognition:** How does this two-pointer technique apply to other string comparison problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.
@@ -1294,6 +1813,80 @@ private char normalize(char c) {
 ## 8. Longest Palindromic Substring
 
 **🔗 LeetCode Link:** [Longest Palindromic Substring - LeetCode #5](https://leetcode.com/problems/longest-palindromic-substring/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What are the different "centers" around which a palindrome can be formed?
+2. How would you find all possible palindromes versus just checking if a specific substring is a palindrome?
+3. What's the key insight about how palindromes grow from their centers?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Palindrome Centers
+> **Guided Question:** Where can the "center" of a palindrome be located, and why does this matter for finding all palindromes?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Palindromes can have two types of centers: 1) A single character (for odd-length palindromes like "aba"), or 2) Between two characters (for even-length palindromes like "abba"). This means for a string of length n, there are 2n-1 possible centers to check. Understanding this is crucial because every palindrome grows symmetrically around its center.
+
+</details>
+
+#### Step 2: Expand Around Centers Strategy
+> **Guided Question:** Instead of checking every possible substring, how can you use the center-expansion property to find palindromes more efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+For each possible center, expand outward while characters match. Start with the center and expand left and right pointers as long as the characters are equal. This gives you the longest palindrome centered at that position. By checking all centers, you find all palindromes in O(n²) time instead of O(n³) for the brute force approach.
+
+</details>
+
+#### Step 3: Tracking the Longest Palindrome
+> **Guided Question:** As you expand around each center, how do you efficiently track and extract the longest palindrome found so far?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Keep track of the start position and maximum length found so far. When you find a longer palindrome, update both values. The key insight for calculating the start position: if a palindrome has length `len` and center at position `i`, the start position is `i - (len-1)/2`. This formula works for both odd and even length palindromes.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Iterate through each possible center position
+- [ ] For each center, check both odd-length and even-length palindromes
+- [ ] Expand around center while characters match
+- [ ] Track the start position and length of the longest palindrome
+- [ ] Return the substring using the tracked start and length
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do you need to check both odd and even center types for each position?
+2. **Complexity Analysis:** How does center expansion achieve O(n²) time instead of O(n³)?
+3. **Trade-offs:** What are the space complexity differences between center expansion and dynamic programming approaches?
+4. **Pattern Recognition:** How does this center expansion technique apply to counting palindromes or other palindrome problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 Given a string `s`, return the longest palindromic substring in `s`.
@@ -1528,6 +2121,80 @@ public String longestPalindrome(String s) {
 
 **🔗 LeetCode Link:** [Palindromic Substrings - LeetCode #647](https://leetcode.com/problems/palindromic-substrings/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How is counting palindromes different from finding the longest palindrome?
+2. When you expand around a center, how many palindromes do you discover with each valid expansion?
+3. What's the relationship between this problem and the previous longest palindromic substring problem?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Counting Requirement
+> **Guided Question:** What makes this problem different from finding the longest palindromic substring, and what does "count" mean here?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Instead of finding just the longest palindrome, you need to count ALL palindromic substrings. Every single character is a palindrome, every valid 2-character palindrome counts, every 3-character palindrome counts, etc. The total count includes all of these. For "aaa", you have 3 single characters ("a"), 2 two-character palindromes ("aa"), and 1 three-character palindrome ("aaa") = 6 total.
+
+</details>
+
+#### Step 2: Reusing Center Expansion for Counting
+> **Guided Question:** How can you modify the center expansion technique to count palindromes instead of just finding the longest one?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use the same center expansion approach, but instead of tracking the longest palindrome, count each valid palindrome as you expand. For each center, expand outward and increment a counter for every valid expansion step. Each expansion that maintains the palindrome property represents a distinct palindromic substring to be counted.
+
+</details>
+
+#### Step 3: Comprehensive Center Coverage
+> **Guided Question:** How do you ensure you count every possible palindromic substring exactly once?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Check all possible centers systematically: for each position i, check both odd-length palindromes (centered at i) and even-length palindromes (centered between i and i+1). Each palindrome has exactly one center, so by checking all centers, you count each palindrome exactly once. The expansion process naturally discovers all palindromes of different lengths at each center.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize a counter for total palindromes
+- [ ] For each position, check odd-length palindromes (center at position)
+- [ ] For each position, check even-length palindromes (center between positions)
+- [ ] Expand around each center while characters match, incrementing counter
+- [ ] Return the total count
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the center expansion naturally avoid double-counting palindromes?
+2. **Complexity Analysis:** How does this counting approach compare in complexity to the longest palindrome problem?
+3. **Trade-offs:** Could you use dynamic programming instead, and what would be the space trade-off?
+4. **Pattern Recognition:** How does this technique scale to related problems like counting palindromes with specific constraints?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ### Problem Statement
 Given a string `s`, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.
 
@@ -1732,6 +2399,80 @@ private int countPalindromes(String s, int left, int right) {
 ## 10. Encode and Decode Strings
 
 **🔗 LeetCode Link:** [Encode and Decode Strings - LeetCode #271](https://leetcode.com/problems/encode-and-decode-strings/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What happens if you use a simple delimiter and one of the strings contains that delimiter?
+2. How can you encode string length information to help with unambiguous decoding?
+3. What makes this different from just joining strings with a separator?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: The Delimiter Problem
+> **Guided Question:** Why would a simple approach like joining strings with a delimiter (like comma or semicolon) fail for this problem?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+If you use a delimiter like "," and one of your input strings is "hello,world", you can't distinguish between: 1) Two strings ["hello", "world"], or 2) One string ["hello,world"]. The delimiter becomes ambiguous when it appears in the actual data. This is a fundamental challenge in serialization - you need unambiguous encoding regardless of string content.
+
+</details>
+
+#### Step 2: Length-Prefixed Encoding Strategy
+> **Guided Question:** How could you use the length of each string to solve the delimiter ambiguity problem?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Prefix each string with its length and a separator! For example, encode ["abc", "de"] as "3#abc2#de". When decoding, read the length first, then extract exactly that many characters for the string. This works because you know exactly how many characters belong to each string, regardless of their content. The length acts as an unambiguous boundary marker.
+
+</details>
+
+#### Step 3: Robust Decoding Implementation
+> **Guided Question:** How do you implement the decoding process to reliably extract the original strings from the length-prefixed format?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Parse the encoded string by: 1) Finding the next '#' delimiter to get the length, 2) Converting the length substring to an integer, 3) Extracting exactly that many characters after the '#', 4) Adding the extracted string to your result, 5) Moving your position to start of the next encoded string. This process ensures you can handle any string content, including strings with '#' characters.
+
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Encode: For each string, append its length + delimiter + the string itself
+- [ ] Decode: Parse length, extract exact number of characters, repeat until end
+- [ ] Handle edge cases: empty strings, strings containing the delimiter
+- [ ] Test with tricky inputs: strings with numbers, special characters
+- [ ] Verify round-trip correctness: encode then decode should return original
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does length-prefixing eliminate the ambiguity problem completely?
+2. **Complexity Analysis:** What's the time and space complexity of your encoding and decoding functions?
+3. **Trade-offs:** What are alternative approaches (escape sequences, base64) and their pros/cons?
+4. **Pattern Recognition:** Where else do you see length-prefixed encoding in real systems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 ### Problem Statement
 Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and is decoded back to the original list of strings.
