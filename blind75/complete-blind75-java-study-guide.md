@@ -32,6 +32,23 @@ This comprehensive study guide covers all 75 essential LeetCode problems for tec
 
 The guide is designed to build **hands-on understanding** rather than forced memorization. Each solution teaches transferable problem-solving patterns that apply to many similar problems.
 
+## Study Guide Files
+
+### Individual Category Guides
+- **[Array Problems](./blind75-array-study-guide.md)** - 10 problems covering two pointers, sliding window, hash maps
+- **[String Problems](./string-blind75-study-guide.md)** - 10 problems covering sliding window, two pointers, pattern matching
+- **[Linked List Problems](./linked_list_study_guide.md)** - 6 problems covering pointer manipulation and cycle detection
+- **[Tree Problems](./tree_study_guide.md)** - 14 problems covering DFS, BFS, and tree algorithms
+- **[Dynamic Programming Problems](./dp_study_guide.md)** - 11 problems covering optimization and counting patterns
+- **[Graph Problems](./graph_study_guide.md)** - 8 problems covering traversal and connectivity algorithms
+- **[Binary/Bit Manipulation Problems](./binary_study_guide.md)** - 5 problems covering bit operations and mathematical properties
+- **[Interval Problems](./interval_study_guide.md)** - 5 problems covering scheduling and merging algorithms
+- **[Matrix Problems](./matrix_study_guide.md)** - 4 problems covering 2D array manipulation and transformations
+- **[Heap Problems](./heap_study_guide.md)** - 3 problems covering priority queues and streaming algorithms
+
+### Summary
+**Total:** 18,146 lines of comprehensive Java solutions and explanations across all 75 problems
+
 ---
 
 ## Study Methodology
