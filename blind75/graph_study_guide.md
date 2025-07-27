@@ -412,7 +412,7 @@ Result: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
 **Solution 1: DFS from Boundaries**
 ```java
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     private int m, n;
     
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
@@ -468,7 +468,7 @@ class Solution {
 **Solution 2: BFS from Boundaries**
 ```java
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
         int m = heights.length, n = heights[0].length;
@@ -631,7 +631,7 @@ class Solution {
 **Solution 2: BFS with Queue**
 ```java
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) return 0;
@@ -684,7 +684,7 @@ class Solution {
         int m = grid.length, n = grid[0].length;
         UnionFind uf = new UnionFind(grid);
         
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
         
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {

@@ -53,7 +53,7 @@ class Interval {
 }
 
 // Often represented as int[][] or List<int[]>
-int[][] intervals = {{1,3}, {2,6}, {8,10}};
+int[][] intervals = { {1,3}, {2,6}, {8,10} };
 ```
 
 ### 2. Overlap Detection

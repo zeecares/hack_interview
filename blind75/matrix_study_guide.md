@@ -83,7 +83,7 @@ for (int i = 0; i < Math.min(rows, cols); i++) {
 ### 3. Direction Vectors for Movement
 ```java
 // 4-directional movement (up, right, down, left)
-int[][] directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int[][] directions = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
 
 // 8-directional movement (including diagonals)
 int[][] directions8 = {
@@ -514,7 +514,7 @@ class Solution {
         boolean[][] visited = new boolean[rows][cols];
         
         // Direction vectors: right, down, left, up
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
         int currentDirection = 0;
         
         int row = 0, col = 0;
@@ -939,7 +939,7 @@ Word search in a grid requires:
 ```java
 // Approach 1: Standard DFS with Backtracking
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public boolean exist(char[][] board, String word) {
         if (board == null || board.length == 0 || word == null || word.length() == 0) {
@@ -998,7 +998,7 @@ class Solution {
 
 // Approach 2: DFS with Separate Visited Array
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public boolean exist(char[][] board, String word) {
         int rows = board.length;
@@ -1046,7 +1046,7 @@ class Solution {
 
 // Approach 3: Optimized with Character Frequency Pruning
 class Solution {
-    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public boolean exist(char[][] board, String word) {
         // Optimization: check if board has enough characters
@@ -1150,7 +1150,7 @@ class Solution {
     public boolean exist(char[][] board, String word) {
         int rows = board.length;
         int cols = board[0].length;
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
         
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -1350,7 +1350,7 @@ private boolean dfs(char[][] board, String target, int row, int col, int index) 
     board[row][col] = '#';
     
     // Explore 4 directions
-    int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     for (int[] dir : directions) {
         if (dfs(board, target, row + dir[0], col + dir[1], index + 1)) {
             board[row][col] = temp; // Restore
