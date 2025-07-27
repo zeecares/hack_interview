@@ -155,6 +155,89 @@ n ^ (1 << i)
 
 **🔗 LeetCode Link:** [Sum of Two Integers - LeetCode #371](https://leetcode.com/problems/sum-of-two-integers/)
 
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How does binary addition work at the bit level, and what happens when bits carry over?
+2. What bitwise operations could simulate the addition process without using + or -?
+3. How would you handle the carry propagation in binary arithmetic?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Understanding Binary Addition**
+> **Guided Question:** In binary addition, what happens when you add 1+1, and how is this different from XOR?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Binary addition:
+- 0 + 0 = 0 (no carry)
+- 0 + 1 = 1 (no carry) 
+- 1 + 0 = 1 (no carry)
+- 1 + 1 = 0 (carry 1)
+
+XOR gives us the sum without carry, while AND tells us where carries occur. This is the foundation of the half-adder circuit in computer architecture.
+</details>
+
+**Step 2: Carry Handling Strategy**
+> **Guided Question:** If XOR gives the sum without carry and AND gives carry positions, how do you handle multiple carry propagations?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+We need an iterative approach:
+1. Calculate sum without carry using XOR: `a ^ b`
+2. Calculate carry positions using AND: `a & b`
+3. Shift carry left by 1: `(a & b) << 1`
+4. Repeat until no more carries exist
+
+This simulates how hardware performs addition at the circuit level.
+</details>
+
+**Step 3: Implementation Insight**
+> **Guided Question:** How do you know when to stop the carry propagation process?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Continue until the carry becomes 0. At each iteration:
+- Update `a` to be the sum without carry
+- Update `b` to be the shifted carry
+- When `b` becomes 0, no more carries exist and `a` contains the final sum
+
+This typically takes at most 32 iterations for 32-bit integers.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Use a loop that continues while carry exists
+- [ ] Calculate sum without carry using XOR
+- [ ] Calculate carry using AND and left shift
+- [ ] Update variables for next iteration
+- [ ] Return final sum when no carry remains
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through adding 5+3 in binary using this method?
+2. **Complexity Analysis:** Why is this O(log max(a,b)) time complexity?
+3. **Trade-offs:** What are the advantages of understanding addition at the bit level?
+4. **Pattern Recognition:** How does this relate to building other arithmetic operations?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding binary addition fundamentals: ___/5
+- [ ] Implementing the carry propagation logic: ___/5  
+- [ ] Explaining the XOR and AND operations: ___/5
+- [ ] Connecting to computer architecture concepts: ___/5
+
 **Problem Statement**: Calculate the sum of two integers a and b without using the operators + and -.
 
 **Example**:
@@ -272,6 +355,89 @@ Final result: 8 = 1000
 
 **🔗 LeetCode Link:** [Number of 1 Bits - LeetCode #191](https://leetcode.com/problems/number-of-1-bits/)
 
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the simplest way to check if the rightmost bit of a number is 1?
+2. How could you eliminate set bits one by one to count them efficiently?
+3. What's the difference between checking all 32 bit positions versus only processing set bits?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Basic Bit Checking Approach**
+> **Guided Question:** How can you check each bit position to count the 1s, and why might this be inefficient?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You can check each bit using `n & 1` for the rightmost bit, then shift right with `n >>>= 1`. This examines all 32 bit positions regardless of how many 1s actually exist.
+
+The inefficiency: you always check 32 positions even if the number only has a few set bits.
+</details>
+
+**Step 2: Brian Kernighan's Optimization**
+> **Guided Question:** What happens when you compute `n & (n-1)`, and how does this help count set bits more efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+`n & (n-1)` clears the rightmost set bit:
+- Example: 12 (1100) & 11 (1011) = 8 (1000)
+- Each operation removes exactly one set bit
+- You only loop as many times as there are set bits
+
+This is Brian Kernighan's algorithm - instead of checking all positions, you only iterate through the actual set bits.
+</details>
+
+**Step 3: Understanding the Bit Clearing Magic**
+> **Guided Question:** Why does subtracting 1 from a number and then ANDing it with the original clear the rightmost set bit?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When you subtract 1:
+- All bits to the right of the rightmost set bit become 1
+- The rightmost set bit becomes 0
+- All bits to the left remain unchanged
+
+ANDing with the original:
+- Clears the rightmost set bit (0 & 1 = 0)
+- Clears all trailing zeros that became 1s
+- Preserves all other set bits
+
+This elegant bit manipulation is fundamental to many advanced algorithms.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize a counter to 0
+- [ ] Loop while n is not 0
+- [ ] Use n & (n-1) to clear rightmost set bit
+- [ ] Increment counter for each cleared bit
+- [ ] Return the total count
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through counting bits in 12 (binary 1100) using Brian Kernighan's method?
+2. **Complexity Analysis:** Why is this O(number of set bits) instead of O(32)?
+3. **Trade-offs:** When would the simple bit-checking approach be preferable?
+4. **Pattern Recognition:** What other problems involve clearing the rightmost set bit?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding the bit-checking basics: ___/5
+- [ ] Implementing Brian Kernighan's algorithm: ___/5  
+- [ ] Explaining why n & (n-1) works: ___/5
+- [ ] Recognizing when this optimization applies: ___/5
+
 **Problem Statement**: Write a function that takes an unsigned integer and returns the number of '1' bits it has (Hamming weight).
 
 **Example**:
@@ -388,6 +554,96 @@ Total iterations: 2 (same as number of set bits)
 ### 3. Counting Bits
 
 **🔗 LeetCode Link:** [Counting Bits - LeetCode #338](https://leetcode.com/problems/counting-bits/)
+
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If you already know the bit count for some numbers, how could you use that to find the bit count for related numbers?
+2. What's the relationship between a number's bit count and the bit count of that number with its rightmost bit removed?
+3. How do even and odd numbers differ in their bit patterns, and how could this help?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Pattern Recognition in Binary Sequences**
+> **Guided Question:** Look at numbers 0-7 and their bit counts. What patterns do you notice between consecutive numbers?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Numbers 0-7: 000, 001, 010, 011, 100, 101, 110, 111
+Bit counts: [0, 1, 1, 2, 1, 2, 2, 3]
+
+Patterns:
+- Each number's bit count relates to a previously computed number
+- When you shift right (divide by 2), you remove the rightmost bit
+- The relationship: `count[i] = count[i >> 1] + (i & 1)`
+
+This suggests we can build solutions incrementally using dynamic programming.
+</details>
+
+**Step 2: Dynamic Programming Relationship**
+> **Guided Question:** How does the bit count of number `i` relate to the bit count of `i >> 1` (i divided by 2)?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When you right-shift a number by 1 position:
+- You remove the rightmost bit
+- The bit count decreases by 1 if the rightmost bit was 1, or stays the same if it was 0
+
+Therefore: `bitCount[i] = bitCount[i >> 1] + (i & 1)`
+- `i >> 1` gives us a smaller number we've already computed
+- `i & 1` tells us if the rightmost bit is 1 (add 1) or 0 (add 0)
+
+This allows O(1) computation per number!
+</details>
+
+**Step 3: Alternative DP Approaches**
+> **Guided Question:** Besides the right-shift approach, what other relationships exist between a number and previously computed values?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Brian Kernighan's relationship: `bitCount[i] = bitCount[i & (i-1)] + 1`
+- `i & (i-1)` removes the rightmost set bit
+- We add 1 for the removed bit
+
+Power-of-2 offset approach:
+- Numbers follow patterns based on powers of 2
+- For each power of 2, the pattern repeats with +1
+
+Multiple DP transitions are possible, each offering different insights into binary number properties.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create result array of size n+1
+- [ ] Initialize ans[0] = 0 as base case
+- [ ] Loop from 1 to n
+- [ ] Use DP relation: ans[i] = ans[i >> 1] + (i & 1)
+- [ ] Return the completed array
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through computing bit counts for numbers 0-5 using the DP approach?
+2. **Complexity Analysis:** Why is this O(n) time instead of O(n log n) like the brute force method?
+3. **Trade-offs:** What are the advantages of different DP transitions (right shift vs Brian Kernighan's)?
+4. **Pattern Recognition:** How does this DP thinking apply to other bit manipulation problems?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding the binary patterns: ___/5
+- [ ] Implementing the DP relationship: ___/5  
+- [ ] Explaining why the recurrence works: ___/5
+- [ ] Recognizing similar DP opportunities: ___/5
 
 **Problem Statement**: Given an integer n, return an array ans of length n + 1 such that for each i (0 ≤ i ≤ n), ans[i] is the number of 1's in the binary representation of i.
 
@@ -516,6 +772,101 @@ ans[5] = ans[2] + 1 = 1 + 1 = 2
 ### 4. Missing Number
 
 **🔗 LeetCode Link:** [Missing Number - LeetCode #268](https://leetcode.com/problems/missing-number/)
+
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What happens when you XOR a number with itself, and how could this help find a missing element?
+2. How could you use the mathematical sum formula to solve this without bit manipulation?
+3. What are the advantages of the XOR approach over arithmetic approaches?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Understanding XOR's Self-Canceling Property**
+> **Guided Question:** If you XOR all numbers from 0 to n with all numbers in the array, what remains?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+XOR properties:
+- `a ^ a = 0` (any number XORed with itself equals 0)
+- `a ^ 0 = a` (any number XORed with 0 equals itself)
+- XOR is commutative and associative
+
+When you XOR [0,1,2,3] with [3,0,1]:
+- 0^0 = 0 (cancels)
+- 1^1 = 0 (cancels) 
+- 3^3 = 0 (cancels)
+- 2 remains (the missing number)
+
+All present numbers cancel out, leaving only the missing one!
+</details>
+
+**Step 2: Implementing the XOR Strategy**
+> **Guided Question:** How can you efficiently XOR all expected numbers with all array elements in a single pass?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Elegant approach:
+1. Start with `missing = n` (the highest expected number)
+2. For each index `i` and value `nums[i]`, compute: `missing ^= i ^ nums[i]`
+3. This simultaneously XORs all indices [0 to n-1] and all array values
+
+Alternative: XOR all numbers 0 to n, then XOR all array elements separately.
+
+Both approaches leverage XOR's self-canceling property to eliminate paired values.
+</details>
+
+**Step 3: Comparing Solution Approaches**
+> **Guided Question:** What are the trade-offs between XOR, arithmetic sum, and other approaches?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+XOR approach:
+- ✅ No integer overflow risk
+- ✅ Constant space
+- ✅ Single pass
+- ✅ Elegant bit manipulation
+
+Arithmetic sum approach:
+- ✅ Intuitive (expected sum - actual sum)
+- ⚠️ Potential integer overflow for large n
+- ✅ Single pass
+
+XOR is preferred for its mathematical elegance and overflow safety.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize missing variable with the array length
+- [ ] Loop through array indices and values
+- [ ] XOR the missing variable with both index and value
+- [ ] Return the final missing value
+- [ ] Handle edge cases (empty array, single element)
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through finding the missing number in [3,0,1] using XOR?
+2. **Complexity Analysis:** Why is this O(n) time with O(1) space?
+3. **Trade-offs:** When might you prefer the arithmetic sum approach despite overflow risks?
+4. **Pattern Recognition:** What other "find the single different element" problems use similar XOR techniques?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding XOR's self-canceling property: ___/5
+- [ ] Implementing the XOR solution efficiently: ___/5  
+- [ ] Explaining why XOR avoids overflow issues: ___/5
+- [ ] Recognizing XOR patterns in other problems: ___/5
 
 **Problem Statement**: Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
@@ -669,6 +1020,98 @@ Since a ^ a = 0, all present numbers cancel out
 ### 5. Reverse Bits
 
 **🔗 LeetCode Link:** [Reverse Bits - LeetCode #190](https://leetcode.com/problems/reverse-bits/)
+
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you extract bits from the right side of a number and place them on the left side of the result?
+2. What's the relationship between bit positions in the original number versus the reversed number?
+3. How could you reverse bits by swapping larger groups instead of individual bits?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Bit-by-Bit Reversal Approach**
+> **Guided Question:** How can you extract each bit from the input and place it in the correct position in the result?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Basic approach:
+1. Extract rightmost bit using `n & 1`
+2. Shift result left to make room: `result <<= 1`
+3. Add extracted bit to result: `result |= (n & 1)`
+4. Shift input right: `n >>>= 1`
+5. Repeat for all 32 bits
+
+This processes bits from right to left in input, placing them left to right in result, achieving the reversal.
+</details>
+
+**Step 2: Understanding Divide and Conquer Optimization**
+> **Guided Question:** Instead of swapping individual bits, how could you swap larger groups of bits more efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Divide and conquer strategy:
+1. Swap every pair of adjacent bits
+2. Swap every pair of adjacent 2-bit groups  
+3. Swap every pair of adjacent 4-bit groups
+4. Continue until swapping the two 16-bit halves
+
+Example masks:
+- `0xAAAAAAAA` and `0x55555555` for 1-bit swaps
+- `0xCCCCCCCC` and `0x33333333` for 2-bit swaps
+
+This reduces operations from 32 to just 5 steps!
+</details>
+
+**Step 3: Bit Manipulation Masking Technique**
+> **Guided Question:** How do the hexadecimal masks work to isolate and swap specific bit groups?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Mask patterns:
+- `0xAAAAAAAA` = 10101010... (all even bit positions)
+- `0x55555555` = 01010101... (all odd bit positions)
+
+Swapping process:
+1. `(n & 0xAAAAAAAA) >>> 1` extracts even bits and shifts them right
+2. `(n & 0x55555555) << 1` extracts odd bits and shifts them left  
+3. OR them together to complete the swap
+
+Each mask pair targets specific bit groups, creating an elegant logarithmic solution.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Set up bit-by-bit loop for 32 iterations
+- [ ] Extract rightmost bit with AND operation
+- [ ] Shift result left and add extracted bit
+- [ ] Shift input right for next iteration
+- [ ] Or try the divide-and-conquer approach with masks
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through reversing 8 bits (11010010) using the bit-by-bit method?
+2. **Complexity Analysis:** Why is the divide-and-conquer approach O(1) with fewer operations?
+3. **Trade-offs:** When would you choose bit-by-bit over divide-and-conquer?
+4. **Pattern Recognition:** How do the masking techniques apply to other bit manipulation problems?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding bit extraction and placement: ___/5
+- [ ] Implementing the basic bit-by-bit approach: ___/5  
+- [ ] Understanding the divide-and-conquer optimization: ___/5
+- [ ] Recognizing bit masking patterns: ___/5
 
 **Problem Statement**: Reverse bits of a given 32-bit unsigned integer.
 

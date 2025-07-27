@@ -167,6 +167,100 @@ boolean hasFlag = (matrix[i][j] & FLAG_BIT) != 0;  // Check flag
 
 **🔗 LeetCode Link:** [Set Matrix Zeroes - LeetCode #73](https://leetcode.com/problems/set-matrix-zeroes/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. Why can't you immediately set rows/columns to zero as you find zeros?
+2. If you need to remember which rows and columns to zero, where could you store this information?
+3. How can the matrix itself serve as storage space for metadata?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Core Challenge
+> **Guided Question:** What happens if you start setting zeros immediately as you find them?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+If you set zeros immediately, you'll **lose information**:
+- New zeros created by your operation will be indistinguishable from original zeros
+- You might end up zeroing more rows/columns than intended
+- Example: Finding a zero at (1,1) and immediately zeroing row 1 and column 1 would create new zeros that aren't "original"
+
+**Key insight**: You need a **two-phase approach**: 
+1. **Mark** which rows/columns need to be zeroed
+2. **Apply** the zeros based on your marks
+</details>
+
+#### Step 2: Space-Efficient Marking Strategy
+> **Guided Question:** If you can't use extra O(m+n) space for tracking, where in the matrix could you store the "mark" information?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Clever insight: **Use the first row and first column as flags!**
+
+- `matrix[i][0] = 0` means "row i should be zeroed"
+- `matrix[0][j] = 0` means "column j should be zeroed"
+
+This achieves O(1) space complexity by repurposing existing matrix space.
+
+**Special challenge**: What about the first row and column themselves? You need separate flags to track if they originally contained zeros.
+</details>
+
+#### Step 3: Handling the First Row/Column Edge Case
+> **Guided Question:** Since you're using the first row and column as flags, how do you handle the case where they originally contained zeros?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Solution: **Use separate boolean variables**:
+- `firstRowZero`: Track if first row originally had any zeros
+- `firstColZero`: Track if first column originally had any zeros
+
+Processing order matters:
+1. Check if first row/column originally have zeros
+2. Use first row/column as flags for the rest of the matrix
+3. Process the main matrix based on flags
+4. Finally handle first row/column based on the boolean variables
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Check if first row originally contains any zeros
+- [ ] Check if first column originally contains any zeros
+- [ ] Use first row/column as flags for main matrix
+- [ ] Process main matrix based on flags
+- [ ] Handle first row based on firstRowZero flag
+- [ ] Handle first column based on firstColZero flag
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is the processing order crucial in the O(1) space solution?
+2. **Complexity Analysis:** What's the trade-off between the O(m+n) space and O(1) space approaches?
+3. **Trade-offs:** In what scenarios might the simpler O(m+n) space approach be preferable?
+4. **Pattern Recognition:** What other problems use the "repurpose matrix space for metadata" technique?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Given an m×n matrix, if an element is 0, set its entire row and column to 0. Do it in-place.
 
 **Example**:
@@ -433,6 +527,103 @@ Special handling: Store first row/column zero flags separately
 
 **🔗 LeetCode Link:** [Spiral Matrix - LeetCode #54](https://leetcode.com/problems/spiral-matrix/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the pattern of movement in a spiral traversal (which directions and in what order)?
+2. How do you know when to "turn" during spiral traversal?
+3. What information do you need to track to avoid revisiting cells?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Spiral Pattern
+> **Guided Question:** If you trace a spiral with your finger on a matrix, what's the sequence of directions you follow?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The spiral pattern follows a consistent sequence:
+1. **Right** → Move across the top row
+2. **Down** → Move down the right column
+3. **Left** → Move across the bottom row (if there are still rows)
+4. **Up** → Move up the left column (if there are still columns)
+5. **Repeat** for the inner "layer"
+
+Key insight: You're processing the matrix in **concentric layers** from outside to inside.
+</details>
+
+#### Step 2: Boundary Management Strategy
+> **Guided Question:** How can you track which parts of the matrix you've already visited without using extra space?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Efficient approach: **Use boundary pointers**
+- `top`, `bottom`: Track valid row range
+- `left`, `right`: Track valid column range
+
+After traversing each direction:
+- Move right: increment `top` (top row is done)
+- Move down: decrement `right` (right column is done)
+- Move left: decrement `bottom` (bottom row is done)
+- Move up: increment `left` (left column is done)
+
+This naturally "shrinks" the valid area inward.
+</details>
+
+#### Step 3: Handling Edge Cases
+> **Guided Question:** What special cases do you need to handle when the matrix becomes very "thin" (single row or single column remaining)?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Critical edge cases:
+1. **Single row remaining**: Skip the "move left" step (would duplicate elements)
+2. **Single column remaining**: Skip the "move up" step (would duplicate elements)
+
+Conditions to check:
+- Before moving left: `if (top <= bottom)` 
+- Before moving up: `if (left <= right)`
+
+Without these checks, you'd traverse the same elements multiple times in the final layer.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize boundary pointers (top, bottom, left, right)
+- [ ] While boundaries are valid, process current layer:
+- [ ] Move right across top row, then increment top
+- [ ] Move down along right column, then decrement right
+- [ ] Check if still have rows, then move left along bottom row, then decrement bottom
+- [ ] Check if still have columns, then move up along left column, then increment left
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do you need the boundary checks before moving left and up?
+2. **Complexity Analysis:** What's the time and space complexity of the boundary pointer approach?
+3. **Trade-offs:** How does this compare to using a visited array or direction vector approach?
+4. **Pattern Recognition:** What other matrix traversal problems use layer-by-layer processing?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Given an m×n matrix, return all elements of the matrix in spiral order (clockwise from outside to inside).
 
 **Example**:
@@ -685,6 +876,103 @@ For each layer (while boundaries valid):
 
 **🔗 LeetCode Link:** [Rotate Image - LeetCode #48](https://leetcode.com/problems/rotate-image/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If you rotate a point (i, j) by 90 degrees clockwise, what are its new coordinates?
+2. How can you break down a 90-degree rotation into simpler transformations?
+3. What's the challenge with doing this "in-place" without extra space?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Mathematical Transformation
+> **Guided Question:** In an n×n matrix, if a point is at position (i, j), where does it end up after a 90-degree clockwise rotation?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Mathematical formula**: `(i, j) → (j, n-1-i)`
+
+Visualization:
+- Top row (i=0) becomes right column
+- Right column (j=n-1) becomes bottom row  
+- Bottom row (i=n-1) becomes left column
+- Left column (j=0) becomes top row
+
+Example for 3×3: (0,0) → (0,2), (0,1) → (1,2), (1,0) → (0,1)
+
+But direct application is tricky in-place because you'd overwrite values you still need!
+</details>
+
+#### Step 2: Two-Step Transformation Approach
+> **Guided Question:** How can you decompose a 90-degree clockwise rotation into two simpler operations?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Elegant decomposition**: 
+1. **Transpose** the matrix (flip along main diagonal): `(i,j) → (j,i)`
+2. **Reverse each row** (horizontal flip): `(i,j) → (i, n-1-j)`
+
+Combined effect: `(i,j) → (j,i) → (j, n-1-i)` ✓
+
+This is much easier to implement in-place because:
+- Transpose: swap symmetric elements across diagonal
+- Reverse: swap elements from both ends of each row
+</details>
+
+#### Step 3: Layer-by-Layer Rotation Alternative
+> **Guided Question:** How could you rotate the matrix by processing it in concentric "layers" or "rings"?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Layer-by-layer approach**:
+1. **Process outer layer first**: Rotate elements in outermost ring
+2. **Work inward**: Process each concentric layer
+3. **4-element cycles**: Each rotation involves 4 positions that cycle together
+
+For each layer, rotate elements in groups of 4:
+- Save `top` element
+- `top = left`, `left = bottom`, `bottom = right`, `right = top`
+
+This is more complex but gives deeper insight into the rotation mechanics.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist (Transpose + Reverse approach):**
+- [ ] Transpose matrix: swap matrix[i][j] with matrix[j][i] for i < j
+- [ ] Reverse each row: swap elements from both ends moving inward
+- [ ] Ensure you don't double-swap elements during transpose
+- [ ] Handle the square matrix constraint (n×n)
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does "transpose then reverse rows" achieve clockwise rotation?
+2. **Complexity Analysis:** What are the time and space complexities of different approaches?
+3. **Trade-offs:** When might the layer-by-layer approach be preferable to transpose+reverse?
+4. **Pattern Recognition:** How do these techniques apply to other matrix transformation problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Rotate an n×n 2D matrix representing an image by 90 degrees clockwise. Do it in-place.
 
 **Example**:
@@ -912,6 +1200,98 @@ Method 2 (Layer rotation):
 ### 4. Word Search
 
 **🔗 LeetCode Link:** [Word Search - LeetCode #79](https://leetcode.com/problems/word-search/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What search algorithm would you use to explore all possible paths in a grid?
+2. How do you ensure you don't use the same cell twice in a single word path?
+3. What optimizations could help avoid exploring obviously wrong paths?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Recognizing the Search Pattern
+> **Guided Question:** What type of search algorithm is most suitable for exploring all possible paths from a starting point?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Depth-First Search (DFS) with Backtracking** is ideal because:
+- You need to explore all possible paths from each starting cell
+- When a path doesn't work, you backtrack and try other directions
+- You need to track visited cells to avoid cycles
+- You can terminate early when a path is clearly wrong
+
+This is a classic **DFS + Backtracking** problem pattern in 2D grids.
+</details>
+
+#### Step 2: State Management Challenge
+> **Guided Question:** How do you track which cells are "visited" in the current path while allowing them to be used in different paths?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key insight**: Visited state is **path-specific**, not global.
+
+Efficient approach:
+1. **Mark cell as visited** when entering it (e.g., temporarily change its value)
+2. **Explore all 4 directions** recursively
+3. **Restore original value** when backtracking (crucial!)
+
+Alternative: Use a separate `visited` array, but remember to unmark when backtracking.
+
+The "mark and restore" pattern is essential for correct backtracking.
+</details>
+
+#### Step 3: Optimization Strategies
+> **Guided Question:** What optimizations can significantly reduce the search space?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Powerful optimizations**:
+1. **Character frequency analysis**: If the board doesn't have enough of any character in the word, return false immediately
+2. **Start from less frequent end**: If the last character of the word appears less frequently than the first, search the word backwards
+3. **Early termination**: Stop as soon as any path succeeds
+
+**Why frequency matters**: Starting from a rare character dramatically reduces the number of starting positions to explore.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Try each cell as a potential starting point
+- [ ] Implement DFS with proper backtracking
+- [ ] Mark cells as visited, then restore when backtracking
+- [ ] Check bounds and character matching before recursing
+- [ ] Use direction vectors for clean 4-direction movement
+- [ ] Return immediately when word is found
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is the "restore state" step crucial in backtracking?
+2. **Complexity Analysis:** What's the worst-case time complexity and when does it occur?
+3. **Trade-offs:** What are the pros and cons of modifying the board vs using a visited array?
+4. **Pattern Recognition:** What other grid exploration problems use similar DFS + backtracking patterns?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given an m×n grid of characters and a string word, return true if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cells (horizontally or vertically). The same letter cell may not be used more than once.
 

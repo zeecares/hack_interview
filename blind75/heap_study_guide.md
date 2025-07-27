@@ -154,6 +154,89 @@ private void bubbleDown(int index) {
 
 **🔗 LeetCode Link:** [Merge k Sorted Lists - LeetCode #23](https://leetcode.com/problems/merge-k-sorted-lists/)
 
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If you were merging K sorted lists manually, what would be your strategy to always pick the smallest next element?
+2. How could a data structure help you efficiently find the minimum among K current candidates?
+3. What's the trade-off between using a heap versus a divide-and-conquer approach for this problem?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Understanding the K-Way Merge Challenge**
+> **Guided Question:** What makes merging K sorted lists different from merging just 2 sorted lists, and why can't you simply extend the two-pointer technique?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+With 2 lists, you have 2 pointers and pick the smaller element. With K lists, you have K pointers and need to find the minimum among K candidates at each step.
+
+A naive approach would check all K positions each time (O(K) per element), leading to O(NK) complexity. We need a more efficient way to track and extract the minimum from K candidates.
+
+This is where heaps shine - they maintain the minimum at the top while allowing O(log K) insertions and extractions.
+</details>
+
+**Step 2: Heap-Based Solution Strategy**
+> **Guided Question:** How can a min-heap help you efficiently select the next smallest element when merging K sorted lists?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Min-heap approach:
+1. Initially add the first node from each non-empty list to a min-heap
+2. Repeatedly extract the minimum node from the heap
+3. Add the extracted node to your result list
+4. If the extracted node has a next node, add that next node to the heap
+5. Continue until heap is empty
+
+The heap always contains at most K nodes (one from each list), giving us O(log K) operations while processing all N total nodes.
+</details>
+
+**Step 3: Alternative Divide-and-Conquer Approach**
+> **Guided Question:** How could you use the "merge two sorted lists" algorithm recursively to solve this problem, and what are the complexity implications?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Divide-and-conquer strategy:
+1. Pair up the K lists and merge each pair using the standard two-list merge
+2. This reduces K lists to K/2 lists
+3. Repeat until only one list remains
+4. Each level processes all N nodes, and there are log K levels
+
+This approach has the same O(N log K) time complexity but uses O(log K) space for recursion instead of O(K) space for the heap. It's often preferred when you want to minimize extra space usage.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create a min-heap that compares ListNode values
+- [ ] Add the first node from each non-empty list to the heap
+- [ ] Set up a dummy node and current pointer for building result
+- [ ] Extract minimum from heap, add to result, and add its next node to heap
+- [ ] Continue until heap is empty
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through merging [[1,4,5],[1,3,4],[2,6]] using the heap approach?
+2. **Complexity Analysis:** Why is the heap approach O(N log K) and not O(N K)?
+3. **Trade-offs:** When would you choose divide-and-conquer over the heap approach?
+4. **Pattern Recognition:** What other problems involve K-way merging or selecting minimums from multiple sources?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding the K-way merge problem: ___/5
+- [ ] Implementing the heap-based solution: ___/5  
+- [ ] Explaining the divide-and-conquer alternative: ___/5
+- [ ] Recognizing when to apply K-way merge patterns: ___/5
+
 **Problem Statement**: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.
 
 **Example**:
@@ -370,6 +453,99 @@ Continue until heap empty...
 ### 2. Top K Frequent Elements
 
 **🔗 LeetCode Link:** [Top K Frequent Elements - LeetCode #347](https://leetcode.com/problems/top-k-frequent-elements/)
+
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you approach finding the most frequent elements - do you need to sort all frequencies or just find the top K?
+2. What's the difference between using a min-heap versus a max-heap for this "top K" problem?
+3. Could you solve this problem in linear time, and what data structure would make that possible?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Frequency Counting Strategy**
+> **Guided Question:** What's the first step needed before you can find the most frequent elements, and what data structure is ideal for this task?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You need to count how many times each element appears. A HashMap (or frequency counter) is perfect for this:
+- Key: the element value
+- Value: count of occurrences
+
+After one pass through the array, you'll have all frequencies. But now you have a new problem: among all these frequency counts, how do you efficiently find the K highest ones?
+
+This transforms the problem from "count frequencies" to "find top K from frequencies."
+</details>
+
+**Step 2: Min-Heap vs Max-Heap Strategy**
+> **Guided Question:** For finding top K frequent elements, would you use a min-heap or max-heap, and what's the key insight about heap size?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Min-heap approach (optimal for space):**
+- Maintain a min-heap of size K
+- For each frequency, add to heap
+- If heap size exceeds K, remove the minimum (least frequent among current K)
+- Final heap contains exactly the K most frequent elements
+
+**Max-heap approach (intuitive):**
+- Add all frequencies to a max-heap
+- Extract the top K elements
+
+The min-heap is more space-efficient: O(K) vs O(N) space, especially important when K << N.
+</details>
+
+**Step 3: Linear Time Optimization**
+> **Guided Question:** Can you achieve O(N) time complexity instead of O(N log K), and what insight about frequency ranges makes this possible?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Bucket Sort approach:**
+Since frequencies are bounded (0 to N), you can use bucket sort:
+1. Create buckets indexed by frequency (0 to N)
+2. Place each element in the bucket corresponding to its frequency
+3. Traverse buckets from high to low frequency, collecting elements until you have K
+
+This achieves O(N) time because:
+- Frequency counting: O(N)
+- Bucket placement: O(N) 
+- Bucket traversal: O(N)
+
+Trade-off: Uses O(N) space but achieves optimal time complexity.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Count frequencies using a HashMap
+- [ ] Create a min-heap of size K to track top frequencies
+- [ ] Iterate through frequency map, maintaining heap size ≤ K
+- [ ] Extract final results from the heap
+- [ ] Handle edge cases (K equals array length, single element)
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through finding top 2 frequent elements in [1,1,1,2,2,3] using the min-heap approach?
+2. **Complexity Analysis:** Why does the min-heap approach use O(N log K) time instead of O(N log N)?
+3. **Trade-offs:** When would you choose bucket sort over the heap approach despite higher space usage?
+4. **Pattern Recognition:** What other "top K" problems can use similar heap-based selection techniques?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding frequency counting fundamentals: ___/5
+- [ ] Implementing the min-heap optimization: ___/5  
+- [ ] Explaining the bucket sort linear-time approach: ___/5
+- [ ] Recognizing top-K pattern applications: ___/5
 
 **Problem Statement**: Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 
@@ -611,6 +787,97 @@ Result: [2, 1] (or [1, 2])
 ### 3. Find Median from Data Stream
 
 **🔗 LeetCode Link:** [Find Median from Data Stream - LeetCode #295](https://leetcode.com/problems/find-median-from-data-stream/)
+
+#### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you efficiently find the median if you could only access the middle element(s) without sorting the entire dataset?
+2. What's the relationship between the median and splitting data into two equal halves?
+3. How could two heaps work together to maintain access to the middle elements of a growing dataset?
+
+*Take a moment to think through these questions before continuing...*
+
+#### 💡 Discovery Process (Guided Learning)
+
+**Step 1: Understanding the Median Challenge**
+> **Guided Question:** What makes finding the median in a streaming context different from finding it in a static array, and why is sorting not practical here?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+In a static array, you sort once and access the middle element(s). But in a data stream:
+- Elements arrive one by one
+- You need the median after each insertion
+- Re-sorting after each insertion would be O(N log N) per operation
+- You need O(log N) insertion and O(1) median access
+
+The key insight: you don't need the entire array sorted, just efficient access to the "middle" elements. This suggests maintaining a data structure that keeps track of the boundary between smaller and larger halves.
+</details>
+
+**Step 2: Two Heaps Strategy**
+> **Guided Question:** How can you use a max-heap and min-heap together to always know the median without sorting all elements?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Two-heap approach:**
+- **Max-heap (left half):** Stores the smaller half of numbers
+- **Min-heap (right half):** Stores the larger half of numbers
+- **Balance constraint:** Size difference ≤ 1
+
+The median is always:
+- If total count is odd: top of the larger heap
+- If total count is even: average of both heap tops
+
+This gives you O(log N) insertion and O(1) median access, with the heaps maintaining the "split point" automatically.
+</details>
+
+**Step 3: Balance Maintenance Strategy**
+> **Guided Question:** How do you decide which heap to add a new number to, and how do you maintain the balance between heap sizes?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Insertion and balancing strategy:**
+1. **Smart insertion:** Always add to max-heap first, then transfer top to min-heap
+2. **Size balancing:** If min-heap becomes larger, move its top back to max-heap
+3. **Alternative:** Compare with heap tops to decide direct placement, then rebalance
+
+**Why this works:**
+- Ensures proper ordering: max-heap.top ≤ min-heap.top
+- Maintains size constraint: |size1 - size2| ≤ 1
+- Automatically positions the median at heap tops
+
+The balancing step is crucial - without it, you could end up with incorrect ordering or unbalanced sizes.
+</details>
+
+#### 🎯 Practice & Self-Assessment
+
+**Implementation Challenge**
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize max-heap for left half and min-heap for right half
+- [ ] Implement addNum with proper insertion and balancing logic
+- [ ] Implement findMedian based on heap sizes and tops
+- [ ] Handle edge cases (empty heaps, single element)
+- [ ] Ensure heap ordering constraint is maintained
+
+**Reflection Questions**
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through adding [1,2,3,4,5] and finding medians at each step?
+2. **Complexity Analysis:** Why is addNum O(log N) and findMedian O(1) with this approach?
+3. **Trade-offs:** What are the space and time trade-offs compared to keeping a sorted array?
+4. **Pattern Recognition:** What other problems involve maintaining access to "middle" or "extreme" elements in dynamic data?
+
+**Confidence Rating**
+Rate your confidence (1-5) on:
+- [ ] Understanding the two-heap strategy: ___/5
+- [ ] Implementing the balancing logic correctly: ___/5  
+- [ ] Explaining why this approach is optimal: ___/5
+- [ ] Recognizing applications to sliding window median problems: ___/5
 
 **Problem Statement**: Design a data structure that supports the following operations: addNum(int num) - Add an integer to the data structure, findMedian() - Return the median of all elements.
 

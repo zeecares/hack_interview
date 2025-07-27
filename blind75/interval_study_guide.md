@@ -107,6 +107,92 @@ To merge overlapping intervals `[a, b]` and `[c, d]`:
 
 **🔗 LeetCode Link:** [Insert Interval - LeetCode #57](https://leetcode.com/problems/insert-interval/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What are the different scenarios when inserting a new interval into a sorted array?
+2. How would you identify which existing intervals need to be merged with the new one?
+3. What information do you need to track while processing the intervals?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Core Challenge
+> **Guided Question:** If you have a sorted array of non-overlapping intervals and need to insert a new interval, what are the three possible relationships between the new interval and any existing interval?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+There are exactly three relationships:
+1. **No overlap (before)**: Existing interval ends before new interval starts
+2. **Overlap**: Intervals intersect and need to be merged
+3. **No overlap (after)**: Existing interval starts after new interval ends
+
+This insight leads to a natural three-phase processing approach: handle intervals before, merge overlapping intervals, then handle intervals after.
+</details>
+
+#### Step 2: Naive Approach
+> **Guided Question:** What would be a straightforward way to solve this without worrying about optimization?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A naive approach:
+1. Add the new interval to the array
+2. Sort the entire array by start time
+3. Apply the standard merge intervals algorithm
+
+This works but is inefficient (O(n log n)) because we're not leveraging the fact that the input is already sorted.
+</details>
+
+#### Step 3: Optimized Three-Phase Strategy
+> **Guided Question:** How can you leverage the sorted property to solve this in linear time?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The key insight is to process intervals in three phases:
+1. **Copy non-overlapping intervals that end before the new interval starts**
+2. **Merge all overlapping intervals with the new interval** by expanding the new interval's boundaries
+3. **Copy remaining intervals that start after the merged interval ends**
+
+This maintains the sorted order and runs in O(n) time.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize result list and index pointer
+- [ ] Phase 1: Add intervals that end before newInterval starts
+- [ ] Phase 2: Merge overlapping intervals by updating newInterval boundaries
+- [ ] Phase 3: Add the merged interval and remaining intervals
+- [ ] Convert result to array format
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you explain why the three-phase approach maintains sorted order?
+2. **Complexity Analysis:** Why is this O(n) time instead of O(n log n)?
+3. **Trade-offs:** What are the space complexity considerations for this problem?
+4. **Pattern Recognition:** How does this approach generalize to other interval insertion problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: You are given an array of non-overlapping intervals sorted by start time. Insert a new interval and merge if necessary to maintain the non-overlapping property.
 
 **Example**:
@@ -280,6 +366,96 @@ For each interval in array:
 ### 2. Merge Intervals
 
 **🔗 LeetCode Link:** [Merge Intervals - LeetCode #56](https://leetcode.com/problems/merge-intervals/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If intervals are given in random order, what preprocessing step would help solve this efficiently?
+2. How can you determine if two intervals overlap, and how would you merge them?
+3. What's the minimum information you need to track while processing intervals sequentially?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: The Sorting Insight
+> **Guided Question:** Why would sorting the intervals by start time make this problem much easier to solve?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Sorting by start time ensures that:
+1. **Sequential processing**: You only need to compare each interval with the previous merged interval
+2. **No look-ahead required**: You never need to check intervals that come later
+3. **Greedy approach works**: You can make locally optimal decisions that lead to the global optimum
+
+Without sorting, you'd need to compare every interval with every other interval (O(n²)).
+</details>
+
+#### Step 2: Overlap Detection Strategy
+> **Guided Question:** Once intervals are sorted by start time, how can you efficiently detect and handle overlaps?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The key insight: if `currentInterval.end >= nextInterval.start`, they overlap.
+
+When overlap is detected:
+- **Merge**: Update the end time to `max(current.end, next.end)`
+- **Keep**: Maintain the earlier start time (already guaranteed by sorting)
+
+If no overlap: simply add the next interval to results.
+</details>
+
+#### Step 3: Implementation Approach
+> **Guided Question:** What's the most efficient way to implement the merging process?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Efficient approach:
+1. Sort intervals by start time
+2. Initialize result with first interval
+3. For each subsequent interval:
+   - If it overlaps with the last merged interval: extend the end time
+   - If no overlap: add it as a new interval
+
+This maintains a single "current merge" interval and avoids complex state management.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Sort intervals by start time using comparator
+- [ ] Initialize result list with first interval
+- [ ] Iterate through remaining intervals
+- [ ] Check overlap condition with last merged interval
+- [ ] Either extend last interval or add new interval
+- [ ] Convert result to array format
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is the greedy approach optimal for this problem?
+2. **Complexity Analysis:** What dominates the time complexity: sorting or merging?
+3. **Trade-offs:** Could you solve this with less space? What would be the trade-offs?
+4. **Pattern Recognition:** What other problems use this "sort then process sequentially" pattern?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given an array of intervals, merge all overlapping intervals and return an array of non-overlapping intervals.
 
@@ -460,6 +636,95 @@ For each interval after first:
 
 **🔗 LeetCode Link:** [Non-overlapping Intervals - LeetCode #435](https://leetcode.com/problems/non-overlapping-intervals/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How can you rephrase "minimum removals" in terms of "maximum selections"?
+2. If you must choose between two overlapping intervals, what criteria would help you make the optimal choice?
+3. What classic algorithmic problem does this remind you of?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Reframe the Problem
+> **Guided Question:** Instead of thinking about "minimum intervals to remove," how can you reframe this as a maximization problem?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Key insight: **Minimum removals = Total intervals - Maximum non-overlapping intervals**
+
+This transforms the problem into: "Find the maximum number of non-overlapping intervals you can select."
+
+This reframing reveals that it's actually the classic **Activity Selection Problem** - a well-known greedy algorithm problem!
+</details>
+
+#### Step 2: The Greedy Choice
+> **Guided Question:** When you have multiple overlapping intervals and can only choose one, what property should guide your selection?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The optimal greedy choice: **Always select the interval that ends earliest**.
+
+Why this works:
+- An interval that ends earlier leaves more "room" for future intervals
+- This maximizes the number of intervals you can select
+- This is the "earliest deadline first" principle
+
+Crucial insight: Sort by END time, not start time!
+</details>
+
+#### Step 3: Algorithm Implementation
+> **Guided Question:** How do you implement the "earliest deadline first" strategy efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Efficient implementation:
+1. **Sort intervals by end time**
+2. **Greedily select intervals**: Choose first interval, then any interval that starts after the previous selection ends
+3. **Count selections**: Track how many intervals you can keep
+4. **Calculate answer**: `total - selected = minimum removals`
+
+Time complexity: O(n log n) for sorting, O(n) for selection.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Sort intervals by END time (not start time!)
+- [ ] Initialize count and track last selected end time
+- [ ] Iterate through sorted intervals
+- [ ] Select interval if it starts after last selected ends
+- [ ] Update last selected end time
+- [ ] Return total intervals minus selected count
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does sorting by end time work better than sorting by start time?
+2. **Complexity Analysis:** Could you solve this faster than O(n log n)? Why or why not?
+3. **Trade-offs:** What's the difference between the greedy approach and a dynamic programming solution?
+4. **Pattern Recognition:** What other scheduling problems use the "earliest deadline first" principle?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Given an array of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 
 **Example**:
@@ -621,6 +886,96 @@ For each interval:
 ### 4. Meeting Rooms
 
 **🔗 LeetCode Link:** [Meeting Rooms - LeetCode #252](https://leetcode.com/problems/meeting-rooms/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What does it mean for a person to "attend all meetings" in terms of interval relationships?
+2. If meetings are given in random order, how can you efficiently check for conflicts?
+3. What's the most efficient way to detect if any two intervals in an array overlap?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding the Constraint
+> **Guided Question:** What exactly does "no two meetings overlap" mean in terms of time intervals?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Two meetings overlap if they have any time in common:
+- Meeting A: [start1, end1] and Meeting B: [start2, end2] overlap if:
+- `max(start1, start2) < min(end1, end2)`
+
+Key insight: A person can attend all meetings if and only if NO pair of meetings overlap.
+
+This is a fundamental **conflict detection** problem.
+</details>
+
+#### Step 2: Brute Force vs Optimized Approach
+> **Guided Question:** What's the difference between checking all pairs versus using a smarter approach?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Brute Force**: Check every pair of meetings → O(n²) time
+- For each meeting, compare with every other meeting
+- Works but inefficient for large inputs
+
+**Optimized**: Sort then check consecutive pairs → O(n log n) time
+- Sort meetings by start time
+- Only check adjacent meetings (if A doesn't overlap with B, and B starts after A, then A won't overlap with any meeting after B)
+</details>
+
+#### Step 3: Why Sorting Works
+> **Guided Question:** After sorting by start time, why is it sufficient to only check consecutive meetings?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Sorting by start time creates a crucial property:
+- If meeting[i] doesn't overlap with meeting[i+1], it won't overlap with meeting[i+2], meeting[i+3], etc.
+- This is because meeting[i+2] starts even later than meeting[i+1]
+
+Therefore: **If any conflict exists, it must be between consecutive meetings in the sorted array.**
+
+This reduces the problem from O(n²) comparisons to O(n) comparisons!
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle edge case: 0 or 1 meetings
+- [ ] Sort meetings by start time
+- [ ] Iterate through consecutive pairs
+- [ ] Check overlap condition: `meetings[i].end > meetings[i+1].start`
+- [ ] Return false immediately if overlap found
+- [ ] Return true if no overlaps detected
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does sorting by start time enable the consecutive-pairs optimization?
+2. **Complexity Analysis:** What's the trade-off between time and space complexity in different approaches?
+3. **Trade-offs:** When might the brute force approach actually be better?
+4. **Pattern Recognition:** How does this pattern apply to other conflict detection problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given an array of meeting time intervals, determine if a person could attend all meetings (i.e., no two meetings overlap).
 
@@ -796,6 +1151,98 @@ return true (no conflicts)
 ### 5. Meeting Rooms II
 
 **🔗 LeetCode Link:** [Meeting Rooms II - LeetCode #253](https://leetcode.com/problems/meeting-rooms-ii/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What does "minimum number of conference rooms" really mean in terms of overlapping meetings?
+2. At any given time, how many rooms do you need, and how can you track this efficiently?
+3. What information do you need to track as meetings start and end?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Resource Allocation
+> **Guided Question:** What determines the minimum number of rooms needed at any point in time?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Key insight: **The minimum number of rooms equals the maximum number of meetings happening simultaneously.**
+
+Example: If at time T, there are 3 meetings in progress, you need at least 3 rooms at that moment.
+
+The answer is the **maximum overlap** across all time points.
+
+This transforms the problem into: "Find the maximum number of intervals that overlap at any point in time."
+</details>
+
+#### Step 2: Tracking Room Usage
+> **Guided Question:** How can you efficiently track when rooms become available for reuse?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Efficient approach using **Min-Heap**:
+1. **Sort meetings by start time** (process chronologically)
+2. **Use min-heap to track room end times** (earliest available room at top)
+3. **For each meeting**:
+   - If heap is not empty and earliest room ends before current meeting starts: reuse that room
+   - Otherwise: allocate a new room
+   - Add current meeting's end time to heap
+
+The heap size represents active meetings (rooms needed).
+</details>
+
+#### Step 3: Alternative Sweep Line Approach
+> **Guided Question:** How could you solve this by treating meetings as "events" in a timeline?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Sweep Line Algorithm**:
+1. **Create events**: For each meeting [start, end], create a "start" event (+1) and "end" event (-1)
+2. **Sort events by time**: Process chronologically
+3. **Track active count**: As you process events, maintain count of active meetings
+4. **Find maximum**: The peak active count is your answer
+
+Crucial detail: End events should come before start events at the same time (room becomes available before new meeting starts).
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Sort meetings by start time
+- [ ] Initialize min-heap to track room end times
+- [ ] For each meeting, check if earliest room is available
+- [ ] Either reuse available room or allocate new room
+- [ ] Add current meeting's end time to heap
+- [ ] Return final heap size (max rooms used)
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the min-heap approach correctly minimize room allocation?
+2. **Complexity Analysis:** What are the time and space complexities of the heap vs sweep line approaches?
+3. **Trade-offs:** When might you prefer the sweep line approach over the heap approach?
+4. **Pattern Recognition:** What other resource allocation problems use similar techniques?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given an array of meeting time intervals, find the minimum number of conference rooms required to schedule all meetings.
 

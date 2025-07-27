@@ -56,6 +56,98 @@ public class ListNode {
 
 **🔗 LeetCode Link:** [Reverse Linked List - LeetCode #206](https://leetcode.com/problems/reverse-linked-list/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What happens to the direction of each pointer when we reverse a linked list?
+2. What information do we need to keep track of to avoid losing nodes during reversal?
+3. What are the edge cases we need to handle (empty list, single node)?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Pointer Reversal
+> **Guided Question:** If you have a chain of nodes A → B → C, and you want A ← B ← C, what needs to change for each node?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Each node's `next` pointer needs to point to the previous node instead of the next node. However, once we change `node.next = prev`, we lose the reference to the rest of the list. This means we need to save the original `next` pointer before modifying it.
+
+**Key insight:** We need three pointers to safely reverse each link:
+- `prev`: The previous node (what current should point to)
+- `curr`: The current node being processed  
+- `next`: The next node (to avoid losing the rest of the list)
+</details>
+
+#### Step 2: Iterative Approach Development
+> **Guided Question:** How can we systematically process each node while maintaining the three pointers?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+We can use a simple loop pattern:
+1. Save `curr.next` in a temporary variable
+2. Reverse the current link: `curr.next = prev`
+3. Advance both pointers: `prev = curr`, `curr = nextTemp`
+4. Repeat until `curr` becomes null
+
+When the loop ends, `prev` will point to what was originally the last node, which is now our new head.
+
+**Time:** O(n), **Space:** O(1) - optimal solution
+</details>
+
+#### Step 3: Alternative Recursive Approach
+> **Guided Question:** How would you solve this recursively, building the solution on the return path?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Recursively, we can:
+1. Recurse to the end of the list to find the new head
+2. On the return path, reverse each link
+3. For each node, make `head.next.next = head` and `head.next = null`
+
+This is elegant but uses O(n) space due to the call stack. The recursive approach demonstrates the "build solution on return" pattern common in linked list problems.
+
+**Time:** O(n), **Space:** O(n) - beautiful but less optimal
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize three pointers: `prev = null`, `curr = head`, `next`
+- [ ] Loop while `curr != null`
+- [ ] Save next: `next = curr.next`
+- [ ] Reverse link: `curr.next = prev`
+- [ ] Advance pointers: `prev = curr`, `curr = next`
+- [ ] Return `prev` as new head
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through the algorithm with a 3-node list step by step?
+2. **Complexity Analysis:** Why is this O(n) time and O(1) space optimal?
+3. **Trade-offs:** When might you choose recursive over iterative (code clarity vs. efficiency)?
+4. **Pattern Recognition:** What other problems use the "three-pointer sliding window" pattern?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider implementing the recursive version for deeper understanding
+
 ### Problem Statement
 Given the head of a singly linked list, reverse the list and return the new head.
 
@@ -222,6 +314,102 @@ public class Solution {
 ## 2. Detect Cycle in a Linked List
 
 **🔗 LeetCode Link:** [Linked List Cycle - LeetCode #141](https://leetcode.com/problems/linked-list-cycle/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you detect if you're walking in a circle? What if you had a friend walking at a different speed?
+2. If there's no cycle, what happens when you keep following the `next` pointers?
+3. What data structure could you use to remember which nodes you've already visited?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: The Racing Insight
+> **Guided Question:** Imagine two runners on a circular track - one slow, one fast. What will eventually happen if they keep running?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The faster runner will eventually "lap" the slower runner - they'll meet at some point on the track! This is the key insight behind Floyd's Cycle Detection Algorithm.
+
+**Applied to linked lists:**
+- Slow pointer moves 1 step at a time
+- Fast pointer moves 2 steps at a time  
+- If there's a cycle, fast will eventually catch up to slow
+- If there's no cycle, fast will reach null
+
+**Why it works:** In a cycle of length k, the relative speed is 1 step per iteration, so they'll meet within k iterations.
+</details>
+
+#### Step 2: Handling the No-Cycle Case
+> **Guided Question:** What happens to our two pointers if the linked list has no cycle?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+If there's no cycle, the linked list ends with a null pointer. The fast pointer (moving 2 steps) will reach null first, and we can immediately return false.
+
+**Key checks needed:**
+- `fast == null` (reached end)
+- `fast.next == null` (next step would go past end)
+
+This gives us our loop termination condition for the no-cycle case.
+
+**Time:** O(n), **Space:** O(1) - optimal for cycle detection
+</details>
+
+#### Step 3: Alternative Approaches
+> **Guided Question:** What other ways could you track visited nodes? What are the trade-offs?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**HashSet approach:** Store each visited node in a HashSet. If we see a node again, there's a cycle.
+- **Pros:** Very intuitive and easy to implement
+- **Cons:** Uses O(n) extra space
+
+**Node modification:** Mark visited nodes by modifying them (e.g., point to themselves).
+- **Pros:** O(1) space, O(n) time
+- **Cons:** Destructive - modifies original list
+
+**Floyd's algorithm** wins because it's both space-efficient O(1) and non-destructive.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle edge cases: empty list or single node
+- [ ] Initialize slow and fast pointers (both start at head or head/head.next)
+- [ ] Loop while fast and fast.next are not null
+- [ ] Move slow one step, fast two steps
+- [ ] Check if slow equals fast (cycle found)
+- [ ] Return true if pointers meet, false if fast reaches null
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you explain why the two pointers will always meet in a cycle?
+2. **Complexity Analysis:** Why is this more space-efficient than using a HashSet?
+3. **Trade-offs:** When might you prefer the HashSet approach despite the space cost?
+4. **Pattern Recognition:** What other problems use the "fast/slow pointer" technique?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: Find where the cycle begins (LeetCode 142)
 
 ### Problem Statement
 Given the head of a linked list, determine if the linked list has a cycle. A cycle exists if a node can be reached again by continuously following the `next` pointer.
@@ -418,6 +606,98 @@ public class Solution {
 
 **🔗 LeetCode Link:** [Merge Two Sorted Lists - LeetCode #21](https://leetcode.com/problems/merge-two-sorted-lists/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How do you merge two sorted arrays? Can you apply similar logic to linked lists?
+2. What happens when one list is much longer than the other?
+3. How could you handle the case where the result list needs a new "head" node?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: The Comparison Strategy
+> **Guided Question:** At each step, you have two candidate nodes (one from each list). How do you decide which one to add to your result?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Simply compare the values! Take the smaller one and add it to your result list. This maintains the sorted property because:
+- Both input lists are already sorted
+- We always pick the minimum of the two current options
+- This gives us the next smallest element overall
+
+**Key insight:** This is exactly like the merge step in merge sort - we're merging two sorted sequences into one sorted sequence.
+</details>
+
+#### Step 2: Building the Result List
+> **Guided Question:** How can you efficiently build the result list without creating new nodes? What pointer management do you need?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Use the existing nodes! No need to create new nodes - just redirect the `next` pointers.
+
+**Strategy:**
+- Keep a "tail" pointer to track the end of your result list
+- When you choose a node, append it to tail and advance tail
+- Advance the pointer in the source list that you took from
+
+**Dummy node trick:** Start with a dummy node to avoid special handling of the first real node. Return `dummy.next` as the actual result.
+
+**Time:** O(m + n), **Space:** O(1) - optimal efficiency
+</details>
+
+#### Step 3: Handling Remaining Nodes
+> **Guided Question:** What happens when you exhaust one list but the other still has nodes? How do you handle this efficiently?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When one list is empty, all remaining nodes from the other list can be directly appended! Since both input lists are sorted, all remaining nodes are guaranteed to be larger than everything we've already processed.
+
+**Simple approach:** `tail.next = (list1 != null) ? list1 : list2`
+
+This is much more efficient than continuing the comparison loop one node at a time.
+
+**Pattern recognition:** This "append remaining" technique appears in many merge-based algorithms.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create dummy node and tail pointer
+- [ ] Loop while both lists have nodes
+- [ ] Compare values, choose smaller one
+- [ ] Append chosen node to result, advance pointers
+- [ ] Append remaining nodes from non-empty list
+- [ ] Return dummy.next
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through merging [1,2,4] and [1,3,4] step by step?
+2. **Complexity Analysis:** Why is this linear time and constant space?
+3. **Trade-offs:** How does the iterative approach compare to a recursive solution?
+4. **Pattern Recognition:** How does this relate to merge sort? What other problems use merging?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try implementing the recursive version for deeper understanding
+
 ### Problem Statement
 Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
 
@@ -608,6 +888,117 @@ public class Solution {
 ## 4. Merge K Sorted Lists
 
 **🔗 LeetCode Link:** [Merge k Sorted Lists - LeetCode #23](https://leetcode.com/problems/merge-k-sorted-lists/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If you can merge 2 sorted lists efficiently, how could you extend this to k lists?
+2. What if you tried to merge all k lists sequentially vs. in pairs? Which would be faster?
+3. How could a priority queue (min-heap) help you always find the smallest element across all lists?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Building on Two-List Merge
+> **Guided Question:** You already know how to merge 2 sorted lists in O(m+n) time. What's the simplest way to extend this to k lists?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Sequential merging:** Start with the first list, merge it with the second, then merge that result with the third, and so on.
+
+```
+result = lists[0]
+for i = 1 to k-1:
+    result = merge(result, lists[i])
+```
+
+**Time complexity analysis:**
+- Merge 1: O(n₁ + n₂)
+- Merge 2: O(n₁ + n₂ + n₃) 
+- Merge k-1: O(n₁ + n₂ + ... + nₖ)
+- Total: O(k × N) where N is total nodes
+
+This works but isn't optimal - we're repeatedly processing the same nodes.
+</details>
+
+#### Step 2: Divide and Conquer Optimization
+> **Guided Question:** How could you merge the lists more efficiently by pairing them up? What would the time complexity be?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Divide and conquer:** Pair up lists and merge them simultaneously, then repeat on the results.
+
+```
+Round 1: [1,2,3] + [4,5,6] → [1,2,3,4,5,6]
+         [7,8] + [9,10] → [7,8,9,10]
+Round 2: [1,2,3,4,5,6] + [7,8,9,10] → [1,2,3,4,5,6,7,8,9,10]
+```
+
+**Key insight:** This reduces the number of merge levels from k to log k.
+
+**Time complexity:** O(N log k) - each of the log k levels processes all N nodes once.
+
+**Why it's better:** Instead of repeatedly reprocessing nodes, each node is processed exactly log k times.
+</details>
+
+#### Step 3: Priority Queue Alternative
+> **Guided Question:** How could you use a min-heap to always extract the globally smallest element? What are the trade-offs?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Priority queue approach:**
+1. Add the first node from each list to a min-heap
+2. Extract the minimum (globally smallest unprocessed node)
+3. Add that node's successor from the same list to the heap
+4. Repeat until heap is empty
+
+**Complexity analysis:**
+- Each of N nodes is inserted and extracted once: O(N log k)
+- Space: O(k) for the heap
+
+**Trade-offs:**
+- **Pros:** Intuitive, easy to understand
+- **Cons:** Extra space for heap, slightly more overhead than divide-and-conquer
+
+Both priority queue and divide-and-conquer achieve O(N log k) time!
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the divide-and-conquer solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle base cases: empty array, single list
+- [ ] Implement recursive helper with start/end bounds
+- [ ] Split range in half, recurse on both halves
+- [ ] Merge the two halves using merge-two-lists function
+- [ ] Verify merge-two-lists handles null inputs correctly
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is O(N log k) better than O(N × k)? Can you draw the recursion tree?
+2. **Complexity Analysis:** How does the space complexity compare between divide-and-conquer vs. priority queue?
+3. **Trade-offs:** When might you prefer the priority queue approach over divide-and-conquer?
+4. **Pattern Recognition:** What other problems use divide-and-conquer with merge operations?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try implementing both divide-and-conquer and priority queue approaches
 
 ### Problem Statement
 Merge k sorted linked lists and return it as one sorted linked list.
@@ -869,6 +1260,107 @@ public class Solution {
 
 **🔗 LeetCode Link:** [Remove Nth Node From End of List - LeetCode #19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you find the nth node from the end if you could traverse the list twice?
+2. Can you think of a way to find it in just one pass through the list?
+3. What's tricky about removing a node? What pointer do you need access to?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Two-Pass Approach Understanding
+> **Guided Question:** If you can count the total length, how do you convert "nth from end" to "mth from beginning"?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Simple conversion:** If the list has length L, then the nth node from the end is the (L-n+1)th node from the beginning.
+
+**Two-pass algorithm:**
+1. First pass: Count total length L
+2. Calculate position from start: L - n + 1  
+3. Second pass: Walk to position L - n (one before target) and remove
+
+**Edge case:** If L - n = 0, we're removing the head node.
+
+This works but requires two traversals. Can we do better?
+</details>
+
+#### Step 2: One-Pass with Gap Technique
+> **Guided Question:** How can you maintain a "window" of exactly n nodes? What happens when the front of the window reaches the end?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Gap technique:** Use two pointers with a fixed gap of n+1 positions.
+
+**Setup:**
+- Both pointers start at dummy node
+- Advance fast pointer n+1 steps  
+- Now there's a gap of n+1 between slow and fast
+
+**Key insight:** When fast reaches the end (null), slow will be exactly at the node BEFORE the target node.
+
+**Why n+1 gap?** We need slow to stop at the node before the target so we can easily remove the target by setting `slow.next = slow.next.next`.
+
+**Time:** O(L), **Space:** O(1) - optimal single-pass solution
+</details>
+
+#### Step 3: Edge Case Handling
+> **Guided Question:** What makes removing the head node tricky? How does a dummy node help?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**The head problem:** When removing the head, there's no "previous" node to update. Normally you'd need special handling.
+
+**Dummy node solution:** Create a dummy node that points to the real head. Now:
+- The "head" becomes just another node with a predecessor (dummy)
+- We can use the same removal logic for all nodes
+- Return `dummy.next` as the new head
+
+**Pattern recognition:** Dummy nodes are incredibly useful for simplifying edge cases in linked list problems, especially when the head might change.
+
+**Bonus:** This technique works even if n equals the list length (removing the head).
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the one-pass solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create dummy node pointing to head
+- [ ] Initialize slow = dummy, fast = dummy
+- [ ] Advance fast pointer n+1 times
+- [ ] Move both pointers until fast reaches null
+- [ ] Remove target: slow.next = slow.next.next
+- [ ] Return dummy.next
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through removing the 2nd from end in [1,2,3,4,5]?
+2. **Complexity Analysis:** Why is one-pass better than two-pass if both are O(n)?
+3. **Trade-offs:** What are the benefits and drawbacks of the dummy node technique?
+4. **Pattern Recognition:** What other problems benefit from the "gap between pointers" technique?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Practice with edge cases: removing head, single node list
+
 ### Problem Statement
 Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
@@ -1099,6 +1591,112 @@ public class Solution {
 ## 6. Reorder List
 
 **🔗 LeetCode Link:** [Reorder List - LeetCode #143](https://leetcode.com/problems/reorder-list/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. Looking at the pattern L₀→Lₙ→L₁→Lₙ₋₁→L₂→Lₙ₋₂, what do you notice about where elements come from?
+2. How could you get easy access to both the beginning and end of the list simultaneously?
+3. What fundamental linked list operations might you need to combine to solve this?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Pattern Recognition
+> **Guided Question:** The result alternates between taking from the start and the end. How could you set up two "streams" to merge from?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key insight:** We need to alternate between:
+- First half: L₀, L₁, L₂, ... (forward order)
+- Second half: Lₙ, Lₙ₋₁, Lₙ₋₂, ... (reverse order)
+
+**Strategy breakdown:**
+1. Split the list into two halves
+2. Reverse the second half so we can access elements in the right order
+3. Merge the two halves by alternating elements
+
+This transforms a complex reordering into well-understood subproblems!
+</details>
+
+#### Step 2: Finding the Split Point
+> **Guided Question:** How can you find the middle of the linked list to split it properly? What should you do for odd vs even length lists?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Fast/slow pointer technique:** Use the classic "tortoise and hare" approach.
+- Slow pointer moves 1 step, fast pointer moves 2 steps
+- When fast reaches the end, slow is at the middle
+
+**Splitting strategy:**
+- For odd length (5 nodes): first half gets 3 nodes, second gets 2
+- For even length (6 nodes): first half gets 3 nodes, second gets 3  
+- Always split so first half has same or one more node than second half
+
+**Implementation:** `middle.next = null` to properly terminate the first half.
+
+**Pattern recognition:** This is the same middle-finding technique used in many linked list problems.
+</details>
+
+#### Step 3: Merging with Alternation
+> **Guided Question:** Once you have a forward list and a reversed list, how do you interleave them while being careful with pointer management?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Alternating merge pattern:**
+```
+first:  1 → 2 → 3
+second: 6 → 5 → 4
+
+Result: 1 → 6 → 2 → 5 → 3 → 4
+```
+
+**Safe pointer management:**
+1. Save the next pointers before modifying links
+2. Connect first to second, second to first's next
+3. Advance both pointers to their saved next positions
+
+**Key insight:** Since we're reusing existing nodes, this is O(1) space despite the complex reordering.
+
+**Time:** O(n), **Space:** O(1) - optimal solution combining multiple techniques
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the three-phase solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Find middle using slow/fast pointers
+- [ ] Split list at middle (set middle.next = null)
+- [ ] Reverse the second half
+- [ ] Merge first and reversed second alternately
+- [ ] Handle the termination correctly
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you trace through [1,2,3,4,5,6] step by step through all three phases?
+2. **Complexity Analysis:** Why is this O(n) time and O(1) space despite the complex transformation?
+3. **Trade-offs:** How does this approach compare to using an array for random access?
+4. **Pattern Recognition:** What other problems combine finding middle, reversing, and merging?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Congratulations! You've mastered linked list fundamentals
+- If confidence is <3: Review the guided discovery section again
+- Try solving without looking at the implementation details
 
 ### Problem Statement
 Given a singly linked list L: L₀ → L₁ → ... → Lₙ₋₁ → Lₙ, reorder it to: L₀ → Lₙ → L₁ → Lₙ₋₁ → L₂ → Lₙ₋₂ → ...
