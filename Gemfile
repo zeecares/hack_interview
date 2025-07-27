@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.2.0"
-gem "jekyll-feed", "~> 0.12"
-gem "jekyll-seo-tag", "~> 2.7"
+# Use the same version as GitHub Pages
+gem "github-pages", group: :jekyll_plugins
 
+# Jekyll plugins
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem "jekyll-seo-tag", "~> 2.7"

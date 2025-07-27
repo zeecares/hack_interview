@@ -20,19 +20,13 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
         
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-        
-    - name: Install Jekyll
+    - name: Install dependencies
       run: |
-        gem install jekyll bundler
         bundle install
         
     - name: Build site
       run: |
-        jekyll build --baseurl ""
+        bundle exec jekyll build --baseurl ""
         
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'

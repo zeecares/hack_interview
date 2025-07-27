@@ -9,20 +9,6 @@ markdown: kramdown
 highlighter: rouge
 permalink: /:title/
 
-# Collections
-collections:
-  guides:
-    output: true
-    permalink: /:collection/:name/
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "guides"
-    values:
-      layout: "default"
-
 # Plugins
 plugins:
   - jekyll-feed
@@ -43,9 +29,6 @@ include:
   - _pages
   - _posts
   - blind75
-
-# Theme (optional - you can use a custom theme)
-# theme: jekyll-theme-minimal
 
 # Site settings
 url: "https://yourusername.github.io"
