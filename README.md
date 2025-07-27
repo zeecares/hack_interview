@@ -1,8 +1,8 @@
 # Blind 75 LeetCode Study Guides
 
-📚 **Live Site**: [https://yourusername.github.io/hack_interview](https://yourusername.github.io/hack_interview)
+📚 **Live Site**: [https://zeecares.github.io/hack_interview](https://zeecares.github.io/hack_interview)
 
-A comprehensive collection of study guides for the Blind 75 LeetCode problems, featuring detailed explanations, multiple solution approaches, and Java implementations.
+A comprehensive collection of study guides for all 75 essential LeetCode problems, featuring detailed explanations, multiple solution approaches, and complete Java implementations with first-principles thinking.
 
 ## 🌟 Features
 
@@ -17,34 +17,54 @@ A comprehensive collection of study guides for the Blind 75 LeetCode problems, f
 
 | Guide | Problems | Focus Area |
 |-------|----------|------------|
-| [Complete Java Solutions](blind75/complete-blind75-java-study-guide.md) | All 75 | Comprehensive solutions |
-| [Array Problems](blind75/blind75-array-study-guide.md) | 25+ | Two pointers, sliding window |
-| [String Problems](blind75/string-blind75-study-guide.md) | 20+ | Pattern matching, manipulation |
-| [Graph Problems](blind75/graph_study_guide.md) | 15+ | DFS/BFS, topological sort |
-| [Linked List Problems](blind75/linked_list_study_guide.md) | 10+ | Fast/slow pointers, reversal |
-| [Dynamic Programming](dp_study_guide.md) | 15+ | Memoization, tabulation |
-| [Java Fundamentals](blind75/blind75-java-study-guide.md) | - | Core concepts |
+| [Complete Java Solutions](blind75/complete-blind75-java-study-guide.md) | All 75 | Comprehensive overview |
+
+### Core Data Structures
+| [Array Problems](blind75/blind75-array-study-guide.md) | 10 | Two pointers, sliding window, hash maps |
+| [String Problems](blind75/string-blind75-study-guide.md) | 10 | Pattern matching, sliding window |
+| [Linked List Problems](blind75/linked_list_study_guide.md) | 6 | Fast/slow pointers, reversal |
+
+### Advanced Topics  
+| [Tree Problems](blind75/tree_study_guide.md) | 14 | DFS, BFS, recursive algorithms |
+| [Dynamic Programming](blind75/dp_study_guide.md) | 11 | Memoization, optimization patterns |
+| [Graph Problems](blind75/graph_study_guide.md) | 8 | DFS/BFS, topological sort |
+
+### Specialized Categories
+| [Binary/Bit Manipulation](blind75/binary_study_guide.md) | 5 | Bit operations, mathematical properties |
+| [Heap Problems](blind75/heap_study_guide.md) | 3 | Priority queues, streaming algorithms |
+| [Interval Problems](blind75/interval_study_guide.md) | 5 | Scheduling, merging algorithms |
+| [Matrix Problems](blind75/matrix_study_guide.md) | 4 | 2D transformations, spatial algorithms |
+
+### [Java Fundamentals](blind75/blind75-java-study-guide.md)
+Essential Java concepts and syntax for interview preparation
 
 ## 🚀 Quick Start
 
-1. **Visit the live site**: [https://yourusername.github.io/hack_interview](https://yourusername.github.io/hack_interview)
+1. **Visit the live site**: [https://zeecares.github.io/hack_interview](https://zeecares.github.io/hack_interview)
 2. **Choose your topic**: Start with arrays or strings for beginners
 3. **Study systematically**: Follow the learning path in each guide
 4. **Practice**: Implement solutions from scratch after reading
 
 ## 📚 Learning Path
 
-### Beginner Level
-1. [Java Fundamentals](blind75/blind75-java-study-guide.md) - Core concepts
-2. [Array Problems](blind75/blind75-array-study-guide.md) - Basic algorithms
-3. [String Problems](blind75/string-blind75-study-guide.md) - Text manipulation
+### Beginner Level (Weeks 1-2)
+1. [Java Fundamentals](blind75/blind75-java-study-guide.md) - Core concepts and syntax
+2. [Array Problems](blind75/blind75-array-study-guide.md) - Two pointers, sliding window
+3. [String Problems](blind75/string-blind75-study-guide.md) - Pattern matching
 
-### Intermediate Level
-4. [Linked List Problems](blind75/linked_list_study_guide.md) - Data structures
-5. [Graph Problems](blind75/graph_study_guide.md) - Advanced algorithms
+### Intermediate Level (Weeks 3-4) 
+4. [Linked List Problems](blind75/linked_list_study_guide.md) - Pointer manipulation
+5. [Tree Problems](blind75/tree_study_guide.md) - Recursive thinking, DFS/BFS
+6. [Dynamic Programming](blind75/dp_study_guide.md) - Basic DP patterns
 
-### Advanced Level
-6. [Dynamic Programming](dp_study_guide.md) - Optimization techniques
+### Advanced Level (Weeks 5-6)
+7. [Graph Problems](blind75/graph_study_guide.md) - Complex traversals
+8. [Binary/Bit Manipulation](blind75/binary_study_guide.md) - Low-level optimization
+9. [Heap Problems](blind75/heap_study_guide.md) - Priority-based algorithms
+
+### Specialized Topics (Week 7-8)
+10. [Interval Problems](blind75/interval_study_guide.md) - Scheduling algorithms
+11. [Matrix Problems](blind75/matrix_study_guide.md) - 2D spatial reasoning
 
 ## 🛠️ Local Development
 
@@ -56,7 +76,7 @@ A comprehensive collection of study guides for the Blind 75 LeetCode problems, f
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/hack_interview.git
+git clone https://github.com/zeecares/hack_interview.git
 cd hack_interview
 
 # Install dependencies
@@ -70,19 +90,20 @@ bundle exec jekyll serve
 
 ### Adding New Content
 1. Create new markdown files in the `blind75/` directory
-2. Add front matter with title and description
+2. Add front matter with `render_with_liquid: false` to prevent Jekyll conflicts
 3. Update the navigation in `_layouts/default.html`
-4. Commit and push - GitHub Actions will auto-deploy
+4. Commit and push - GitHub Pages will auto-deploy
 
 ## 📝 Content Structure
 
-Each study guide follows this structure:
-- **Problem Statement**: Clear description with examples
-- **Visual Examples**: Diagrams and step-by-step walkthroughs
-- **Multiple Solutions**: From brute force to optimized
-- **Complexity Analysis**: Time and space complexity
-- **Key Insights**: Patterns and takeaways
-- **Practice Problems**: Related problems to try
+Each study guide follows this comprehensive structure:
+- **Knowledge Prerequisites**: Core concepts needed to understand the problem
+- **First Principles**: Fundamental approach to problem-solving  
+- **Problem-First Approach**: Step-by-step thinking process
+- **Multiple Java Solutions**: From brute force to optimized implementations
+- **Complexity Analysis**: Detailed time and space complexity analysis
+- **Key Insights**: Patterns and techniques for similar problems
+- **Common Pitfalls**: Mistakes to avoid during implementation
 
 ## 🤝 Contributing
 
@@ -101,15 +122,18 @@ Contributions are welcome! Please feel free to:
 
 ## 📊 Statistics
 
-- **Total Problems**: 75+
-- **Total Lines of Code**: 10,000+
-- **Total Content**: 300+ KB
-- **Topics Covered**: 7 major categories
+- **Total Problems**: 75 (Complete Blind 75 Collection)
+- **Total Lines of Content**: 18,146 lines
+- **Total File Size**: 800+ KB of comprehensive explanations
+- **Topics Covered**: 10 major algorithmic categories
+- **Java Solutions**: 200+ complete implementations
+- **Problem-Solving Patterns**: 50+ transferable techniques
 
 ## 🔗 Links
 
-- **Live Site**: [https://yourusername.github.io/hack_interview](https://yourusername.github.io/hack_interview)
-- **GitHub Repository**: [https://github.com/yourusername/hack_interview](https://github.com/yourusername/hack_interview)
+- **Live Site**: [https://zeecares.github.io/hack_interview](https://zeecares.github.io/hack_interview)
+- **GitHub Repository**: [https://github.com/zeecares/hack_interview](https://github.com/zeecares/hack_interview)
+- **LeetCode Blind 75**: [https://leetcode.com/problem-list/oizxjoit/](https://leetcode.com/problem-list/oizxjoit/)
 - **LeetCode**: [https://leetcode.com](https://leetcode.com)
 
 ## 📄 License

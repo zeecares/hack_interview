@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Interval Problems Study Guide - Blind 75 LeetCode Problems
 
 ## Table of Contents

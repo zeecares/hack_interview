@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Complete Blind 75 LeetCode Study Guide - Java Edition
 
 ## Table of Contents
