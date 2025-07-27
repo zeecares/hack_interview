@@ -153,6 +153,8 @@ n ^ (1 << i)
 
 ### 1. Sum of Two Integers
 
+**🔗 LeetCode Link:** [Sum of Two Integers - LeetCode #371](https://leetcode.com/problems/sum-of-two-integers/)
+
 **Problem Statement**: Calculate the sum of two integers a and b without using the operators + and -.
 
 **Example**:
@@ -268,6 +270,8 @@ Final result: 8 = 1000
 
 ### 2. Number of 1 Bits
 
+**🔗 LeetCode Link:** [Number of 1 Bits - LeetCode #191](https://leetcode.com/problems/number-of-1-bits/)
+
 **Problem Statement**: Write a function that takes an unsigned integer and returns the number of '1' bits it has (Hamming weight).
 
 **Example**:
@@ -382,6 +386,8 @@ Total iterations: 2 (same as number of set bits)
 ---
 
 ### 3. Counting Bits
+
+**🔗 LeetCode Link:** [Counting Bits - LeetCode #338](https://leetcode.com/problems/counting-bits/)
 
 **Problem Statement**: Given an integer n, return an array ans of length n + 1 such that for each i (0 ≤ i ≤ n), ans[i] is the number of 1's in the binary representation of i.
 
@@ -508,6 +514,8 @@ ans[5] = ans[2] + 1 = 1 + 1 = 2
 ---
 
 ### 4. Missing Number
+
+**🔗 LeetCode Link:** [Missing Number - LeetCode #268](https://leetcode.com/problems/missing-number/)
 
 **Problem Statement**: Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
@@ -659,6 +667,8 @@ Since a ^ a = 0, all present numbers cancel out
 ---
 
 ### 5. Reverse Bits
+
+**🔗 LeetCode Link:** [Reverse Bits - LeetCode #190](https://leetcode.com/problems/reverse-bits/)
 
 **Problem Statement**: Reverse bits of a given 32-bit unsigned integer.
 

@@ -81,6 +81,8 @@ Understanding recursive problem-solving is fundamental to DP. Every DP problem s
 
 ### 1. Climbing Stairs
 
+**🔗 LeetCode Link:** [Climbing Stairs - LeetCode #70](https://leetcode.com/problems/climbing-stairs/)
+
 **Problem Statement**: You're climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
 **Example**:
@@ -183,6 +185,8 @@ The number of ways to reach step i equals the sum of ways to reach the two previ
 
 ### 2. Coin Change
 
+**🔗 LeetCode Link:** [Coin Change - LeetCode #322](https://leetcode.com/problems/coin-change/)
+
 **Problem Statement**: Given coins of certain denominations and a total amount, find the minimum number of coins needed to make up that amount. Return -1 if impossible.
 
 **Example**:
@@ -278,6 +282,8 @@ For amount i, try using each coin and take the minimum cost.
 ---
 
 ### 3. Longest Increasing Subsequence
+
+**🔗 LeetCode Link:** [Longest Increasing Subsequence - LeetCode #300](https://leetcode.com/problems/longest-increasing-subsequence/)
 
 **Problem Statement**: Given an integer array, return the length of the longest strictly increasing subsequence.
 
@@ -379,6 +385,8 @@ Each position considers extending all valid previous subsequences.
 ---
 
 ### 4. Longest Common Subsequence
+
+**🔗 LeetCode Link:** [Longest Common Subsequence - LeetCode #1143](https://leetcode.com/problems/longest-common-subsequence/)
 
 **Problem Statement**: Given two strings, find the length of their longest common subsequence.
 
@@ -510,6 +518,8 @@ else:
 
 ### 5. Word Break Problem
 
+**🔗 LeetCode Link:** [Word Break - LeetCode #139](https://leetcode.com/problems/word-break/)
+
 **Problem Statement**: Given a string and a dictionary of words, determine if the string can be segmented into space-separated sequence of dictionary words.
 
 **Example**:
@@ -630,6 +640,8 @@ dp[i] = OR over all j where dp[j] = true AND s[j:i] in wordDict
 
 ### 6. Combination Sum
 
+**🔗 LeetCode Link:** [Combination Sum IV - LeetCode #377](https://leetcode.com/problems/combination-sum-iv/)
+
 **Problem Statement**: Given an array of distinct integers and a target, return all unique combinations where the numbers sum to target. Numbers can be used multiple times.
 
 **Example**:
@@ -726,6 +738,8 @@ class CombinationSum {
 ---
 
 ### 7. House Robber
+
+**🔗 LeetCode Link:** [House Robber - LeetCode #198](https://leetcode.com/problems/house-robber/)
 
 **Problem Statement**: You are a robber planning to rob houses along a street. Each house has money. Adjacent houses have security systems connected. Determine maximum money you can rob without alerting police.
 
@@ -831,6 +845,8 @@ Either skip current house or rob it (and skip previous).
 
 ### 8. House Robber II
 
+**🔗 LeetCode Link:** [House Robber II - LeetCode #213](https://leetcode.com/problems/house-robber-ii/)
+
 **Problem Statement**: Same as House Robber, but houses are arranged in a circle. First and last houses are adjacent.
 
 **Example**:
@@ -924,6 +940,8 @@ Same as House Robber I, but applied to two different ranges to handle circular c
 ---
 
 ### 9. Decode Ways
+
+**🔗 LeetCode Link:** [Decode Ways - LeetCode #91](https://leetcode.com/problems/decode-ways/)
 
 **Problem Statement**: A message containing letters A-Z is encoded as numbers 1-26. Given an encoded message, return the number of ways to decode it.
 
@@ -1058,6 +1076,8 @@ dp[i] = (valid single digit ? dp[i-1] : 0) + (valid two digits ? dp[i-2] : 0)
 
 ### 10. Unique Paths
 
+**🔗 LeetCode Link:** [Unique Paths - LeetCode #62](https://leetcode.com/problems/unique-paths/)
+
 **Problem Statement**: A robot on m×n grid starts at top-left and wants to reach bottom-right. Robot can only move right or down. Count unique paths.
 
 **Example**:
@@ -1157,6 +1177,8 @@ Paths to current cell = paths from above + paths from left.
 ---
 
 ### 11. Jump Game
+
+**🔗 LeetCode Link:** [Jump Game - LeetCode #55](https://leetcode.com/problems/jump-game/)
 
 **Problem Statement**: Given an array where each element represents maximum jump length from that position, determine if you can reach the last index.
 

@@ -20,6 +20,8 @@ render_with_liquid: false
 
 ## 1. Two Sum
 
+**🔗 LeetCode Link:** [Two Sum - LeetCode #1](https://leetcode.com/problems/two-sum/)
+
 ### Problem Statement
 Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
@@ -186,6 +188,8 @@ public int[] twoSumSorted(int[] nums, int target) {
 ---
 
 ## 2. Best Time to Buy and Sell Stock
+
+**🔗 LeetCode Link:** [Best Time to Buy and Sell Stock - LeetCode #121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 
 ### Problem Statement
 You are given an array `prices` where `prices[i]` is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy the stock and a different day in the future to sell it. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
@@ -391,6 +395,8 @@ public int maxProfitMultiple(int[] prices) {
 ---
 
 ## 3. Contains Duplicate
+
+**🔗 LeetCode Link:** [Contains Duplicate - LeetCode #217](https://leetcode.com/problems/contains-duplicate/)
 
 ### Problem Statement
 Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.
@@ -611,6 +617,8 @@ public boolean containsNearbyDuplicate(int[] nums, int k) {
 ---
 
 ## 4. Product of Array Except Self
+
+**🔗 LeetCode Link:** [Product of Array Except Self - LeetCode #238](https://leetcode.com/problems/product-of-array-except-self/)
 
 ### Problem Statement
 Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. The algorithm must run in O(n) time and without using the division operation.
@@ -877,6 +885,8 @@ class ProductRangeQuery {
 ---
 
 ## 5. Maximum Subarray
+
+**🔗 LeetCode Link:** [Maximum Subarray - LeetCode #53](https://leetcode.com/problems/maximum-subarray/)
 
 ### Problem Statement
 Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -1164,6 +1174,8 @@ private int kadane(int[] nums) {
 ---
 
 ## 6. Maximum Product Subarray
+
+**🔗 LeetCode Link:** [Maximum Product Subarray - LeetCode #152](https://leetcode.com/problems/maximum-product-subarray/)
 
 ### Problem Statement
 Given an integer array `nums`, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
@@ -1483,6 +1495,8 @@ public double maxProductDouble(double[] nums) {
 
 ## 7. Find Minimum in Rotated Sorted Array
 
+**🔗 LeetCode Link:** [Find Minimum in Rotated Sorted Array - LeetCode #153](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+
 ### Problem Statement
 Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in O(log n) time.
 
@@ -1755,6 +1769,8 @@ public int findRotationCount(int[] nums) {
 ---
 
 ## 8. Search in Rotated Sorted Array
+
+**🔗 LeetCode Link:** [Search in Rotated Sorted Array - LeetCode #33](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 
 ### Problem Statement
 There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`. Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`. You must write an algorithm with O(log n) runtime complexity.
@@ -2142,6 +2158,8 @@ public int searchInsert(int[] nums, int target) {
 
 ## 9. 3Sum
 
+**🔗 LeetCode Link:** [3Sum - LeetCode #15](https://leetcode.com/problems/3sum/)
+
 ### Problem Statement
 Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets.
 
@@ -2494,6 +2512,8 @@ public List<List<Integer>> fourSum(int[] nums, int target) {
 ---
 
 ## 10. Container With Most Water
+
+**🔗 LeetCode Link:** [Container With Most Water - LeetCode #11](https://leetcode.com/problems/container-with-most-water/)
 
 ### Problem Statement
 You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `ith` line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container that can hold the most water. Return the maximum amount of water a container can store.

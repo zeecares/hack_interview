@@ -105,6 +105,8 @@ To merge overlapping intervals `[a, b]` and `[c, d]`:
 
 ### 1. Insert Interval
 
+**🔗 LeetCode Link:** [Insert Interval - LeetCode #57](https://leetcode.com/problems/insert-interval/)
+
 **Problem Statement**: You are given an array of non-overlapping intervals sorted by start time. Insert a new interval and merge if necessary to maintain the non-overlapping property.
 
 **Example**:
@@ -276,6 +278,8 @@ For each interval in array:
 ---
 
 ### 2. Merge Intervals
+
+**🔗 LeetCode Link:** [Merge Intervals - LeetCode #56](https://leetcode.com/problems/merge-intervals/)
 
 **Problem Statement**: Given an array of intervals, merge all overlapping intervals and return an array of non-overlapping intervals.
 
@@ -454,6 +458,8 @@ For each interval after first:
 
 ### 3. Non-overlapping Intervals
 
+**🔗 LeetCode Link:** [Non-overlapping Intervals - LeetCode #435](https://leetcode.com/problems/non-overlapping-intervals/)
+
 **Problem Statement**: Given an array of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 
 **Example**:
@@ -613,6 +619,8 @@ For each interval:
 ---
 
 ### 4. Meeting Rooms
+
+**🔗 LeetCode Link:** [Meeting Rooms - LeetCode #252](https://leetcode.com/problems/meeting-rooms/)
 
 **Problem Statement**: Given an array of meeting time intervals, determine if a person could attend all meetings (i.e., no two meetings overlap).
 
@@ -786,6 +794,8 @@ return true (no conflicts)
 ---
 
 ### 5. Meeting Rooms II
+
+**🔗 LeetCode Link:** [Meeting Rooms II - LeetCode #253](https://leetcode.com/problems/meeting-rooms-ii/)
 
 **Problem Statement**: Given an array of meeting time intervals, find the minimum number of conference rooms required to schedule all meetings.
 

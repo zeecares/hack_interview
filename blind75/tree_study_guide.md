@@ -132,6 +132,8 @@ void inorder(TreeNode node, List<Integer> result) {
 
 ### 1. Maximum Depth of Binary Tree
 
+**🔗 LeetCode Link:** [Maximum Depth of Binary Tree - LeetCode #104](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
 **Problem Statement**: Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
 
 **Examples:**
@@ -268,6 +270,8 @@ public int maxDepth(TreeNode root) {
 ---
 
 ### 2. Same Tree
+
+**🔗 LeetCode Link:** [Same Tree - LeetCode #100](https://leetcode.com/problems/same-tree/)
 
 **Problem Statement**: Given the roots of two binary trees `p` and `q`, write a function to check if they are the same or not. Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
 
@@ -420,6 +424,8 @@ private String serialize(TreeNode node) {
 ---
 
 ### 3. Invert Binary Tree
+
+**🔗 LeetCode Link:** [Invert Binary Tree - LeetCode #226](https://leetcode.com/problems/invert-binary-tree/)
 
 **Problem Statement**: Given the root of a binary tree, invert the tree, and return its root. Inverting means swapping the left and right children of every node.
 
@@ -579,6 +585,8 @@ public TreeNode invertTree(TreeNode root) {
 ---
 
 ### 4. Binary Tree Maximum Path Sum
+
+**🔗 LeetCode Link:** [Binary Tree Maximum Path Sum - LeetCode #124](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
 **Problem Statement**: A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. The path does not need to pass through the root. The path sum is the sum of the node's values in the path. Given the root of a binary tree, return the maximum path sum of any non-empty path.
 
@@ -748,6 +756,8 @@ private Result helper(TreeNode node) {
 ---
 
 ### 5. Binary Tree Level Order Traversal
+
+**🔗 LeetCode Link:** [Binary Tree Level Order Traversal - LeetCode #102](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
 **Problem Statement**: Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).
 
@@ -943,6 +953,8 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 ---
 
 ### 6. Serialize and Deserialize Binary Tree
+
+**🔗 LeetCode Link:** [Serialize and Deserialize Binary Tree - LeetCode #297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
 
 **Problem Statement**: Design an algorithm to serialize and deserialize a binary tree. Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored or transmitted and reconstructed later. Deserialization is the reverse process.
 
@@ -1198,6 +1210,8 @@ public class Codec {
 
 ### 7. Subtree of Another Tree
 
+**🔗 LeetCode Link:** [Subtree of Another Tree - LeetCode #572](https://leetcode.com/problems/subtree-of-another-tree/)
+
 **Problem Statement**: Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values of `subRoot` and `false` otherwise.
 
 **Examples:**
@@ -1354,6 +1368,8 @@ private String getHash(TreeNode node, Set<String> hashes) {
 ---
 
 ### 8. Construct Binary Tree from Preorder and Inorder
+
+**🔗 LeetCode Link:** [Construct Binary Tree from Preorder and Inorder Traversal - LeetCode #105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 **Problem Statement**: Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
 
@@ -1557,6 +1573,8 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
 
 ### 9. Validate Binary Search Tree
 
+**🔗 LeetCode Link:** [Validate Binary Search Tree - LeetCode #98](https://leetcode.com/problems/validate-binary-search-tree/)
+
 **Problem Statement**: Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows: The left subtree of a node contains only nodes with keys less than the node's key. The right subtree of a node contains only nodes with keys greater than the node's key. Both the left and right subtrees must also be binary search trees.
 
 **Examples:**
@@ -1727,6 +1745,8 @@ public boolean isValidBST(TreeNode root) {
 ---
 
 ### 10. Kth Smallest Element in a BST
+
+**🔗 LeetCode Link:** [Kth Smallest Element in a BST - LeetCode #230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
 
 **Problem Statement**: Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) in the tree.
 
@@ -1914,6 +1934,8 @@ private void inorder(TreeNode node, List<Integer> values) {
 
 ### 11. Lowest Common Ancestor of a BST
 
+**🔗 LeetCode Link:** [Lowest Common Ancestor of a Binary Search Tree - LeetCode #235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+
 **Problem Statement**: Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST. The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).
 
 **Examples:**
@@ -2081,6 +2103,8 @@ private TreeNode findLCA(TreeNode node, int minVal, int maxVal) {
 ---
 
 ### 12. Implement Trie (Prefix Tree)
+
+**🔗 LeetCode Link:** [Implement Trie (Prefix Tree) - LeetCode #208](https://leetcode.com/problems/implement-trie-prefix-tree/)
 
 **Problem Statement**: A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class with insert, search, and startsWith methods.
 
@@ -2409,6 +2433,8 @@ class Trie {
 ---
 
 ### 13. Add and Search Word - Data Structure Design
+
+**🔗 LeetCode Link:** [Design Add and Search Words Data Structure - LeetCode #211](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
 
 **Problem Statement**: Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the WordDictionary class with addWord and search methods. The search method should support '.' as a wildcard that can match any letter.
 
@@ -2772,6 +2798,8 @@ class WordDictionary {
 ---
 
 ### 14. Word Search II
+
+**🔗 LeetCode Link:** [Word Search II - LeetCode #212](https://leetcode.com/problems/word-search-ii/)
 
 **Problem Statement**: Given an m x n board of characters and a list of strings words, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 

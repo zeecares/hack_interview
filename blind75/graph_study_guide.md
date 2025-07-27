@@ -143,6 +143,8 @@ class UnionFind {
 
 ### 1. Clone Graph (LeetCode 133)
 
+**🔗 LeetCode Link:** [Clone Graph - LeetCode #133](https://leetcode.com/problems/clone-graph/)
+
 **Problem Statement**: Clone an undirected graph where each node contains a value and a list of neighbors.
 
 **Visual Example**:
@@ -245,6 +247,8 @@ class Solution {
 ---
 
 ### 2. Course Schedule (LeetCode 207)
+
+**🔗 LeetCode Link:** [Course Schedule - LeetCode #207](https://leetcode.com/problems/course-schedule/)
 
 **Problem Statement**: Determine if you can finish all courses given prerequisites. There are `numCourses` courses labeled 0 to `numCourses-1`. Prerequisites are given as pairs `[a, b]` where `b` is prerequisite for `a`.
 
@@ -374,6 +378,8 @@ class Solution {
 ---
 
 ### 3. Pacific Atlantic Water Flow (LeetCode 417)
+
+**🔗 LeetCode Link:** [Pacific Atlantic Water Flow - LeetCode #417](https://leetcode.com/problems/pacific-atlantic-water-flow/)
 
 **Problem Statement**: Given an `m x n` matrix representing heights, find cells where rainwater can flow to both Pacific (top/left edges) and Atlantic (bottom/right edges) oceans. Water flows from higher or equal height to lower height.
 
@@ -550,6 +556,8 @@ class Solution {
 ---
 
 ### 4. Number of Islands (LeetCode 200)
+
+**🔗 LeetCode Link:** [Number of Islands - LeetCode #200](https://leetcode.com/problems/number-of-islands/)
 
 **Problem Statement**: Count the number of islands in a 2D binary grid. An island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.
 
@@ -755,6 +763,8 @@ class Solution {
 
 ### 5. Longest Consecutive Sequence (LeetCode 128)
 
+**🔗 LeetCode Link:** [Longest Consecutive Sequence - LeetCode #128](https://leetcode.com/problems/longest-consecutive-sequence/)
+
 **Problem Statement**: Find the length of the longest consecutive elements sequence in an unsorted array. Algorithm must run in O(n) time.
 
 **Visual Example**:
@@ -928,6 +938,8 @@ class Solution {
 ---
 
 ### 6. Alien Dictionary (LeetCode 269 - Premium)
+
+**🔗 LeetCode Link:** [Alien Dictionary - LeetCode #269](https://leetcode.com/problems/alien-dictionary/)
 
 **Problem Statement**: Given a list of words sorted lexicographically in an alien language, derive the order of characters in the alien alphabet. Return empty string if no valid order exists.
 
@@ -1126,6 +1138,8 @@ class Solution {
 ---
 
 ### 7. Graph Valid Tree (LeetCode 261 - Premium)
+
+**🔗 LeetCode Link:** [Graph Valid Tree - LeetCode #261](https://leetcode.com/problems/graph-valid-tree/)
 
 **Problem Statement**: Given `n` nodes labeled from `0` to `n-1` and a list of undirected edges, determine if these edges form a valid tree.
 
@@ -1335,6 +1349,8 @@ class Solution {
 ---
 
 ### 8. Number of Connected Components in an Undirected Graph (LeetCode 323 - Premium)
+
+**🔗 LeetCode Link:** [Number of Connected Components in an Undirected Graph - LeetCode #323](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
 
 **Problem Statement**: Find the number of connected components in an undirected graph. You have `n` nodes labeled from `0` to `n-1`. A connected component is a group of nodes that are directly or indirectly connected.
 

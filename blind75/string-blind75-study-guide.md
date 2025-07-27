@@ -20,6 +20,8 @@ render_with_liquid: false
 
 ## 1. Longest Substring Without Repeating Characters
 
+**🔗 LeetCode Link:** [Longest Substring Without Repeating Characters - LeetCode #3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
 ### Problem Statement
 Given a string `s`, find the length of the **longest substring** without repeating characters.
 
@@ -165,6 +167,8 @@ public int lengthOfLongestSubstring(String s) {
 ---
 
 ## 2. Longest Repeating Character Replacement
+
+**🔗 LeetCode Link:** [Longest Repeating Character Replacement - LeetCode #424](https://leetcode.com/problems/longest-repeating-character-replacement/)
 
 ### Problem Statement
 You are given a string `s` and an integer `k`. You can choose any character of the string and change it to any other uppercase English letter. You can perform this operation at most `k` times. Return the length of the longest substring containing the same letter you can get after performing the above operations.
@@ -312,6 +316,8 @@ public int characterReplacement(String s, int k) {
 ---
 
 ## 3. Minimum Window Substring
+
+**🔗 LeetCode Link:** [Minimum Window Substring - LeetCode #76](https://leetcode.com/problems/minimum-window-substring/)
 
 ### Problem Statement
 Given two strings `s` and `t`, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such window, return an empty string.
@@ -537,6 +543,8 @@ public String minWindow(String s, String t) {
 
 ## 4. Valid Anagram
 
+**🔗 LeetCode Link:** [Valid Anagram - LeetCode #242](https://leetcode.com/problems/valid-anagram/)
+
 ### Problem Statement
 Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise. An anagram is a word formed by rearranging the letters of another word, using all letters exactly once.
 
@@ -702,6 +710,8 @@ public boolean isAnagram(String s, String t) {
 ---
 
 ## 5. Group Anagrams
+
+**🔗 LeetCode Link:** [Group Anagrams - LeetCode #49](https://leetcode.com/problems/group-anagrams/)
 
 ### Problem Statement
 Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.
@@ -872,6 +882,8 @@ private String getFrequencyKey(String str) {
 ---
 
 ## 6. Valid Parentheses
+
+**🔗 LeetCode Link:** [Valid Parentheses - LeetCode #20](https://leetcode.com/problems/valid-parentheses/)
 
 ### Problem Statement
 Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. An input string is valid if:
@@ -1066,6 +1078,8 @@ public boolean isValid(String s) {
 ---
 
 ## 7. Valid Palindrome
+
+**🔗 LeetCode Link:** [Valid Palindrome - LeetCode #125](https://leetcode.com/problems/valid-palindrome/)
 
 ### Problem Statement
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.
@@ -1278,6 +1292,8 @@ private char normalize(char c) {
 ---
 
 ## 8. Longest Palindromic Substring
+
+**🔗 LeetCode Link:** [Longest Palindromic Substring - LeetCode #5](https://leetcode.com/problems/longest-palindromic-substring/)
 
 ### Problem Statement
 Given a string `s`, return the longest palindromic substring in `s`.
@@ -1510,6 +1526,8 @@ public String longestPalindrome(String s) {
 
 ## 9. Palindromic Substrings
 
+**🔗 LeetCode Link:** [Palindromic Substrings - LeetCode #647](https://leetcode.com/problems/palindromic-substrings/)
+
 ### Problem Statement
 Given a string `s`, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.
 
@@ -1712,6 +1730,8 @@ private int countPalindromes(String s, int left, int right) {
 ---
 
 ## 10. Encode and Decode Strings
+
+**🔗 LeetCode Link:** [Encode and Decode Strings - LeetCode #271](https://leetcode.com/problems/encode-and-decode-strings/)
 
 ### Problem Statement
 Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and is decoded back to the original list of strings.

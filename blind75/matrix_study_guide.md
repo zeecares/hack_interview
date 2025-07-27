@@ -165,6 +165,8 @@ boolean hasFlag = (matrix[i][j] & FLAG_BIT) != 0;  // Check flag
 
 ### 1. Set Matrix Zeroes
 
+**🔗 LeetCode Link:** [Set Matrix Zeroes - LeetCode #73](https://leetcode.com/problems/set-matrix-zeroes/)
+
 **Problem Statement**: Given an m×n matrix, if an element is 0, set its entire row and column to 0. Do it in-place.
 
 **Example**:
@@ -429,6 +431,8 @@ Special handling: Store first row/column zero flags separately
 
 ### 2. Spiral Matrix
 
+**🔗 LeetCode Link:** [Spiral Matrix - LeetCode #54](https://leetcode.com/problems/spiral-matrix/)
+
 **Problem Statement**: Given an m×n matrix, return all elements of the matrix in spiral order (clockwise from outside to inside).
 
 **Example**:
@@ -679,6 +683,8 @@ For each layer (while boundaries valid):
 
 ### 3. Rotate Image
 
+**🔗 LeetCode Link:** [Rotate Image - LeetCode #48](https://leetcode.com/problems/rotate-image/)
+
 **Problem Statement**: Rotate an n×n 2D matrix representing an image by 90 degrees clockwise. Do it in-place.
 
 **Example**:
@@ -904,6 +910,8 @@ Method 2 (Layer rotation):
 ---
 
 ### 4. Word Search
+
+**🔗 LeetCode Link:** [Word Search - LeetCode #79](https://leetcode.com/problems/word-search/)
 
 **Problem Statement**: Given an m×n grid of characters and a string word, return true if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cells (horizontally or vertically). The same letter cell may not be used more than once.
 

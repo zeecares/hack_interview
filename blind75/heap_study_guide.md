@@ -152,6 +152,8 @@ private void bubbleDown(int index) {
 
 ### 1. Merge K Sorted Lists
 
+**🔗 LeetCode Link:** [Merge k Sorted Lists - LeetCode #23](https://leetcode.com/problems/merge-k-sorted-lists/)
+
 **Problem Statement**: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.
 
 **Example**:
@@ -366,6 +368,8 @@ Continue until heap empty...
 ---
 
 ### 2. Top K Frequent Elements
+
+**🔗 LeetCode Link:** [Top K Frequent Elements - LeetCode #347](https://leetcode.com/problems/top-k-frequent-elements/)
 
 **Problem Statement**: Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 
@@ -605,6 +609,8 @@ Result: [2, 1] (or [1, 2])
 ---
 
 ### 3. Find Median from Data Stream
+
+**🔗 LeetCode Link:** [Find Median from Data Stream - LeetCode #295](https://leetcode.com/problems/find-median-from-data-stream/)
 
 **Problem Statement**: Design a data structure that supports the following operations: addNum(int num) - Add an integer to the data structure, findMedian() - Return the median of all elements.
 

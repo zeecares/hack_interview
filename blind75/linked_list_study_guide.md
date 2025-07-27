@@ -54,7 +54,7 @@ public class ListNode {
 
 ## 1. Reverse a Linked List
 
-**LeetCode 206** - Fundamental pointer manipulation problem
+**🔗 LeetCode Link:** [Reverse Linked List - LeetCode #206](https://leetcode.com/problems/reverse-linked-list/)
 
 ### Problem Statement
 Given the head of a singly linked list, reverse the list and return the new head.
@@ -221,7 +221,7 @@ public class Solution {
 
 ## 2. Detect Cycle in a Linked List
 
-**LeetCode 141** - Floyd's Cycle Detection Algorithm
+**🔗 LeetCode Link:** [Linked List Cycle - LeetCode #141](https://leetcode.com/problems/linked-list-cycle/)
 
 ### Problem Statement
 Given the head of a linked list, determine if the linked list has a cycle. A cycle exists if a node can be reached again by continuously following the `next` pointer.
@@ -416,7 +416,7 @@ public class Solution {
 
 ## 3. Merge Two Sorted Lists
 
-**LeetCode 21** - Fundamental merge operation
+**🔗 LeetCode Link:** [Merge Two Sorted Lists - LeetCode #21](https://leetcode.com/problems/merge-two-sorted-lists/)
 
 ### Problem Statement
 Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
@@ -607,7 +607,7 @@ public class Solution {
 
 ## 4. Merge K Sorted Lists
 
-**LeetCode 23** - Advanced merge with divide-and-conquer
+**🔗 LeetCode Link:** [Merge k Sorted Lists - LeetCode #23](https://leetcode.com/problems/merge-k-sorted-lists/)
 
 ### Problem Statement
 Merge k sorted linked lists and return it as one sorted linked list.
@@ -867,7 +867,7 @@ public class Solution {
 
 ## 5. Remove Nth Node From End Of List
 
-**LeetCode 19** - Two-pointer technique with gap maintenance
+**🔗 LeetCode Link:** [Remove Nth Node From End of List - LeetCode #19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 
 ### Problem Statement
 Given the head of a linked list, remove the nth node from the end of the list and return its head.
@@ -1098,7 +1098,7 @@ public class Solution {
 
 ## 6. Reorder List
 
-**LeetCode 143** - Complex multi-step linked list manipulation
+**🔗 LeetCode Link:** [Reorder List - LeetCode #143](https://leetcode.com/problems/reorder-list/)
 
 ### Problem Statement
 Given a singly linked list L: L₀ → L₁ → ... → Lₙ₋₁ → Lₙ, reorder it to: L₀ → Lₙ → L₁ → Lₙ₋₁ → L₂ → Lₙ₋₂ → ...
