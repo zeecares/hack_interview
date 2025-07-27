@@ -22,6 +22,16 @@ render_with_liquid: false
 
 **🔗 LeetCode Link:** [Two Sum - LeetCode #1](https://leetcode.com/problems/two-sum/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What is the simplest way you could solve this? (Don't worry about efficiency)
+2. If you had to check every possible pair, how would you do it?
+3. What information do you need to store as you examine each number?
+
+*Take a moment to think through these questions before continuing...*
+
 ### Problem Statement
 Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
@@ -32,11 +42,60 @@ Output: [0,1]
 Explanation: nums[0] + nums[1] = 2 + 7 = 9
 ```
 
-### Knowledge Prerequisites
+### 📋 Knowledge Prerequisites
 - Arrays and array indexing
 - HashMap/HashTable operations (put, get, containsKey)
 - Time/space complexity analysis
 - Nested loops and early termination
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: What's the Core Insight?
+> **Guided Question:** If I have number `x` and need to find a number that sums with it to reach `target`, what is that other number?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The other number must be `target - x`. This is the **complement relationship**.
+
+Instead of asking "what two numbers sum to target?", we can ask "for each number, have I seen its complement?"
+</details>
+
+#### Step 2: Naive Approach Analysis
+> **Guided Question:** How would you check every possible pair of numbers?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+```java
+// Brute force: check every pair
+for (int i = 0; i < nums.length; i++) {
+    for (int j = i + 1; j < nums.length; j++) {
+        if (nums[i] + nums[j] == target) {
+            return new int[]{i, j};
+        }
+    }
+}
+```
+
+**Time Complexity:** O(n²) - for each element, we check all remaining elements
+**Space Complexity:** O(1) - no extra space needed
+</details>
+
+#### Step 3: Optimization Discovery
+> **Guided Question:** Instead of looking forward at all remaining elements, what if we remembered the elements we've already seen?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+As we visit each number, we can:
+1. Calculate what complement we need: `complement = target - currentNumber`
+2. Check if we've seen this complement before
+3. If yes, we found our pair!
+4. If no, remember the current number for future checks
+
+This requires a fast lookup data structure → HashMap!
+</details>
 
 ### First Principles
 The core insight is the **complement relationship**: if we need two numbers that sum to a target, and we know one number, we can calculate what the other number must be. Instead of checking all pairs, we can store seen numbers and check if their complement exists.
@@ -185,11 +244,54 @@ public int[] twoSumSorted(int[] nums, int target) {
 }
 ```
 
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create a HashMap to store number → index mapping
+- [ ] Iterate through the array once
+- [ ] For each number, calculate its complement
+- [ ] Check if complement exists in the map
+- [ ] If found, return the indices
+- [ ] If not found, store current number in map
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you explain why the HashMap approach works in your own words?
+2. **Complexity Analysis:** Why is this O(n) time instead of O(n²)?
+3. **Trade-offs:** What are we giving up by using extra space?
+4. **Pattern Recognition:** What other problems might use the "complement lookup" pattern?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 ---
 
 ## 2. Best Time to Buy and Sell Stock
 
 **🔗 LeetCode Link:** [Best Time to Buy and Sell Stock - LeetCode #121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. If you had to check every possible buy-sell combination, how would you do it?
+2. What's the key constraint that makes this different from just finding max and min values?
+3. As you scan through prices day by day, what information would be useful to remember?
+
+*Take a moment to think through these questions before continuing...*
 
 ### Problem Statement
 You are given an array `prices` where `prices[i]` is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy the stock and a different day in the future to sell it. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
@@ -201,12 +303,64 @@ Output: 5
 Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
 ```
 
-### Knowledge Prerequisites
+### 📋 Knowledge Prerequisites
 - Array traversal and indexing
 - Min/max tracking variables
 - Understanding of profit calculation
 - Single-pass algorithm design
 - Kadane's algorithm concepts (for advanced understanding)
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: What's the Core Constraint?
+> **Guided Question:** Why can't we just find the minimum price and maximum price in the array and subtract them?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+We must **buy before we sell**! The minimum price might come after the maximum price chronologically. For example, in `[7,1,5,3,6,4]`, we can't buy at price 1 (day 2) and sell at price 7 (day 1) because that would require time travel.
+
+The constraint is: `buy_day < sell_day`
+</details>
+
+#### Step 2: Brute Force Approach
+> **Guided Question:** How would you check every valid buy-sell combination?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+```java
+// Check every possible buy day with every future sell day
+int maxProfit = 0;
+for (int buyDay = 0; buyDay < prices.length; buyDay++) {
+    for (int sellDay = buyDay + 1; sellDay < prices.length; sellDay++) {
+        int profit = prices[sellDay] - prices[buyDay];
+        maxProfit = Math.max(maxProfit, profit);
+    }
+}
+```
+
+**Time Complexity:** O(n²) - for each buy day, check all future sell days
+**Space Complexity:** O(1) - only tracking maximum profit
+</details>
+
+#### Step 3: The Key Optimization Insight
+> **Guided Question:** If you're considering selling on day X, which day should you have bought the stock to maximize profit?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+You should have bought on the **cheapest day before day X**!
+
+This means as we scan through the array:
+- For each potential sell day, we know the best buy day (cheapest so far)
+- We can calculate the profit for selling today vs the best possible buy day
+- We track the maximum profit we've seen
+
+This transforms the problem into a single pass with two tracking variables:
+1. `minPrice` - cheapest price seen so far (best buy opportunity)
+2. `maxProfit` - best profit achievable so far
+</details>
 
 ### First Principles
 The key insight is that to maximize profit, we want to **buy at the lowest price and sell at the highest price after that**. We must buy before we sell (can't time travel), so we need to track the minimum price seen so far and calculate profit at each potential selling day.
