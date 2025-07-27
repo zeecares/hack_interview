@@ -134,6 +134,90 @@ void inorder(TreeNode node, List<Integer> result) {
 
 **🔗 LeetCode Link:** [Maximum Depth of Binary Tree - LeetCode #104](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you measure the "height" of a tree if you were climbing it? What would you count?
+2. What happens when you reach a node that has no children (a leaf node)?
+3. If you're at a node with left and right children, how does their depth relate to the current node's depth?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Tree Depth
+> **Guided Question:** What does "depth" or "height" actually mean in a tree, and how might we break this problem into smaller subproblems?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The depth of a tree is the longest path from root to any leaf node. For any node, we can think of this recursively:
+- A null node has depth 0 (base case)  
+- Any other node's depth = 1 + maximum depth of its children
+
+This recursive structure suggests we can solve for each subtree and combine the results.
+</details>
+
+#### Step 2: Identifying the Base Case
+> **Guided Question:** What should happen when we reach a null node or empty tree? What depth value makes sense?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When we reach a null node (empty tree or beyond a leaf), the depth should be 0. This makes sense because:
+- An empty tree has no nodes, so depth = 0
+- When we go beyond a leaf node, we're not adding any more nodes to our path
+- This gives us our recursive base case: `if (node == null) return 0;`
+</details>
+
+#### Step 3: Combining Subproblem Results
+> **Guided Question:** If you know the maximum depth of the left subtree and right subtree, how do you calculate the depth of the current node?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The depth of the current node is:
+`1 + Math.max(leftDepth, rightDepth)`
+
+- The "1" accounts for the current node itself
+- We take the maximum because we want the longest path
+- This naturally handles cases where a node has only one child (the null child returns 0)
+
+This gives us the complete recursive solution!
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle the base case (null node returns 0)
+- [ ] Recursively calculate left subtree depth
+- [ ] Recursively calculate right subtree depth  
+- [ ] Return 1 + max of both subtree depths
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we add 1 to the maximum of left and right depths?
+2. **Complexity Analysis:** What's the time complexity and why? What about space complexity?
+3. **Trade-offs:** Could we solve this iteratively? What would be the pros and cons?
+4. **Pattern Recognition:** What other tree problems use this "process children, then combine" pattern?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
 
 **Examples:**
@@ -272,6 +356,92 @@ public int maxDepth(TreeNode root) {
 ### 2. Same Tree
 
 **🔗 LeetCode Link:** [Same Tree - LeetCode #100](https://leetcode.com/problems/same-tree/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What does it mean for two trees to be "the same"? What two aspects must be identical?
+2. If you're comparing two nodes, what conditions would make them "different"?
+3. How can you break this problem down using the structure of the trees themselves?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Defining Tree Equality
+> **Guided Question:** For two trees to be considered "same," what conditions must be satisfied? Think about both structure and content.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Two trees are the same if:
+1. **Structural equality**: Both trees have the same shape (same positions for null and non-null nodes)
+2. **Value equality**: All corresponding nodes have the same values
+
+This means we need to check both the structure (where nodes exist) and the content (what values they contain) simultaneously.
+</details>
+
+#### Step 2: Base Cases for Comparison
+> **Guided Question:** What are the different scenarios when comparing two nodes? Consider when one or both might be null.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+When comparing two nodes, we have these cases:
+1. **Both null**: Trees are the same (base case: true)
+2. **One null, one not**: Trees are different (base case: false)  
+3. **Both not null but different values**: Trees are different (base case: false)
+4. **Both not null with same values**: Need to check their children recursively
+
+This gives us clear stopping conditions for our recursive approach.
+</details>
+
+#### Step 3: Recursive Structure
+> **Guided Question:** If two nodes have the same value, what else must be true for the trees rooted at these nodes to be identical?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+For trees rooted at nodes with the same value to be identical:
+- The left subtrees must be identical
+- AND the right subtrees must be identical
+
+This gives us: `isSameTree(p.left, q.left) && isSameTree(p.right, q.right)`
+
+The recursive structure naturally handles all the tree traversal for us!
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle case where both nodes are null (return true)
+- [ ] Handle case where one node is null (return false)
+- [ ] Check if current node values are different (return false)
+- [ ] Recursively check left subtrees AND right subtrees
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we use AND (&&) instead of OR (||) when combining the recursive calls?
+2. **Complexity Analysis:** How many nodes do we visit in the worst case? What's the space complexity?
+3. **Trade-offs:** Could we solve this iteratively using stacks/queues? What would change?
+4. **Pattern Recognition:** What other tree problems use this "simultaneous traversal" pattern?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given the roots of two binary trees `p` and `q`, write a function to check if they are the same or not. Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
 
@@ -426,6 +596,106 @@ private String serialize(TreeNode node) {
 ### 3. Invert Binary Tree
 
 **🔗 LeetCode Link:** [Invert Binary Tree - LeetCode #226](https://leetcode.com/problems/invert-binary-tree/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What does "inverting" a tree mean visually? What happens to the left and right children?
+2. If you invert a node's children, what do you need to do with the children's children?
+3. At what point in your recursion should you perform the swap - before or after processing children?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Tree Inversion
+> **Guided Question:** What does it mean to "invert" a binary tree? If you draw it out, what changes about the tree's structure?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Inverting a binary tree means:
+- Every left child becomes a right child
+- Every right child becomes a left child
+- This happens at every level of the tree
+
+Visually, it's like looking at the tree in a mirror. The tree structure remains the same, but left and right are flipped at every node.
+</details>
+
+#### Step 2: Recursive Approach
+> **Guided Question:** How can you break this problem down? If you can invert the subtrees, what's left to do at each node?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The recursive approach:
+1. **Base case**: If the node is null, return null (nothing to invert)
+2. **Recursive case**: 
+   - Invert the left subtree
+   - Invert the right subtree  
+   - Swap the left and right children of the current node
+
+This ensures every subtree gets inverted, and then we fix the current level.
+</details>
+
+#### Step 3: Order of Operations
+> **Guided Question:** Does it matter whether you swap first and then recurse, or recurse first and then swap? Think about what each child pointer represents.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Both approaches work, but they're slightly different:
+
+**Approach 1 - Swap first**: 
+```java
+temp = root.left;
+root.left = invert(root.right);
+root.right = invert(temp);
+```
+
+**Approach 2 - Recurse first**:
+```java
+left = invert(root.left);
+right = invert(root.right);
+root.left = right;
+root.right = left;
+```
+
+The second approach is often clearer because you're explicitly saying "invert both children, then swap them."
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Handle the base case (null node returns null)
+- [ ] Recursively invert the left subtree
+- [ ] Recursively invert the right subtree
+- [ ] Swap the left and right children of current node
+- [ ] Return the current node
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we need to return the node after inverting? What does the return value represent?
+2. **Complexity Analysis:** How many nodes do we visit? What's the space complexity due to recursion?
+3. **Trade-offs:** Could you solve this iteratively using a queue or stack? How would the approach differ?
+4. **Pattern Recognition:** What other tree problems involve "processing children then modifying current node"?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given the root of a binary tree, invert the tree, and return its root. Inverting means swapping the left and right children of every node.
 
@@ -587,6 +857,91 @@ public TreeNode invertTree(TreeNode root) {
 ### 4. Binary Tree Maximum Path Sum
 
 **🔗 LeetCode Link:** [Binary Tree Maximum Path Sum - LeetCode #124](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What constitutes a "path" in a tree? Can it go through any node, or must it start from the root?
+2. If a subtree has all negative values, should you include it in your path or ignore it?
+3. At each node, you have a choice: contribute to a path through your parent, or start a new path here. How might these choices differ?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Path Definition
+> **Guided Question:** What kinds of paths are possible in a tree? Think about a node as a potential "junction" - what connections can it make?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+At any node, a path can:
+1. **Go straight through**: from left subtree → current node → right subtree
+2. **End here**: from left or right subtree → current node (no further)
+3. **Start here**: current node → left or right subtree (or just the node itself)
+
+The key insight: a node can be part of many potential paths, but we're looking for the maximum sum among all possible paths in the tree.
+</details>
+
+#### Step 2: Local vs Global Decision
+> **Guided Question:** At each node, you need to make two different decisions. What do you need to track, and what do you need to return?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Two decisions at each node:
+1. **Global decision**: What's the maximum path sum that includes this node as the "peak" (goes through both children)?
+2. **Local decision**: What's the maximum path sum starting from this node that can be extended upward to the parent?
+
+We track the global maximum across all nodes (answer to return), but we return the local maximum (to help parent make its decision).
+</details>
+
+#### Step 3: Handling Negative Values
+> **Guided Question:** If a subtree's maximum path sum is negative, how should that influence your decision? When would you include it vs exclude it?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Key insight about negative values:
+- **For the global path** (through current node): We can choose to include negative subtrees if the overall sum is still maximum
+- **For the local path** (to parent): We should never return a negative sum - it's better to return 0 (meaning "don't include this subtree")
+
+This is why we use `Math.max(0, leftGain)` - we only contribute to parent if we add positive value.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Set up a global variable to track maximum path sum
+- [ ] Write helper function that returns max gain from a node
+- [ ] Handle base case (null node returns 0)
+- [ ] Calculate left and right gains (with 0 minimum)
+- [ ] Update global maximum with path through current node
+- [ ] Return maximum gain from current node going upward
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we use `Math.max(0, childGain)` instead of just `childGain`?
+2. **Complexity Analysis:** How many times is each node visited? What's the space complexity?
+3. **Trade-offs:** Why can't we solve this with a simple tree traversal without the global variable?
+4. **Pattern Recognition:** What other tree problems require tracking both local and global optimums?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. The path does not need to pass through the root. The path sum is the sum of the node's values in the path. Given the root of a binary tree, return the maximum path sum of any non-empty path.
 
@@ -758,6 +1113,97 @@ private Result helper(TreeNode node) {
 ### 5. Binary Tree Level Order Traversal
 
 **🔗 LeetCode Link:** [Binary Tree Level Order Traversal - LeetCode #102](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the difference between visiting nodes level by level vs depth-first? Which would be more natural for this problem?
+2. If you're processing level 2, how do you know where level 3 begins? How can you keep levels separate?
+3. What data structure naturally processes things in the order they were added?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Level-by-Level vs Depth-First
+> **Guided Question:** How is level order traversal fundamentally different from the recursive tree problems we've seen? What does the visiting order tell us about the algorithm type?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+Level order traversal is fundamentally a **Breadth-First Search (BFS)** problem:
+- We visit all nodes at depth 0, then all at depth 1, then depth 2, etc.
+- This is opposite to DFS (Depth-First Search) where we go deep first
+- BFS naturally suggests using a **queue** - we process nodes in the order we discover them
+
+The key insight: this is a BFS problem, not a recursive DFS problem.
+</details>
+
+#### Step 2: Separating Levels
+> **Guided Question:** If you're using a queue to process nodes level by level, how do you know when one level ends and the next begins?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The trick is to process the queue **level by level**:
+1. Check how many nodes are currently in the queue (this is the current level size)
+2. Process exactly that many nodes, adding their children to the queue
+3. All nodes processed in this iteration belong to the same level
+4. After processing, the queue contains exactly the next level
+
+This size-based approach naturally separates levels without needing special markers.
+</details>
+
+#### Step 3: Building the Result Structure
+> **Guided Question:** The result should be a list of lists - each inner list represents one level. How do you construct this while traversing?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+For each level:
+1. Create a new list for the current level
+2. Process all nodes in the current level (based on queue size)
+3. Add each node's value to the current level list
+4. Add each node's children to the queue for the next level
+5. Add the completed level list to the result
+
+This builds the result incrementally, one level at a time.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Initialize queue with root node (if not null)
+- [ ] Create result list to store all levels
+- [ ] While queue is not empty: get current level size
+- [ ] Create list for current level values
+- [ ] Process exactly 'size' nodes: poll from queue, add value to level list
+- [ ] For each node polled: add its children to queue
+- [ ] Add completed level list to result
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we need to capture the queue size at the beginning of each level iteration?
+2. **Complexity Analysis:** What's the time complexity? How much extra space do we use beyond the result?
+3. **Trade-offs:** Could you solve this with DFS recursion? What would be the advantages and disadvantages?
+4. **Pattern Recognition:** What other tree problems require level-by-level processing?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).
 
@@ -955,6 +1401,92 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 ### 6. Serialize and Deserialize Binary Tree
 
 **🔗 LeetCode Link:** [Serialize and Deserialize Binary Tree - LeetCode #297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. To reconstruct a tree perfectly, what information must be preserved in the string representation?
+2. How would you represent null/missing nodes in a string? Why is this representation crucial?
+3. If you're building the tree back from a string, in what order should you process the values?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: What Information Must Be Preserved?
+> **Guided Question:** For a tree to be perfectly reconstructed, what aspects of its structure and content must be captured in the serialized string?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+To reconstruct a tree, we need:
+1. **All node values** (including their exact positions)
+2. **Null positions** (where nodes are missing)
+3. **Structural relationships** (parent-child connections)
+
+The key insight: we can't just store values - we must store the complete structure, including where "holes" exist in the tree.
+</details>
+
+#### Step 2: Traversal Order and Null Handling
+> **Guided Question:** What traversal order would allow you to reconstruct the tree in the same order you serialized it? How do you handle null nodes?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Pre-order traversal** is ideal because:
+- We process the root first, then left subtree, then right subtree
+- This matches how we'd reconstruct: create root, build left subtree, build right subtree
+- We can use a special marker (like "null" or "#") for null nodes
+
+Example: Tree [1,2,3,null,null,4,5] becomes "1,2,null,null,3,4,null,null,5,null,null"
+</details>
+
+#### Step 3: Reconstruction Strategy
+> **Guided Question:** During deserialization, how do you know when to stop building the left subtree and start building the right subtree?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+The pre-order approach naturally handles this:
+1. **Read next value**: If it's null, return null (base case)
+2. **Create node**: If it's a value, create the node
+3. **Recursive construction**: Set `node.left = deserialize()`, then `node.right = deserialize()`
+
+The recursion automatically handles the boundaries - when the left subtree is complete, the next calls will build the right subtree.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] **Serialize**: Use pre-order traversal, append values and "null" markers to string
+- [ ] **Serialize**: Handle null nodes explicitly with a special marker
+- [ ] **Deserialize**: Split string and use an index/iterator to track position
+- [ ] **Deserialize**: Handle null markers by returning null immediately
+- [ ] **Deserialize**: For non-null values: create node, recursively build left and right
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why is pre-order traversal particularly well-suited for this problem compared to in-order or post-order?
+2. **Complexity Analysis:** What's the time and space complexity for both serialize and deserialize operations?
+3. **Trade-offs:** Could you use level-order traversal instead? What would be the pros and cons?
+4. **Pattern Recognition:** What other problems require converting between tree structures and linear representations?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
 
 **Problem Statement**: Design an algorithm to serialize and deserialize a binary tree. Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored or transmitted and reconstructed later. Deserialization is the reverse process.
 
@@ -1212,6 +1744,92 @@ public class Codec {
 
 **🔗 LeetCode Link:** [Subtree of Another Tree - LeetCode #572](https://leetcode.com/problems/subtree-of-another-tree/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What's the difference between a "subtree" and just any subset of nodes? Must a subtree be complete?
+2. If you're looking for a subtree match, where in the main tree could the matching potentially start?
+3. How can you break this into two separate problems: finding potential starting points and verifying matches?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Subtree Definition
+> **Guided Question:** What exactly is a "subtree"? If the subRoot has 3 nodes, must the matching portion in root also have exactly 3 nodes in the same structure?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+A subtree must be **structurally identical**:
+- It includes a node and ALL of its descendants  
+- The structure must match exactly (same null positions)
+- All values must match exactly
+
+This means we can't just find matching values - we need to find a node where the entire subtree rooted at that node matches the target subtree completely.
+</details>
+
+#### Step 2: Two-Level Problem Decomposition
+> **Guided Question:** How can you break this problem into two simpler problems? Think about what needs to happen at each node of the main tree.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+This breaks into two problems:
+1. **Tree traversal**: Visit every node in the main tree as a potential subtree root
+2. **Tree comparison**: At each node, check if the subtree rooted there matches the target
+
+We already know how to do tree comparison (similar to "Same Tree" problem). We just need to apply it at every possible starting position.
+</details>
+
+#### Step 3: Recursive Structure
+> **Guided Question:** At each node in the main tree, what are the different ways the subtree could be found? Consider current node vs children.
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+At each node in the main tree, the subtree could be:
+1. **Rooted at this node**: The subtree starting here matches the target
+2. **In the left subtree**: The target subtree exists somewhere in the left child's subtree
+3. **In the right subtree**: The target subtree exists somewhere in the right child's subtree
+
+This gives us: `isSubtree(root, subRoot) = isSameTree(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)`
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Write helper function to check if two trees are identical (isSameTree)
+- [ ] In isSameTree: handle null cases (both null = true, one null = false)
+- [ ] In isSameTree: check value equality and recurse on children
+- [ ] Write main function to check if subRoot is subtree of root
+- [ ] Check: is subRoot same as current tree OR in left subtree OR in right subtree
+- [ ] Handle base case: if root is null but subRoot is not, return false
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why do we use OR (||) to combine the three checks instead of AND (&&)?
+2. **Complexity Analysis:** What's the worst-case time complexity? How many tree comparisons might we perform?
+3. **Trade-offs:** Could you solve this more efficiently using string serialization? What would be the trade-offs?
+4. **Pattern Recognition:** What other problems require checking a condition at every node in a tree?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding the problem: ___/5
+- [ ] Implementing brute force: ___/5  
+- [ ] Implementing optimal solution: ___/5
+- [ ] Explaining the approach: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Consider trying the follow-up questions for deeper understanding
+
 **Problem Statement**: Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values of `subRoot` and `false` otherwise.
 
 **Examples:**
@@ -1370,6 +1988,93 @@ private String getHash(TreeNode node, Set<String> hashes) {
 ### 8. Construct Binary Tree from Preorder and Inorder
 
 **🔗 LeetCode Link:** [Construct Binary Tree from Preorder and Inorder Traversal - LeetCode #105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What unique property does each traversal order give you about a tree's structure?
+2. If you know the root of a tree, how can you identify its left and right subtrees?
+3. What information do you need to track to avoid creating duplicate subtrees?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Traversal Properties
+> **Guided Question:** What does the first element in a preorder traversal tell you, and how can you use the inorder traversal to split the tree?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** The first element in preorder is always the root of the current (sub)tree.
+
+In preorder: Root → Left Subtree → Right Subtree
+In inorder: Left Subtree → Root → Right Subtree
+
+Once you find the root in the inorder array, everything to its left belongs to the left subtree, and everything to its right belongs to the right subtree. This gives you a way to recursively divide the problem.
+</details>
+
+#### Step 2: Naive Recursive Approach
+> **Guided Question:** How would you implement this recursively, and what would make it inefficient?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Naive Approach:** For each recursive call:
+1. Take the first element from remaining preorder as root
+2. Search for root in inorder array (linear search)
+3. Split inorder array and recursively build subtrees
+
+**Inefficiency:** Searching for root in inorder takes O(n) time for each node, leading to O(n²) overall time complexity. Also, creating new arrays for each recursive call wastes space.
+</details>
+
+#### Step 3: Optimization with HashMap and Index Management
+> **Guided Question:** How can you eliminate the linear search and array copying to achieve optimal performance?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Optimizations:**
+1. **HashMap for root lookup:** Pre-store all inorder elements with their indices in a HashMap for O(1) lookup
+2. **Index boundaries:** Instead of copying arrays, pass start/end indices for the current subarray being processed
+3. **Preorder index tracking:** Use a global or passed index to track current position in preorder array
+
+This reduces time complexity to O(n) and space complexity to O(n) for the HashMap plus O(h) for recursion stack.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimal solution from memory:
+
+**Step-by-step checklist:**
+- [ ] Create HashMap to store inorder element → index mapping
+- [ ] Implement recursive helper with boundary indices (inStart, inEnd)
+- [ ] Track preorder index (global variable or parameter)
+- [ ] Extract root from preorder, find its position in inorder
+- [ ] Calculate left subtree size and recursively build left/right subtrees
+- [ ] Handle base case when indices cross
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you explain why preorder + inorder uniquely determines a tree, but preorder + postorder might not?
+2. **Complexity Analysis:** Why is the HashMap approach O(n) time instead of O(n²)?
+3. **Trade-offs:** What's the space trade-off of using HashMap vs. repeated linear searches?
+4. **Pattern Recognition:** How does this problem relate to other tree construction problems (like from inorder + postorder)?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding traversal properties: ___/5
+- [ ] Implementing recursive tree construction: ___/5  
+- [ ] Optimizing with HashMap and indices: ___/5
+- [ ] Explaining the approach to others: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: Can you solve this iteratively using a stack?
 
 **Problem Statement**: Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
 
@@ -1575,6 +2280,103 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
 
 **🔗 LeetCode Link:** [Validate Binary Search Tree - LeetCode #98](https://leetcode.com/problems/validate-binary-search-tree/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What makes a binary search tree "valid" - is it just about comparing each node to its immediate children?
+2. If you traverse a valid BST in inorder, what pattern should you see in the values?
+3. What information do you need to track as you move down the tree to ensure global BST property?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding BST Property
+> **Guided Question:** Why isn't it enough to just check if each node is greater than its left child and less than its right child?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** BST validation requires global constraints, not just local ones.
+
+Consider this tree: `[5, 1, 4, null, null, 3, 6]`. Node 4 is greater than its left child (3), but 4 is in the right subtree of 5, so it violates the BST property since 4 < 5.
+
+Every node must satisfy constraints based on ALL its ancestors:
+- Left subtree: all values < current node
+- Right subtree: all values > current node
+</details>
+
+#### Step 2: Range-Based Validation Approach
+> **Guided Question:** How can you track the valid range of values for each node as you traverse the tree?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Range Validation Approach:**
+1. Start with the full range: (-∞, +∞) for the root
+2. When going left: update max boundary to current node's value
+3. When going right: update min boundary to current node's value
+4. At each node, check if its value is within the current valid range
+
+This ensures that every node respects constraints from all its ancestors, not just immediate parent.
+</details>
+
+#### Step 3: Alternative Inorder Traversal Approach
+> **Guided Question:** What property of inorder traversal on a valid BST can you exploit for validation?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Inorder Property:** Inorder traversal of a valid BST produces values in strictly increasing order.
+
+Algorithm:
+1. Perform inorder traversal (left → node → right)
+2. Keep track of the previously visited node's value
+3. At each node, ensure current value > previous value
+4. If any violation found, return false
+
+This is elegant because it transforms the problem into checking if a sequence is sorted, but requires O(n) space for the full traversal or careful state management for early termination.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing both approaches from memory:
+
+**Range-based approach checklist:**
+- [ ] Define helper function with (node, min, max) parameters
+- [ ] Base case: null nodes are valid
+- [ ] Check if current node value violates range constraints
+- [ ] Recursively validate left subtree with updated max bound
+- [ ] Recursively validate right subtree with updated min bound
+
+**Inorder approach checklist:**
+- [ ] Track previous node value (use class variable or wrapper)
+- [ ] Implement inorder traversal (left, process, right)
+- [ ] Compare current node with previous for strict increasing order
+- [ ] Return false immediately on violation for efficiency
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Can you construct a binary tree that looks like a BST locally but violates the global BST property?
+2. **Complexity Analysis:** Why is the range-based approach O(n) time and O(h) space while naive checking might be O(n²)?
+3. **Trade-offs:** When would you prefer inorder traversal vs. range validation?
+4. **Pattern Recognition:** How does this range-passing pattern apply to other tree validation problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding global vs. local BST constraints: ___/5
+- [ ] Implementing range-based validation: ___/5  
+- [ ] Implementing inorder validation: ___/5
+- [ ] Choosing the right approach for different scenarios: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: Can you validate without using recursion (iterative approach)?
+
 **Problem Statement**: Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows: The left subtree of a node contains only nodes with keys less than the node's key. The right subtree of a node contains only nodes with keys greater than the node's key. Both the left and right subtrees must also be binary search trees.
 
 **Examples:**
@@ -1747,6 +2549,113 @@ public boolean isValidBST(TreeNode root) {
 ### 10. Kth Smallest Element in a BST
 
 **🔗 LeetCode Link:** [Kth Smallest Element in a BST - LeetCode #230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. What property of BST traversal naturally gives you elements in sorted order?
+2. Do you need to visit all nodes to find the kth smallest, or can you stop early?
+3. How would you track which element you're currently at during traversal?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Leveraging BST Inorder Property
+> **Guided Question:** Which traversal order would give you BST elements from smallest to largest, and how does this help?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** Inorder traversal of a BST visits nodes in ascending order.
+
+In a BST, inorder traversal (left → root → right) naturally produces elements in sorted order:
+- Process all smaller elements (left subtree) first
+- Process current node 
+- Process all larger elements (right subtree) last
+
+This means the kth element visited during inorder traversal is the kth smallest element overall!
+</details>
+
+#### Step 2: Naive Approach - Full Traversal
+> **Guided Question:** What's the straightforward way to solve this, and what makes it suboptimal?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Naive Approach:**
+1. Perform complete inorder traversal
+2. Store all elements in a list
+3. Return the kth element (index k-1)
+
+**Inefficiencies:**
+- Time: O(n) - visits all nodes even if k is small
+- Space: O(n) - stores all elements unnecessarily
+- No early termination when we find the answer
+
+This works but doesn't take advantage of the fact that we can stop as soon as we find the kth element.
+</details>
+
+#### Step 3: Optimized Early Termination
+> **Guided Question:** How can you modify inorder traversal to stop as soon as you find the kth smallest element?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Optimization Strategies:**
+
+**Recursive with Counter:**
+- Pass a counter to track current position
+- Increment counter at each node visit
+- Return immediately when counter reaches k
+
+**Iterative with Stack:**
+- Use explicit stack for inorder traversal
+- Maintain count of visited nodes
+- Stop and return when count reaches k
+
+Both achieve O(H + k) time complexity where H is height, and O(H) space for recursion/stack. Much better when k << n!
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the optimized solution from memory:
+
+**Recursive approach checklist:**
+- [ ] Define helper function with counter parameter (or use class variable)
+- [ ] Implement inorder traversal: left → process → right
+- [ ] Increment counter when processing each node
+- [ ] Return result when counter equals k
+- [ ] Handle early termination to avoid unnecessary traversal
+
+**Iterative approach checklist:**
+- [ ] Use stack to simulate inorder traversal
+- [ ] Push all left children first
+- [ ] Pop and process node, increment count
+- [ ] Return when count reaches k
+- [ ] Push right child and repeat
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does inorder traversal guarantee ascending order in a BST, but not in a regular binary tree?
+2. **Complexity Analysis:** How does the complexity change from O(n) to O(H + k), and when is this beneficial?
+3. **Trade-offs:** When would you prefer recursive vs. iterative implementation?
+4. **Pattern Recognition:** How does this early-termination pattern apply to other tree search problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding inorder BST property: ___/5
+- [ ] Implementing early termination optimization: ___/5  
+- [ ] Choosing between recursive and iterative approaches: ___/5
+- [ ] Analyzing time complexity for different k values: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: What if the BST is frequently modified and you need to handle multiple kth smallest queries?
 
 **Problem Statement**: Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) in the tree.
 
@@ -1936,6 +2845,109 @@ private void inorder(TreeNode node, List<Integer> values) {
 
 **🔗 LeetCode Link:** [Lowest Common Ancestor of a Binary Search Tree - LeetCode #235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How does the BST property help you determine where two nodes might diverge in their paths from the root?
+2. What does it mean for a node to be the "lowest" common ancestor, and how can you identify that split point?
+3. Do you need to search both subtrees, or can the BST property guide you in one direction?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding LCA in BST Context
+> **Guided Question:** What special property does a BST have that simplifies finding the LCA compared to a regular binary tree?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** BST property allows you to determine the direction to search based on node values.
+
+In a BST:
+- If both target nodes have values less than current node → LCA is in left subtree
+- If both target nodes have values greater than current node → LCA is in right subtree  
+- If one target is smaller and one is larger (or equal) → current node IS the LCA
+
+This eliminates the need to search both subtrees like in a general binary tree LCA problem!
+</details>
+
+#### Step 2: Path-Based vs. Value-Based Approach
+> **Guided Question:** How would you solve this naively, and how does the BST property offer a more direct solution?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Naive Approach (works for any tree):**
+1. Find path from root to node p
+2. Find path from root to node q  
+3. Compare paths to find the last common node
+
+**BST-Optimized Approach:**
+1. Start from root
+2. Use node values to decide direction: left if both targets are smaller, right if both are larger
+3. Stop when you find the split point (where targets would go in different directions)
+
+The BST approach is much more efficient: O(h) time vs. O(n) for path finding, and O(1) vs. O(h) space.
+</details>
+
+#### Step 3: Recognizing the Split Point
+> **Guided Question:** At what exact moment do you know you've found the LCA during your BST traversal?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Split Point Recognition:** 
+The LCA is the first node where the two target nodes would diverge into different subtrees.
+
+**Conditions for LCA at current node:**
+1. `p.val <= current.val <= q.val` (assuming p.val <= q.val)
+2. OR one target equals current node value
+3. OR targets are on opposite sides: `(p.val < current.val) != (q.val < current.val)`
+
+Once you identify this split point, you don't need to go any deeper - this node is guaranteed to be the lowest point where both targets have a common ancestor.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the BST-optimized solution from memory:
+
+**Recursive approach checklist:**
+- [ ] Base case: if current node is null, return null
+- [ ] If both target values < current value → recurse left
+- [ ] If both target values > current value → recurse right
+- [ ] Otherwise (split point found) → return current node
+- [ ] Handle edge case where one target equals current node
+
+**Iterative approach checklist:**
+- [ ] Start with current = root
+- [ ] While current is not null
+- [ ] Use same logic as recursive to determine direction
+- [ ] Return current when split point is found
+- [ ] Move current left or right based on comparison
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does this BST approach guarantee finding the LCA in one pass without backtracking?
+2. **Complexity Analysis:** How does leveraging BST property improve both time and space complexity?
+3. **Trade-offs:** When would you prefer recursive vs. iterative implementation for this problem?
+4. **Pattern Recognition:** How does this "split point detection" pattern apply to other BST problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding LCA concept in BST context: ___/5
+- [ ] Implementing value-based direction logic: ___/5  
+- [ ] Recognizing split point conditions: ___/5
+- [ ] Comparing BST vs. general tree approaches: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: How would you solve LCA for a general binary tree (not BST)?
+
 **Problem Statement**: Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST. The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).
 
 **Examples:**
@@ -2105,6 +3117,134 @@ private TreeNode findLCA(TreeNode node, int minVal, int maxVal) {
 ### 12. Implement Trie (Prefix Tree)
 
 **🔗 LeetCode Link:** [Implement Trie (Prefix Tree) - LeetCode #208](https://leetcode.com/problems/implement-trie-prefix-tree/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you store multiple words to enable fast prefix-based searches?
+2. What information does each node in a prefix tree need to track?
+3. How can you distinguish between a prefix that's also a complete word vs. just a prefix?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Understanding Trie Structure
+> **Guided Question:** How does a tree structure help with storing words to enable efficient prefix operations?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** A Trie stores words character by character along paths from root to leaves, sharing common prefixes.
+
+Trie Structure:
+- **Root**: Empty starting point
+- **Edges**: Represent characters
+- **Paths**: Root to node represents prefixes
+- **Special marking**: Indicate where complete words end
+
+Example: Storing ["cat", "cats", "car"] creates shared paths for common prefixes:
+```
+    root
+     |
+     c
+     |
+     a
+    / \
+   t   r
+   |   |
+   s   (end)
+   |
+  (end)
+```
+</details>
+
+#### Step 2: Node Design Decisions
+> **Guided Question:** What data should each Trie node contain, and how should you represent the connections to child nodes?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Node Components Needed:**
+1. **Child references**: Map from character → child node
+2. **End marker**: Boolean indicating if this node marks end of a valid word
+3. **Optional optimization**: Store character value (though path implies this)
+
+**Design Choices:**
+- **Array vs HashMap for children**: Array[26] for lowercase letters (O(1) access) vs HashMap<Character, Node> for flexibility
+- **End marking**: `isEndOfWord` boolean flag essential for distinguishing prefixes from complete words
+
+This design allows sharing of common prefixes while marking word boundaries.
+</details>
+
+#### Step 3: Operation Implementation Strategy
+> **Guided Question:** How do the three operations (insert, search, startsWith) relate to each other, and what's the core logic for each?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Common Pattern - Path Traversal:**
+All operations follow character-by-character path traversal from root.
+
+**Insert Algorithm:**
+1. Create path if it doesn't exist (create missing nodes)
+2. Mark final node as end of word
+
+**Search Algorithm:**
+1. Follow existing path
+2. Return true only if path exists AND final node is marked as word end
+
+**StartsWith Algorithm:**
+1. Follow existing path
+2. Return true if path exists (regardless of word end marking)
+
+**Key Insight**: Search and startsWith share logic but differ in final condition - search requires word completion, startsWith only requires path existence.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the Trie class from memory:
+
+**TrieNode design checklist:**
+- [ ] Define TrieNode class with children array/map
+- [ ] Add boolean isEndOfWord field
+- [ ] Constructor to initialize children structure
+
+**Insert method checklist:**
+- [ ] Start from root, iterate through word characters
+- [ ] Create new nodes for missing characters
+- [ ] Mark final node as end of word
+
+**Search method checklist:**
+- [ ] Start from root, iterate through word characters
+- [ ] Return false if any character path doesn't exist
+- [ ] Return node.isEndOfWord for final character
+
+**StartsWith method checklist:**
+- [ ] Similar to search but return true if path exists
+- [ ] Don't check isEndOfWord flag
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does a Trie enable faster prefix searches than storing words in a list or hash set?
+2. **Complexity Analysis:** What's the time complexity for each operation in terms of word length vs. number of words?
+3. **Trade-offs:** When would you choose array vs. HashMap for child node storage?
+4. **Pattern Recognition:** How does this tree structure relate to other character-based data structures?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding Trie structure and benefits: ___/5
+- [ ] Implementing TrieNode with proper fields: ___/5  
+- [ ] Implementing insert, search, startsWith methods: ___/5
+- [ ] Analyzing time/space complexity trade-offs: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: How would you add a delete operation to the Trie?
 
 **Problem Statement**: A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class with insert, search, and startsWith methods.
 
@@ -2435,6 +3575,122 @@ class Trie {
 ### 13. Add and Search Word - Data Structure Design
 
 **🔗 LeetCode Link:** [Design Add and Search Words Data Structure - LeetCode #211](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How does the wildcard '.' character change the search strategy compared to a regular Trie?
+2. When you encounter a '.', what are your options, and how do you explore them all?
+3. What underlying data structure would efficiently support both exact matches and wildcard searches?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Building on Trie Foundation
+> **Guided Question:** How does this problem extend the basic Trie implementation, and what new challenges does the wildcard introduce?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Key Insight:** This is a Trie problem with wildcard pattern matching.
+
+**Extensions from Basic Trie:**
+- `addWord`: Identical to Trie insert operation
+- `search`: Must handle '.' wildcard that can match any single character
+
+**Wildcard Challenge:** 
+When encountering '.', you can't follow a single path - you must explore ALL possible child nodes at that position. This transforms the search from a simple traversal into a backtracking/recursive exploration.
+</details>
+
+#### Step 2: Wildcard Search Strategy
+> **Guided Question:** When you hit a '.' in your search pattern, how do you handle exploring multiple possible paths?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Backtracking Approach:**
+1. **Regular character**: Follow single path (like normal Trie search)
+2. **Wildcard '.'**: Try ALL child nodes recursively
+3. **Success condition**: Any path leads to valid word completion
+4. **Base cases**: End of pattern with isEndOfWord flag
+
+**Implementation Pattern:**
+```
+search(node, pattern, index):
+  if index == pattern.length: return node.isEndOfWord
+  if pattern[index] == '.':
+    for each child in node.children:
+      if search(child, pattern, index+1): return true
+    return false
+  else:
+    return search(node.children[pattern[index]], pattern, index+1)
+```
+</details>
+
+#### Step 3: Optimization and Edge Cases
+> **Guided Question:** What edge cases and optimizations should you consider for wildcard matching?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Critical Edge Cases:**
+1. **All wildcards**: "..." should match any 3-letter word
+2. **Mixed patterns**: "a.c" should match "abc", "adc", etc.
+3. **Empty pattern**: Should return false (no words have zero length)
+4. **No matching children**: Early termination when '.' has no child options
+
+**Optimizations:**
+1. **Early termination**: Return false if null node encountered
+2. **Child existence check**: Skip null children during wildcard exploration
+3. **Pattern length verification**: Ensure remaining pattern length matches possible paths
+
+**Time Complexity**: O(N × 26^M) worst case, where N = number of nodes, M = number of wildcards
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the WordDictionary class from memory:
+
+**Basic structure checklist:**
+- [ ] Use TrieNode with children array and isEndOfWord flag
+- [ ] Implement addWord using standard Trie insertion
+- [ ] Initialize root node in constructor
+
+**Search method checklist:**
+- [ ] Define recursive helper with (node, word, index) parameters
+- [ ] Base case: return node.isEndOfWord when index reaches word length
+- [ ] Handle null node case (return false)
+- [ ] Wildcard case: iterate through all children recursively
+- [ ] Regular character case: follow single path if it exists
+
+**Backtracking logic checklist:**
+- [ ] For '.': try each existing child node
+- [ ] Return true if ANY child path succeeds
+- [ ] For regular char: check if specific child exists before recursing
+- [ ] Proper index management for recursive calls
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does wildcard search require backtracking while regular Trie search doesn't?
+2. **Complexity Analysis:** How does the number of wildcards affect worst-case time complexity?
+3. **Trade-offs:** What are the space/time trade-offs of this approach vs. storing all words in a list?
+4. **Pattern Recognition:** How does this backtracking pattern apply to other pattern matching problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding wildcard search challenges: ___/5
+- [ ] Implementing recursive backtracking for '.': ___/5  
+- [ ] Handling edge cases and null checks: ___/5
+- [ ] Analyzing complexity with wildcard patterns: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: Move to next problem
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: How would you optimize for patterns with many consecutive wildcards?
 
 **Problem Statement**: Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement the WordDictionary class with addWord and search methods. The search method should support '.' as a wildcard that can match any letter.
 
@@ -2800,6 +4056,121 @@ class WordDictionary {
 ### 14. Word Search II
 
 **🔗 LeetCode Link:** [Word Search II - LeetCode #212](https://leetcode.com/problems/word-search-ii/)
+
+### 🤔 Think First (Active Retrieval)
+Before reading the solution, spend 2-3 minutes thinking about this problem:
+
+**Quick Reflection Questions:**
+1. How would you naively search for multiple words on a board, and what makes this inefficient?
+2. How can you use a Trie to avoid redundant exploration when multiple words share common prefixes?
+3. What information do you need to track during DFS to avoid revisiting cells and detect word completion?
+
+*Take a moment to think through these questions before continuing...*
+
+### 💡 Discovery Process (Guided Learning)
+
+#### Step 1: Identifying the Core Challenge
+> **Guided Question:** Why is searching for each word individually inefficient, and how does the Trie data structure address this?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Naive Inefficiency:** 
+Searching for each word separately means exploring the same board paths multiple times, even when words share common prefixes.
+
+**Trie Solution Insight:**
+A Trie allows you to explore all words simultaneously! When traversing the board:
+- Each DFS path corresponds to a Trie path
+- Shared prefixes are explored only once
+- Word completion detected when reaching Trie nodes marked as word endings
+
+**Key Efficiency Gain:** Instead of W separate searches (W = number of words), you perform one unified search that discovers multiple words during a single board traversal.
+</details>
+
+#### Step 2: DFS with Trie Integration
+> **Guided Question:** How do you modify standard DFS board traversal to work with a Trie for multiple word detection?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Enhanced DFS Algorithm:**
+1. **Start from each board cell** with the Trie root
+2. **Move in 4 directions** (up, down, left, right)
+3. **Follow Trie path** based on current board character
+4. **Mark visited cells** to prevent reuse within current word
+5. **Detect word completion** when Trie node has isEndOfWord = true
+6. **Backtrack** to explore other possibilities
+
+**State Management:**
+- **Board state**: Mark/unmark visited cells
+- **Trie state**: Current node in Trie tree
+- **Word collection**: Accumulate found words (avoid duplicates)
+
+**Integration Logic**: Continue DFS only if current character exists as a child in current Trie node.
+</details>
+
+#### Step 3: Optimization Strategies
+> **Guided Question:** What optimizations can make this Trie + DFS approach even more efficient?
+
+<details>
+<summary>💭 Think about it, then click to reveal</summary>
+
+**Critical Optimizations:**
+
+1. **Early Termination**: If current Trie node has no children, stop exploring this path
+2. **Word Removal**: Remove found words from Trie to avoid duplicate results and enable branch pruning
+3. **Leaf Pruning**: After finding a word, remove unnecessary Trie branches to reduce future exploration
+4. **Bounds Checking**: Validate board boundaries before recursive calls
+
+**Advanced Optimization:**
+Remove words from Trie after finding them by setting `isEndOfWord = false` and pruning branches with no remaining words. This progressively shrinks the search space.
+
+**Time Complexity**: O(M × N × 4^L) where M×N is board size, L is maximum word length, but Trie pruning significantly improves average case performance.
+</details>
+
+### 🎯 Practice & Self-Assessment
+
+#### Implementation Challenge
+Try implementing the Trie + DFS solution from memory:
+
+**Trie setup checklist:**
+- [ ] Build Trie from all words in the word list
+- [ ] Use standard TrieNode with children array and isEndOfWord flag
+- [ ] Insert all words during initialization
+
+**DFS implementation checklist:**
+- [ ] Start DFS from each board cell with Trie root
+- [ ] Check bounds and visited status before recursing
+- [ ] Verify current character exists in Trie before continuing
+- [ ] Mark cell as visited, recurse to neighbors, then unmark (backtrack)
+- [ ] Add to results when isEndOfWord is true
+- [ ] Implement 4-directional movement (up, down, left, right)
+
+**Optimization checklist:**
+- [ ] Use visited matrix or modify board in-place for marking
+- [ ] Avoid duplicate words in results (use Set or remove from Trie)
+- [ ] Consider early termination when Trie path doesn't exist
+- [ ] Proper backtracking to restore board state
+
+#### Reflection Questions
+After solving, think about:
+
+1. **Understanding Check:** Why does the Trie approach significantly outperform searching for each word individually?
+2. **Complexity Analysis:** How does the number of words and their shared prefixes affect performance?
+3. **Trade-offs:** What are the space/time trade-offs of building a Trie vs. other approaches?
+4. **Pattern Recognition:** How does this Trie + DFS pattern apply to other board + string collection problems?
+
+#### Confidence Rating
+Rate your confidence (1-5) on:
+- [ ] Understanding Trie + board DFS integration: ___/5
+- [ ] Implementing backtracking with state management: ___/5  
+- [ ] Optimizing with word removal and pruning: ___/5
+- [ ] Analyzing complexity for different input scenarios: ___/5
+
+#### Next Steps
+- If confidence is 3+ on all: You've mastered advanced tree problems!
+- If confidence is <3: Review the guided discovery section again
+- Try the follow-up: How would you handle a dictionary with millions of words efficiently?
 
 **Problem Statement**: Given an m x n board of characters and a list of strings words, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 
