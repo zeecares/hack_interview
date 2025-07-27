@@ -14,9 +14,9 @@ Master the fundamentals of SQL data retrieval and filtering through 8 essential 
 
 ---
 
-## 1. Select All Employees
+## 1. Recyclable and Low Fat Products (LC 1757)
 
-**🔗 LeetCode Link:** [Select All Employees - LeetCode #1757](https://leetcode.com/problems/recyclable-and-low-fat-products/)
+**🔗 LeetCode Link:** [Recyclable and Low Fat Products - LeetCode #1757](https://leetcode.com/problems/recyclable-and-low-fat-products/)
 
 ### 📊 Schema First (Active Analysis)
 Before writing any SQL, spend 2-3 minutes analyzing the table structure:
@@ -30,20 +30,19 @@ Before writing any SQL, spend 2-3 minutes analyzing the table structure:
 
 **Table Structure:**
 ```sql
-CREATE TABLE Employees (
-    employee_id INT PRIMARY KEY,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    department VARCHAR(30),
-    salary DECIMAL(10,2),
-    hire_date DATE
+CREATE TABLE Products (
+    product_id INT PRIMARY KEY,
+    low_fats ENUM('Y','N'),
+    recyclable ENUM('Y','N')
 );
 
 -- Sample Data
-INSERT INTO Employees VALUES
-(1, 'John', 'Doe', 'Engineering', 75000.00, '2022-01-15'),
-(2, 'Jane', 'Smith', 'Marketing', 65000.00, '2021-03-20'),
-(3, 'Bob', 'Johnson', 'Engineering', 80000.00, '2020-11-10');
+INSERT INTO Products VALUES
+(0, 'Y', 'N'),
+(1, 'Y', 'Y'),
+(2, 'N', 'Y'),
+(3, 'Y', 'Y'),
+(4, 'N', 'N');
 ```
 
 ### 💡 Query Construction (Guided Learning)
@@ -97,28 +96,26 @@ Explicit column selection is generally preferred in production applications.
 
 ### Solutions
 
-#### Approach 1: Select All Columns (Wildcard)
+#### Approach 1: Basic AND Condition
 ```sql
--- Using asterisk to select all columns
-SELECT * 
-FROM Employees;
+-- Find products that are both low fat and recyclable
+SELECT product_id
+FROM Products
+WHERE low_fats = 'Y' AND recyclable = 'Y';
 ```
 
 **Explanation:**
-- `*` represents all columns in the table
-- Returns all rows since no WHERE clause is used
-- Simple and quick for exploratory queries
+- `WHERE` clause filters rows based on conditions
+- `AND` operator requires both conditions to be true
+- Returns only products meeting both criteria
+- Simple filtering using equality comparison
 
 #### Approach 2: Explicit Column Selection
 ```sql
--- Explicitly listing all columns
-SELECT employee_id, 
-       first_name, 
-       last_name, 
-       department, 
-       salary, 
-       hire_date
-FROM Employees;
+-- Show all information for qualifying products
+SELECT product_id, low_fats, recyclable
+FROM Products
+WHERE low_fats = 'Y' AND recyclable = 'Y';
 ```
 
 **Trade-offs:**
@@ -166,9 +163,9 @@ Rate your confidence (1-5) on:
 
 ---
 
-## 2. Find High Salary Employees
+## 2. Find Customer Referee (LC 584)
 
-**🔗 LeetCode Link:** [High Earners - LeetCode #1849](https://leetcode.com/problems/employees-earning-more-than-their-managers/)
+**🔗 LeetCode Link:** [Find Customer Referee - LeetCode #584](https://leetcode.com/problems/find-customer-referee/)
 
 ### 📊 Schema First (Active Analysis)
 Using the same Employees table from Problem 1:
