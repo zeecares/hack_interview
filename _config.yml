@@ -4,8 +4,8 @@ description: Comprehensive study guides for Blind 75 LeetCode problems
 author: Your Name
 email: your.email@example.com
 
-# Jekyll settings - use commonmark to avoid Liquid conflicts
-markdown: CommonMarkGhPages
+# Jekyll settings - use kramdown for GitHub Pages compatibility
+markdown: kramdown
 highlighter: rouge
 permalink: /:title/
 
@@ -16,6 +16,7 @@ kramdown:
     block:
       line_numbers: false
   input: GFM
+  hard_wrap: false
 
 # Disable Liquid processing for markdown files to avoid conflicts with code syntax
 liquid:
@@ -43,11 +44,11 @@ include:
   - blind75
 
 # Site settings
-url: "https://yourusername.github.io"
+url: "https://zeecares.github.io"
 baseurl: "/hack_interview"
 
 # Social media
 social:
-  github: yourusername
-  twitter: yourusername
-  linkedin: yourusername 
+  github: zeecares
+  twitter: zeecares
+  linkedin: zeecares 

@@ -12,20 +12,21 @@ Welcome to my comprehensive collection of Blind 75 LeetCode study guides! This s
 ### [Complete Java Solutions](blind75/complete-blind75-java-study-guide.html)
 Comprehensive Java solutions for all Blind 75 problems with detailed explanations.
 
-### [Array Problems](blind75/blind75-array-study-guide.html)
-Detailed coverage of array manipulation, two-pointer techniques, sliding windows, and more.
+### Core Data Structures
+- **[Array Problems](blind75/blind75-array-study-guide.html)** - Two-pointer techniques, sliding windows, hash maps
+- **[String Problems](blind75/string-blind75-study-guide.html)** - Pattern matching, sliding window, advanced algorithms
+- **[Linked List Problems](blind75/linked_list_study_guide.html)** - Pointer manipulation, fast/slow pointers, list algorithms
 
-### [String Problems](blind75/string-blind75-study-guide.html)
-String manipulation, pattern matching, and advanced string algorithms.
+### Advanced Topics
+- **[Tree Problems](blind75/tree_study_guide.html)** - DFS, BFS, recursive algorithms, BST operations
+- **[Dynamic Programming](blind75/dp_study_guide.html)** - DP patterns, memoization, optimization strategies
+- **[Graph Problems](blind75/graph_study_guide.html)** - Graph traversal, topological sorting, connected components
 
-### [Graph Problems](blind75/graph_study_guide.html)
-Graph algorithms, DFS/BFS, topological sorting, and connected components.
-
-### [Linked List Problems](blind75/linked_list_study_guide.html)
-Linked list manipulation, fast/slow pointers, and list algorithms.
-
-### [Dynamic Programming](blind75/dp_study_guide.html)
-DP patterns, memoization, tabulation, and optimization strategies.
+### Specialized Categories
+- **[Binary/Bit Manipulation](blind75/binary_study_guide.html)** - Bit operations, mathematical properties
+- **[Heap Problems](blind75/heap_study_guide.html)** - Priority queues, streaming algorithms
+- **[Interval Problems](blind75/interval_study_guide.html)** - Scheduling, merging algorithms
+- **[Matrix Problems](blind75/matrix_study_guide.html)** - 2D transformations, spatial algorithms
 
 ### [Java Fundamentals](blind75/blind75-java-study-guide.html)
 Core Java concepts and syntax for interview preparation.
@@ -50,7 +51,7 @@ This repository contains detailed study guides for the Blind 75 LeetCode problem
 
 ## 🔗 Repository
 
-View the source code and contribute: [GitHub Repository](https://github.com/yourusername/hack_interview)
+View the source code and contribute: [GitHub Repository](https://github.com/zeecares/hack_interview)
 
 ---
 
