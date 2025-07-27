@@ -11,8 +11,8 @@
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Prism.js for code highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" id="prism-dark-theme" disabled>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" id="prism-light-theme">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow-night.min.css" rel="stylesheet" id="prism-dark-theme" disabled>
     <!-- Custom CSS -->
     <style>
         :root {
@@ -20,9 +20,13 @@
             --bs-body-color: #333333;
             --bs-border-color: #e1e5e9;
             --sidebar-bg: #f6f8fa;
-            --code-bg: #f6f8fa;
+            --code-bg: #fafafa;
+            --code-border: #e1e5e9;
+            --code-shadow: rgba(0, 0, 0, 0.1);
             --footer-bg: #f6f8fa;
             --navbar-bg: #f8f9fa;
+            --inline-code-bg: #f3f4f6;
+            --inline-code-color: #e11d48;
         }
         
         [data-bs-theme="dark"] {
@@ -30,9 +34,13 @@
             --bs-body-color: #c9d1d9;
             --bs-border-color: #30363d;
             --sidebar-bg: #161b22;
-            --code-bg: #161b22;
+            --code-bg: #0d1117;
+            --code-border: #30363d;
+            --code-shadow: rgba(0, 0, 0, 0.3);
             --footer-bg: #161b22;
             --navbar-bg: #21262d;
+            --inline-code-bg: #262c36;
+            --inline-code-color: #ff6b9d;
         }
         
         body {
@@ -112,19 +120,134 @@
             text-decoration: underline;
         }
         
+        /* Modern Code Block Styling */
         pre {
-            background: var(--code-bg);
-            border: 1px solid var(--bs-border-color);
-            border-radius: 6px;
-            padding: 1rem;
+            background: var(--code-bg) !important;
+            border: 1px solid var(--code-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             overflow-x: auto;
+            position: relative;
+            box-shadow: 0 4px 6px -1px var(--code-shadow), 0 2px 4px -1px var(--code-shadow);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            transition: all 0.3s ease;
         }
         
+        pre:hover {
+            box-shadow: 0 10px 15px -3px var(--code-shadow), 0 4px 6px -2px var(--code-shadow);
+            transform: translateY(-1px);
+        }
+        
+        /* Add a subtle header bar to code blocks */
+        pre::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b9d, #4ecdc4, #45b7d1, #96ceb4);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        /* Inline code styling */
         code {
-            background: var(--code-bg);
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-size: 0.9em;
+            background: var(--inline-code-bg) !important;
+            color: var(--inline-code-color) !important;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            font-weight: 500;
+            border: 1px solid var(--code-border);
+        }
+        
+        /* Code block within pre shouldn't have inline styling */
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            font-size: inherit;
+            font-weight: normal;
+        }
+        
+        /* Language label and copy button for code blocks */
+        pre[class*="language-"] {
+            position: relative;
+        }
+        
+        .code-header {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        
+        .code-language {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--bs-body-color);
+            opacity: 0.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 600;
+        }
+        
+        .copy-button {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--code-border);
+            color: var(--bs-body-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: translateY(-2px);
+        }
+        
+        pre:hover .copy-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .copy-button:hover {
+            background: var(--code-border);
+            transform: scale(1.05);
+        }
+        
+        .copy-button.copied {
+            background: #22c55e;
+            color: white;
+            border-color: #22c55e;
+        }
+        
+        /* Custom scrollbar for code blocks */
+        pre::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        pre::-webkit-scrollbar-track {
+            background: var(--sidebar-bg);
+            border-radius: 4px;
+        }
+        
+        pre::-webkit-scrollbar-thumb {
+            background: var(--bs-border-color);
+            border-radius: 4px;
+        }
+        
+        pre::-webkit-scrollbar-thumb:hover {
+            background: var(--bs-body-color);
+            opacity: 0.7;
         }
         
         .footer {
@@ -262,11 +385,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     
-    <!-- Dark Mode Toggle -->
+    <!-- Enhanced Theme and Code Functionality -->
     <script>
         // Theme toggle functionality
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
+        const prismLightTheme = document.getElementById('prism-light-theme');
         const prismDarkTheme = document.getElementById('prism-dark-theme');
         
         // Check for saved theme preference or default to light mode
@@ -288,19 +412,91 @@
                 document.documentElement.setAttribute('data-bs-theme', 'dark');
                 themeIcon.className = 'fas fa-sun';
                 themeToggle.title = 'Switch to light mode';
-                if (prismDarkTheme) {
+                if (prismLightTheme && prismDarkTheme) {
+                    prismLightTheme.disabled = true;
                     prismDarkTheme.disabled = false;
-                    document.querySelector('link[href*="prism.min.css"]').disabled = true;
                 }
             } else {
                 document.documentElement.setAttribute('data-bs-theme', 'light');
                 themeIcon.className = 'fas fa-moon';
                 themeToggle.title = 'Switch to dark mode';
-                if (prismDarkTheme) {
+                if (prismLightTheme && prismDarkTheme) {
+                    prismLightTheme.disabled = false;
                     prismDarkTheme.disabled = true;
-                    document.querySelector('link[href*="prism.min.css"]').disabled = false;
                 }
             }
+        }
+        
+        // Enhanced code block functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add copy buttons and language labels to code blocks
+            const codeBlocks = document.querySelectorAll('pre[class*="language-"]');
+            
+            codeBlocks.forEach((block, index) => {
+                // Create header container
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                
+                // Extract language from class name
+                const languageClass = block.className.match(/language-(\w+)/);
+                const language = languageClass ? languageClass[1] : 'code';
+                
+                // Create language label
+                const languageLabel = document.createElement('span');
+                languageLabel.className = 'code-language';
+                languageLabel.textContent = language;
+                
+                // Create copy button
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                copyButton.onclick = () => copyCodeToClipboard(copyButton, block);
+                
+                // Add elements to header
+                header.appendChild(languageLabel);
+                header.appendChild(copyButton);
+                
+                // Add header to code block
+                block.appendChild(header);
+            });
+        });
+        
+        // Copy code to clipboard functionality
+        function copyCodeToClipboard(button, codeBlock) {
+            const code = codeBlock.querySelector('code');
+            const text = code ? code.textContent : codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback
+                const originalContent = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Show success feedback
+                const originalContent = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
         }
     </script>
 </body>
