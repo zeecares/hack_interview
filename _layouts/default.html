@@ -8,14 +8,39 @@
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Prism.js for code highlighting -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" id="prism-dark-theme" disabled>
     <!-- Custom CSS -->
     <style>
+        :root {
+            --bs-body-bg: #ffffff;
+            --bs-body-color: #333333;
+            --bs-border-color: #e1e5e9;
+            --sidebar-bg: #f6f8fa;
+            --code-bg: #f6f8fa;
+            --footer-bg: #f6f8fa;
+            --navbar-bg: #f8f9fa;
+        }
+        
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #0d1117;
+            --bs-body-color: #c9d1d9;
+            --bs-border-color: #30363d;
+            --sidebar-bg: #161b22;
+            --code-bg: #161b22;
+            --footer-bg: #161b22;
+            --navbar-bg: #21262d;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--bs-body-color);
+            background-color: var(--bs-body-bg);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .navbar-brand {
@@ -35,11 +60,12 @@
         }
         
         .guide-card {
-            border: 1px solid #e1e5e9;
+            border: 1px solid var(--bs-border-color);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1rem;
             transition: box-shadow 0.2s;
+            background-color: var(--bs-body-bg);
         }
         
         .guide-card:hover {
@@ -56,8 +82,8 @@
         }
         
         .table-of-contents {
-            background: #f6f8fa;
-            border: 1px solid #e1e5e9;
+            background: var(--sidebar-bg);
+            border: 1px solid var(--bs-border-color);
             border-radius: 6px;
             padding: 1rem;
             margin-bottom: 2rem;
@@ -65,7 +91,7 @@
         
         .table-of-contents h4 {
             margin-bottom: 1rem;
-            color: #24292e;
+            color: var(--bs-body-color);
         }
         
         .table-of-contents ul {
@@ -87,31 +113,46 @@
         }
         
         pre {
-            background: #f6f8fa;
-            border: 1px solid #e1e5e9;
+            background: var(--code-bg);
+            border: 1px solid var(--bs-border-color);
             border-radius: 6px;
             padding: 1rem;
             overflow-x: auto;
         }
         
         code {
-            background: #f6f8fa;
+            background: var(--code-bg);
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
             font-size: 0.9em;
         }
         
         .footer {
-            background: #f6f8fa;
-            border-top: 1px solid #e1e5e9;
+            background: var(--footer-bg);
+            border-top: 1px solid var(--bs-border-color);
             padding: 2rem 0;
             margin-top: 3rem;
+        }
+        
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+        
+        #theme-toggle {
+            border: 1px solid var(--bs-border-color);
+            background: transparent;
+            color: var(--bs-body-color);
+        }
+        
+        #theme-toggle:hover {
+            background: var(--sidebar-bg);
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <nav class="navbar navbar-expand-lg border-bottom">
         <div class="container">
             <a class="navbar-brand" href="/">📚 Blind 75 Study Guides</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -127,27 +168,32 @@
                             Guides
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/complete-blind75-java-study-guide.html">Complete Java</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/complete-blind75-java-study-guide">Complete Java</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><h6 class="dropdown-header">Core Data Structures</h6></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/blind75-array-study-guide.html">Arrays</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/string-blind75-study-guide.html">Strings</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/linked_list_study_guide.html">Linked Lists</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/blind75-array-study-guide">Arrays</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/string-blind75-study-guide">Strings</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/linked_list_study_guide">Linked Lists</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><h6 class="dropdown-header">Advanced Topics</h6></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/tree_study_guide.html">Trees</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/dp_study_guide.html">Dynamic Programming</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/graph_study_guide.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/tree_study_guide">Trees</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/dp_study_guide">Dynamic Programming</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/graph_study_guide">Graphs</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><h6 class="dropdown-header">Specialized</h6></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/binary_study_guide.html">Binary/Bit</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/heap_study_guide.html">Heaps</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/interval_study_guide.html">Intervals</a></li>
-                            <li><a class="dropdown-item" href="/hack_interview/blind75/matrix_study_guide.html">Matrix</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/binary_study_guide">Binary/Bit</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/heap_study_guide">Heaps</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/interval_study_guide">Intervals</a></li>
+                            <li><a class="dropdown-item" href="/hack_interview/blind75/matrix_study_guide">Matrix</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/zeecares/hack_interview">GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-secondary ms-2" id="theme-toggle" title="Toggle light/dark mode">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -163,20 +209,20 @@
                     <div class="table-of-contents">
                         <h4>📖 Quick Navigation</h4>
                         <ul>
-                            <li><a href="/hack_interview/blind75/complete-blind75-java-study-guide.html">Complete Java Solutions</a></li>
+                            <li><a href="/hack_interview/blind75/complete-blind75-java-study-guide">Complete Java Solutions</a></li>
                             <li><strong>Core:</strong></li>
-                            <li><a href="/hack_interview/blind75/blind75-array-study-guide.html">Arrays</a></li>
-                            <li><a href="/hack_interview/blind75/string-blind75-study-guide.html">Strings</a></li>
-                            <li><a href="/hack_interview/blind75/linked_list_study_guide.html">Linked Lists</a></li>
+                            <li><a href="/hack_interview/blind75/blind75-array-study-guide">Arrays</a></li>
+                            <li><a href="/hack_interview/blind75/string-blind75-study-guide">Strings</a></li>
+                            <li><a href="/hack_interview/blind75/linked_list_study_guide">Linked Lists</a></li>
                             <li><strong>Advanced:</strong></li>
-                            <li><a href="/hack_interview/blind75/tree_study_guide.html">Trees</a></li>
-                            <li><a href="/hack_interview/blind75/dp_study_guide.html">Dynamic Programming</a></li>
-                            <li><a href="/hack_interview/blind75/graph_study_guide.html">Graphs</a></li>
+                            <li><a href="/hack_interview/blind75/tree_study_guide">Trees</a></li>
+                            <li><a href="/hack_interview/blind75/dp_study_guide">Dynamic Programming</a></li>
+                            <li><a href="/hack_interview/blind75/graph_study_guide">Graphs</a></li>
                             <li><strong>Specialized:</strong></li>
-                            <li><a href="/hack_interview/blind75/binary_study_guide.html">Binary/Bit</a></li>
-                            <li><a href="/hack_interview/blind75/heap_study_guide.html">Heaps</a></li>
-                            <li><a href="/hack_interview/blind75/interval_study_guide.html">Intervals</a></li>
-                            <li><a href="/hack_interview/blind75/matrix_study_guide.html">Matrix</a></li>
+                            <li><a href="/hack_interview/blind75/binary_study_guide">Binary/Bit</a></li>
+                            <li><a href="/hack_interview/blind75/heap_study_guide">Heaps</a></li>
+                            <li><a href="/hack_interview/blind75/interval_study_guide">Intervals</a></li>
+                            <li><a href="/hack_interview/blind75/matrix_study_guide">Matrix</a></li>
                         </ul>
                     </div>
                 </div>
@@ -215,5 +261,47 @@
     <!-- Prism.js for code highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Dark Mode Toggle -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prismDarkTheme = document.getElementById('prism-dark-theme');
+        
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        
+        // Set initial theme
+        setTheme(savedTheme);
+        
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.title = 'Switch to light mode';
+                if (prismDarkTheme) {
+                    prismDarkTheme.disabled = false;
+                    document.querySelector('link[href*="prism.min.css"]').disabled = true;
+                }
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', 'light');
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.title = 'Switch to dark mode';
+                if (prismDarkTheme) {
+                    prismDarkTheme.disabled = true;
+                    document.querySelector('link[href*="prism.min.css"]').disabled = false;
+                }
+            }
+        }
+    </script>
 </body>
 </html> 

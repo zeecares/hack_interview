@@ -9,48 +9,48 @@ Welcome to my comprehensive collection of Blind 75 LeetCode study guides! This s
 
 ## 📚 Study Guides
 
-### [Complete Java Solutions](blind75/complete-blind75-java-study-guide.html)
+### [Complete Java Solutions](blind75/complete-blind75-java-study-guide)
 Comprehensive Java solutions for all Blind 75 problems with detailed explanations.
 
 ### Core Data Structures
-- **[Array Problems](blind75/blind75-array-study-guide.html)** - Two-pointer techniques, sliding windows, hash maps
-- **[String Problems](blind75/string-blind75-study-guide.html)** - Pattern matching, sliding window, advanced algorithms
-- **[Linked List Problems](blind75/linked_list_study_guide.html)** - Pointer manipulation, fast/slow pointers, list algorithms
+- **[Array Problems](blind75/blind75-array-study-guide)** - Two-pointer techniques, sliding windows, hash maps
+- **[String Problems](blind75/string-blind75-study-guide)** - Pattern matching, sliding window, advanced algorithms
+- **[Linked List Problems](blind75/linked_list_study_guide)** - Pointer manipulation, fast/slow pointers, list algorithms
 
 ### Advanced Topics
-- **[Tree Problems](blind75/tree_study_guide.html)** - DFS, BFS, recursive algorithms, BST operations
-- **[Dynamic Programming](blind75/dp_study_guide.html)** - DP patterns, memoization, optimization strategies
-- **[Graph Problems](blind75/graph_study_guide.html)** - Graph traversal, topological sorting, connected components
+- **[Tree Problems](blind75/tree_study_guide)** - DFS, BFS, recursive algorithms, BST operations
+- **[Dynamic Programming](blind75/dp_study_guide)** - DP patterns, memoization, optimization strategies
+- **[Graph Problems](blind75/graph_study_guide)** - Graph traversal, topological sorting, connected components
 
 ### Specialized Categories
-- **[Binary/Bit Manipulation](blind75/binary_study_guide.html)** - Bit operations, mathematical properties
-- **[Heap Problems](blind75/heap_study_guide.html)** - Priority queues, streaming algorithms
-- **[Interval Problems](blind75/interval_study_guide.html)** - Scheduling, merging algorithms
-- **[Matrix Problems](blind75/matrix_study_guide.html)** - 2D transformations, spatial algorithms
+- **[Binary/Bit Manipulation](blind75/binary_study_guide)** - Bit operations, mathematical properties
+- **[Heap Problems](blind75/heap_study_guide)** - Priority queues, streaming algorithms
+- **[Interval Problems](blind75/interval_study_guide)** - Scheduling, merging algorithms
+- **[Matrix Problems](blind75/matrix_study_guide)** - 2D transformations, spatial algorithms
 
-### [Java Fundamentals](blind75/blind75-java-study-guide.html)
+### [Java Fundamentals](blind75/blind75-java-study-guide)
 Core Java concepts and syntax for interview preparation.
 
 ## 🎯 Quick Start
 
 ### For Beginners (Week 1-2)
-1. **[Java Fundamentals](blind75/blind75-java-study-guide.html)** - Essential syntax and concepts
-2. **[Array Problems](blind75/blind75-array-study-guide.html)** - Two pointers, sliding window patterns
-3. **[String Problems](blind75/string-blind75-study-guide.html)** - Pattern matching and manipulation
+1. **[Java Fundamentals](blind75/blind75-java-study-guide)** - Essential syntax and concepts
+2. **[Array Problems](blind75/blind75-array-study-guide)** - Two pointers, sliding window patterns
+3. **[String Problems](blind75/string-blind75-study-guide)** - Pattern matching and manipulation
 
 ### For Intermediate (Week 3-4)
-4. **[Linked List Problems](blind75/linked_list_study_guide.html)** - Pointer manipulation techniques
-5. **[Tree Problems](blind75/tree_study_guide.html)** - Recursive thinking and traversals
-6. **[Dynamic Programming](blind75/dp_study_guide.html)** - Optimization patterns
+4. **[Linked List Problems](blind75/linked_list_study_guide)** - Pointer manipulation techniques
+5. **[Tree Problems](blind75/tree_study_guide)** - Recursive thinking and traversals
+6. **[Dynamic Programming](blind75/dp_study_guide)** - Optimization patterns
 
 ### For Advanced (Week 5-6)
-7. **[Graph Problems](blind75/graph_study_guide.html)** - Complex algorithms and traversals
-8. **[Binary/Bit Manipulation](blind75/binary_study_guide.html)** - Low-level optimizations
-9. **[Heap Problems](blind75/heap_study_guide.html)** - Priority-based algorithms
+7. **[Graph Problems](blind75/graph_study_guide)** - Complex algorithms and traversals
+8. **[Binary/Bit Manipulation](blind75/binary_study_guide)** - Low-level optimizations
+9. **[Heap Problems](blind75/heap_study_guide)** - Priority-based algorithms
 
 ### Specialized Topics (Week 7-8)
-10. **[Interval Problems](blind75/interval_study_guide.html)** - Scheduling and merging
-11. **[Matrix Problems](blind75/matrix_study_guide.html)** - 2D spatial reasoning
+10. **[Interval Problems](blind75/interval_study_guide)** - Scheduling and merging
+11. **[Matrix Problems](blind75/matrix_study_guide)** - 2D spatial reasoning
 
 ## 📖 About This Collection
 
