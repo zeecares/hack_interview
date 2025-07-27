@@ -1,42 +1,70 @@
-# Blind 75 LeetCode Study Guides
+# Technical Interview Mastery Hub
 
 📚 **Live Site**: [https://zeecares.github.io/hack_interview](https://zeecares.github.io/hack_interview)
 
-A comprehensive collection of study guides for all 75 essential LeetCode problems, featuring detailed explanations, multiple solution approaches, and complete Java implementations with first-principles thinking.
+Complete interview preparation featuring **Blind 75 Algorithms** and **SQL 50** with AI-enhanced active learning methodology. Master both algorithmic problem-solving and database querying through research-backed guided discovery.
+
+## 🎯 Study Collections
+
+### 🧠 [Blind 75 - Algorithm Mastery](blind75/)
+75 essential LeetCode problems with detailed explanations, multiple Java solutions, and first-principles thinking.
+
+### 🗃️ [SQL 50 - Database Querying](sql50/)
+50 comprehensive SQL problems covering basic queries to advanced database operations with hands-on practice.
 
 ## 🌟 Features
 
-- **Comprehensive Coverage**: All Blind 75 problems organized by topic
+### 🧠 AI-Enhanced Learning Methodology
+- **Active Retrieval**: Think First sections promote reflection before solutions
+- **Guided Discovery**: Progressive disclosure through step-by-step questions  
+- **Self-Assessment**: Confidence tracking and implementation checklists
+- **Pattern Recognition**: Connect techniques across problems and real-world scenarios
+
+### 📚 Comprehensive Content
+- **Dual Coverage**: Algorithms (Blind 75) + Database Querying (SQL 50)
 - **Multiple Solutions**: Brute force, optimized, and advanced approaches
 - **Visual Examples**: Diagrams and step-by-step explanations
-- **Code Highlighting**: Syntax-highlighted Java code with comments
-- **Searchable**: Full-text search across all guides
-- **Mobile Responsive**: Works perfectly on all devices
+- **Code Highlighting**: Syntax-highlighted code with detailed comments
+- **Mobile Responsive**: Perfect experience on all devices
 
 ## 📖 Study Guides
+
+### 🧠 Blind 75 - Algorithm Mastery
 
 | Guide | Problems | Focus Area |
 |-------|----------|------------|
 | [Complete Java Solutions](blind75/complete-blind75-java-study-guide.md) | All 75 | Comprehensive overview |
 
-### Core Data Structures
+#### Core Data Structures
 | [Array Problems](blind75/blind75-array-study-guide.md) | 10 | Two pointers, sliding window, hash maps |
 | [String Problems](blind75/string-blind75-study-guide.md) | 10 | Pattern matching, sliding window |
 | [Linked List Problems](blind75/linked_list_study_guide.md) | 6 | Fast/slow pointers, reversal |
 
-### Advanced Topics  
+#### Advanced Topics  
 | [Tree Problems](blind75/tree_study_guide.md) | 14 | DFS, BFS, recursive algorithms |
 | [Dynamic Programming](blind75/dp_study_guide.md) | 11 | Memoization, optimization patterns |
 | [Graph Problems](blind75/graph_study_guide.md) | 8 | DFS/BFS, topological sort |
 
-### Specialized Categories
+#### Specialized Categories
 | [Binary/Bit Manipulation](blind75/binary_study_guide.md) | 5 | Bit operations, mathematical properties |
 | [Heap Problems](blind75/heap_study_guide.md) | 3 | Priority queues, streaming algorithms |
 | [Interval Problems](blind75/interval_study_guide.md) | 5 | Scheduling, merging algorithms |
 | [Matrix Problems](blind75/matrix_study_guide.md) | 4 | 2D transformations, spatial algorithms |
 
-### [Java Fundamentals](blind75/blind75-java-study-guide.md)
+#### [Java Fundamentals](blind75/blind75-java-study-guide.md)
 Essential Java concepts and syntax for interview preparation
+
+### 🗃️ SQL 50 - Database Querying
+
+| Guide | Problems | Focus Area | Difficulty |
+|-------|----------|------------|------------|
+| [Basic Queries](sql50/basic_queries_guide.md) | 8 | SELECT, WHERE, DISTINCT | Beginner |
+| [Sorting & Aggregation](sql50/sorting_aggregation_guide.md) | 8 | ORDER BY, GROUP BY, Aggregate Functions | Beginner-Intermediate |
+| [Joins](sql50/joins_guide.md) | 9 | INNER, LEFT, RIGHT, FULL OUTER Joins | Intermediate |
+| [Subqueries](sql50/subqueries_guide.md) | 7 | Nested Queries, EXISTS, IN, Correlated | Intermediate |
+| [Window Functions](sql50/window_functions_guide.md) | 8 | ROW_NUMBER, RANK, LEAD/LAG, Partitioning | Advanced |
+| [String & Date Functions](sql50/string_date_guide.md) | 6 | String Manipulation, Date Arithmetic | Intermediate |
+| [Advanced SQL](sql50/advanced_sql_guide.md) | 4 | CTEs, CASE, UNION, Complex Queries | Advanced |
 
 ## 🚀 Quick Start
 
