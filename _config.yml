@@ -4,8 +4,8 @@ description: Comprehensive study guides for Blind 75 LeetCode problems
 author: Your Name
 email: your.email@example.com
 
-# Jekyll settings
-markdown: kramdown
+# Jekyll settings - use commonmark to avoid Liquid conflicts
+markdown: CommonMarkGhPages
 highlighter: rouge
 permalink: /:title/
 
@@ -16,6 +16,10 @@ kramdown:
     block:
       line_numbers: false
   input: GFM
+
+# Disable Liquid processing for markdown files to avoid conflicts with code syntax
+liquid:
+  error_mode: warn
 
 # Plugins
 plugins:
