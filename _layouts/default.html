@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Blind 75 Study Guides</title>
+    <meta name="description" content="{{ page.description | default: 'Comprehensive study guides for Blind 75 LeetCode problems' }}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        
+        .content {
+            padding: 2rem 0;
+        }
+        
+        .guide-card {
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.2s;
+        }
+        
+        .guide-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .guide-card h3 {
+            color: #0366d6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .guide-card .badge {
+            font-size: 0.8rem;
+        }
+        
+        .table-of-contents {
+            background: #f6f8fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .table-of-contents h4 {
+            margin-bottom: 1rem;
+            color: #24292e;
+        }
+        
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .table-of-contents li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .table-of-contents a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        
+        pre {
+            background: #f6f8fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        
+        code {
+            background: #f6f8fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .footer {
+            background: #f6f8fa;
+            border-top: 1px solid #e1e5e9;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/">📚 Blind 75 Study Guides</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Guides
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/blind75/complete-blind75-java-study-guide.html">Complete Java</a></li>
+                            <li><a class="dropdown-item" href="/blind75/blind75-array-study-guide.html">Arrays</a></li>
+                            <li><a class="dropdown-item" href="/blind75/string-blind75-study-guide.html">Strings</a></li>
+                            <li><a class="dropdown-item" href="/blind75/graph_study_guide.html">Graphs</a></li>
+                            <li><a class="dropdown-item" href="/blind75/linked_list_study_guide.html">Linked Lists</a></li>
+                            <li><a class="dropdown-item" href="/blind75/dp_study_guide.html">Dynamic Programming</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/yourusername/hack_interview">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <div class="table-of-contents">
+                        <h4>📖 Quick Navigation</h4>
+                        <ul>
+                            <li><a href="/blind75/complete-blind75-java-study-guide.html">Complete Java Solutions</a></li>
+                            <li><a href="/blind75/blind75-array-study-guide.html">Array Problems</a></li>
+                            <li><a href="/blind75/string-blind75-study-guide.html">String Problems</a></li>
+                            <li><a href="/blind75/graph_study_guide.html">Graph Problems</a></li>
+                            <li><a href="/blind75/linked_list_study_guide.html">Linked List Problems</a></li>
+                            <li><a href="/blind75/dp_study_guide.html">Dynamic Programming</a></li>
+                            <li><a href="/blind75/blind75-java-study-guide.html">Java Fundamentals</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="col-lg-9">
+                <div class="content">
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Blind 75 Study Guides</h5>
+                    <p>Comprehensive study materials for mastering LeetCode problems.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="https://github.com/yourusername/hack_interview" class="text-decoration-none">
+                            📁 View on GitHub
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html> 

@@ -1,0 +1,58 @@
+# GitHub Pages Configuration
+title: Blind 75 LeetCode Study Guides
+description: Comprehensive study guides for Blind 75 LeetCode problems
+author: Your Name
+email: your.email@example.com
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
+
+# Collections
+collections:
+  guides:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "guides"
+    values:
+      layout: "default"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Include
+include:
+  - _pages
+  - _posts
+  - blind75
+
+# Theme (optional - you can use a custom theme)
+# theme: jekyll-theme-minimal
+
+# Site settings
+url: "https://yourusername.github.io"
+baseurl: "/hack_interview"
+
+# Social media
+social:
+  github: yourusername
+  twitter: yourusername
+  linkedin: yourusername 
