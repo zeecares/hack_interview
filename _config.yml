@@ -9,6 +9,14 @@ markdown: kramdown
 highlighter: rouge
 permalink: /:title/
 
+# Kramdown settings to handle code blocks properly
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+  input: GFM
+
 # Plugins
 plugins:
   - jekyll-feed
