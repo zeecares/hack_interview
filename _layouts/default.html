@@ -355,6 +355,117 @@
             background: #fffef0;
             color: #f7df1e;
         }
+
+        /* Search Bar Styling */
+        .search-container {
+            position: relative;
+            margin: 0 1rem;
+        }
+
+        .search-input {
+            width: 280px;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--bs-border-color);
+            border-radius: 20px;
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #0366d6;
+            box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.1);
+            width: 320px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--bs-body-color);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bs-body-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--bs-border-color);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: var(--sidebar-bg);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-category {
+            font-size: 0.8rem;
+            color: var(--bs-body-color);
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-description {
+            font-size: 0.85rem;
+            color: var(--bs-body-color);
+            opacity: 0.8;
+        }
+
+        .search-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--bs-body-color);
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 0.5rem 1rem;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -366,6 +477,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="globalSearch" placeholder="Search problems..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="https://zeecares.github.io/hack_interview/">Home</a>
@@ -647,6 +765,122 @@
                     preferredContent.classList.add('active');
                 }
             });
+        });
+
+        // Global Search Functionality
+        const problemDatabase = [
+            // Array Problems
+            { title: "Two Sum", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#1-two-sum", description: "Find two numbers that add up to target", difficulty: "Easy", leetcode: 1 },
+            { title: "Best Time to Buy and Sell Stock", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#2-best-time-to-buy-and-sell-stock", description: "Maximum profit from stock prices", difficulty: "Easy", leetcode: 121 },
+            { title: "Contains Duplicate", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#3-contains-duplicate", description: "Check if array contains duplicates", difficulty: "Easy", leetcode: 217 },
+            { title: "Product of Array Except Self", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#4-product-of-array-except-self", description: "Product of all elements except current", difficulty: "Medium", leetcode: 238 },
+            { title: "Maximum Subarray", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#5-maximum-subarray", description: "Find contiguous subarray with largest sum", difficulty: "Easy", leetcode: 53 },
+            { title: "Maximum Product Subarray", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#6-maximum-product-subarray", description: "Find contiguous subarray with largest product", difficulty: "Medium", leetcode: 152 },
+            { title: "Find Minimum in Rotated Sorted Array", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#7-find-minimum-in-rotated-sorted-array", description: "Find minimum in rotated sorted array", difficulty: "Medium", leetcode: 153 },
+            { title: "Search in Rotated Sorted Array", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#8-search-in-rotated-sorted-array", description: "Search target in rotated sorted array", difficulty: "Medium", leetcode: 33 },
+            { title: "3Sum", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#9-3sum", description: "Find three numbers that sum to zero", difficulty: "Medium", leetcode: 15 },
+            { title: "Container With Most Water", category: "Arrays", url: "/hack_interview/blind75/blind75-array-study-guide#10-container-with-most-water", description: "Find container that holds most water", difficulty: "Medium", leetcode: 11 },
+
+            // String Problems
+            { title: "Longest Substring Without Repeating Characters", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#1-longest-substring-without-repeating-characters", description: "Find longest substring without repeating characters", difficulty: "Medium", leetcode: 3 },
+            { title: "Longest Repeating Character Replacement", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#2-longest-repeating-character-replacement", description: "Longest substring with k character replacements", difficulty: "Medium", leetcode: 424 },
+            { title: "Minimum Window Substring", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#3-minimum-window-substring", description: "Find minimum window containing all characters", difficulty: "Hard", leetcode: 76 },
+            { title: "Valid Anagram", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#4-valid-anagram", description: "Check if two strings are anagrams", difficulty: "Easy", leetcode: 242 },
+            { title: "Group Anagrams", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#5-group-anagrams", description: "Group strings that are anagrams", difficulty: "Medium", leetcode: 49 },
+            { title: "Valid Parentheses", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#6-valid-parentheses", description: "Check if parentheses are properly matched", difficulty: "Easy", leetcode: 20 },
+            { title: "Valid Palindrome", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#7-valid-palindrome", description: "Check if string is a palindrome", difficulty: "Easy", leetcode: 125 },
+            { title: "Longest Palindromic Substring", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#8-longest-palindromic-substring", description: "Find longest palindromic substring", difficulty: "Medium", leetcode: 5 },
+            { title: "Palindromic Substrings", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#9-palindromic-substrings", description: "Count palindromic substrings", difficulty: "Medium", leetcode: 647 },
+            { title: "Encode and Decode Strings", category: "Strings", url: "/hack_interview/blind75/string-blind75-study-guide#10-encode-and-decode-strings", description: "Encode and decode list of strings", difficulty: "Medium", leetcode: 271 },
+
+            // Tree Problems
+            { title: "Maximum Depth of Binary Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#1-maximum-depth-of-binary-tree", description: "Find maximum depth of binary tree", difficulty: "Easy", leetcode: 104 },
+            { title: "Same Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#2-same-tree", description: "Check if two trees are identical", difficulty: "Easy", leetcode: 100 },
+            { title: "Invert Binary Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#3-invert-binary-tree", description: "Invert a binary tree", difficulty: "Easy", leetcode: 226 },
+            { title: "Binary Tree Maximum Path Sum", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#4-binary-tree-maximum-path-sum", description: "Find maximum path sum in binary tree", difficulty: "Hard", leetcode: 124 },
+            { title: "Binary Tree Level Order Traversal", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#5-binary-tree-level-order-traversal", description: "Level order traversal of binary tree", difficulty: "Medium", leetcode: 102 },
+            { title: "Serialize and Deserialize Binary Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#6-serialize-and-deserialize-binary-tree", description: "Serialize and deserialize binary tree", difficulty: "Hard", leetcode: 297 },
+            { title: "Subtree of Another Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#7-subtree-of-another-tree", description: "Check if tree is subtree of another", difficulty: "Easy", leetcode: 572 },
+            { title: "Construct Binary Tree from Preorder and Inorder Traversal", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#8-construct-binary-tree-from-preorder-and-inorder-traversal", description: "Build tree from preorder and inorder", difficulty: "Medium", leetcode: 105 },
+            { title: "Validate Binary Search Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#9-validate-binary-search-tree", description: "Check if tree is valid BST", difficulty: "Medium", leetcode: 98 },
+            { title: "Kth Smallest Element in a BST", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#10-kth-smallest-element-in-a-bst", description: "Find kth smallest in BST", difficulty: "Medium", leetcode: 230 },
+            { title: "Lowest Common Ancestor of a Binary Search Tree", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#11-lowest-common-ancestor-of-a-binary-search-tree", description: "Find LCA in BST", difficulty: "Easy", leetcode: 235 },
+            { title: "Implement Trie (Prefix Tree)", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#12-implement-trie-prefix-tree", description: "Implement trie data structure", difficulty: "Medium", leetcode: 208 },
+            { title: "Add and Search Word - Data structure design", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#13-add-and-search-word---data-structure-design", description: "Trie with wildcard search", difficulty: "Medium", leetcode: 211 },
+            { title: "Word Search II", category: "Trees", url: "/hack_interview/blind75/tree_study_guide#14-word-search-ii", description: "Find words in 2D board using trie", difficulty: "Hard", leetcode: 212 },
+
+            // Add more problems for other categories...
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('globalSearch');
+            const searchResults = document.getElementById('searchResults');
+
+            if (searchInput && searchResults) {
+                let searchTimeout;
+
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    const query = this.value.trim().toLowerCase();
+
+                    if (query.length === 0) {
+                        searchResults.classList.remove('show');
+                        return;
+                    }
+
+                    searchTimeout = setTimeout(() => {
+                        performSearch(query);
+                    }, 300);
+                });
+
+                searchInput.addEventListener('focus', function() {
+                    if (this.value.trim().length > 0) {
+                        searchResults.classList.add('show');
+                    }
+                });
+
+                // Close search results when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                        searchResults.classList.remove('show');
+                    }
+                });
+
+                function performSearch(query) {
+                    const results = problemDatabase.filter(problem => 
+                        problem.title.toLowerCase().includes(query) ||
+                        problem.description.toLowerCase().includes(query) ||
+                        problem.category.toLowerCase().includes(query) ||
+                        problem.leetcode.toString() === query
+                    ).slice(0, 8); // Limit to 8 results
+
+                    displaySearchResults(results, query);
+                }
+
+                function displaySearchResults(results, query) {
+                    if (results.length === 0) {
+                        searchResults.innerHTML = '<div class="search-no-results">No problems found for "' + query + '"</div>';
+                    } else {
+                        searchResults.innerHTML = results.map(problem => `
+                            <div class="search-result-item" onclick="navigateTo('${problem.url}')">
+                                <div class="search-result-title">${problem.title}</div>
+                                <div class="search-result-category">${problem.category} • LeetCode #${problem.leetcode} • ${problem.difficulty}</div>
+                                <div class="search-result-description">${problem.description}</div>
+                            </div>
+                        `).join('');
+                    }
+                    searchResults.classList.add('show');
+                }
+
+                function navigateTo(url) {
+                    window.location.href = url;
+                    searchResults.classList.remove('show');
+                    searchInput.value = '';
+                }
+
+                // Make navigateTo available globally
+                window.navigateTo = navigateTo;
+            }
         });
     </script>
 </body>
