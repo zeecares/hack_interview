@@ -41,6 +41,14 @@ Matrix problems involve manipulating 2D arrays and grids, which are fundamental 
 ## Core Concepts and Prerequisites
 
 ### 1. Matrix Representation and Access
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Standard 2D array representation
 int[][] matrix = new int[rows][cols];
@@ -56,8 +64,52 @@ boolean isValid(int row, int col, int[][] matrix) {
            col >= 0 && col < matrix[0].length;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Standard 2D list representation
+matrix = [[0] * cols for _ in range(rows)]
+
+# Access patterns
+value = matrix[row][col]             # Direct access
+rows = len(matrix)                   # Number of rows
+cols = len(matrix[0])                # Number of columns (assuming non-empty)
+
+# Boundary checking
+def is_valid(row, col, matrix):
+    return 0 <= row < len(matrix) and 0 <= col < len(matrix[0])
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Standard 2D array representation
+const matrix = Array(rows).fill().map(() => Array(cols).fill(0));
+
+// Access patterns
+const value = matrix[row][col];      // Direct access
+const rows = matrix.length;          // Number of rows
+const cols = matrix[0].length;       // Number of columns (assuming non-empty)
+
+// Boundary checking
+function isValid(row, col, matrix) {
+    return row >= 0 && row < matrix.length && 
+           col >= 0 && col < matrix[0].length;
+}
+```
+  </div>
+</div>
 
 ### 2. Common Traversal Patterns
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Row-wise traversal
 for (int i = 0; i < rows; i++) {
@@ -79,8 +131,64 @@ for (int i = 0; i < Math.min(rows, cols); i++) {
     // Anti-diagonal: matrix[i][cols-1-i]
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Row-wise traversal
+for i in range(rows):
+    for j in range(cols):
+        # Process matrix[i][j]
+        pass
+
+# Column-wise traversal
+for j in range(cols):
+    for i in range(rows):
+        # Process matrix[i][j]
+        pass
+
+# Diagonal traversal
+for i in range(min(rows, cols)):
+    # Main diagonal: matrix[i][i]
+    # Anti-diagonal: matrix[i][cols-1-i]
+    pass
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Row-wise traversal
+for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+        // Process matrix[i][j]
+    }
+}
+
+// Column-wise traversal
+for (let j = 0; j < cols; j++) {
+    for (let i = 0; i < rows; i++) {
+        // Process matrix[i][j]
+    }
+}
+
+// Diagonal traversal
+for (let i = 0; i < Math.min(rows, cols); i++) {
+    // Main diagonal: matrix[i][i]
+    // Anti-diagonal: matrix[i][cols-1-i]
+}
+```
+  </div>
+</div>
 
 ### 3. Direction Vectors for Movement
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // 4-directional movement (up, right, down, left)
 int[][] directions = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
@@ -101,8 +209,63 @@ for (int[] dir : directions) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# 4-directional movement (up, right, down, left)
+directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+# 8-directional movement (including diagonals)
+directions8 = [
+    (-1, -1), (-1, 0), (-1, 1),
+    (0, -1),           (0, 1),
+    (1, -1),  (1, 0),  (1, 1)
+]
+
+# Usage in traversal
+for dr, dc in directions:
+    new_row = current_row + dr
+    new_col = current_col + dc
+    if is_valid(new_row, new_col, matrix):
+        # Process neighbor
+        pass
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// 4-directional movement (up, right, down, left)
+const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+
+// 8-directional movement (including diagonals)
+const directions8 = [
+    [-1, -1], [-1, 0], [-1, 1],
+    [0, -1],           [0, 1],
+    [1, -1],  [1, 0],  [1, 1]
+];
+
+// Usage in traversal
+for (const [dr, dc] of directions) {
+    const newRow = currentRow + dr;
+    const newCol = currentCol + dc;
+    if (isValid(newRow, newCol, matrix)) {
+        // Process neighbor
+    }
+}
+```
+  </div>
+</div>
 
 ### 4. Coordinate Transformation Concepts
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // 90-degree clockwise rotation
 // (i, j) -> (j, n-1-i)
@@ -119,8 +282,56 @@ for (int[] dir : directions) {
 // Transpose (reflection across main diagonal)
 // (i, j) -> (j, i)
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# 90-degree clockwise rotation
+# (i, j) -> (j, n-1-i)
+
+# 90-degree counterclockwise rotation  
+# (i, j) -> (n-1-j, i)
+
+# Horizontal flip (reflection across vertical axis)
+# (i, j) -> (i, n-1-j)
+
+# Vertical flip (reflection across horizontal axis)
+# (i, j) -> (n-1-i, j)
+
+# Transpose (reflection across main diagonal)
+# (i, j) -> (j, i)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// 90-degree clockwise rotation
+// (i, j) -> (j, n-1-i)
+
+// 90-degree counterclockwise rotation  
+// (i, j) -> (n-1-j, i)
+
+// Horizontal flip (reflection across vertical axis)
+// (i, j) -> (i, n-1-j)
+
+// Vertical flip (reflection across horizontal axis)
+// (i, j) -> (n-1-i, j)
+
+// Transpose (reflection across main diagonal)
+// (i, j) -> (j, i)
+```
+  </div>
+</div>
 
 ### 5. In-Place Manipulation Techniques
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Using markers for state tracking
 final int MARKED = Integer.MAX_VALUE;
@@ -133,6 +344,38 @@ boolean hasFlag = (matrix[i][j] & FLAG_BIT) != 0;  // Check flag
 // Store information in matrix[0][j] for column j
 // Store information in matrix[i][0] for row i
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Using markers for state tracking
+MARKED = float('inf')
+
+# Bit manipulation for flags
+matrix[i][j] |= FLAG_BIT  # Set flag
+has_flag = (matrix[i][j] & FLAG_BIT) != 0  # Check flag
+
+# Using first row/column as metadata storage
+# Store information in matrix[0][j] for column j
+# Store information in matrix[i][0] for row i
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Using markers for state tracking
+const MARKED = Number.MAX_SAFE_INTEGER;
+
+// Bit manipulation for flags
+matrix[i][j] |= FLAG_BIT;  // Set flag
+const hasFlag = (matrix[i][j] & FLAG_BIT) !== 0;  // Check flag
+
+// Using first row/column as metadata storage
+// Store information in matrix[0][j] for column j
+// Store information in matrix[i][0] for row i
+```
+  </div>
+</div>
 
 ---
 
@@ -288,8 +531,16 @@ To set entire rows and columns to zero:
 3. **Apply transformations**: Set zeros in marked rows and columns
 4. **Handle edge cases**: First row and column need special treatment
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: O(1) Space - Using First Row and Column as Flags
 class Solution {
@@ -381,128 +632,148 @@ class Solution {
         }
     }
 }
-
-// Approach 3: Optimized O(1) Space - Single Flag Variable
-class Solution {
-    public void setZeroes(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        
-        // Use matrix[0][0] for first row flag
-        // Use additional variable for first column flag
-        boolean firstColZero = false;
-        
-        // Check if first column has zero
-        for (int i = 0; i < rows; i++) {
-            if (matrix[i][0] == 0) {
-                firstColZero = true;
-                break;
-            }
-        }
-        
-        // Mark zeros using first row and column
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (matrix[i][j] == 0) {
-                    matrix[i][0] = 0;
-                    matrix[0][j] = 0;
-                }
-            }
-        }
-        
-        // Set zeros based on marks (exclude first row and column)
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                    matrix[i][j] = 0;
-                }
-            }
-        }
-        
-        // Handle first row
-        if (matrix[0][0] == 0) {
-            for (int j = 0; j < cols; j++) {
-                matrix[0][j] = 0;
-            }
-        }
-        
-        // Handle first column
-        if (firstColZero) {
-            for (int i = 0; i < rows; i++) {
-                matrix[i][0] = 0;
-            }
-        }
-    }
-}
-
-// Approach 4: Cleaner Implementation with Helper Method
-class Solution {
-    public void setZeroes(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        
-        // Check if first row/column need to be zero
-        boolean firstRowZero = containsZero(matrix[0]);
-        boolean firstColZero = containsZeroInColumn(matrix, 0);
-        
-        // Mark zeros in first row and column
-        markZeros(matrix, m, n);
-        
-        // Set zeros based on marks
-        applyZeros(matrix, m, n);
-        
-        // Handle first row and column
-        if (firstRowZero) setRowZero(matrix, 0, n);
-        if (firstColZero) setColumnZero(matrix, 0, m);
-    }
-    
-    private boolean containsZero(int[] row) {
-        for (int val : row) {
-            if (val == 0) return true;
-        }
-        return false;
-    }
-    
-    private boolean containsZeroInColumn(int[][] matrix, int col) {
-        for (int i = 0; i < matrix.length; i++) {
-            if (matrix[i][col] == 0) return true;
-        }
-        return false;
-    }
-    
-    private void markZeros(int[][] matrix, int m, int n) {
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    matrix[i][0] = 0;
-                    matrix[0][j] = 0;
-                }
-            }
-        }
-    }
-    
-    private void applyZeros(int[][] matrix, int m, int n) {
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                    matrix[i][j] = 0;
-                }
-            }
-        }
-    }
-    
-    private void setRowZero(int[][] matrix, int row, int n) {
-        for (int j = 0; j < n; j++) {
-            matrix[row][j] = 0;
-        }
-    }
-    
-    private void setColumnZero(int[][] matrix, int col, int m) {
-        for (int i = 0; i < m; i++) {
-            matrix[i][col] = 0;
-        }
-    }
-}
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: O(1) Space - Using First Row and Column as Flags
+class Solution:
+    def setZeroes(self, matrix):
+        rows, cols = len(matrix), len(matrix[0])
+        
+        # Check if first row or first column should be zero
+        first_row_zero = any(matrix[0][j] == 0 for j in range(cols))
+        first_col_zero = any(matrix[i][0] == 0 for i in range(rows))
+        
+        # Use first row and column as flags for the rest of the matrix
+        for i in range(1, rows):
+            for j in range(1, cols):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0  # Mark row
+                    matrix[0][j] = 0  # Mark column
+        
+        # Set zeros based on flags (skip first row and column for now)
+        for i in range(1, rows):
+            for j in range(1, cols):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        
+        # Handle first row
+        if first_row_zero:
+            for j in range(cols):
+                matrix[0][j] = 0
+        
+        # Handle first column
+        if first_col_zero:
+            for i in range(rows):
+                matrix[i][0] = 0
+
+# Approach 2: O(m + n) Space - Using Additional Arrays
+class Solution:
+    def setZeroes(self, matrix):
+        rows, cols = len(matrix), len(matrix[0])
+        
+        zero_rows = set()
+        zero_cols = set()
+        
+        # First pass: identify zero positions
+        for i in range(rows):
+            for j in range(cols):
+                if matrix[i][j] == 0:
+                    zero_rows.add(i)
+                    zero_cols.add(j)
+        
+        # Second pass: set zeros
+        for i in range(rows):
+            for j in range(cols):
+                if i in zero_rows or j in zero_cols:
+                    matrix[i][j] = 0
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: O(1) Space - Using First Row and Column as Flags
+var setZeroes = function(matrix) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    
+    // Check if first row or first column should be zero
+    let firstRowZero = matrix[0].some(val => val === 0);
+    let firstColZero = false;
+    
+    for (let i = 0; i < rows; i++) {
+        if (matrix[i][0] === 0) {
+            firstColZero = true;
+            break;
+        }
+    }
+    
+    // Use first row and column as flags for the rest of the matrix
+    for (let i = 1; i < rows; i++) {
+        for (let j = 1; j < cols; j++) {
+            if (matrix[i][j] === 0) {
+                matrix[i][0] = 0;  // Mark row
+                matrix[0][j] = 0;  // Mark column
+            }
+        }
+    }
+    
+    // Set zeros based on flags (skip first row and column for now)
+    for (let i = 1; i < rows; i++) {
+        for (let j = 1; j < cols; j++) {
+            if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    
+    // Handle first row
+    if (firstRowZero) {
+        for (let j = 0; j < cols; j++) {
+            matrix[0][j] = 0;
+        }
+    }
+    
+    // Handle first column
+    if (firstColZero) {
+        for (let i = 0; i < rows; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+};
+
+// Approach 2: O(m + n) Space - Using Additional Arrays
+var setZeroes = function(matrix) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    
+    const zeroRows = new Set();
+    const zeroCols = new Set();
+    
+    // First pass: identify zero positions
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (matrix[i][j] === 0) {
+                zeroRows.add(i);
+                zeroCols.add(j);
+            }
+        }
+    }
+    
+    // Second pass: set zeros
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (zeroRows.has(i) || zeroCols.has(j)) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(m × n) for all approaches
@@ -653,8 +924,16 @@ Spiral traversal follows a pattern:
 3. **Update boundaries**: shrink the traversal area after each direction
 4. **Handle edge cases**: Single row, single column, empty matrix
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Layer-by-Layer with Boundary Pointers
 class Solution {
@@ -737,118 +1016,168 @@ class Solution {
         return result;
     }
 }
-
-// Approach 3: Recursive Layer Processing
-class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> result = new ArrayList<>();
-        if (matrix.length == 0) return result;
-        
-        spiralHelper(matrix, 0, 0, matrix.length - 1, matrix[0].length - 1, result);
-        return result;
-    }
-    
-    private void spiralHelper(int[][] matrix, int topRow, int leftCol, 
-                             int bottomRow, int rightCol, List<Integer> result) {
-        if (topRow > bottomRow || leftCol > rightCol) return;
-        
-        // Single row
-        if (topRow == bottomRow) {
-            for (int col = leftCol; col <= rightCol; col++) {
-                result.add(matrix[topRow][col]);
-            }
-            return;
-        }
-        
-        // Single column
-        if (leftCol == rightCol) {
-            for (int row = topRow; row <= bottomRow; row++) {
-                result.add(matrix[row][leftCol]);
-            }
-            return;
-        }
-        
-        // Traverse the current layer
-        // Top row (left to right)
-        for (int col = leftCol; col < rightCol; col++) {
-            result.add(matrix[topRow][col]);
-        }
-        
-        // Right column (top to bottom)
-        for (int row = topRow; row < bottomRow; row++) {
-            result.add(matrix[row][rightCol]);
-        }
-        
-        // Bottom row (right to left)
-        for (int col = rightCol; col > leftCol; col--) {
-            result.add(matrix[bottomRow][col]);
-        }
-        
-        // Left column (bottom to top)
-        for (int row = bottomRow; row > topRow; row--) {
-            result.add(matrix[row][leftCol]);
-        }
-        
-        // Recurse for inner layer
-        spiralHelper(matrix, topRow + 1, leftCol + 1, bottomRow - 1, rightCol - 1, result);
-    }
-}
-
-// Approach 4: Clean Implementation with Helper Methods
-class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> result = new ArrayList<>();
-        if (matrix.length == 0) return result;
-        
-        int top = 0, bottom = matrix.length - 1;
-        int left = 0, right = matrix[0].length - 1;
-        
-        while (top <= bottom && left <= right) {
-            addTopRow(matrix, top, left, right, result);
-            top++;
-            
-            addRightColumn(matrix, right, top, bottom, result);
-            right--;
-            
-            if (top <= bottom) {
-                addBottomRow(matrix, bottom, right, left, result);
-                bottom--;
-            }
-            
-            if (left <= right) {
-                addLeftColumn(matrix, left, bottom, top, result);
-                left++;
-            }
-        }
-        
-        return result;
-    }
-    
-    private void addTopRow(int[][] matrix, int row, int startCol, int endCol, List<Integer> result) {
-        for (int col = startCol; col <= endCol; col++) {
-            result.add(matrix[row][col]);
-        }
-    }
-    
-    private void addRightColumn(int[][] matrix, int col, int startRow, int endRow, List<Integer> result) {
-        for (int row = startRow; row <= endRow; row++) {
-            result.add(matrix[row][col]);
-        }
-    }
-    
-    private void addBottomRow(int[][] matrix, int row, int startCol, int endCol, List<Integer> result) {
-        for (int col = startCol; col >= endCol; col--) {
-            result.add(matrix[row][col]);
-        }
-    }
-    
-    private void addLeftColumn(int[][] matrix, int col, int startRow, int endRow, List<Integer> result) {
-        for (int row = startRow; row >= endRow; row--) {
-            result.add(matrix[row][col]);
-        }
-    }
-}
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Layer-by-Layer with Boundary Pointers
+class Solution:
+    def spiral_order(self, matrix):
+        if not matrix or not matrix[0]:
+            return []
+        
+        result = []
+        top, bottom = 0, len(matrix) - 1
+        left, right = 0, len(matrix[0]) - 1
+        
+        while top <= bottom and left <= right:
+            # Traverse right along top row
+            for col in range(left, right + 1):
+                result.append(matrix[top][col])
+            top += 1
+            
+            # Traverse down along right column
+            for row in range(top, bottom + 1):
+                result.append(matrix[row][right])
+            right -= 1
+            
+            # Traverse left along bottom row (if we still have rows)
+            if top <= bottom:
+                for col in range(right, left - 1, -1):
+                    result.append(matrix[bottom][col])
+                bottom -= 1
+            
+            # Traverse up along left column (if we still have columns)
+            if left <= right:
+                for row in range(bottom, top - 1, -1):
+                    result.append(matrix[row][left])
+                left += 1
+        
+        return result
+
+# Approach 2: Direction Vector with State Machine
+class Solution:
+    def spiral_order(self, matrix):
+        if not matrix:
+            return []
+        
+        rows, cols = len(matrix), len(matrix[0])
+        visited = [[False] * cols for _ in range(rows)]
+        result = []
+        
+        # Direction vectors: right, down, left, up
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        current_direction = 0
+        
+        row, col = 0, 0
+        
+        for _ in range(rows * cols):
+            result.append(matrix[row][col])
+            visited[row][col] = True
+            
+            # Calculate next position
+            dr, dc = directions[current_direction]
+            next_row, next_col = row + dr, col + dc
+            
+            # Check if we need to turn (hit boundary or visited cell)
+            if (next_row < 0 or next_row >= rows or 
+                next_col < 0 or next_col >= cols or 
+                visited[next_row][next_col]):
+                current_direction = (current_direction + 1) % 4
+                dr, dc = directions[current_direction]
+                next_row, next_col = row + dr, col + dc
+            
+            row, col = next_row, next_col
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Layer-by-Layer with Boundary Pointers
+var spiralOrder = function(matrix) {
+    if (matrix.length === 0 || matrix[0].length === 0) return [];
+    
+    const result = [];
+    let top = 0, bottom = matrix.length - 1;
+    let left = 0, right = matrix[0].length - 1;
+    
+    while (top <= bottom && left <= right) {
+        // Traverse right along top row
+        for (let col = left; col <= right; col++) {
+            result.push(matrix[top][col]);
+        }
+        top++;
+        
+        // Traverse down along right column
+        for (let row = top; row <= bottom; row++) {
+            result.push(matrix[row][right]);
+        }
+        right--;
+        
+        // Traverse left along bottom row (if we still have rows)
+        if (top <= bottom) {
+            for (let col = right; col >= left; col--) {
+                result.push(matrix[bottom][col]);
+            }
+            bottom--;
+        }
+        
+        // Traverse up along left column (if we still have columns)
+        if (left <= right) {
+            for (let row = bottom; row >= top; row--) {
+                result.push(matrix[row][left]);
+            }
+            left++;
+        }
+    }
+    
+    return result;
+};
+
+// Approach 2: Direction Vector with State Machine
+var spiralOrder = function(matrix) {
+    if (matrix.length === 0) return [];
+    
+    const rows = matrix.length, cols = matrix[0].length;
+    const visited = Array(rows).fill().map(() => Array(cols).fill(false));
+    const result = [];
+    
+    // Direction vectors: right, down, left, up
+    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+    let currentDirection = 0;
+    
+    let row = 0, col = 0;
+    
+    for (let i = 0; i < rows * cols; i++) {
+        result.push(matrix[row][col]);
+        visited[row][col] = true;
+        
+        // Calculate next position
+        const [dr, dc] = directions[currentDirection];
+        let nextRow = row + dr;
+        let nextCol = col + dc;
+        
+        // Check if we need to turn (hit boundary or visited cell)
+        if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols || 
+            visited[nextRow][nextCol]) {
+            currentDirection = (currentDirection + 1) % 4;
+            const [newDr, newDc] = directions[currentDirection];
+            nextRow = row + newDr;
+            nextCol = col + newDc;
+        }
+        
+        row = nextRow;
+        col = nextCol;
+    }
+    
+    return result;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(m × n) - visit each element once
@@ -1000,8 +1329,16 @@ Input:  [[1,2,3],      Output: [[7,4,1],
 3. **Process systematically**: Layer-by-layer or element-by-element
 4. **Verify transformation**: Check rotation formula correctness
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Transpose + Horizontal Flip (Most Intuitive)
 class Solution {
@@ -1062,117 +1399,143 @@ class Solution {
         }
     }
 }
-
-// Approach 3: Mathematical Rotation with Visited Tracking
-class Solution {
-    public void rotate(int[][] matrix) {
-        int n = matrix.length;
-        boolean[][] visited = new boolean[n][n];
+```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Transpose + Horizontal Flip (Most Intuitive)
+class Solution:
+    def rotate(self, matrix):
+        n = len(matrix)
         
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!visited[i][j]) {
-                    rotateCycle(matrix, i, j, visited);
-                }
-            }
+        # Step 1: Transpose the matrix (flip along main diagonal)
+        for i in range(n):
+            for j in range(i + 1, n):
+                # Swap matrix[i][j] with matrix[j][i]
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        # Step 2: Flip horizontally (reverse each row)
+        for i in range(n):
+            matrix[i].reverse()
+
+# Approach 2: Direct Rotation Formula with 4-Element Cycles
+class Solution:
+    def rotate(self, matrix):
+        n = len(matrix)
+        
+        # Process each layer (concentric squares)
+        for layer in range(n // 2):
+            first = layer
+            last = n - 1 - layer
+            
+            # Rotate elements in current layer
+            for i in range(first, last):
+                offset = i - first
+                
+                # Save top element
+                top = matrix[first][i]
+                
+                # Top = Left
+                matrix[first][i] = matrix[last - offset][first]
+                
+                # Left = Bottom
+                matrix[last - offset][first] = matrix[last][last - offset]
+                
+                # Bottom = Right
+                matrix[last][last - offset] = matrix[i][last]
+                
+                # Right = Top (saved)
+                matrix[i][last] = top
+
+# Approach 3: Using List Comprehension (Pythonic)
+class Solution:
+    def rotate(self, matrix):
+        n = len(matrix)
+        
+        # Transpose
+        for i in range(n):
+            for j in range(i, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        # Reverse each row
+        for row in matrix:
+            row.reverse()
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Transpose + Horizontal Flip (Most Intuitive)
+var rotate = function(matrix) {
+    const n = matrix.length;
+    
+    // Step 1: Transpose the matrix (flip along main diagonal)
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            // Swap matrix[i][j] with matrix[j][i]
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
         }
     }
     
-    private void rotateCycle(int[][] matrix, int startI, int startJ, boolean[][] visited) {
-        int n = matrix.length;
-        int currentI = startI, currentJ = startJ;
-        int temp = matrix[currentI][currentJ];
+    // Step 2: Flip horizontally (reverse each row)
+    for (let i = 0; i < n; i++) {
+        matrix[i].reverse();
+    }
+};
+
+// Approach 2: Direct Rotation Formula with 4-Element Cycles
+var rotate = function(matrix) {
+    const n = matrix.length;
+    
+    // Process each layer (concentric squares)
+    for (let layer = 0; layer < Math.floor(n / 2); layer++) {
+        const first = layer;
+        const last = n - 1 - layer;
         
-        do {
-            visited[currentI][currentJ] = true;
+        // Rotate elements in current layer
+        for (let i = first; i < last; i++) {
+            const offset = i - first;
             
-            // Calculate next position: (i,j) -> (j, n-1-i)
-            int nextI = currentJ;
-            int nextJ = n - 1 - currentI;
+            // Save top element
+            const top = matrix[first][i];
             
-            int nextTemp = matrix[nextI][nextJ];
-            matrix[nextI][nextJ] = temp;
-            temp = nextTemp;
+            // Top = Left
+            matrix[first][i] = matrix[last - offset][first];
             
-            currentI = nextI;
-            currentJ = nextJ;
-        } while (currentI != startI || currentJ != startJ);
+            // Left = Bottom
+            matrix[last - offset][first] = matrix[last][last - offset];
+            
+            // Bottom = Right
+            matrix[last][last - offset] = matrix[i][last];
+            
+            // Right = Top (saved)
+            matrix[i][last] = top;
+        }
+    }
+};
+
+// Approach 3: Functional Approach with Helper Functions
+var rotate = function(matrix) {
+    transpose(matrix);
+    reverseRows(matrix);
+};
+
+function transpose(matrix) {
+    const n = matrix.length;
+    for (let i = 0; i < n; i++) {
+        for (let j = i; j < n; j++) {
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+        }
     }
 }
 
-// Approach 4: Clean Layer-by-Layer Implementation
-class Solution {
-    public void rotate(int[][] matrix) {
-        int n = matrix.length;
-        
-        for (int layer = 0; layer < n / 2; layer++) {
-            rotateLayer(matrix, layer, n);
-        }
-    }
-    
-    private void rotateLayer(int[][] matrix, int layer, int n) {
-        int start = layer;
-        int end = n - 1 - layer;
-        
-        for (int i = start; i < end; i++) {
-            int offset = i - start;
-            
-            // Store positions
-            int top = matrix[start][i];
-            int right = matrix[i][end];
-            int bottom = matrix[end][end - offset];
-            int left = matrix[end - offset][start];
-            
-            // Rotate positions
-            matrix[start][i] = left;          // Top = Left
-            matrix[i][end] = top;             // Right = Top  
-            matrix[end][end - offset] = right; // Bottom = Right
-            matrix[end - offset][start] = bottom; // Left = Bottom
-        }
-    }
-}
-
-// Approach 5: Using Built-in Array Reversal
-class Solution {
-    public void rotate(int[][] matrix) {
-        transpose(matrix);
-        reverseRows(matrix);
-    }
-    
-    private void transpose(int[][] matrix) {
-        int n = matrix.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                swap(matrix, i, j, j, i);
-            }
-        }
-    }
-    
-    private void reverseRows(int[][] matrix) {
-        int n = matrix.length;
-        for (int i = 0; i < n; i++) {
-            reverseArray(matrix[i]);
-        }
-    }
-    
-    private void reverseArray(int[] arr) {
-        int left = 0, right = arr.length - 1;
-        while (left < right) {
-            int temp = arr[left];
-            arr[left] = arr[right];
-            arr[right] = temp;
-            left++;
-            right--;
-        }
-    }
-    
-    private void swap(int[][] matrix, int i1, int j1, int i2, int j2) {
-        int temp = matrix[i1][j1];
-        matrix[i1][j1] = matrix[i2][j2];
-        matrix[i2][j2] = temp;
-    }
+function reverseRows(matrix) {
+    matrix.forEach(row => row.reverse());
 }
 ```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n²) for all approaches
@@ -1322,8 +1685,16 @@ Word search in a grid requires:
 3. **Backtracking**: Mark cells as visited, then unmark when backtracking
 4. **Optimization**: Early termination, character frequency pruning
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Standard DFS with Backtracking
 class Solution {
@@ -1431,98 +1802,276 @@ class Solution {
         return false;
     }
 }
+```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Standard DFS with Backtracking
+class Solution:
+    def exist(self, board, word):
+        if not board or not board[0] or not word:
+            return False
+        
+        rows, cols = len(board), len(board[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        def dfs(row, col, index):
+            # Base case: found complete word
+            if index == len(word):
+                return True
+            
+            # Boundary check and character match
+            if (row < 0 or row >= rows or col < 0 or col >= cols or
+                board[row][col] != word[index]):
+                return False
+            
+            # Mark current cell as visited
+            temp = board[row][col]
+            board[row][col] = '#'  # Mark as visited
+            
+            # Explore all 4 directions
+            for dr, dc in directions:
+                if dfs(row + dr, col + dc, index + 1):
+                    board[row][col] = temp  # Restore before returning
+                    return True
+            
+            # Backtrack: restore original character
+            board[row][col] = temp
+            return False
+        
+        # Try starting from each cell
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0]:
+                    if dfs(i, j, 0):
+                        return True
+        
+        return False
 
-// Approach 3: Optimized with Character Frequency Pruning
-class Solution {
-    private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
-    
-    public boolean exist(char[][] board, String word) {
-        // Optimization: check if board has enough characters
-        if (!hasEnoughCharacters(board, word)) {
-            return false;
-        }
+# Approach 2: DFS with Separate Visited Array
+class Solution:
+    def exist(self, board, word):
+        rows, cols = len(board), len(board[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         
-        // Optimization: start from less frequent character end
-        word = optimizeWordDirection(board, word);
+        def dfs(row, col, index, visited):
+            if index == len(word):
+                return True
+            
+            if (row < 0 or row >= rows or col < 0 or col >= cols or
+                visited[row][col] or board[row][col] != word[index]):
+                return False
+            
+            visited[row][col] = True
+            
+            for dr, dc in directions:
+                if dfs(row + dr, col + dc, index + 1, visited):
+                    visited[row][col] = False  # Restore state
+                    return True
+            
+            visited[row][col] = False  # Backtrack
+            return False
         
-        int rows = board.length;
-        int cols = board[0].length;
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0]:
+                    visited = [[False] * cols for _ in range(rows)]
+                    if dfs(i, j, 0, visited):
+                        return True
         
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (board[i][j] == word.charAt(0)) {
-                    if (dfs(board, word, i, j, 0)) {
-                        return true;
-                    }
-                }
-            }
-        }
+        return False
+
+# Approach 3: Optimized with Character Frequency Pruning
+class Solution:
+    def exist(self, board, word):
+        from collections import Counter
         
+        # Optimization: check if board has enough characters
+        board_count = Counter(c for row in board for c in row)
+        word_count = Counter(word)
+        
+        if not all(board_count[c] >= word_count[c] for c in word_count):
+            return False
+        
+        # Optimization: start from less frequent character end
+        if board_count[word[0]] > board_count[word[-1]]:
+            word = word[::-1]
+        
+        rows, cols = len(board), len(board[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        def dfs(row, col, index):
+            if index == len(word):
+                return True
+            
+            if (row < 0 or row >= rows or col < 0 or col >= cols or
+                board[row][col] != word[index]):
+                return False
+            
+            temp = board[row][col]
+            board[row][col] = '#'
+            
+            for dr, dc in directions:
+                if dfs(row + dr, col + dc, index + 1):
+                    board[row][col] = temp
+                    return True
+            
+            board[row][col] = temp
+            return False
+        
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0] and dfs(i, j, 0):
+                    return True
+        
+        return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Standard DFS with Backtracking
+var exist = function(board, word) {
+    if (!board || board.length === 0 || !word || word.length === 0) {
         return false;
     }
     
-    private boolean hasEnoughCharacters(char[][] board, String word) {
-        Map<Character, Integer> boardCount = new HashMap<>();
-        Map<Character, Integer> wordCount = new HashMap<>();
-        
-        // Count characters in board
-        for (char[] row : board) {
-            for (char c : row) {
-                boardCount.put(c, boardCount.getOrDefault(c, 0) + 1);
-            }
-        }
-        
-        // Count characters in word
-        for (char c : word.toCharArray()) {
-            wordCount.put(c, wordCount.getOrDefault(c, 0) + 1);
-        }
-        
-        // Check if board has enough of each character
-        for (Map.Entry<Character, Integer> entry : wordCount.entrySet()) {
-            if (boardCount.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
-                return false;
-            }
-        }
-        
-        return true;
-    }
+    const rows = board.length;
+    const cols = board[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
     
-    private String optimizeWordDirection(char[][] board, String word) {
-        Map<Character, Integer> boardCount = new HashMap<>();
-        
-        for (char[] row : board) {
-            for (char c : row) {
-                boardCount.put(c, boardCount.getOrDefault(c, 0) + 1);
-            }
+    function dfs(row, col, index) {
+        // Base case: found complete word
+        if (index === word.length) {
+            return true;
         }
         
-        char firstChar = word.charAt(0);
-        char lastChar = word.charAt(word.length() - 1);
-        
-        int firstCount = boardCount.getOrDefault(firstChar, 0);
-        int lastCount = boardCount.getOrDefault(lastChar, 0);
-        
-        // Start from less frequent character
-        if (lastCount < firstCount) {
-            return new StringBuilder(word).reverse().toString();
-        }
-        
-        return word;
-    }
-    
-    private boolean dfs(char[][] board, String word, int row, int col, int index) {
-        if (index == word.length()) return true;
-        
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length ||
-            board[row][col] != word.charAt(index)) {
+        // Boundary check and character match
+        if (row < 0 || row >= rows || col < 0 || col >= cols ||
+            board[row][col] !== word[index]) {
             return false;
         }
         
-        char temp = board[row][col];
+        // Mark current cell as visited
+        const temp = board[row][col];
+        board[row][col] = '#'; // Mark as visited
+        
+        // Explore all 4 directions
+        for (const [dr, dc] of directions) {
+            if (dfs(row + dr, col + dc, index + 1)) {
+                board[row][col] = temp; // Restore before returning
+                return true;
+            }
+        }
+        
+        // Backtrack: restore original character
+        board[row][col] = temp;
+        return false;
+    }
+    
+    // Try starting from each cell
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (board[i][j] === word[0]) {
+                if (dfs(i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
+// Approach 2: DFS with Separate Visited Array
+var exist = function(board, word) {
+    const rows = board.length;
+    const cols = board[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    function dfs(row, col, index, visited) {
+        if (index === word.length) return true;
+        
+        if (row < 0 || row >= rows || col < 0 || col >= cols ||
+            visited[row][col] || board[row][col] !== word[index]) {
+            return false;
+        }
+        
+        visited[row][col] = true;
+        
+        for (const [dr, dc] of directions) {
+            if (dfs(row + dr, col + dc, index + 1, visited)) {
+                visited[row][col] = false; // Restore state
+                return true;
+            }
+        }
+        
+        visited[row][col] = false; // Backtrack
+        return false;
+    }
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (board[i][j] === word[0]) {
+                const visited = Array(rows).fill().map(() => Array(cols).fill(false));
+                if (dfs(i, j, 0, visited)) {
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
+// Approach 3: Optimized with Character Frequency Pruning
+var exist = function(board, word) {
+    // Count characters in board
+    const boardCount = new Map();
+    for (const row of board) {
+        for (const char of row) {
+            boardCount.set(char, (boardCount.get(char) || 0) + 1);
+        }
+    }
+    
+    // Count characters in word
+    const wordCount = new Map();
+    for (const char of word) {
+        wordCount.set(char, (wordCount.get(char) || 0) + 1);
+    }
+    
+    // Check if board has enough characters
+    for (const [char, count] of wordCount) {
+        if ((boardCount.get(char) || 0) < count) {
+            return false;
+        }
+    }
+    
+    // Optimization: start from less frequent character end
+    const firstCount = boardCount.get(word[0]) || 0;
+    const lastCount = boardCount.get(word[word.length - 1]) || 0;
+    if (lastCount < firstCount) {
+        word = word.split('').reverse().join('');
+    }
+    
+    const rows = board.length;
+    const cols = board[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    function dfs(row, col, index) {
+        if (index === word.length) return true;
+        
+        if (row < 0 || row >= rows || col < 0 || col >= cols ||
+            board[row][col] !== word[index]) {
+            return false;
+        }
+        
+        const temp = board[row][col];
         board[row][col] = '#';
         
-        for (int[] dir : directions) {
-            if (dfs(board, word, row + dir[0], col + dir[1], index + 1)) {
+        for (const [dr, dc] of directions) {
+            if (dfs(row + dr, col + dc, index + 1)) {
                 board[row][col] = temp;
                 return true;
             }
@@ -1531,58 +2080,20 @@ class Solution {
         board[row][col] = temp;
         return false;
     }
-}
-
-// Approach 4: Iterative DFS with Stack
-class Solution {
-    public boolean exist(char[][] board, String word) {
-        int rows = board.length;
-        int cols = board[0].length;
-        int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
-        
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (board[i][j] == word.charAt(0)) {
-                    Stack<int[]> stack = new Stack<>();
-                    Set<String> visited = new HashSet<>();
-                    
-                    stack.push(new int[]{i, j, 0}); // row, col, word_index
-                    
-                    while (!stack.isEmpty()) {
-                        int[] current = stack.pop();
-                        int row = current[0], col = current[1], index = current[2];
-                        
-                        if (index == word.length()) return true;
-                        
-                        String key = row + "," + col + "," + index;
-                        if (visited.contains(key)) continue;
-                        visited.add(key);
-                        
-                        if (row < 0 || row >= rows || col < 0 || col >= cols ||
-                            board[row][col] != word.charAt(index)) {
-                            continue;
-                        }
-                        
-                        if (index == word.length() - 1) return true;
-                        
-                        for (int[] dir : directions) {
-                            int newRow = row + dir[0];
-                            int newCol = col + dir[1];
-                            String newKey = newRow + "," + newCol + "," + (index + 1);
-                            
-                            if (!visited.contains(newKey)) {
-                                stack.push(new int[]{newRow, newCol, index + 1});
-                            }
-                        }
-                    }
-                }
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (board[i][j] === word[0] && dfs(i, j, 0)) {
+                return true;
             }
         }
-        
-        return false;
     }
-}
+    
+    return false;
+};
 ```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(m × n × 4^L) where L is word length (worst case explores all paths)
@@ -1642,6 +2153,14 @@ For each starting position matching word[0]:
 ## Implementation Templates
 
 ### Basic Matrix Traversal Template
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public void processMatrix(int[][] matrix) {
     int rows = matrix.length;
@@ -1660,8 +2179,55 @@ private boolean isValid(int row, int col, int[][] matrix) {
            col >= 0 && col < matrix[0].length;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def process_matrix(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    
+    for i in range(rows):
+        for j in range(cols):
+            # Process matrix[i][j]
+            process_cell(matrix, i, j)
+
+def is_valid(row, col, matrix):
+    return 0 <= row < len(matrix) and 0 <= col < len(matrix[0])
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function processMatrix(matrix) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            // Process matrix[i][j]
+            processCell(matrix, i, j);
+        }
+    }
+}
+
+function isValid(row, col, matrix) {
+    return row >= 0 && row < matrix.length && 
+           col >= 0 && col < matrix[0].length;
+}
+```
+  </div>
+</div>
 
 ### In-Place Modification Template
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public void modifyInPlace(int[][] matrix) {
     int rows = matrix.length, cols = matrix[0].length;
@@ -1685,8 +2251,63 @@ public void modifyInPlace(int[][] matrix) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def modify_in_place(matrix):
+    rows, cols = len(matrix), len(matrix[0])
+    
+    # Phase 1: Mark elements that need modification
+    for i in range(rows):
+        for j in range(cols):
+            if should_modify(matrix[i][j]):
+                mark_for_modification(matrix, i, j)
+    
+    # Phase 2: Apply modifications based on marks
+    for i in range(rows):
+        for j in range(cols):
+            if is_marked(matrix[i][j]):
+                apply_modification(matrix, i, j)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function modifyInPlace(matrix) {
+    const rows = matrix.length, cols = matrix[0].length;
+    
+    // Phase 1: Mark elements that need modification
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (shouldModify(matrix[i][j])) {
+                markForModification(matrix, i, j);
+            }
+        }
+    }
+    
+    // Phase 2: Apply modifications based on marks
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (isMarked(matrix[i][j])) {
+                applyModification(matrix, i, j);
+            }
+        }
+    }
+}
+```
+  </div>
+</div>
 
 ### Layer Processing Template
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public void processLayers(int[][] matrix) {
     int n = matrix.length;
@@ -1709,8 +2330,64 @@ private void processLayer(int[][] matrix, int first, int last) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def process_layers(matrix):
+    n = len(matrix)
+    
+    for layer in range(n // 2):
+        first = layer
+        last = n - 1 - layer
+        
+        # Process current layer
+        process_layer(matrix, first, last)
+
+def process_layer(matrix, first, last):
+    for i in range(first, last):
+        offset = i - first
+        
+        # Process 4 elements in the layer cycle
+        process_layer_elements(matrix, first, last, i, offset)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function processLayers(matrix) {
+    const n = matrix.length;
+    
+    for (let layer = 0; layer < Math.floor(n / 2); layer++) {
+        const first = layer;
+        const last = n - 1 - layer;
+        
+        // Process current layer
+        processLayer(matrix, first, last);
+    }
+}
+
+function processLayer(matrix, first, last) {
+    for (let i = first; i < last; i++) {
+        const offset = i - first;
+        
+        // Process 4 elements in the layer cycle
+        processLayerElements(matrix, first, last, i, offset);
+    }
+}
+```
+  </div>
+</div>
 
 ### DFS with Backtracking Template
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean searchMatrix(char[][] board, String target) {
     int rows = board.length, cols = board[0].length;
@@ -1751,8 +2428,97 @@ private boolean dfs(char[][] board, String target, int row, int col, int index) 
     return false;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def search_matrix(board, target):
+    rows, cols = len(board), len(board[0])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    def dfs(row, col, index):
+        # Base cases
+        if index == len(target):
+            return True
+        if not is_valid(row, col, board) or board[row][col] != target[index]:
+            return False
+        
+        # Mark as visited
+        temp = board[row][col]
+        board[row][col] = '#'
+        
+        # Explore 4 directions
+        for dr, dc in directions:
+            if dfs(row + dr, col + dc, index + 1):
+                board[row][col] = temp  # Restore
+                return True
+        
+        # Backtrack
+        board[row][col] = temp
+        return False
+    
+    for i in range(rows):
+        for j in range(cols):
+            if dfs(i, j, 0):
+                return True
+    
+    return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function searchMatrix(board, target) {
+    const rows = board.length, cols = board[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    function dfs(row, col, index) {
+        // Base cases
+        if (index === target.length) return true;
+        if (!isValid(row, col, board) || board[row][col] !== target[index]) {
+            return false;
+        }
+        
+        // Mark as visited
+        const temp = board[row][col];
+        board[row][col] = '#';
+        
+        // Explore 4 directions
+        for (const [dr, dc] of directions) {
+            if (dfs(row + dr, col + dc, index + 1)) {
+                board[row][col] = temp; // Restore
+                return true;
+            }
+        }
+        
+        // Backtrack
+        board[row][col] = temp;
+        return false;
+    }
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (dfs(i, j, 0)) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+```
+  </div>
+</div>
 
 ### Spiral Traversal Template
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public List<Integer> spiralTraversal(int[][] matrix) {
     List<Integer> result = new ArrayList<>();
@@ -1794,6 +2560,89 @@ public List<Integer> spiralTraversal(int[][] matrix) {
     return result;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def spiral_traversal(matrix):
+    if not matrix:
+        return []
+    
+    result = []
+    top, bottom = 0, len(matrix) - 1
+    left, right = 0, len(matrix[0]) - 1
+    
+    while top <= bottom and left <= right:
+        # Traverse right
+        for col in range(left, right + 1):
+            result.append(matrix[top][col])
+        top += 1
+        
+        # Traverse down
+        for row in range(top, bottom + 1):
+            result.append(matrix[row][right])
+        right -= 1
+        
+        # Traverse left (if still have rows)
+        if top <= bottom:
+            for col in range(right, left - 1, -1):
+                result.append(matrix[bottom][col])
+            bottom -= 1
+        
+        # Traverse up (if still have columns)
+        if left <= right:
+            for row in range(bottom, top - 1, -1):
+                result.append(matrix[row][left])
+            left += 1
+    
+    return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function spiralTraversal(matrix) {
+    if (matrix.length === 0) return [];
+    
+    const result = [];
+    let top = 0, bottom = matrix.length - 1;
+    let left = 0, right = matrix[0].length - 1;
+    
+    while (top <= bottom && left <= right) {
+        // Traverse right
+        for (let col = left; col <= right; col++) {
+            result.push(matrix[top][col]);
+        }
+        top++;
+        
+        // Traverse down
+        for (let row = top; row <= bottom; row++) {
+            result.push(matrix[row][right]);
+        }
+        right--;
+        
+        // Traverse left (if still have rows)
+        if (top <= bottom) {
+            for (let col = right; col >= left; col--) {
+                result.push(matrix[bottom][col]);
+            }
+            bottom--;
+        }
+        
+        // Traverse up (if still have columns)
+        if (left <= right) {
+            for (let row = bottom; row >= top; row--) {
+                result.push(matrix[row][left]);
+            }
+            left++;
+        }
+    }
+    
+    return result;
+}
+```
+  </div>
+</div>
 
 ## Final Tips for Matrix Problems
 

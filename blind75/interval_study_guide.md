@@ -42,6 +42,15 @@ Interval problems involve working with ranges of values, typically represented a
 ## Core Concepts and Prerequisites
 
 ### 1. Interval Representation
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Interval {
     int start;
@@ -55,6 +64,35 @@ class Interval {
 // Often represented as int[][] or List<int[]>
 int[][] intervals = { {1,3}, {2,6}, {8,10} };
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Interval:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+# Often represented as list of lists or list of tuples
+intervals = [[1,3], [2,6], [8,10]]
+# Or as tuples: intervals = [(1,3), (2,6), (8,10)]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class Interval {
+    constructor(start, end) {
+        this.start = start;
+        this.end = end;
+    }
+}
+
+// Often represented as array of arrays
+const intervals = [[1,3], [2,6], [8,10]];
+```
+  </div>
+</div>
 
 ### 2. Overlap Detection
 Two intervals `[a, b]` and `[c, d]` overlap if:
@@ -216,8 +254,16 @@ To insert an interval into a sorted non-overlapping array:
 3. **Add remaining intervals**: Include intervals that start after new interval ends
 4. **Handle edge cases**: Empty array, new interval at boundaries
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Three-Phase Processing
 class Solution {
@@ -342,6 +388,234 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Three-Phase Processing
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        result = []
+        i = 0
+        n = len(intervals)
+        
+        # Phase 1: Add all intervals that end before newInterval starts
+        while i < n and intervals[i][1] < newInterval[0]:
+            result.append(intervals[i])
+            i += 1
+        
+        # Phase 2: Merge all overlapping intervals with newInterval
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval[0] = min(newInterval[0], intervals[i][0])
+            newInterval[1] = max(newInterval[1], intervals[i][1])
+            i += 1
+        result.append(newInterval)
+        
+        # Phase 3: Add all remaining intervals
+        while i < n:
+            result.append(intervals[i])
+            i += 1
+        
+        return result
+
+# Approach 2: Binary Search Optimization
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        
+        result = []
+        
+        # Binary search for insertion point
+        start = self.findInsertPosition(intervals, newInterval[0])
+        end = self.findMergeEnd(intervals, newInterval[1])
+        
+        # Add intervals before merge region
+        for i in range(start):
+            result.append(intervals[i])
+        
+        # Create merged interval
+        merge_start = min(newInterval[0], 
+                         intervals[start][0] if start < len(intervals) else newInterval[0])
+        merge_end = max(newInterval[1],
+                       intervals[end][1] if end >= 0 else newInterval[1])
+        result.append([merge_start, merge_end])
+        
+        # Add intervals after merge region
+        for i in range(end + 1, len(intervals)):
+            result.append(intervals[i])
+        
+        return result
+    
+    def findInsertPosition(self, intervals, target):
+        left, right = 0, len(intervals)
+        while left < right:
+            mid = left + (right - left) // 2
+            if intervals[mid][0] < target:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+    
+    def findMergeEnd(self, intervals, target):
+        result = -1
+        for i in range(len(intervals)):
+            if intervals[i][0] <= target:
+                result = i
+            else:
+                break
+        return result
+
+# Approach 3: In-Place with List Processing
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        merged = []
+        inserted = False
+        
+        for current in intervals:
+            if newInterval[1] < current[0]:
+                # New interval ends before current starts
+                if not inserted:
+                    merged.append(newInterval)
+                    inserted = True
+                merged.append(current)
+            elif newInterval[0] > current[1]:
+                # New interval starts after current ends
+                merged.append(current)
+            else:
+                # Overlap detected - merge intervals
+                newInterval[0] = min(newInterval[0], current[0])
+                newInterval[1] = max(newInterval[1], current[1])
+        
+        # Add newInterval if not yet inserted
+        if not inserted:
+            merged.append(newInterval)
+        
+        return merged
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Three-Phase Processing
+var insert = function(intervals, newInterval) {
+    const result = [];
+    let i = 0;
+    const n = intervals.length;
+    
+    // Phase 1: Add all intervals that end before newInterval starts
+    while (i < n && intervals[i][1] < newInterval[0]) {
+        result.push(intervals[i]);
+        i++;
+    }
+    
+    // Phase 2: Merge all overlapping intervals with newInterval
+    while (i < n && intervals[i][0] <= newInterval[1]) {
+        newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+        newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+        i++;
+    }
+    result.push(newInterval);
+    
+    // Phase 3: Add all remaining intervals
+    while (i < n) {
+        result.push(intervals[i]);
+        i++;
+    }
+    
+    return result;
+};
+
+// Approach 2: Binary Search Optimization
+var insert = function(intervals, newInterval) {
+    if (intervals.length === 0) {
+        return [newInterval];
+    }
+    
+    const result = [];
+    
+    // Binary search for insertion point
+    const start = findInsertPosition(intervals, newInterval[0]);
+    const end = findMergeEnd(intervals, newInterval[1]);
+    
+    // Add intervals before merge region
+    for (let i = 0; i < start; i++) {
+        result.push(intervals[i]);
+    }
+    
+    // Create merged interval
+    const mergeStart = Math.min(newInterval[0], 
+                               start < intervals.length ? intervals[start][0] : newInterval[0]);
+    const mergeEnd = Math.max(newInterval[1],
+                             end >= 0 ? intervals[end][1] : newInterval[1]);
+    result.push([mergeStart, mergeEnd]);
+    
+    // Add intervals after merge region
+    for (let i = end + 1; i < intervals.length; i++) {
+        result.push(intervals[i]);
+    }
+    
+    return result;
+};
+
+function findInsertPosition(intervals, target) {
+    let left = 0, right = intervals.length;
+    while (left < right) {
+        const mid = Math.floor(left + (right - left) / 2);
+        if (intervals[mid][0] < target) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    return left;
+}
+
+function findMergeEnd(intervals, target) {
+    let result = -1;
+    for (let i = 0; i < intervals.length; i++) {
+        if (intervals[i][0] <= target) {
+            result = i;
+        } else {
+            break;
+        }
+    }
+    return result;
+}
+
+// Approach 3: In-Place with Array Processing
+var insert = function(intervals, newInterval) {
+    const merged = [];
+    let inserted = false;
+    
+    for (const current of intervals) {
+        if (newInterval[1] < current[0]) {
+            // New interval ends before current starts
+            if (!inserted) {
+                merged.push(newInterval);
+                inserted = true;
+            }
+            merged.push(current);
+        } else if (newInterval[0] > current[1]) {
+            // New interval starts after current ends
+            merged.push(current);
+        } else {
+            // Overlap detected - merge intervals
+            newInterval[0] = Math.min(newInterval[0], current[0]);
+            newInterval[1] = Math.max(newInterval[1], current[1]);
+        }
+    }
+    
+    // Add newInterval if not yet inserted
+    if (!inserted) {
+        merged.push(newInterval);
+    }
+    
+    return merged;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n) for linear scan, O(log n) for binary search optimization
@@ -480,8 +754,16 @@ To merge overlapping intervals:
 3. **Process remaining**: For each interval, check overlap with last merged interval
 4. **Merge or add**: Update end time if overlap, otherwise add new interval
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Sort and Merge
 class Solution {
@@ -610,6 +892,224 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Sort and Merge
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
+        
+        # Sort by start time
+        intervals.sort(key=lambda x: x[0])
+        
+        merged = [intervals[0]]
+        
+        for i in range(1, len(intervals)):
+            current_interval = merged[-1]
+            next_interval = intervals[i]
+            
+            if current_interval[1] >= next_interval[0]:
+                # Overlapping intervals - merge them
+                current_interval[1] = max(current_interval[1], next_interval[1])
+            else:
+                # Non-overlapping - add new interval
+                merged.append(next_interval)
+        
+        return merged
+
+# Approach 2: Stack-based Approach
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
+        
+        intervals.sort(key=lambda x: x[0])
+        
+        stack = [intervals[0]]
+        
+        for i in range(1, len(intervals)):
+            top = stack[-1]
+            current = intervals[i]
+            
+            if top[1] >= current[0]:
+                # Merge intervals
+                top[1] = max(top[1], current[1])
+            else:
+                # No overlap
+                stack.append(current)
+        
+        return stack
+
+# Approach 3: In-Place Modification (when modification allowed)
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
+        
+        intervals.sort(key=lambda x: x[0])
+        
+        write_index = 0
+        
+        for i in range(1, len(intervals)):
+            if intervals[write_index][1] >= intervals[i][0]:
+                # Merge with previous interval
+                intervals[write_index][1] = max(intervals[write_index][1], intervals[i][1])
+            else:
+                # Move to next position
+                write_index += 1
+                intervals[write_index] = intervals[i]
+        
+        # Return only the merged intervals
+        return intervals[:write_index + 1]
+
+# Approach 4: Custom Interval Class
+class Solution:
+    class Interval:
+        def __init__(self, start, end):
+            self.start = start
+            self.end = end
+    
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
+        
+        interval_list = []
+        for interval in intervals:
+            interval_list.append(self.Interval(interval[0], interval[1]))
+        
+        interval_list.sort(key=lambda x: x.start)
+        
+        merged = [interval_list[0]]
+        
+        for i in range(1, len(interval_list)):
+            current = interval_list[i]
+            last = merged[-1]
+            
+            if last.end >= current.start:
+                last.end = max(last.end, current.end)
+            else:
+                merged.append(current)
+        
+        result = []
+        for interval in merged:
+            result.append([interval.start, interval.end])
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Sort and Merge
+var merge = function(intervals) {
+    if (intervals.length <= 1) {
+        return intervals;
+    }
+    
+    // Sort by start time
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    const merged = [intervals[0]];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        const currentInterval = merged[merged.length - 1];
+        const nextInterval = intervals[i];
+        
+        if (currentInterval[1] >= nextInterval[0]) {
+            // Overlapping intervals - merge them
+            currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
+        } else {
+            // Non-overlapping - add new interval
+            merged.push(nextInterval);
+        }
+    }
+    
+    return merged;
+};
+
+// Approach 2: Stack-based Approach
+var merge = function(intervals) {
+    if (intervals.length <= 1) return intervals;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    const stack = [intervals[0]];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        const top = stack[stack.length - 1];
+        const current = intervals[i];
+        
+        if (top[1] >= current[0]) {
+            // Merge intervals
+            top[1] = Math.max(top[1], current[1]);
+        } else {
+            // No overlap
+            stack.push(current);
+        }
+    }
+    
+    return stack;
+};
+
+// Approach 3: In-Place Modification (when modification allowed)
+var merge = function(intervals) {
+    if (intervals.length <= 1) return intervals;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    let writeIndex = 0;
+    
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[writeIndex][1] >= intervals[i][0]) {
+            // Merge with previous interval
+            intervals[writeIndex][1] = Math.max(intervals[writeIndex][1], intervals[i][1]);
+        } else {
+            // Move to next position
+            writeIndex++;
+            intervals[writeIndex] = intervals[i];
+        }
+    }
+    
+    // Return only the merged intervals
+    return intervals.slice(0, writeIndex + 1);
+};
+
+// Approach 4: Custom Interval Class
+var merge = function(intervals) {
+    if (intervals.length <= 1) return intervals;
+    
+    class Interval {
+        constructor(start, end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+    
+    const intervalList = intervals.map(interval => new Interval(interval[0], interval[1]));
+    
+    intervalList.sort((a, b) => a.start - b.start);
+    
+    const merged = [intervalList[0]];
+    
+    for (let i = 1; i < intervalList.length; i++) {
+        const current = intervalList[i];
+        const last = merged[merged.length - 1];
+        
+        if (last.end >= current.start) {
+            last.end = Math.max(last.end, current.end);
+        } else {
+            merged.push(current);
+        }
+    }
+    
+    return merged.map(interval => [interval.start, interval.end]);
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n log n) due to sorting
@@ -748,8 +1248,16 @@ This is the classic "Activity Selection Problem":
 3. **Count selections**: Track how many intervals we can keep
 4. **Calculate removals**: Total - Selected = Minimum removals
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Classic Activity Selection (Sort by End Time)
 class Solution {
@@ -859,6 +1367,194 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Classic Activity Selection (Sort by End Time)
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals) <= 1:
+            return 0
+        
+        # Sort by end time (key insight for activity selection)
+        intervals.sort(key=lambda x: x[1])
+        
+        count = 1  # First interval is always selected
+        last_end = intervals[0][1]
+        
+        for i in range(1, len(intervals)):
+            # If current interval starts after last selected interval ends
+            if intervals[i][0] >= last_end:
+                count += 1
+                last_end = intervals[i][1]
+            # If overlap, we skip current interval (implicitly remove it)
+        
+        return len(intervals) - count
+
+# Approach 2: Sort by Start Time (Alternative Approach)
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals) <= 1:
+            return 0
+        
+        intervals.sort(key=lambda x: x[0])
+        
+        removals = 0
+        last_end = intervals[0][1]
+        
+        for i in range(1, len(intervals)):
+            if intervals[i][0] < last_end:
+                # Overlap detected - remove interval with later end time
+                removals += 1
+                last_end = min(last_end, intervals[i][1])
+            else:
+                # No overlap
+                last_end = intervals[i][1]
+        
+        return removals
+
+# Approach 3: Greedy with Detailed Tracking
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals) <= 1:
+            return 0
+        
+        # Sort by end time for optimal greedy selection
+        intervals.sort(key=lambda x: (x[1], x[0]))  # Break ties by start time
+        
+        selected = [intervals[0]]
+        
+        for i in range(1, len(intervals)):
+            last_selected = selected[-1]
+            
+            # No overlap: start >= end of last selected
+            if intervals[i][0] >= last_selected[1]:
+                selected.append(intervals[i])
+            # Overlap: skip current interval (count as removal)
+        
+        return len(intervals) - len(selected)
+
+# Approach 4: Dynamic Programming (Less Efficient but Educational)
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals) <= 1:
+            return 0
+        
+        intervals.sort(key=lambda x: x[0])
+        
+        # dp[i] = maximum non-overlapping intervals ending at or before i
+        dp = [1] * len(intervals)
+        
+        for i in range(1, len(intervals)):
+            for j in range(i):
+                # If intervals[j] doesn't overlap with intervals[i]
+                if intervals[j][1] <= intervals[i][0]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        
+        max_non_overlapping = max(dp)
+        
+        return len(intervals) - max_non_overlapping
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Classic Activity Selection (Sort by End Time)
+var eraseOverlapIntervals = function(intervals) {
+    if (intervals.length <= 1) return 0;
+    
+    // Sort by end time (key insight for activity selection)
+    intervals.sort((a, b) => a[1] - b[1]);
+    
+    let count = 1; // First interval is always selected
+    let lastEnd = intervals[0][1];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        // If current interval starts after last selected interval ends
+        if (intervals[i][0] >= lastEnd) {
+            count++;
+            lastEnd = intervals[i][1];
+        }
+        // If overlap, we skip current interval (implicitly remove it)
+    }
+    
+    return intervals.length - count;
+};
+
+// Approach 2: Sort by Start Time (Alternative Approach)
+var eraseOverlapIntervals = function(intervals) {
+    if (intervals.length <= 1) return 0;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    let removals = 0;
+    let lastEnd = intervals[0][1];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] < lastEnd) {
+            // Overlap detected - remove interval with later end time
+            removals++;
+            lastEnd = Math.min(lastEnd, intervals[i][1]);
+        } else {
+            // No overlap
+            lastEnd = intervals[i][1];
+        }
+    }
+    
+    return removals;
+};
+
+// Approach 3: Greedy with Detailed Tracking
+var eraseOverlapIntervals = function(intervals) {
+    if (intervals.length <= 1) return 0;
+    
+    // Sort by end time for optimal greedy selection
+    intervals.sort((a, b) => {
+        if (a[1] !== b[1]) return a[1] - b[1];
+        return a[0] - b[0]; // Break ties by start time
+    });
+    
+    const selected = [intervals[0]];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        const lastSelected = selected[selected.length - 1];
+        
+        // No overlap: start >= end of last selected
+        if (intervals[i][0] >= lastSelected[1]) {
+            selected.push(intervals[i]);
+        }
+        // Overlap: skip current interval (count as removal)
+    }
+    
+    return intervals.length - selected.length;
+};
+
+// Approach 4: Dynamic Programming (Less Efficient but Educational)
+var eraseOverlapIntervals = function(intervals) {
+    if (intervals.length <= 1) return 0;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    // dp[i] = maximum non-overlapping intervals ending at or before i
+    const dp = new Array(intervals.length).fill(1);
+    
+    for (let i = 1; i < intervals.length; i++) {
+        for (let j = 0; j < i; j++) {
+            // If intervals[j] doesn't overlap with intervals[i]
+            if (intervals[j][1] <= intervals[i][0]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    
+    const maxNonOverlapping = Math.max(...dp);
+    
+    return intervals.length - maxNonOverlapping;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Greedy**: Time O(n log n), Space O(1)
@@ -1000,8 +1696,16 @@ For a person to attend all meetings, no two meetings can overlap:
 3. **Detect overlap**: If meeting[i].end > meeting[i+1].start, there's conflict
 4. **Early termination**: Return false immediately when overlap found
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Sort and Check Consecutive Pairs
 class Solution {
@@ -1125,6 +1829,209 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Sort and Check Consecutive Pairs
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        if len(intervals) <= 1:
+            return True
+        
+        # Sort by start time
+        intervals.sort(key=lambda x: x[0])
+        
+        # Check consecutive meetings for overlap
+        for i in range(len(intervals) - 1):
+            if intervals[i][1] > intervals[i + 1][0]:
+                return False  # Overlap detected
+        
+        return True
+
+# Approach 2: Sort by End Time (Alternative)
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        if len(intervals) <= 1:
+            return True
+        
+        intervals.sort(key=lambda x: x[1])
+        
+        for i in range(len(intervals) - 1):
+            if intervals[i][1] > intervals[i + 1][0]:
+                return False
+        
+        return True
+
+# Approach 3: Sweep Line Algorithm
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        if len(intervals) <= 1:
+            return True
+        
+        # Create events: +1 for start, -1 for end
+        events = []
+        for interval in intervals:
+            events.append((interval[0], 1))   # Meeting starts
+            events.append((interval[1], -1))  # Meeting ends
+        
+        # Sort events by time, with ends before starts at same time
+        events.sort(key=lambda x: (x[0], x[1]))  # -1 (end) comes before 1 (start)
+        
+        active_count = 0
+        for time, event_type in events:
+            active_count += event_type
+            if active_count > 1:
+                return False  # More than one meeting active
+        
+        return True
+
+# Approach 4: Brute Force (For Comparison)
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        for i in range(len(intervals)):
+            for j in range(i + 1, len(intervals)):
+                if self.isOverlapping(intervals[i], intervals[j]):
+                    return False
+        return True
+    
+    def isOverlapping(self, interval1, interval2):
+        return max(interval1[0], interval2[0]) < min(interval1[1], interval2[1])
+
+# Approach 5: Custom Interval Class with Validation
+class Solution:
+    class Meeting:
+        def __init__(self, start, end):
+            self.start = start
+            self.end = end
+        
+        def __lt__(self, other):
+            return self.start < other.start
+        
+        def overlapsWith(self, other):
+            return self.end > other.start and other.end > self.start
+    
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        meetings = []
+        for interval in intervals:
+            meetings.append(self.Meeting(interval[0], interval[1]))
+        
+        meetings.sort()
+        
+        for i in range(len(meetings) - 1):
+            if meetings[i].overlapsWith(meetings[i + 1]):
+                return False
+        
+        return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Sort and Check Consecutive Pairs
+var canAttendMeetings = function(intervals) {
+    if (intervals.length <= 1) return true;
+    
+    // Sort by start time
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    // Check consecutive meetings for overlap
+    for (let i = 0; i < intervals.length - 1; i++) {
+        if (intervals[i][1] > intervals[i + 1][0]) {
+            return false; // Overlap detected
+        }
+    }
+    
+    return true;
+};
+
+// Approach 2: Sort by End Time (Alternative)
+var canAttendMeetings = function(intervals) {
+    if (intervals.length <= 1) return true;
+    
+    intervals.sort((a, b) => a[1] - b[1]);
+    
+    for (let i = 0; i < intervals.length - 1; i++) {
+        if (intervals[i][1] > intervals[i + 1][0]) {
+            return false;
+        }
+    }
+    
+    return true;
+};
+
+// Approach 3: Sweep Line Algorithm
+var canAttendMeetings = function(intervals) {
+    if (intervals.length <= 1) return true;
+    
+    // Create events: +1 for start, -1 for end
+    const events = [];
+    for (const interval of intervals) {
+        events.push([interval[0], 1]);   // Meeting starts
+        events.push([interval[1], -1]);  // Meeting ends
+    }
+    
+    // Sort events by time, with ends before starts at same time
+    events.sort((a, b) => {
+        if (a[0] !== b[0]) return a[0] - b[0];
+        return a[1] - b[1]; // -1 (end) comes before 1 (start)
+    });
+    
+    let activeCount = 0;
+    for (const [time, eventType] of events) {
+        activeCount += eventType;
+        if (activeCount > 1) {
+            return false; // More than one meeting active
+        }
+    }
+    
+    return true;
+};
+
+// Approach 4: Brute Force (For Comparison)
+var canAttendMeetings = function(intervals) {
+    for (let i = 0; i < intervals.length; i++) {
+        for (let j = i + 1; j < intervals.length; j++) {
+            if (isOverlapping(intervals[i], intervals[j])) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+function isOverlapping(interval1, interval2) {
+    return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
+}
+
+// Approach 5: Custom Interval Class with Validation
+var canAttendMeetings = function(intervals) {
+    class Meeting {
+        constructor(start, end) {
+            this.start = start;
+            this.end = end;
+        }
+        
+        overlapsWith(other) {
+            return this.end > other.start && other.end > this.start;
+        }
+    }
+    
+    const meetings = intervals.map(interval => new Meeting(interval[0], interval[1]));
+    
+    meetings.sort((a, b) => a.start - b.start);
+    
+    for (let i = 0; i < meetings.length - 1; i++) {
+        if (meetings[i].overlapsWith(meetings[i + 1])) {
+            return false;
+        }
+    }
+    
+    return true;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Sorting approach**: Time O(n log n), Space O(1)
@@ -1268,8 +2175,16 @@ This is a resource allocation problem:
 3. **Allocate rooms**: For each meeting, reuse room if available, else allocate new room
 4. **Count maximum**: The heap size represents concurrent meetings (rooms needed)
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Min-Heap for Room End Times
 class Solution {
@@ -1427,6 +2342,341 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Min-Heap for Room End Times
+import heapq
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        # Sort meetings by start time
+        intervals.sort(key=lambda x: x[0])
+        
+        # Min-heap to track end times of ongoing meetings
+        heap = []
+        
+        for meeting in intervals:
+            # If earliest meeting ends before current starts, reuse that room
+            if heap and heap[0] <= meeting[0]:
+                heapq.heappop(heap)
+            
+            # Add current meeting's end time
+            heapq.heappush(heap, meeting[1])
+        
+        return len(heap)  # Number of rooms needed
+
+# Approach 2: Sweep Line Algorithm
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        events = []
+        
+        # Create start and end events
+        for interval in intervals:
+            events.append((interval[0], 1))   # Meeting starts (+1)
+            events.append((interval[1], -1))  # Meeting ends (-1)
+        
+        # Sort events: by time, then end events before start events at same time
+        events.sort(key=lambda x: (x[0], x[1]))  # -1 (end) comes before 1 (start)
+        
+        active_rooms = 0
+        max_rooms = 0
+        
+        for time, event_type in events:
+            active_rooms += event_type
+            max_rooms = max(max_rooms, active_rooms)
+        
+        return max_rooms
+
+# Approach 3: Two Pointers with Separate Arrays
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        n = len(intervals)
+        starts = [interval[0] for interval in intervals]
+        ends = [interval[1] for interval in intervals]
+        
+        # Sort both arrays
+        starts.sort()
+        ends.sort()
+        
+        start_ptr = 0
+        end_ptr = 0
+        active_rooms = 0
+        max_rooms = 0
+        
+        while start_ptr < n:
+            if starts[start_ptr] < ends[end_ptr]:
+                # A meeting starts before any ends
+                active_rooms += 1
+                start_ptr += 1
+            else:
+                # A meeting ends before or at the same time as one starts
+                active_rooms -= 1
+                end_ptr += 1
+            max_rooms = max(max_rooms, active_rooms)
+        
+        return max_rooms
+
+# Approach 4: TreeMap equivalent using Counter
+from collections import Counter
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        time_map = Counter()
+        
+        # Count events at each time point
+        for interval in intervals:
+            time_map[interval[0]] += 1  # Start
+            time_map[interval[1]] -= 1  # End
+        
+        active_rooms = 0
+        max_rooms = 0
+        
+        # Process in sorted order of time
+        for time in sorted(time_map.keys()):
+            active_rooms += time_map[time]
+            max_rooms = max(max_rooms, active_rooms)
+        
+        return max_rooms
+
+# Approach 5: Custom Event Class
+class Solution:
+    class Event:
+        def __init__(self, time, event_type):
+            self.time = time
+            self.type = event_type  # 1 for start, -1 for end
+    
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        events = []
+        
+        for interval in intervals:
+            events.append(self.Event(interval[0], 1))   # Start event
+            events.append(self.Event(interval[1], -1))  # End event
+        
+        # Sort by time, with end events before start events at same time
+        events.sort(key=lambda x: (x.time, x.type))  # -1 before 1
+        
+        concurrent = 0
+        max_concurrent = 0
+        
+        for event in events:
+            concurrent += event.type
+            max_concurrent = max(max_concurrent, concurrent)
+        
+        return max_concurrent
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Min-Heap for Room End Times
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(value) {
+        this.heap.push(value);
+        this.heapifyUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown(0);
+        return root;
+    }
+    
+    peek() {
+        return this.heap.length > 0 ? this.heap[0] : null;
+    }
+    
+    size() {
+        return this.heap.length;
+    }
+    
+    heapifyUp(index) {
+        if (index === 0) return;
+        const parentIndex = Math.floor((index - 1) / 2);
+        if (this.heap[parentIndex] > this.heap[index]) {
+            [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+            this.heapifyUp(parentIndex);
+        }
+    }
+    
+    heapifyDown(index) {
+        const leftChild = 2 * index + 1;
+        const rightChild = 2 * index + 2;
+        let smallest = index;
+        
+        if (leftChild < this.heap.length && this.heap[leftChild] < this.heap[smallest]) {
+            smallest = leftChild;
+        }
+        
+        if (rightChild < this.heap.length && this.heap[rightChild] < this.heap[smallest]) {
+            smallest = rightChild;
+        }
+        
+        if (smallest !== index) {
+            [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+            this.heapifyDown(smallest);
+        }
+    }
+}
+
+var minMeetingRooms = function(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    // Sort meetings by start time
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    // Min-heap to track end times of ongoing meetings
+    const heap = new MinHeap();
+    
+    for (const meeting of intervals) {
+        // If earliest meeting ends before current starts, reuse that room
+        if (heap.size() > 0 && heap.peek() <= meeting[0]) {
+            heap.pop();
+        }
+        
+        // Add current meeting's end time
+        heap.push(meeting[1]);
+    }
+    
+    return heap.size();
+};
+
+// Approach 2: Sweep Line Algorithm
+var minMeetingRooms = function(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    const events = [];
+    
+    // Create start and end events
+    for (const interval of intervals) {
+        events.push([interval[0], 1]);   // Meeting starts (+1)
+        events.push([interval[1], -1]);  // Meeting ends (-1)
+    }
+    
+    // Sort events: by time, then end events before start events at same time
+    events.sort((a, b) => {
+        if (a[0] !== b[0]) return a[0] - b[0];
+        return a[1] - b[1]; // -1 (end) comes before 1 (start)
+    });
+    
+    let activeRooms = 0;
+    let maxRooms = 0;
+    
+    for (const [time, eventType] of events) {
+        activeRooms += eventType;
+        maxRooms = Math.max(maxRooms, activeRooms);
+    }
+    
+    return maxRooms;
+};
+
+// Approach 3: Two Pointers with Separate Arrays
+var minMeetingRooms = function(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    const n = intervals.length;
+    const starts = intervals.map(interval => interval[0]);
+    const ends = intervals.map(interval => interval[1]);
+    
+    // Sort both arrays
+    starts.sort((a, b) => a - b);
+    ends.sort((a, b) => a - b);
+    
+    let startPtr = 0, endPtr = 0;
+    let activeRooms = 0, maxRooms = 0;
+    
+    while (startPtr < n) {
+        if (starts[startPtr] < ends[endPtr]) {
+            // A meeting starts before any ends
+            activeRooms++;
+            startPtr++;
+        } else {
+            // A meeting ends before or at the same time as one starts
+            activeRooms--;
+            endPtr++;
+        }
+        maxRooms = Math.max(maxRooms, activeRooms);
+    }
+    
+    return maxRooms;
+};
+
+// Approach 4: Map for Time Tracking
+var minMeetingRooms = function(intervals) {
+    const timeMap = new Map();
+    
+    // Count events at each time point
+    for (const interval of intervals) {
+        timeMap.set(interval[0], (timeMap.get(interval[0]) || 0) + 1); // Start
+        timeMap.set(interval[1], (timeMap.get(interval[1]) || 0) - 1); // End
+    }
+    
+    let activeRooms = 0;
+    let maxRooms = 0;
+    
+    // Process in sorted order of time
+    const sortedTimes = Array.from(timeMap.keys()).sort((a, b) => a - b);
+    for (const time of sortedTimes) {
+        activeRooms += timeMap.get(time);
+        maxRooms = Math.max(maxRooms, activeRooms);
+    }
+    
+    return maxRooms;
+};
+
+// Approach 5: Custom Event Class
+var minMeetingRooms = function(intervals) {
+    class Event {
+        constructor(time, type) {
+            this.time = time;
+            this.type = type; // 1 for start, -1 for end
+        }
+    }
+    
+    const events = [];
+    
+    for (const interval of intervals) {
+        events.push(new Event(interval[0], 1));   // Start event
+        events.push(new Event(interval[1], -1));  // End event
+    }
+    
+    // Sort by time, with end events before start events at same time
+    events.sort((a, b) => {
+        if (a.time !== b.time) return a.time - b.time;
+        return a.type - b.type; // -1 before 1
+    });
+    
+    let concurrent = 0;
+    let maxConcurrent = 0;
+    
+    for (const event of events) {
+        concurrent += event.type;
+        maxConcurrent = Math.max(maxConcurrent, concurrent);
+    }
+    
+    return maxConcurrent;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Min-heap**: Time O(n log n), Space O(n)
@@ -1483,6 +2733,15 @@ Maximum heap size = minimum rooms needed
 ## Implementation Templates
 
 ### Basic Interval Merging Template
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int[][] mergeIntervals(int[][] intervals) {
     if (intervals.length <= 1) return intervals;
@@ -1507,8 +2766,69 @@ public int[][] mergeIntervals(int[][] intervals) {
     return merged.toArray(new int[merged.size()][]);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def merge_intervals(intervals):
+    if len(intervals) <= 1:
+        return intervals
+    
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    
+    for i in range(1, len(intervals)):
+        last = merged[-1]
+        current = intervals[i]
+        
+        if last[1] >= current[0]:
+            # Merge overlapping intervals
+            last[1] = max(last[1], current[1])
+        else:
+            # Add non-overlapping interval
+            merged.append(current)
+    
+    return merged
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function mergeIntervals(intervals) {
+    if (intervals.length <= 1) return intervals;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    const merged = [intervals[0]];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        const last = merged[merged.length - 1];
+        const current = intervals[i];
+        
+        if (last[1] >= current[0]) {
+            // Merge overlapping intervals
+            last[1] = Math.max(last[1], current[1]);
+        } else {
+            // Add non-overlapping interval
+            merged.push(current);
+        }
+    }
+    
+    return merged;
+}
+```
+  </div>
+</div>
 
 ### Activity Selection Template
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxNonOverlapping(int[][] intervals) {
     if (intervals.length == 0) return 0;
@@ -1529,8 +2849,63 @@ public int maxNonOverlapping(int[][] intervals) {
     return count;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def max_non_overlapping(intervals):
+    if not intervals:
+        return 0
+    
+    # Sort by end time for greedy selection
+    intervals.sort(key=lambda x: x[1])
+    
+    count = 1
+    last_end = intervals[0][1]
+    
+    for i in range(1, len(intervals)):
+        if intervals[i][0] >= last_end:
+            count += 1
+            last_end = intervals[i][1]
+    
+    return count
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxNonOverlapping(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    // Sort by end time for greedy selection
+    intervals.sort((a, b) => a[1] - b[1]);
+    
+    let count = 1;
+    let lastEnd = intervals[0][1];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] >= lastEnd) {
+            count++;
+            lastEnd = intervals[i][1];
+        }
+    }
+    
+    return count;
+}
+```
+  </div>
+</div>
 
 ### Resource Allocation Template
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int minResources(int[][] intervals) {
     if (intervals.length == 0) return 0;
@@ -1548,8 +2923,116 @@ public int minResources(int[][] intervals) {
     return heap.size();
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+import heapq
+
+def min_resources(intervals):
+    if not intervals:
+        return 0
+    
+    intervals.sort(key=lambda x: x[0])
+    heap = []
+    
+    for interval in intervals:
+        if heap and heap[0] <= interval[0]:
+            heapq.heappop(heap)  # Reuse resource
+        heapq.heappush(heap, interval[1])  # Allocate resource
+    
+    return len(heap)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(value) {
+        this.heap.push(value);
+        this.heapifyUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown(0);
+        return root;
+    }
+    
+    peek() {
+        return this.heap.length > 0 ? this.heap[0] : null;
+    }
+    
+    size() {
+        return this.heap.length;
+    }
+    
+    heapifyUp(index) {
+        if (index === 0) return;
+        const parentIndex = Math.floor((index - 1) / 2);
+        if (this.heap[parentIndex] > this.heap[index]) {
+            [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+            this.heapifyUp(parentIndex);
+        }
+    }
+    
+    heapifyDown(index) {
+        const leftChild = 2 * index + 1;
+        const rightChild = 2 * index + 2;
+        let smallest = index;
+        
+        if (leftChild < this.heap.length && this.heap[leftChild] < this.heap[smallest]) {
+            smallest = leftChild;
+        }
+        
+        if (rightChild < this.heap.length && this.heap[rightChild] < this.heap[smallest]) {
+            smallest = rightChild;
+        }
+        
+        if (smallest !== index) {
+            [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+            this.heapifyDown(smallest);
+        }
+    }
+}
+
+function minResources(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    const heap = new MinHeap();
+    
+    for (const interval of intervals) {
+        if (heap.size() > 0 && heap.peek() <= interval[0]) {
+            heap.pop(); // Reuse resource
+        }
+        heap.push(interval[1]); // Allocate resource
+    }
+    
+    return heap.size();
+}
+```
+  </div>
+</div>
 
 ### Sweep Line Template
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxOverlap(int[][] intervals) {
     List<int[]> events = new ArrayList<>();
@@ -1573,8 +3056,67 @@ public int maxOverlap(int[][] intervals) {
     return maxActive;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def max_overlap(intervals):
+    events = []
+    
+    for interval in intervals:
+        events.append((interval[0], 1))   # Start event
+        events.append((interval[1], -1))  # End event
+    
+    events.sort(key=lambda x: (x[0], x[1]))  # End before start at same time
+    
+    active = 0
+    max_active = 0
+    for time, event_type in events:
+        active += event_type
+        max_active = max(max_active, active)
+    
+    return max_active
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxOverlap(intervals) {
+    const events = [];
+    
+    for (const interval of intervals) {
+        events.push([interval[0], 1]);   // Start event
+        events.push([interval[1], -1]);  // End event
+    }
+    
+    events.sort((a, b) => {
+        if (a[0] !== b[0]) return a[0] - b[0];
+        return a[1] - b[1]; // End before start at same time
+    });
+    
+    let active = 0;
+    let maxActive = 0;
+    for (const [time, eventType] of events) {
+        active += eventType;
+        maxActive = Math.max(maxActive, active);
+    }
+    
+    return maxActive;
+}
+```
+  </div>
+</div>
 
 ### Overlap Detection Template
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean hasOverlap(int[] interval1, int[] interval2) {
     return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
@@ -1592,6 +3134,44 @@ public boolean canScheduleAll(int[][] intervals) {
     return true;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def has_overlap(interval1, interval2):
+    return max(interval1[0], interval2[0]) < min(interval1[1], interval2[1])
+
+def can_schedule_all(intervals):
+    intervals.sort(key=lambda x: x[0])
+    
+    for i in range(len(intervals) - 1):
+        if intervals[i][1] > intervals[i + 1][0]:
+            return False  # Overlap detected
+    
+    return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function hasOverlap(interval1, interval2) {
+    return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
+}
+
+function canScheduleAll(intervals) {
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    for (let i = 0; i < intervals.length - 1; i++) {
+        if (intervals[i][1] > intervals[i + 1][0]) {
+            return false; // Overlap detected
+        }
+    }
+    
+    return true;
+}
+```
+  </div>
+</div>
 
 ## Final Tips for Interval Problems
 

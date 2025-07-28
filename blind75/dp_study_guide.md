@@ -190,8 +190,16 @@ This gives us: `ways(n) = ways(n-1) + ways(n-2)`
 3. **Recurrence**: `dp[i] = dp[i-1] + dp[i-2]`
 4. **Base cases**: `dp[0] = 1`, `dp[1] = 1`
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Recursive with Memoization (Top-Down)
 class ClimbingStairs {
@@ -247,6 +255,120 @@ class ClimbingStairs {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Recursive with Memoization (Top-Down)
+class ClimbingStairs:
+    def climbStairs(self, n: int) -> int:
+        memo = {}
+        return self.helper(n, memo)
+    
+    def helper(self, n: int, memo: dict) -> int:
+        # Base cases
+        if n <= 1:
+            return 1
+        
+        # Check memo
+        if n in memo:
+            return memo[n]
+        
+        # Recurrence relation
+        memo[n] = self.helper(n - 1, memo) + self.helper(n - 2, memo)
+        return memo[n]
+
+# Approach 2: Iterative Bottom-Up (Tabulation)
+class ClimbingStairs:
+    def climbStairs(self, n: int) -> int:
+        if n <= 1:
+            return 1
+        
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1
+        
+        for i in range(2, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        
+        return dp[n]
+
+# Approach 3: Space Optimized
+class ClimbingStairs:
+    def climbStairs(self, n: int) -> int:
+        if n <= 1:
+            return 1
+        
+        prev2, prev1 = 1, 1
+        
+        for i in range(2, n + 1):
+            current = prev1 + prev2
+            prev2 = prev1
+            prev1 = current
+        
+        return prev1
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Recursive with Memoization (Top-Down)
+class ClimbingStairs {
+    climbStairs(n) {
+        const memo = new Map();
+        return this.helper(n, memo);
+    }
+    
+    helper(n, memo) {
+        // Base cases
+        if (n <= 1) return 1;
+        
+        // Check memo
+        if (memo.has(n)) return memo.get(n);
+        
+        // Recurrence relation
+        const result = this.helper(n - 1, memo) + this.helper(n - 2, memo);
+        memo.set(n, result);
+        return result;
+    }
+}
+
+// Approach 2: Iterative Bottom-Up (Tabulation)
+class ClimbingStairs {
+    climbStairs(n) {
+        if (n <= 1) return 1;
+        
+        const dp = new Array(n + 1);
+        dp[0] = 1;
+        dp[1] = 1;
+        
+        for (let i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        
+        return dp[n];
+    }
+}
+
+// Approach 3: Space Optimized
+class ClimbingStairs {
+    climbStairs(n) {
+        if (n <= 1) return 1;
+        
+        let prev2 = 1, prev1 = 1;
+        
+        for (let i = 2; i <= n; i++) {
+            const current = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = current;
+        }
+        
+        return prev1;
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Memoization**: Time O(n), Space O(n)
@@ -374,8 +496,16 @@ For each amount, try using each coin and take the minimum:
 3. **Recurrence**: `dp[i] = min(dp[i], dp[i - coin] + 1)` for each coin
 4. **Base case**: `dp[0] = 0`
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Recursive with Memoization (Top-Down)
 class CoinChange {
@@ -429,6 +559,109 @@ class CoinChange {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Recursive with Memoization (Top-Down)
+class CoinChange:
+    def coinChange(self, coins, amount):
+        memo = {}
+        
+        def helper(amount):
+            # Base cases
+            if amount == 0:
+                return 0
+            if amount < 0:
+                return float('inf')
+            
+            # Check memo
+            if amount in memo:
+                return memo[amount]
+            
+            min_coins = float('inf')
+            
+            # Try each coin
+            for coin in coins:
+                sub_result = helper(amount - coin)
+                if sub_result != float('inf'):
+                    min_coins = min(min_coins, sub_result + 1)
+            
+            memo[amount] = min_coins
+            return min_coins
+        
+        result = helper(amount)
+        return result if result != float('inf') else -1
+
+# Approach 2: Iterative Bottom-Up (Tabulation)
+class CoinChange:
+    def coinChange(self, coins, amount):
+        dp = [amount + 1] * (amount + 1)  # Initialize with impossible value
+        dp[0] = 0
+        
+        for i in range(1, amount + 1):
+            for coin in coins:
+                if coin <= i:
+                    dp[i] = min(dp[i], dp[i - coin] + 1)
+        
+        return dp[amount] if dp[amount] <= amount else -1
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Recursive with Memoization (Top-Down)
+class CoinChange {
+    coinChange(coins, amount) {
+        const memo = new Map();
+        
+        const helper = (amount) => {
+            // Base cases
+            if (amount === 0) return 0;
+            if (amount < 0) return Infinity;
+            
+            // Check memo
+            if (memo.has(amount)) return memo.get(amount);
+            
+            let minCoins = Infinity;
+            
+            // Try each coin
+            for (const coin of coins) {
+                const subResult = helper(amount - coin);
+                if (subResult !== Infinity) {
+                    minCoins = Math.min(minCoins, subResult + 1);
+                }
+            }
+            
+            memo.set(amount, minCoins);
+            return minCoins;
+        };
+        
+        const result = helper(amount);
+        return result === Infinity ? -1 : result;
+    }
+}
+
+// Approach 2: Iterative Bottom-Up (Tabulation)
+class CoinChange {
+    coinChange(coins, amount) {
+        const dp = new Array(amount + 1).fill(amount + 1); // Initialize with impossible value
+        dp[0] = 0;
+        
+        for (let i = 1; i <= amount; i++) {
+            for (const coin of coins) {
+                if (coin <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+        
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(amount × coins.length)
@@ -568,8 +801,16 @@ For each element, we can either:
 3. **Recurrence**: `dp[i] = max(dp[j] + 1)` for all j < i where arr[j] < arr[i]
 4. **Base case**: `dp[i] = 1` for all i
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: DP Solution O(n²)
 class LongestIncreasingSubsequence {
@@ -627,6 +868,105 @@ class LongestIncreasingSubsequence {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: DP Solution O(n²)
+class LongestIncreasingSubsequence:
+    def lengthOfLIS(self, nums):
+        if not nums:
+            return 0
+        
+        dp = [1] * len(nums)
+        max_length = 1
+        
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+            max_length = max(max_length, dp[i])
+        
+        return max_length
+
+# Approach 2: Binary Search + DP O(n log n)
+import bisect
+
+class LongestIncreasingSubsequence:
+    def lengthOfLIS(self, nums):
+        tails = []
+        
+        for num in nums:
+            pos = bisect.bisect_left(tails, num)
+            
+            if pos == len(tails):
+                tails.append(num)
+            else:
+                tails[pos] = num
+        
+        return len(tails)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: DP Solution O(n²)
+class LongestIncreasingSubsequence {
+    lengthOfLIS(nums) {
+        if (nums.length === 0) return 0;
+        
+        const dp = new Array(nums.length).fill(1);
+        let maxLength = 1;
+        
+        for (let i = 1; i < nums.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLength = Math.max(maxLength, dp[i]);
+        }
+        
+        return maxLength;
+    }
+}
+
+// Approach 2: Binary Search + DP O(n log n)
+class LongestIncreasingSubsequence {
+    lengthOfLIS(nums) {
+        const tails = [];
+        
+        for (const num of nums) {
+            const pos = this.binarySearch(tails, num);
+            
+            if (pos === tails.length) {
+                tails.push(num);
+            } else {
+                tails[pos] = num;
+            }
+        }
+        
+        return tails.length;
+    }
+    
+    binarySearch(tails, target) {
+        let left = 0, right = tails.length;
+        
+        while (left < right) {
+            const mid = Math.floor((left + right) / 2);
+            if (tails[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        
+        return left;
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **DP Approach**: Time O(n²), Space O(n)
@@ -763,8 +1103,16 @@ For each character in both strings:
    - Else: `dp[i][j] = max(dp[i-1][j], dp[i][j-1])`
 4. **Base case**: `dp[0][j] = dp[i][0] = 0`
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: 2D DP
 class LongestCommonSubsequence {
@@ -847,6 +1195,154 @@ class LongestCommonSubsequence {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: 2D DP
+class LongestCommonSubsequence:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        m, n = len(text1), len(text2)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        
+        return dp[m][n]
+
+# Approach 2: Space Optimized (1D DP)
+class LongestCommonSubsequence:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        m, n = len(text1), len(text2)
+        
+        # Use shorter string for space optimization
+        if m < n:
+            return self.longestCommonSubsequence(text2, text1)
+        
+        dp = [0] * (n + 1)
+        
+        for i in range(1, m + 1):
+            prev = 0
+            for j in range(1, n + 1):
+                temp = dp[j]
+                if text1[i - 1] == text2[j - 1]:
+                    dp[j] = prev + 1
+                else:
+                    dp[j] = max(dp[j], dp[j - 1])
+                prev = temp
+        
+        return dp[n]
+
+# Approach 3: Recursive with Memoization
+class LongestCommonSubsequence:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        memo = {}
+        
+        def helper(i, j):
+            if i == len(text1) or j == len(text2):
+                return 0
+            
+            if (i, j) in memo:
+                return memo[(i, j)]
+            
+            if text1[i] == text2[j]:
+                memo[(i, j)] = 1 + helper(i + 1, j + 1)
+            else:
+                memo[(i, j)] = max(helper(i + 1, j), helper(i, j + 1))
+            
+            return memo[(i, j)]
+        
+        return helper(0, 0)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: 2D DP
+class LongestCommonSubsequence {
+    longestCommonSubsequence(text1, text2) {
+        const m = text1.length, n = text2.length;
+        const dp = Array(m + 1).fill().map(() => Array(n + 1).fill(0));
+        
+        for (let i = 1; i <= m; i++) {
+            for (let j = 1; j <= n; j++) {
+                if (text1[i - 1] === text2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        
+        return dp[m][n];
+    }
+}
+
+// Approach 2: Space Optimized (1D DP)
+class LongestCommonSubsequence {
+    longestCommonSubsequence(text1, text2) {
+        let m = text1.length, n = text2.length;
+        
+        // Use shorter string for space optimization
+        if (m < n) {
+            return this.longestCommonSubsequence(text2, text1);
+        }
+        
+        const dp = new Array(n + 1).fill(0);
+        
+        for (let i = 1; i <= m; i++) {
+            let prev = 0;
+            for (let j = 1; j <= n; j++) {
+                const temp = dp[j];
+                if (text1[i - 1] === text2[j - 1]) {
+                    dp[j] = prev + 1;
+                } else {
+                    dp[j] = Math.max(dp[j], dp[j - 1]);
+                }
+                prev = temp;
+            }
+        }
+        
+        return dp[n];
+    }
+}
+
+// Approach 3: Recursive with Memoization
+class LongestCommonSubsequence {
+    longestCommonSubsequence(text1, text2) {
+        const memo = new Map();
+        
+        const helper = (i, j) => {
+            if (i === text1.length || j === text2.length) {
+                return 0;
+            }
+            
+            const key = `${i},${j}`;
+            if (memo.has(key)) {
+                return memo.get(key);
+            }
+            
+            let result;
+            if (text1[i] === text2[j]) {
+                result = 1 + helper(i + 1, j + 1);
+            } else {
+                result = Math.max(helper(i + 1, j), helper(i, j + 1));
+            }
+            
+            memo.set(key, result);
+            return result;
+        };
+        
+        return helper(0, 0);
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **2D DP**: Time O(m×n), Space O(m×n)
@@ -983,8 +1479,16 @@ A string can be broken if:
 3. **Recurrence**: `dp[i] = true` if there exists j where `dp[j] = true` and `s[j...i-1]` is in dictionary
 4. **Base case**: `dp[0] = true` (empty string)
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Bottom-Up DP
 class WordBreak {
@@ -1061,6 +1565,145 @@ class WordBreak {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Bottom-Up DP
+class WordBreak:
+    def wordBreak(self, s: str, wordDict: list) -> bool:
+        word_set = set(wordDict)
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        
+        for i in range(1, len(s) + 1):
+            for j in range(i):
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+        
+        return dp[len(s)]
+
+# Approach 2: Top-Down with Memoization
+class WordBreak:
+    def wordBreak(self, s: str, wordDict: list) -> bool:
+        word_set = set(wordDict)
+        memo = {}
+        
+        def helper(start):
+            if start == len(s):
+                return True
+            
+            if start in memo:
+                return memo[start]
+            
+            for end in range(start + 1, len(s) + 1):
+                prefix = s[start:end]
+                if prefix in word_set and helper(end):
+                    memo[start] = True
+                    return True
+            
+            memo[start] = False
+            return False
+        
+        return helper(0)
+
+# Approach 3: Optimized with Max Word Length
+class WordBreak:
+    def wordBreak(self, s: str, wordDict: list) -> bool:
+        word_set = set(wordDict)
+        max_len = max(len(word) for word in wordDict) if wordDict else 0
+        
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        
+        for i in range(1, len(s) + 1):
+            for j in range(max(0, i - max_len), i):
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+        
+        return dp[len(s)]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Bottom-Up DP
+class WordBreak {
+    wordBreak(s, wordDict) {
+        const wordSet = new Set(wordDict);
+        const dp = new Array(s.length + 1).fill(false);
+        dp[0] = true;
+        
+        for (let i = 1; i <= s.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (dp[j] && wordSet.has(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return dp[s.length];
+    }
+}
+
+// Approach 2: Top-Down with Memoization
+class WordBreak {
+    wordBreak(s, wordDict) {
+        const wordSet = new Set(wordDict);
+        const memo = new Map();
+        
+        const helper = (start) => {
+            if (start === s.length) {
+                return true;
+            }
+            
+            if (memo.has(start)) {
+                return memo.get(start);
+            }
+            
+            for (let end = start + 1; end <= s.length; end++) {
+                const prefix = s.substring(start, end);
+                if (wordSet.has(prefix) && helper(end)) {
+                    memo.set(start, true);
+                    return true;
+                }
+            }
+            
+            memo.set(start, false);
+            return false;
+        };
+        
+        return helper(0);
+    }
+}
+
+// Approach 3: Optimized with Max Word Length
+class WordBreak {
+    wordBreak(s, wordDict) {
+        const wordSet = new Set(wordDict);
+        const maxLen = Math.max(...wordDict.map(word => word.length));
+        
+        const dp = new Array(s.length + 1).fill(false);
+        dp[0] = true;
+        
+        for (let i = 1; i <= s.length; i++) {
+            for (let j = Math.max(0, i - maxLen); j < i; j++) {
+                if (dp[j] && wordSet.has(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return dp[s.length];
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n² × m) where n = string length, m = average word length
@@ -1204,8 +1847,16 @@ This is primarily a backtracking problem, but DP can be used for counting combin
 3. **State definition**: `dp[i]` = number of ways to make sum i
 4. **Recurrence**: `dp[i] += dp[i - candidate]` for each candidate
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Backtracking (Standard Solution)
 class CombinationSum {
@@ -1267,6 +1918,119 @@ class CombinationSum {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Backtracking (Standard Solution)
+class CombinationSum:
+    def combinationSum(self, candidates, target):
+        result = []
+        
+        def backtrack(remaining, current, start):
+            if remaining == 0:
+                result.append(current[:])  # Add copy of current
+                return
+            
+            for i in range(start, len(candidates)):
+                if candidates[i] <= remaining:
+                    current.append(candidates[i])
+                    backtrack(remaining - candidates[i], current, i)
+                    current.pop()
+        
+        backtrack(target, [], 0)
+        return result
+
+# Approach 2: DP for Counting Combinations
+class CombinationSum:
+    def combinationSum4(self, nums, target):
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        
+        for i in range(1, target + 1):
+            for num in nums:
+                if num <= i:
+                    dp[i] += dp[i - num]
+        
+        return dp[target]
+
+# Approach 3: DP for Checking Possibility
+class CombinationSum:
+    def canPartition(self, nums, target):
+        dp = [False] * (target + 1)
+        dp[0] = True
+        
+        for num in nums:
+            for i in range(target, num - 1, -1):
+                dp[i] = dp[i] or dp[i - num]
+        
+        return dp[target]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Backtracking (Standard Solution)
+class CombinationSum {
+    combinationSum(candidates, target) {
+        const result = [];
+        
+        const backtrack = (remaining, current, start) => {
+            if (remaining === 0) {
+                result.push([...current]);  // Add copy of current
+                return;
+            }
+            
+            for (let i = start; i < candidates.length; i++) {
+                if (candidates[i] <= remaining) {
+                    current.push(candidates[i]);
+                    backtrack(remaining - candidates[i], current, i);
+                    current.pop();
+                }
+            }
+        };
+        
+        backtrack(target, [], 0);
+        return result;
+    }
+}
+
+// Approach 2: DP for Counting Combinations
+class CombinationSum {
+    combinationSum4(nums, target) {
+        const dp = new Array(target + 1).fill(0);
+        dp[0] = 1;
+        
+        for (let i = 1; i <= target; i++) {
+            for (const num of nums) {
+                if (num <= i) {
+                    dp[i] += dp[i - num];
+                }
+            }
+        }
+        
+        return dp[target];
+    }
+}
+
+// Approach 3: DP for Checking Possibility
+class CombinationSum {
+    canPartition(nums, target) {
+        const dp = new Array(target + 1).fill(false);
+        dp[0] = true;
+        
+        for (const num of nums) {
+            for (let i = target; i >= num; i--) {
+                dp[i] = dp[i] || dp[i - num];
+            }
+        }
+        
+        return dp[target];
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Backtracking**: O(2^target) in worst case
@@ -1403,8 +2167,16 @@ For each house, we have two choices:
 3. **Recurrence**: `dp[i] = max(dp[i-1], dp[i-2] + nums[i])`
 4. **Base cases**: `dp[0] = nums[0]`, `dp[1] = max(nums[0], nums[1])`
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Standard DP
 class HouseRobber {
@@ -1465,6 +2237,132 @@ class HouseRobber {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Standard DP
+class HouseRobber:
+    def rob(self, nums):
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+        
+        return dp[-1]
+
+# Approach 2: Space Optimized
+class HouseRobber:
+    def rob(self, nums):
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        
+        prev2 = nums[0]
+        prev1 = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            current = max(prev1, prev2 + nums[i])
+            prev2 = prev1
+            prev1 = current
+        
+        return prev1
+
+# Approach 3: Recursive with Memoization
+class HouseRobber:
+    def rob(self, nums):
+        memo = {}
+        
+        def helper(i):
+            if i >= len(nums):
+                return 0
+            
+            if i in memo:
+                return memo[i]
+            
+            # Two choices: rob this house or skip it
+            rob_current = nums[i] + helper(i + 2)
+            skip_current = helper(i + 1)
+            
+            memo[i] = max(rob_current, skip_current)
+            return memo[i]
+        
+        return helper(0)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Standard DP
+class HouseRobber {
+    rob(nums) {
+        if (nums.length === 0) return 0;
+        if (nums.length === 1) return nums[0];
+        
+        const dp = new Array(nums.length);
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        
+        for (let i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        }
+        
+        return dp[nums.length - 1];
+    }
+}
+
+// Approach 2: Space Optimized
+class HouseRobber {
+    rob(nums) {
+        if (nums.length === 0) return 0;
+        if (nums.length === 1) return nums[0];
+        
+        let prev2 = nums[0];
+        let prev1 = Math.max(nums[0], nums[1]);
+        
+        for (let i = 2; i < nums.length; i++) {
+            const current = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = current;
+        }
+        
+        return prev1;
+    }
+}
+
+// Approach 3: Recursive with Memoization
+class HouseRobber {
+    rob(nums) {
+        const memo = new Map();
+        
+        const helper = (i) => {
+            if (i >= nums.length) return 0;
+            
+            if (memo.has(i)) return memo.get(i);
+            
+            // Two choices: rob this house or skip it
+            const robCurrent = nums[i] + helper(i + 2);
+            const skipCurrent = helper(i + 1);
+            
+            const result = Math.max(robCurrent, skipCurrent);
+            memo.set(i, result);
+            return result;
+        };
+        
+        return helper(0);
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n)
@@ -1606,8 +2504,16 @@ In a circle, we can't rob both first and last house. So we solve two subproblems
 3. **Recurrence**: Same as House Robber I
 4. **Constraint handling**: Solve two separate linear problems
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Two Linear Robberies
 class HouseRobberII {
@@ -1661,6 +2567,115 @@ class HouseRobberII {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Two Linear Robberies
+class HouseRobberII:
+    def rob(self, nums):
+        if len(nums) == 1:
+            return nums[0]
+        if len(nums) == 2:
+            return max(nums[0], nums[1])
+        
+        # Case 1: Rob houses 0 to n-2 (exclude last)
+        rob_first = self.rob_linear(nums, 0, len(nums) - 2)
+        
+        # Case 2: Rob houses 1 to n-1 (exclude first)
+        rob_last = self.rob_linear(nums, 1, len(nums) - 1)
+        
+        return max(rob_first, rob_last)
+    
+    def rob_linear(self, nums, start, end):
+        prev2, prev1 = 0, 0
+        
+        for i in range(start, end + 1):
+            current = max(prev1, prev2 + nums[i])
+            prev2 = prev1
+            prev1 = current
+        
+        return prev1
+
+# Approach 2: Alternative Implementation
+class HouseRobberII:
+    def rob(self, nums):
+        if len(nums) == 1:
+            return nums[0]
+        
+        return max(
+            self.rob_helper(nums[:-1]),  # Exclude last
+            self.rob_helper(nums[1:])    # Exclude first
+        )
+    
+    def rob_helper(self, nums):
+        rob, not_rob = 0, 0
+        
+        for num in nums:
+            curr_rob = not_rob + num
+            not_rob = max(not_rob, rob)
+            rob = curr_rob
+        
+        return max(rob, not_rob)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Two Linear Robberies
+class HouseRobberII {
+    rob(nums) {
+        if (nums.length === 1) return nums[0];
+        if (nums.length === 2) return Math.max(nums[0], nums[1]);
+        
+        // Case 1: Rob houses 0 to n-2 (exclude last)
+        const robFirst = this.robLinear(nums, 0, nums.length - 2);
+        
+        // Case 2: Rob houses 1 to n-1 (exclude first)
+        const robLast = this.robLinear(nums, 1, nums.length - 1);
+        
+        return Math.max(robFirst, robLast);
+    }
+    
+    robLinear(nums, start, end) {
+        let prev2 = 0, prev1 = 0;
+        
+        for (let i = start; i <= end; i++) {
+            const current = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = current;
+        }
+        
+        return prev1;
+    }
+}
+
+// Approach 2: Alternative Implementation
+class HouseRobberII {
+    rob(nums) {
+        if (nums.length === 1) return nums[0];
+        
+        return Math.max(
+            this.robHelper(nums.slice(0, -1)),  // Exclude last
+            this.robHelper(nums.slice(1))       // Exclude first
+        );
+    }
+    
+    robHelper(nums) {
+        let rob = 0, notRob = 0;
+        
+        for (const num of nums) {
+            const currRob = notRob + num;
+            notRob = Math.max(notRob, rob);
+            rob = currRob;
+        }
+        
+        return Math.max(rob, notRob);
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n)
@@ -1810,8 +2825,16 @@ At each position, we can:
    - If two digits valid: `dp[i] += dp[i-2]`
 4. **Base cases**: `dp[0] = 1`, handle first character
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Standard DP
 class DecodeWays {
@@ -1900,6 +2923,178 @@ class DecodeWays {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Standard DP
+class DecodeWays:
+    def numDecodings(self, s: str) -> int:
+        if not s or s[0] == '0':
+            return 0
+        
+        n = len(s)
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1
+        
+        for i in range(2, n + 1):
+            # Single digit
+            if s[i - 1] != '0':
+                dp[i] += dp[i - 1]
+            
+            # Two digits
+            two_digit = int(s[i - 2:i])
+            if 10 <= two_digit <= 26:
+                dp[i] += dp[i - 2]
+        
+        return dp[n]
+
+# Approach 2: Space Optimized
+class DecodeWays:
+    def numDecodings(self, s: str) -> int:
+        if not s or s[0] == '0':
+            return 0
+        
+        prev2, prev1 = 1, 1
+        
+        for i in range(1, len(s)):
+            current = 0
+            
+            # Single digit
+            if s[i] != '0':
+                current += prev1
+            
+            # Two digits
+            two_digit = int(s[i - 1:i + 1])
+            if 10 <= two_digit <= 26:
+                current += prev2
+            
+            prev2 = prev1
+            prev1 = current
+        
+        return prev1
+
+# Approach 3: Recursive with Memoization
+class DecodeWays:
+    def numDecodings(self, s: str) -> int:
+        memo = {}
+        
+        def helper(index):
+            if index == len(s):
+                return 1
+            if s[index] == '0':
+                return 0
+            
+            if index in memo:
+                return memo[index]
+            
+            result = helper(index + 1)
+            
+            if index + 1 < len(s):
+                two_digit = int(s[index:index + 2])
+                if two_digit <= 26:
+                    result += helper(index + 2)
+            
+            memo[index] = result
+            return result
+        
+        return helper(0)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Standard DP
+class DecodeWays {
+    numDecodings(s) {
+        if (!s || s.length === 0 || s[0] === '0') {
+            return 0;
+        }
+        
+        const n = s.length;
+        const dp = new Array(n + 1).fill(0);
+        dp[0] = 1;
+        dp[1] = 1;
+        
+        for (let i = 2; i <= n; i++) {
+            // Single digit
+            if (s[i - 1] !== '0') {
+                dp[i] += dp[i - 1];
+            }
+            
+            // Two digits
+            const twoDigit = parseInt(s.substring(i - 2, i));
+            if (twoDigit >= 10 && twoDigit <= 26) {
+                dp[i] += dp[i - 2];
+            }
+        }
+        
+        return dp[n];
+    }
+}
+
+// Approach 2: Space Optimized
+class DecodeWays {
+    numDecodings(s) {
+        if (!s || s.length === 0 || s[0] === '0') {
+            return 0;
+        }
+        
+        let prev2 = 1, prev1 = 1;
+        
+        for (let i = 1; i < s.length; i++) {
+            let current = 0;
+            
+            // Single digit
+            if (s[i] !== '0') {
+                current += prev1;
+            }
+            
+            // Two digits
+            const twoDigit = parseInt(s.substring(i - 1, i + 1));
+            if (twoDigit >= 10 && twoDigit <= 26) {
+                current += prev2;
+            }
+            
+            prev2 = prev1;
+            prev1 = current;
+        }
+        
+        return prev1;
+    }
+}
+
+// Approach 3: Recursive with Memoization
+class DecodeWays {
+    numDecodings(s) {
+        const memo = new Map();
+        
+        const helper = (index) => {
+            if (index === s.length) return 1;
+            if (s[index] === '0') return 0;
+            
+            if (memo.has(index)) return memo.get(index);
+            
+            let result = helper(index + 1);
+            
+            if (index + 1 < s.length) {
+                const twoDigit = parseInt(s.substring(index, index + 2));
+                if (twoDigit <= 26) {
+                    result += helper(index + 2);
+                }
+            }
+            
+            memo.set(index, result);
+            return result;
+        };
+        
+        return helper(0);
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(n)
@@ -2048,8 +3243,16 @@ To reach any cell (i,j), robot must come from either:
 3. **Recurrence**: `dp[i][j] = dp[i-1][j] + dp[i][j-1]`
 4. **Base cases**: `dp[0][j] = dp[i][0] = 1` (only one way along edges)
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: 2D DP
 class UniquePaths {
@@ -2105,6 +3308,110 @@ class UniquePaths {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: 2D DP
+class UniquePaths:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[1] * n for _ in range(m)]
+        
+        # First row and column are already initialized to 1
+        # Fill the dp table
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[m - 1][n - 1]
+
+# Approach 2: Space Optimized (1D DP)
+class UniquePaths:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [1] * n
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[j] += dp[j - 1]
+        
+        return dp[n - 1]
+
+# Approach 3: Mathematical Solution (Combinations)
+class UniquePaths:
+    def uniquePaths(self, m: int, n: int) -> int:
+        # Total moves: (m-1) down + (n-1) right = m+n-2
+        # Choose (m-1) positions for down moves: C(m+n-2, m-1)
+        
+        from math import comb
+        return comb(m + n - 2, m - 1)
+        
+    # Alternative without using comb function
+    def uniquePathsManual(self, m: int, n: int) -> int:
+        result = 1
+        moves = m + n - 2
+        down = m - 1
+        
+        for i in range(1, down + 1):
+            result = result * (moves - down + i) // i
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: 2D DP
+class UniquePaths {
+    uniquePaths(m, n) {
+        const dp = Array(m).fill().map(() => Array(n).fill(1));
+        
+        // First row and column are already initialized to 1
+        // Fill the dp table
+        for (let i = 1; i < m; i++) {
+            for (let j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        
+        return dp[m - 1][n - 1];
+    }
+}
+
+// Approach 2: Space Optimized (1D DP)
+class UniquePaths {
+    uniquePaths(m, n) {
+        const dp = new Array(n).fill(1);
+        
+        for (let i = 1; i < m; i++) {
+            for (let j = 1; j < n; j++) {
+                dp[j] += dp[j - 1];
+            }
+        }
+        
+        return dp[n - 1];
+    }
+}
+
+// Approach 3: Mathematical Solution (Combinations)
+class UniquePaths {
+    uniquePaths(m, n) {
+        // Total moves: (m-1) down + (n-1) right = m+n-2
+        // Choose (m-1) positions for down moves: C(m+n-2, m-1)
+        
+        let result = 1;
+        const moves = m + n - 2;
+        const down = m - 1;
+        
+        for (let i = 1; i <= down; i++) {
+            result = Math.floor(result * (moves - down + i) / i);
+        }
+        
+        return result;
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **2D DP**: Time O(m×n), Space O(m×n)
@@ -2264,8 +3571,16 @@ We can reach the last index if we can reach any position from which the last ind
 3. **Recurrence**: `dp[i] = true` if there exists j < i where `dp[j] = true` and `j + nums[j] >= i`
 4. **Base case**: `dp[0] = true`
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: DP Solution
 class JumpGame {
@@ -2341,6 +3656,153 @@ class JumpGame {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: DP Solution
+class JumpGame:
+    def canJump(self, nums):
+        dp = [False] * len(nums)
+        dp[0] = True
+        
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if dp[j] and j + nums[j] >= i:
+                    dp[i] = True
+                    break
+        
+        return dp[-1]
+
+# Approach 2: Greedy Solution (More Efficient)
+class JumpGame:
+    def canJump(self, nums):
+        max_reach = 0
+        
+        for i in range(len(nums)):
+            if i > max_reach:
+                return False
+            max_reach = max(max_reach, i + nums[i])
+            if max_reach >= len(nums) - 1:
+                return True
+        
+        return True
+
+# Approach 3: Backward DP
+class JumpGame:
+    def canJump(self, nums):
+        last_good_index = len(nums) - 1
+        
+        for i in range(len(nums) - 2, -1, -1):
+            if i + nums[i] >= last_good_index:
+                last_good_index = i
+        
+        return last_good_index == 0
+
+# Approach 4: Recursive with Memoization
+class JumpGame:
+    def canJump(self, nums):
+        memo = {}
+        
+        def helper(pos):
+            if pos >= len(nums) - 1:
+                return True
+            
+            if pos in memo:
+                return memo[pos]
+            
+            max_jump = min(pos + nums[pos], len(nums) - 1)
+            for next_pos in range(pos + 1, max_jump + 1):
+                if helper(next_pos):
+                    memo[pos] = True
+                    return True
+            
+            memo[pos] = False
+            return False
+        
+        return helper(0)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: DP Solution
+class JumpGame {
+    canJump(nums) {
+        const dp = new Array(nums.length).fill(false);
+        dp[0] = true;
+        
+        for (let i = 1; i < nums.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (dp[j] && j + nums[j] >= i) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return dp[nums.length - 1];
+    }
+}
+
+// Approach 2: Greedy Solution (More Efficient)
+class JumpGame {
+    canJump(nums) {
+        let maxReach = 0;
+        
+        for (let i = 0; i < nums.length; i++) {
+            if (i > maxReach) return false;
+            maxReach = Math.max(maxReach, i + nums[i]);
+            if (maxReach >= nums.length - 1) return true;
+        }
+        
+        return true;
+    }
+}
+
+// Approach 3: Backward DP
+class JumpGame {
+    canJump(nums) {
+        let lastGoodIndex = nums.length - 1;
+        
+        for (let i = nums.length - 2; i >= 0; i--) {
+            if (i + nums[i] >= lastGoodIndex) {
+                lastGoodIndex = i;
+            }
+        }
+        
+        return lastGoodIndex === 0;
+    }
+}
+
+// Approach 4: Recursive with Memoization
+class JumpGame {
+    canJump(nums) {
+        const memo = new Map();
+        
+        const helper = (pos) => {
+            if (pos >= nums.length - 1) return true;
+            
+            if (memo.has(pos)) return memo.get(pos);
+            
+            const maxJump = Math.min(pos + nums[pos], nums.length - 1);
+            for (let nextPos = pos + 1; nextPos <= maxJump; nextPos++) {
+                if (helper(nextPos)) {
+                    memo.set(pos, true);
+                    return true;
+                }
+            }
+            
+            memo.set(pos, false);
+            return false;
+        };
+        
+        return helper(0);
+    }
+}
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **DP**: Time O(n²), Space O(n)

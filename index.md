@@ -12,9 +12,9 @@ Master both **algorithmic problem-solving** and **database querying** through AI
 <div class="collection-grid">
   <div class="collection-card algorithms">
     <h3>🧠 <a href="blind75/">Blind 75 - Algorithm Mastery</a></h3>
-    <p>75 essential LeetCode problems with detailed Java solutions and first-principles thinking</p>
+    <p>75 essential LeetCode problems with solutions in <strong>Java, Python, and JavaScript</strong> featuring first-principles thinking</p>
     <div class="stats">
-      <span>75 Problems</span> • <span>10 Categories</span> • <span>200+ Solutions</span>
+      <span>75 Problems</span> • <span>10 Categories</span> • <span>3 Languages</span> • <span>600+ Solutions</span>
     </div>
   </div>
   

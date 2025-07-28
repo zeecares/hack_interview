@@ -65,6 +65,15 @@ How negative numbers are represented:
 - **Unsigned Right Shift (>>>)**: Divide by 2^n (logical)
 
 ### 4. Common Bit Manipulation Tricks
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Check if number is odd
 (n & 1) == 1
@@ -87,6 +96,58 @@ n & ~(1 << i)
 // Toggle bit at position i
 n ^ (1 << i)
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Check if number is odd
+(n & 1) == 1
+
+# Check if number is power of 2
+(n & (n - 1)) == 0
+
+# Get rightmost set bit
+n & (-n)
+
+# Clear rightmost set bit
+n & (n - 1)
+
+# Set bit at position i
+n | (1 << i)
+
+# Clear bit at position i
+n & ~(1 << i)
+
+# Toggle bit at position i
+n ^ (1 << i)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Check if number is odd
+(n & 1) === 1
+
+// Check if number is power of 2
+(n & (n - 1)) === 0
+
+// Get rightmost set bit
+n & (-n)
+
+// Clear rightmost set bit
+n & (n - 1)
+
+// Set bit at position i
+n | (1 << i)
+
+// Clear bit at position i
+n & ~(1 << i)
+
+// Toggle bit at position i
+n ^ (1 << i)
+```
+  </div>
+</div>
 
 ---
 
@@ -113,14 +174,52 @@ n ^ (1 << i)
 ```
 
 ### Key XOR Properties
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Identity: a ^ 0 = a
 // Self-inverse: a ^ a = 0
 // Commutative: a ^ b = b ^ a
 // Associative: (a ^ b) ^ c = a ^ (b ^ c)
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Identity: a ^ 0 = a
+# Self-inverse: a ^ a = 0
+# Commutative: a ^ b = b ^ a
+# Associative: (a ^ b) ^ c = a ^ (b ^ c)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Identity: a ^ 0 = a
+// Self-inverse: a ^ a = 0
+// Commutative: a ^ b = b ^ a
+// Associative: (a ^ b) ^ c = a ^ (b ^ c)
+```
+  </div>
+</div>
 
 ### Shift Operations
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Left shift: multiply by 2^n
 5 << 2 = 20  // 5 * 2^2 = 5 * 4 = 20
@@ -128,6 +227,28 @@ n ^ (1 << i)
 // Right shift: divide by 2^n
 20 >> 2 = 5  // 20 / 2^2 = 20 / 4 = 5
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Left shift: multiply by 2^n
+5 << 2 == 20  # 5 * 2^2 = 5 * 4 = 20
+
+# Right shift: divide by 2^n
+20 >> 2 == 5  # 20 / 2^2 = 20 / 4 = 5
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Left shift: multiply by 2^n
+5 << 2 === 20  // 5 * 2^2 = 5 * 4 = 20
+
+// Right shift: divide by 2^n
+20 >> 2 === 5  // 20 / 2^2 = 20 / 4 = 5
+```
+  </div>
+</div>
 
 ---
 
@@ -262,8 +383,16 @@ Binary addition works as:
 3. **AND + shift**: Calculates and positions carries
 4. **Repeat**: Until no more carries remain
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Iterative Bit Manipulation
 class SumTwoIntegers {
@@ -315,6 +444,109 @@ class SumTwoIntegers {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Iterative Bit Manipulation
+class SumTwoIntegers:
+    def getSum(self, a: int, b: int) -> int:
+        # Handle 32-bit signed integer overflow
+        mask = 0xFFFFFFFF
+        
+        while b != 0:
+            # Calculate carry
+            carry = (a & b) & mask
+            
+            # Sum without carry
+            a = (a ^ b) & mask
+            
+            # Shift carry to left by 1
+            b = (carry << 1) & mask
+        
+        # Convert back to signed 32-bit integer
+        return a if a < 0x80000000 else ~(a ^ mask)
+
+# Approach 2: Recursive Solution
+class SumTwoIntegers:
+    def getSum(self, a: int, b: int) -> int:
+        mask = 0xFFFFFFFF
+        
+        if b == 0:
+            return a if a < 0x80000000 else ~(a ^ mask)
+        
+        # Sum without carry
+        sum_val = (a ^ b) & mask
+        
+        # Carry shifted left
+        carry = ((a & b) << 1) & mask
+        
+        return self.getSum(sum_val, carry)
+
+# Approach 3: Using Half Adder Logic
+class SumTwoIntegers:
+    def getSum(self, a: int, b: int) -> int:
+        mask = 0xFFFFFFFF
+        
+        while b != 0:
+            sum_val = (a ^ b) & mask      # XOR for sum without carry
+            carry = ((a & b) << 1) & mask  # AND and shift for carry
+            
+            a = sum_val
+            b = carry
+        
+        return a if a < 0x80000000 else ~(a ^ mask)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Iterative Bit Manipulation
+var getSum = function(a, b) {
+    while (b !== 0) {
+        // Calculate carry
+        let carry = a & b;
+        
+        // Sum without carry
+        a = a ^ b;
+        
+        // Shift carry to left by 1
+        b = carry << 1;
+    }
+    
+    return a;
+};
+
+// Approach 2: Recursive Solution
+var getSum = function(a, b) {
+    if (b === 0) return a;
+    
+    // Sum without carry
+    let sum = a ^ b;
+    
+    // Carry shifted left
+    let carry = (a & b) << 1;
+    
+    return getSum(sum, carry);
+};
+
+// Approach 3: Using Half Adder Logic
+var getSum = function(a, b) {
+    let sum, carry;
+    
+    do {
+        sum = a ^ b;           // XOR for sum without carry
+        carry = (a & b) << 1;  // AND and shift for carry
+        
+        a = sum;
+        b = carry;
+    } while (carry !== 0);
+    
+    return sum;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Time**: O(log max(a,b)) - maximum 32 iterations for 32-bit integers
@@ -462,8 +694,16 @@ Count set bits by either:
 3. **Optimization**: Use n & (n-1) to clear rightmost set bit
 4. **Built-in functions**: Leverage Integer.bitCount() for comparison
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Simple Bit Checking
 class NumberOf1Bits {
@@ -525,6 +765,112 @@ class NumberOf1Bits {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Simple Bit Checking
+class NumberOf1Bits:
+    def hammingWeight(self, n: int) -> int:
+        count = 0
+        
+        while n:
+            count += n & 1  # Check if rightmost bit is 1
+            n >>= 1         # Right shift
+        
+        return count
+
+# Approach 2: Brian Kernighan's Algorithm (Optimal)
+class NumberOf1Bits:
+    def hammingWeight(self, n: int) -> int:
+        count = 0
+        
+        while n:
+            n &= n - 1  # Clear the rightmost set bit
+            count += 1
+        
+        return count
+
+# Approach 3: Built-in Function
+class NumberOf1Bits:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).count('1')
+
+# Approach 4: Using String Conversion
+class NumberOf1Bits:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n)[2:].count('1')  # [2:] removes '0b' prefix
+
+# Approach 5: Lookup Table (for frequent calls)
+class NumberOf1Bits:
+    def __init__(self):
+        # Precompute bit counts for 0-255
+        self.bit_count = [0] * 256
+        for i in range(256):
+            self.bit_count[i] = (i & 1) + self.bit_count[i >> 1]
+    
+    def hammingWeight(self, n: int) -> int:
+        return (self.bit_count[n & 0xFF] +
+                self.bit_count[(n >> 8) & 0xFF] +
+                self.bit_count[(n >> 16) & 0xFF] +
+                self.bit_count[(n >> 24) & 0xFF])
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Simple Bit Checking
+var hammingWeight = function(n) {
+    let count = 0;
+    
+    while (n !== 0) {
+        count += n & 1;  // Check if rightmost bit is 1
+        n >>>= 1;        // Unsigned right shift
+    }
+    
+    return count;
+};
+
+// Approach 2: Brian Kernighan's Algorithm (Optimal)
+var hammingWeight = function(n) {
+    let count = 0;
+    
+    while (n !== 0) {
+        n &= (n - 1);  // Clear the rightmost set bit
+        count++;
+    }
+    
+    return count;
+};
+
+// Approach 3: Built-in Function
+var hammingWeight = function(n) {
+    return n.toString(2).split('1').length - 1;
+};
+
+// Approach 4: Using String Conversion
+var hammingWeight = function(n) {
+    return n.toString(2).replace(/0/g, '').length;
+};
+
+// Approach 5: Lookup Table (for frequent calls)
+var hammingWeight = (function() {
+    // Precompute bit counts for 0-255
+    const bitCount = new Array(256);
+    for (let i = 0; i < 256; i++) {
+        bitCount[i] = (i & 1) + (bitCount[i >>> 1] || 0);
+    }
+    
+    return function(n) {
+        return bitCount[n & 0xFF] +
+               bitCount[(n >>> 8) & 0xFF] +
+               bitCount[(n >>> 16) & 0xFF] +
+               bitCount[(n >>> 24) & 0xFF];
+    };
+})();
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Simple**: Time O(32) = O(1), Space O(1)
@@ -670,8 +1016,16 @@ For each number i, count of 1-bits relates to previously computed values:
 3. **Base case**: ans[0] = 0
 4. **Optimization**: Use bit manipulation properties for O(1) computation per number
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: DP with Brian Kernighan's Algorithm
 class CountingBits {
@@ -746,6 +1100,136 @@ class CountingBits {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: DP with Brian Kernighan's Algorithm
+class CountingBits:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            # ans[i & (i-1)] is count for i with rightmost bit cleared
+            ans[i] = ans[i & (i - 1)] + 1
+        
+        return ans
+
+# Approach 2: DP with Right Shift
+class CountingBits:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            # ans[i >> 1] is count for i/2, plus 1 if i is odd
+            ans[i] = ans[i >> 1] + (i & 1)
+        
+        return ans
+
+# Approach 3: DP with Last Set Bit
+class CountingBits:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            # If i is even: same as i//2
+            # If i is odd: i//2 + 1
+            ans[i] = ans[i // 2] + (i % 2)
+        
+        return ans
+
+# Approach 4: Using Power of 2 Offset
+class CountingBits:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        offset = 1
+        
+        for i in range(1, n + 1):
+            if offset * 2 == i:
+                offset = i
+            ans[i] = 1 + ans[i - offset]
+        
+        return ans
+
+# Approach 5: Brute Force (for comparison)
+class CountingBits:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        
+        for i in range(n + 1):
+            ans[i] = bin(i).count('1')
+        
+        return ans
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: DP with Brian Kernighan's Algorithm
+var countBits = function(n) {
+    const ans = new Array(n + 1).fill(0);
+    
+    for (let i = 1; i <= n; i++) {
+        // ans[i & (i-1)] is count for i with rightmost bit cleared
+        ans[i] = ans[i & (i - 1)] + 1;
+    }
+    
+    return ans;
+};
+
+// Approach 2: DP with Right Shift
+var countBits = function(n) {
+    const ans = new Array(n + 1).fill(0);
+    
+    for (let i = 1; i <= n; i++) {
+        // ans[i >> 1] is count for i/2, plus 1 if i is odd
+        ans[i] = ans[i >> 1] + (i & 1);
+    }
+    
+    return ans;
+};
+
+// Approach 3: DP with Last Set Bit
+var countBits = function(n) {
+    const ans = new Array(n + 1).fill(0);
+    
+    for (let i = 1; i <= n; i++) {
+        // If i is even: same as Math.floor(i/2)
+        // If i is odd: Math.floor(i/2) + 1
+        ans[i] = ans[Math.floor(i / 2)] + (i % 2);
+    }
+    
+    return ans;
+};
+
+// Approach 4: Using Power of 2 Offset
+var countBits = function(n) {
+    const ans = new Array(n + 1).fill(0);
+    let offset = 1;
+    
+    for (let i = 1; i <= n; i++) {
+        if (offset * 2 === i) {
+            offset = i;
+        }
+        ans[i] = 1 + ans[i - offset];
+    }
+    
+    return ans;
+};
+
+// Approach 5: Brute Force (for comparison)
+var countBits = function(n) {
+    const ans = new Array(n + 1);
+    
+    for (let i = 0; i <= n; i++) {
+        ans[i] = i.toString(2).split('1').length - 1;
+    }
+    
+    return ans;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **DP approaches**: Time O(n), Space O(1) extra (excluding output array)
@@ -893,8 +1377,16 @@ Several approaches work:
 3. **Mathematical**: Use arithmetic series sum formula
 4. **Choose optimal**: XOR avoids potential integer overflow
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: XOR (Most Elegant)
 class MissingNumber {
@@ -981,6 +1473,145 @@ class MissingNumber {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: XOR (Most Elegant)
+class MissingNumber:
+    def missingNumber(self, nums: List[int]) -> int:
+        missing = len(nums)  # Start with n
+        
+        for i, num in enumerate(nums):
+            missing ^= i ^ num  # XOR index and value
+        
+        return missing
+
+# Approach 2: XOR Alternative
+class MissingNumber:
+    def missingNumber(self, nums: List[int]) -> int:
+        result = 0
+        
+        # XOR all indices 0 to n
+        for i in range(1, len(nums) + 1):
+            result ^= i
+        
+        # XOR all array elements
+        for num in nums:
+            result ^= num
+        
+        return result
+
+# Approach 3: Mathematical Sum
+class MissingNumber:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        expected_sum = n * (n + 1) // 2  # Sum of 0 to n
+        actual_sum = sum(nums)
+        
+        return expected_sum - actual_sum
+
+# Approach 4: Binary Search (requires sorting)
+class MissingNumber:
+    def missingNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        left, right = 0, len(nums)
+        
+        while left < right:
+            mid = (left + right) // 2
+            
+            if nums[mid] == mid:
+                left = mid + 1
+            else:
+                right = mid
+        
+        return left
+
+# Approach 5: Set
+class MissingNumber:
+    def missingNumber(self, nums: List[int]) -> int:
+        num_set = set(nums)
+        
+        for i in range(len(nums) + 1):
+            if i not in num_set:
+                return i
+        
+        return -1  # Should never reach here
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: XOR (Most Elegant)
+var missingNumber = function(nums) {
+    let missing = nums.length;  // Start with n
+    
+    for (let i = 0; i < nums.length; i++) {
+        missing ^= i ^ nums[i];  // XOR index and value
+    }
+    
+    return missing;
+};
+
+// Approach 2: XOR Alternative
+var missingNumber = function(nums) {
+    let result = 0;
+    
+    // XOR all indices 0 to n
+    for (let i = 1; i <= nums.length; i++) {
+        result ^= i;
+    }
+    
+    // XOR all array elements
+    for (const num of nums) {
+        result ^= num;
+    }
+    
+    return result;
+};
+
+// Approach 3: Mathematical Sum
+var missingNumber = function(nums) {
+    const n = nums.length;
+    const expectedSum = n * (n + 1) / 2;  // Sum of 0 to n
+    const actualSum = nums.reduce((sum, num) => sum + num, 0);
+    
+    return expectedSum - actualSum;
+};
+
+// Approach 4: Binary Search (requires sorting)
+var missingNumber = function(nums) {
+    nums.sort((a, b) => a - b);
+    let left = 0, right = nums.length;
+    
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        
+        if (nums[mid] === mid) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    
+    return left;
+};
+
+// Approach 5: Set
+var missingNumber = function(nums) {
+    const numSet = new Set(nums);
+    
+    for (let i = 0; i <= nums.length; i++) {
+        if (!numSet.has(i)) {
+            return i;
+        }
+    }
+    
+    return -1; // Should never reach here
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **XOR**: Time O(n), Space O(1)
@@ -1138,8 +1769,16 @@ To reverse bits:
 3. **Bit placement**: Use OR and left shift to place bits
 4. **Iteration**: Process all 32 bits of the integer
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Bit by Bit Reversal
 class ReverseBits {
@@ -1238,6 +1877,175 @@ class ReverseBits {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Bit by Bit Reversal
+class ReverseBits:
+    def reverseBits(self, n: int) -> int:
+        result = 0
+        
+        for i in range(32):
+            # Shift result left to make room for next bit
+            result <<= 1
+            
+            # Add the rightmost bit of n to result
+            result |= (n & 1)
+            
+            # Shift n right to process next bit
+            n >>= 1
+        
+        return result
+
+# Approach 2: Alternative Implementation
+class ReverseBits:
+    def reverseBits(self, n: int) -> int:
+        result = 0
+        
+        for i in range(32):
+            # Extract bit at position i from right
+            bit = (n >> i) & 1
+            
+            # Place bit at position (31-i) from right
+            result |= (bit << (31 - i))
+        
+        return result
+
+# Approach 3: Divide and Conquer (Most Efficient)
+class ReverseBits:
+    def reverseBits(self, n: int) -> int:
+        # Swap every two consecutive bits
+        n = ((n & 0xAAAAAAAA) >> 1) | ((n & 0x55555555) << 1)
+        
+        # Swap every two consecutive pairs
+        n = ((n & 0xCCCCCCCC) >> 2) | ((n & 0x33333333) << 2)
+        
+        # Swap every two consecutive quartets
+        n = ((n & 0xF0F0F0F0) >> 4) | ((n & 0x0F0F0F0F) << 4)
+        
+        # Swap every two consecutive bytes
+        n = ((n & 0xFF00FF00) >> 8) | ((n & 0x00FF00FF) << 8)
+        
+        # Swap the two halves
+        n = (n >> 16) | ((n & 0xFFFF) << 16)
+        
+        return n & 0xFFFFFFFF  # Ensure 32-bit result
+
+# Approach 4: Using String Conversion
+class ReverseBits:
+    def reverseBits(self, n: int) -> int:
+        # Convert to 32-bit binary string and reverse
+        binary = format(n, '032b')[::-1]
+        return int(binary, 2)
+
+# Approach 5: Lookup Table (for frequent calls)
+class ReverseBits:
+    def __init__(self):
+        # Precompute reversed values for 0-255
+        self.reversed = [0] * 256
+        for i in range(256):
+            reversed_val = 0
+            temp = i
+            for j in range(8):
+                reversed_val = (reversed_val << 1) | (temp & 1)
+                temp >>= 1
+            self.reversed[i] = reversed_val
+    
+    def reverseBits(self, n: int) -> int:
+        return ((self.reversed[n & 0xFF] << 24) |
+                (self.reversed[(n >> 8) & 0xFF] << 16) |
+                (self.reversed[(n >> 16) & 0xFF] << 8) |
+                (self.reversed[(n >> 24) & 0xFF]))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Bit by Bit Reversal
+var reverseBits = function(n) {
+    let result = 0;
+    
+    for (let i = 0; i < 32; i++) {
+        // Shift result left to make room for next bit
+        result <<= 1;
+        
+        // Add the rightmost bit of n to result
+        result |= (n & 1);
+        
+        // Shift n right to process next bit
+        n >>>= 1;  // Unsigned right shift
+    }
+    
+    return result >>> 0;  // Ensure unsigned 32-bit integer
+};
+
+// Approach 2: Alternative Implementation
+var reverseBits = function(n) {
+    let result = 0;
+    
+    for (let i = 0; i < 32; i++) {
+        // Extract bit at position i from right
+        const bit = (n >>> i) & 1;
+        
+        // Place bit at position (31-i) from right
+        result |= (bit << (31 - i));
+    }
+    
+    return result >>> 0;  // Ensure unsigned 32-bit integer
+};
+
+// Approach 3: Divide and Conquer (Most Efficient)
+var reverseBits = function(n) {
+    // Swap every two consecutive bits
+    n = ((n & 0xAAAAAAAA) >>> 1) | ((n & 0x55555555) << 1);
+    
+    // Swap every two consecutive pairs
+    n = ((n & 0xCCCCCCCC) >>> 2) | ((n & 0x33333333) << 2);
+    
+    // Swap every two consecutive quartets
+    n = ((n & 0xF0F0F0F0) >>> 4) | ((n & 0x0F0F0F0F) << 4);
+    
+    // Swap every two consecutive bytes
+    n = ((n & 0xFF00FF00) >>> 8) | ((n & 0x00FF00FF) << 8);
+    
+    // Swap the two halves
+    n = (n >>> 16) | (n << 16);
+    
+    return n >>> 0;  // Ensure unsigned 32-bit integer
+};
+
+// Approach 4: Using String Conversion
+var reverseBits = function(n) {
+    // Convert to 32-bit binary string and reverse
+    const binary = n.toString(2).padStart(32, '0').split('').reverse().join('');
+    return parseInt(binary, 2);
+};
+
+// Approach 5: Lookup Table (for frequent calls)
+var reverseBits = (function() {
+    // Precompute reversed values for 0-255
+    const reversed = new Array(256);
+    for (let i = 0; i < 256; i++) {
+        let reversedVal = 0;
+        let temp = i;
+        for (let j = 0; j < 8; j++) {
+            reversedVal = (reversedVal << 1) | (temp & 1);
+            temp >>>= 1;
+        }
+        reversed[i] = reversedVal;
+    }
+    
+    return function(n) {
+        return ((reversed[n & 0xFF] << 24) |
+                (reversed[(n >>> 8) & 0xFF] << 16) |
+                (reversed[(n >>> 16) & 0xFF] << 8) |
+                (reversed[(n >>> 24) & 0xFF])) >>> 0;
+    };
+})();
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Bit by bit**: Time O(32) = O(1), Space O(1)
@@ -1266,6 +2074,15 @@ Each step processes larger groups, achieving O(log n) levels
 ```
 
 **Masks Used in Divide and Conquer**:
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 0xAAAAAAAA = 10101010... (even positions)
 0x55555555 = 01010101... (odd positions)
@@ -1273,12 +2090,43 @@ Each step processes larger groups, achieving O(log n) levels
 0x33333333 = 00110011... (other pairs)
 // And so on...
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+0xAAAAAAAA = 0b10101010101010101010101010101010  # (even positions)
+0x55555555 = 0b01010101010101010101010101010101  # (odd positions)
+0xCCCCCCCC = 0b11001100110011001100110011001100  # (pairs starting at multiples of 4)
+0x33333333 = 0b00110011001100110011001100110011  # (other pairs)
+# And so on...
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+0xAAAAAAAA = 0b10101010101010101010101010101010; // (even positions)
+0x55555555 = 0b01010101010101010101010101010101; // (odd positions)
+0xCCCCCCCC = 0b11001100110011001100110011001100; // (pairs starting at multiples of 4)
+0x33333333 = 0b00110011001100110011001100110011; // (other pairs)
+// And so on...
+```
+  </div>
+</div>
 
 ---
 
 ## Common Bit Manipulation Patterns
 
 ### 1. XOR Patterns
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Find single number (others appear twice)
 int findSingle(int[] nums) {
@@ -1296,8 +2144,58 @@ void swap(int a, int b) {
     a ^= b;  // a = (a ^ b) ^ a = b
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Find single number (others appear twice)
+def find_single(nums):
+    result = 0
+    for num in nums:
+        result ^= num
+    return result
+
+# Swap two numbers without temporary variable
+def swap(a, b):
+    a ^= b
+    b ^= a  # b = b ^ (a ^ b) = a
+    a ^= b  # a = (a ^ b) ^ a = b
+    return a, b
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Find single number (others appear twice)
+function findSingle(nums) {
+    let result = 0;
+    for (const num of nums) {
+        result ^= num;
+    }
+    return result;
+}
+
+// Swap two numbers without temporary variable
+function swap(a, b) {
+    a ^= b;
+    b ^= a;  // b = b ^ (a ^ b) = a
+    a ^= b;  // a = (a ^ b) ^ a = b
+    return [a, b];
+}
+```
+  </div>
+</div>
 
 ### 2. Power of Two Detection
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Check if number is power of 2
 boolean isPowerOfTwo(int n) {
@@ -1310,8 +2208,52 @@ int trailingZeros(int n) {
     // Or: Integer.numberOfTrailingZeros(n & -n)
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Check if number is power of 2
+def is_power_of_two(n):
+    return n > 0 and (n & (n - 1)) == 0
+
+# Count trailing zeros (position of rightmost set bit)
+def trailing_zeros(n):
+    return (n & -n).bit_length() - 1 if n != 0 else 32
+    # Alternative: bin(n & -n)[::-1].find('1') if n != 0 else 32
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Check if number is power of 2
+function isPowerOfTwo(n) {
+    return n > 0 && (n & (n - 1)) === 0;
+}
+
+// Count trailing zeros (position of rightmost set bit)
+function trailingZeros(n) {
+    if (n === 0) return 32;
+    let count = 0;
+    while ((n & 1) === 0) {
+        n >>>= 1;
+        count++;
+    }
+    return count;
+}
+```
+  </div>
+</div>
 
 ### 3. Bit Manipulation Utilities
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Set bit at position i
 int setBit(int n, int i) {
@@ -1333,8 +2275,63 @@ boolean isSet(int n, int i) {
     return (n & (1 << i)) != 0;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Set bit at position i
+def set_bit(n, i):
+    return n | (1 << i)
+
+# Clear bit at position i
+def clear_bit(n, i):
+    return n & ~(1 << i)
+
+# Toggle bit at position i
+def toggle_bit(n, i):
+    return n ^ (1 << i)
+
+# Check if bit at position i is set
+def is_set(n, i):
+    return (n & (1 << i)) != 0
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Set bit at position i
+function setBit(n, i) {
+    return n | (1 << i);
+}
+
+// Clear bit at position i
+function clearBit(n, i) {
+    return n & ~(1 << i);
+}
+
+// Toggle bit at position i
+function toggleBit(n, i) {
+    return n ^ (1 << i);
+}
+
+// Check if bit at position i is set
+function isSet(n, i) {
+    return (n & (1 << i)) !== 0;
+}
+```
+  </div>
+</div>
 
 ### 4. Advanced Patterns
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Count set bits in range [0, n]
 int countBitsInRange(int n) {
@@ -1355,6 +2352,58 @@ int isolateRightmostSetBit(int n) {
     return n & (-n);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Count set bits in range [0, n]
+def count_bits_in_range(n):
+    count = 0
+    for i in range(n + 1):
+        count += bin(i).count('1')
+    return count
+
+# Find position of rightmost set bit (1-indexed)
+def rightmost_set_bit(n):
+    if n == 0:
+        return 0
+    return (n & -n).bit_length()
+
+# Isolate rightmost set bit
+def isolate_rightmost_set_bit(n):
+    return n & (-n)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Count set bits in range [0, n]
+function countBitsInRange(n) {
+    let count = 0;
+    for (let i = 0; i <= n; i++) {
+        count += i.toString(2).split('1').length - 1;
+    }
+    return count;
+}
+
+// Find position of rightmost set bit (1-indexed)
+function rightmostSetBit(n) {
+    if (n === 0) return 0;
+    let position = 1;
+    while ((n & 1) === 0) {
+        n >>>= 1;
+        position++;
+    }
+    return position;
+}
+
+// Isolate rightmost set bit
+function isolateRightmostSetBit(n) {
+    return n & (-n);
+}
+```
+  </div>
+</div>
 
 ---
 
@@ -1392,6 +2441,15 @@ int isolateRightmostSetBit(int n) {
 3. **Sign check**: n < 0 iff (n >> 31) == -1
 
 ### Useful Bit Identities
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Clear rightmost set bit
 n & (n - 1)
@@ -1411,6 +2469,52 @@ c ^= 32  // or c ^= ' '
 // Compute max without branching
 max(a, b) = a ^ ((a ^ b) & -(a < b))
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Clear rightmost set bit
+n & (n - 1)
+
+# Isolate rightmost set bit
+n & (-n)
+
+# Check if power of 2
+(n & (n - 1)) == 0 and n > 0
+
+# Toggle case of alphabet character
+ord(c) ^ 32  # or ord(c) ^ ord(' ')
+
+# Check if two numbers have opposite signs
+(a ^ b) < 0
+
+# Compute max without branching
+# max(a, b) = a ^ ((a ^ b) & -(a < b))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Clear rightmost set bit
+n & (n - 1)
+
+// Isolate rightmost set bit
+n & (-n)
+
+// Check if power of 2
+(n & (n - 1)) === 0 && n > 0
+
+// Toggle case of alphabet character
+c.charCodeAt(0) ^ 32  // or c.charCodeAt(0) ^ ' '.charCodeAt(0)
+
+// Check if two numbers have opposite signs
+(a ^ b) < 0
+
+// Compute max without branching
+// max(a, b) = a ^ ((a ^ b) & -(a < b))
+```
+  </div>
+</div>
 
 ---
 

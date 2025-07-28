@@ -57,12 +57,40 @@ Min Heap Example:       Max Heap Example:
 - Can be efficiently stored in an array
 
 ### 3. Array Representation
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // For node at index i:
 int parent = (i - 1) / 2;
 int leftChild = 2 * i + 1;
 int rightChild = 2 * i + 2;
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# For node at index i:
+parent = (i - 1) // 2
+left_child = 2 * i + 1
+right_child = 2 * i + 2
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// For node at index i:
+const parent = Math.floor((i - 1) / 2);
+const leftChild = 2 * i + 1;
+const rightChild = 2 * i + 2;
+```
+  </div>
+</div>
 
 ### 4. Core Operations
 - **Insert (Add)**: O(log n) - Add element and bubble up
@@ -70,7 +98,15 @@ int rightChild = 2 * i + 2;
 - **Peek**: O(1) - View root element
 - **Build Heap**: O(n) - Convert array to heap
 
-### 5. Java Priority Queue
+### 5. Priority Queue/Heap Usage
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Min heap (default)
 PriorityQueue<Integer> minHeap = new PriorityQueue<>();
@@ -83,6 +119,71 @@ PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
 // Custom comparator
 PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+import heapq
+
+# Min heap (heapq default)
+min_heap = []
+heapq.heappush(min_heap, value)
+min_val = heapq.heappop(min_heap)
+
+# Max heap (negate values)
+max_heap = []
+heapq.heappush(max_heap, -value)  # Negate when pushing
+max_val = -heapq.heappop(max_heap)  # Negate when popping
+
+# Custom comparator using class
+class CustomItem:
+    def __init__(self, value, priority):
+        self.value = value
+        self.priority = priority
+    def __lt__(self, other):
+        return self.priority < other.priority
+
+heap = []
+heapq.heappush(heap, CustomItem(value, priority))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Min heap implementation
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(val) {
+        this.heap.push(val);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    peek() { return this.heap[0]; }
+    size() { return this.heap.length; }
+}
+
+// Max heap (negate values or reverse comparator)
+class MaxHeap extends MinHeap {
+    _compare(i, j) {
+        return this.heap[i] > this.heap[j];
+    }
+}
+```
+  </div>
+</div>
 
 ---
 
@@ -91,6 +192,14 @@ PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 ### Heap Property Maintenance
 
 **Bubble Up (Heapify Up)**:
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 private void bubbleUp(int index) {
     while (index > 0) {
@@ -101,8 +210,43 @@ private void bubbleUp(int index) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def _bubble_up(self, index):
+    while index > 0:
+        parent = (index - 1) // 2
+        if self.heap[index] >= self.heap[parent]:
+            break
+        self._swap(index, parent)
+        index = parent
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+_bubbleUp(index) {
+    while (index > 0) {
+        const parent = Math.floor((index - 1) / 2);
+        if (this.heap[index] >= this.heap[parent]) break;
+        this._swap(index, parent);
+        index = parent;
+    }
+}
+```
+  </div>
+</div>
 
 **Bubble Down (Heapify Down)**:
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 private void bubbleDown(int index) {
     while (2 * index + 1 < size) {
@@ -120,6 +264,48 @@ private void bubbleDown(int index) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def _bubble_down(self, index):
+    while 2 * index + 1 < self.size:
+        left_child = 2 * index + 1
+        right_child = 2 * index + 2
+        smallest = left_child
+        
+        if (right_child < self.size and 
+            self.heap[right_child] < self.heap[left_child]):
+            smallest = right_child
+        
+        if self.heap[index] <= self.heap[smallest]:
+            break
+        self._swap(index, smallest)
+        index = smallest
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+_bubbleDown(index) {
+    while (2 * index + 1 < this.heap.length) {
+        const leftChild = 2 * index + 1;
+        const rightChild = 2 * index + 2;
+        let smallest = leftChild;
+        
+        if (rightChild < this.heap.length && 
+            this.heap[rightChild] < this.heap[leftChild]) {
+            smallest = rightChild;
+        }
+        
+        if (this.heap[index] <= this.heap[smallest]) break;
+        this._swap(index, smallest);
+        index = smallest;
+    }
+}
+```
+  </div>
+</div>
 
 ### Common Heap Patterns
 1. **Top K Elements**: Use heap of size K
@@ -258,8 +444,16 @@ At each step, we need to find the minimum among K current elements (one from eac
 3. **Process iteratively**: Extract minimum, add its next node to heap
 4. **Build result**: Link extracted nodes to form final sorted list
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Min Heap with ListNode Objects
 class MergeKSortedLists {
@@ -334,33 +528,205 @@ class MergeKSortedLists {
         return dummy.next;
     }
 }
+```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Min Heap with ListNode Objects
+import heapq
 
-// Approach 3: Iterative Pair Merging
-class MergeKSortedLists {
-    public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+    
+    def __lt__(self, other):
+        return self.val < other.val
+
+class MergeKSortedLists:
+    def mergeKLists(self, lists):
+        if not lists or len(lists) == 0:
+            return None
         
-        while (lists.length > 1) {
-            List<ListNode> mergedLists = new ArrayList<>();
-            
-            // Merge pairs of lists
-            for (int i = 0; i < lists.length; i += 2) {
-                ListNode list1 = lists[i];
-                ListNode list2 = (i + 1 < lists.length) ? lists[i + 1] : null;
-                mergedLists.add(mergeTwoLists(list1, list2));
-            }
-            
-            lists = mergedLists.toArray(new ListNode[0]);
-        }
+        # Min heap with ListNode objects
+        min_heap = []
         
-        return lists[0];
+        # Add first node from each non-empty list
+        for i, list_head in enumerate(lists):
+            if list_head:
+                heapq.heappush(min_heap, list_head)
+        
+        dummy = ListNode(0)
+        current = dummy
+        
+        while min_heap:
+            # Extract minimum node
+            min_node = heapq.heappop(min_heap)
+            current.next = min_node
+            current = current.next
+            
+            # Add next node from the same list
+            if min_node.next:
+                heapq.heappush(min_heap, min_node.next)
+        
+        return dummy.next
+
+# Approach 2: Divide and Conquer (More Space Efficient)
+class MergeKSortedLists:
+    def mergeKLists(self, lists):
+        if not lists or len(lists) == 0:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        
+        return self._merge_k_lists_helper(lists, 0, len(lists) - 1)
+    
+    def _merge_k_lists_helper(self, lists, start, end):
+        if start == end:
+            return lists[start]
+        if start + 1 == end:
+            return self._merge_two_lists(lists[start], lists[end])
+        
+        mid = start + (end - start) // 2
+        left = self._merge_k_lists_helper(lists, start, mid)
+        right = self._merge_k_lists_helper(lists, mid + 1, end)
+        
+        return self._merge_two_lists(left, right)
+    
+    def _merge_two_lists(self, l1, l2):
+        dummy = ListNode(0)
+        current = dummy
+        
+        while l1 and l2:
+            if l1.val <= l2.val:
+                current.next = l1
+                l1 = l1.next
+            else:
+                current.next = l2
+                l2 = l2.next
+            current = current.next
+        
+        current.next = l1 if l1 else l2
+        return dummy.next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Min Heap with ListNode Objects
+class ListNode {
+    constructor(val = 0, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+class MinHeap {
+    constructor() {
+        this.heap = [];
     }
     
-    private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
+    push(node) {
+        this.heap.push(node);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
         
-        while (l1 != null && l2 != null) {
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    isEmpty() { return this.heap.length === 0; }
+    
+    _bubbleUp(index) {
+        while (index > 0) {
+            const parent = Math.floor((index - 1) / 2);
+            if (this.heap[index].val >= this.heap[parent].val) break;
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
+        }
+    }
+    
+    _bubbleDown(index) {
+        while (2 * index + 1 < this.heap.length) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let smallest = leftChild;
+            
+            if (rightChild < this.heap.length && 
+                this.heap[rightChild].val < this.heap[leftChild].val) {
+                smallest = rightChild;
+            }
+            
+            if (this.heap[index].val <= this.heap[smallest].val) break;
+            [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+            index = smallest;
+        }
+    }
+}
+
+class MergeKSortedLists {
+    mergeKLists(lists) {
+        if (!lists || lists.length === 0) return null;
+        
+        // Min heap ordered by node values
+        const minHeap = new MinHeap();
+        
+        // Add first node from each non-empty list
+        for (const list of lists) {
+            if (list !== null) {
+                minHeap.push(list);
+            }
+        }
+        
+        const dummy = new ListNode(0);
+        let current = dummy;
+        
+        while (!minHeap.isEmpty()) {
+            // Extract minimum node
+            const minNode = minHeap.pop();
+            current.next = minNode;
+            current = current.next;
+            
+            // Add next node from the same list
+            if (minNode.next !== null) {
+                minHeap.push(minNode.next);
+            }
+        }
+        
+        return dummy.next;
+    }
+
+    // Approach 2: Divide and Conquer (More Space Efficient)
+    mergeKListsDivideConquer(lists) {
+        if (!lists || lists.length === 0) return null;
+        if (lists.length === 1) return lists[0];
+        
+        return this._mergeKListsHelper(lists, 0, lists.length - 1);
+    }
+    
+    _mergeKListsHelper(lists, start, end) {
+        if (start === end) return lists[start];
+        if (start + 1 === end) return this._mergeTwoLists(lists[start], lists[end]);
+        
+        const mid = Math.floor(start + (end - start) / 2);
+        const left = this._mergeKListsHelper(lists, start, mid);
+        const right = this._mergeKListsHelper(lists, mid + 1, end);
+        
+        return this._mergeTwoLists(left, right);
+    }
+    
+    _mergeTwoLists(l1, l2) {
+        const dummy = new ListNode(0);
+        let current = dummy;
+        
+        while (l1 !== null && l2 !== null) {
             if (l1.val <= l2.val) {
                 current.next = l1;
                 l1 = l1.next;
@@ -371,55 +737,13 @@ class MergeKSortedLists {
             current = current.next;
         }
         
-        current.next = (l1 != null) ? l1 : l2;
-        return dummy.next;
-    }
-}
-
-// Approach 4: Using Custom Heap Node (Alternative)
-class MergeKSortedLists {
-    static class HeapNode {
-        ListNode node;
-        int listIndex;
-        
-        HeapNode(ListNode node, int listIndex) {
-            this.node = node;
-            this.listIndex = listIndex;
-        }
-    }
-    
-    public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        
-        PriorityQueue<HeapNode> minHeap = new PriorityQueue<>((a, b) -> a.node.val - b.node.val);
-        
-        // Initialize heap with first node from each list
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null) {
-                minHeap.offer(new HeapNode(lists[i], i));
-                lists[i] = lists[i].next;
-            }
-        }
-        
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        
-        while (!minHeap.isEmpty()) {
-            HeapNode minHeapNode = minHeap.poll();
-            current.next = minHeapNode.node;
-            current = current.next;
-            
-            // Add next node from the same list
-            if (lists[minHeapNode.listIndex] != null) {
-                minHeap.offer(new HeapNode(lists[minHeapNode.listIndex], minHeapNode.listIndex));
-                lists[minHeapNode.listIndex] = lists[minHeapNode.listIndex].next;
-            }
-        }
-        
+        current.next = l1 !== null ? l1 : l2;
         return dummy.next;
     }
 }
 ```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Heap Approach**: Time O(N log k), Space O(k) where N = total nodes, k = number of lists
@@ -568,8 +892,16 @@ We need to find elements with highest frequencies. A max-heap of frequencies wou
 3. **Alternative approaches**: Max-heap or bucket sort for different trade-offs
 4. **Extract results**: Convert heap contents to final answer
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Min Heap of Size K (Space Efficient)
 class TopKFrequentElements {
@@ -602,30 +934,7 @@ class TopKFrequentElements {
     }
 }
 
-// Approach 2: Max Heap (Intuitive)
-class TopKFrequentElements {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int num : nums) {
-            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
-        }
-        
-        // Max heap ordered by frequency
-        PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = 
-            new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
-        
-        maxHeap.addAll(frequencyMap.entrySet());
-        
-        int[] result = new int[k];
-        for (int i = 0; i < k; i++) {
-            result[i] = maxHeap.poll().getKey();
-        }
-        
-        return result;
-    }
-}
-
-// Approach 3: Bucket Sort (Optimal O(n) Time)
+// Approach 2: Bucket Sort (Optimal O(n) Time)
 class TopKFrequentElements {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -657,104 +966,193 @@ class TopKFrequentElements {
         return result.stream().mapToInt(i -> i).toArray();
     }
 }
+```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Min Heap of Size K (Space Efficient)
+import heapq
+from collections import Counter
 
-// Approach 4: Using Custom Frequency Class
-class TopKFrequentElements {
-    static class FrequencyPair {
-        int number;
-        int frequency;
+class TopKFrequentElements:
+    def topKFrequent(self, nums, k):
+        # Count frequencies
+        frequency_map = Counter(nums)
         
-        FrequencyPair(int number, int frequency) {
-            this.number = number;
-            this.frequency = frequency;
+        # Min heap to keep top k frequent elements
+        min_heap = []
+        
+        for num, freq in frequency_map.items():
+            heapq.heappush(min_heap, (freq, num))
+            
+            # Keep only k elements in heap
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
+        
+        # Extract results
+        result = []
+        while min_heap:
+            freq, num = heapq.heappop(min_heap)
+            result.append(num)
+        
+        return result[::-1]  # Reverse to get highest freq first
+    
+    # Approach 2: Bucket Sort (Optimal O(n) Time)
+    def topKFrequentBucket(self, nums, k):
+        frequency_map = Counter(nums)
+        
+        # Create buckets for each possible frequency
+        buckets = [[] for _ in range(len(nums) + 1)]
+        
+        # Place numbers in buckets based on frequency
+        for num, freq in frequency_map.items():
+            buckets[freq].append(num)
+        
+        # Collect top k elements from highest frequency buckets
+        result = []
+        for i in range(len(buckets) - 1, -1, -1):
+            for num in buckets[i]:
+                if len(result) < k:
+                    result.append(num)
+                else:
+                    break
+            if len(result) == k:
+                break
+        
+        return result
+    
+    # Approach 3: Max Heap (Intuitive)
+    def topKFrequentMaxHeap(self, nums, k):
+        frequency_map = Counter(nums)
+        
+        # Max heap ordered by frequency (negate for max heap)
+        max_heap = []
+        for num, freq in frequency_map.items():
+            heapq.heappush(max_heap, (-freq, num))
+        
+        result = []
+        for _ in range(k):
+            freq, num = heapq.heappop(max_heap)
+            result.append(num)
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Min Heap of Size K (Space Efficient)
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(item) {
+        this.heap.push(item);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    size() { return this.heap.length; }
+    
+    _bubbleUp(index) {
+        while (index > 0) {
+            const parent = Math.floor((index - 1) / 2);
+            if (this.heap[index][1] >= this.heap[parent][1]) break;
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
         }
     }
     
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int num : nums) {
-            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+    _bubbleDown(index) {
+        while (2 * index + 1 < this.heap.length) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let smallest = leftChild;
+            
+            if (rightChild < this.heap.length && 
+                this.heap[rightChild][1] < this.heap[leftChild][1]) {
+                smallest = rightChild;
+            }
+            
+            if (this.heap[index][1] <= this.heap[smallest][1]) break;
+            [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+            index = smallest;
+        }
+    }
+}
+
+class TopKFrequentElements {
+    topKFrequent(nums, k) {
+        // Count frequencies
+        const frequencyMap = new Map();
+        for (const num of nums) {
+            frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
         }
         
-        PriorityQueue<FrequencyPair> minHeap = 
-            new PriorityQueue<>((a, b) -> a.frequency - b.frequency);
+        // Min heap to keep top k frequent elements
+        const minHeap = new MinHeap();
         
-        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
-            minHeap.offer(new FrequencyPair(entry.getKey(), entry.getValue()));
+        for (const [num, freq] of frequencyMap) {
+            minHeap.push([num, freq]);
             
+            // Keep only k elements in heap
             if (minHeap.size() > k) {
-                minHeap.poll();
+                minHeap.pop();
             }
         }
         
-        int[] result = new int[k];
-        for (int i = k - 1; i >= 0; i--) {
-            result[i] = minHeap.poll().number;
+        // Extract results
+        const result = [];
+        while (minHeap.size() > 0) {
+            const [num, freq] = minHeap.pop();
+            result.unshift(num); // Add to front for correct order
+        }
+        
+        return result;
+    }
+    
+    // Approach 2: Bucket Sort (Optimal O(n) Time)
+    topKFrequentBucket(nums, k) {
+        const frequencyMap = new Map();
+        for (const num of nums) {
+            frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
+        }
+        
+        // Create buckets for each possible frequency
+        const buckets = Array(nums.length + 1).fill(null).map(() => []);
+        
+        // Place numbers in buckets based on frequency
+        for (const [num, freq] of frequencyMap) {
+            buckets[freq].push(num);
+        }
+        
+        // Collect top k elements from highest frequency buckets
+        const result = [];
+        for (let i = buckets.length - 1; i >= 0 && result.length < k; i--) {
+            for (const num of buckets[i]) {
+                if (result.length < k) {
+                    result.push(num);
+                }
+            }
         }
         
         return result;
     }
 }
-
-// Approach 5: Quick Select (Average O(n))
-class TopKFrequentElements {
-    private Random random = new Random();
-    
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int num : nums) {
-            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
-        }
-        
-        int[] unique = new int[frequencyMap.size()];
-        int i = 0;
-        for (int num : frequencyMap.keySet()) {
-            unique[i++] = num;
-        }
-        
-        quickSelect(unique, 0, unique.length - 1, unique.length - k, frequencyMap);
-        
-        return Arrays.copyOfRange(unique, unique.length - k, unique.length);
-    }
-    
-    private void quickSelect(int[] nums, int left, int right, int kSmallest, Map<Integer, Integer> frequencyMap) {
-        if (left == right) return;
-        
-        int pivotIndex = left + random.nextInt(right - left + 1);
-        pivotIndex = partition(nums, left, right, pivotIndex, frequencyMap);
-        
-        if (kSmallest == pivotIndex) {
-            return;
-        } else if (kSmallest < pivotIndex) {
-            quickSelect(nums, left, pivotIndex - 1, kSmallest, frequencyMap);
-        } else {
-            quickSelect(nums, pivotIndex + 1, right, kSmallest, frequencyMap);
-        }
-    }
-    
-    private int partition(int[] nums, int left, int right, int pivotIndex, Map<Integer, Integer> frequencyMap) {
-        int pivotFreq = frequencyMap.get(nums[pivotIndex]);
-        swap(nums, pivotIndex, right);
-        
-        int storeIndex = left;
-        for (int i = left; i <= right; i++) {
-            if (frequencyMap.get(nums[i]) < pivotFreq) {
-                swap(nums, storeIndex, i);
-                storeIndex++;
-            }
-        }
-        
-        swap(nums, storeIndex, right);
-        return storeIndex;
-    }
-    
-    private void swap(int[] nums, int a, int b) {
-        int temp = nums[a];
-        nums[a] = nums[b];
-        nums[b] = temp;
-    }
-}
 ```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Min Heap**: Time O(N log k), Space O(N + k)
@@ -905,8 +1303,16 @@ To find median efficiently, we need quick access to middle element(s). Using two
 3. **Median calculation**: From heap tops based on total count
 4. **Insertion strategy**: Add to appropriate heap, then rebalance
 
-**Java Solutions**:
+**Solutions**:
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Approach 1: Two Heaps (Optimal)
 class MedianFinder {
@@ -975,140 +1381,283 @@ class MedianFinder {
         }
     }
 }
+```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Approach 1: Two Heaps (Optimal)
+import heapq
 
-// Approach 3: Using ArrayList with Binary Search (Less Efficient)
-class MedianFinder {
-    private List<Integer> data;
+class MedianFinder:
+    def __init__(self):
+        self.max_heap = []  # Left half (smaller elements) - negate for max heap
+        self.min_heap = []  # Right half (larger elements)
     
-    public MedianFinder() {
-        data = new ArrayList<>();
-    }
+    def addNum(self, num):
+        # Add to max heap first (negate for max heap behavior)
+        heapq.heappush(self.max_heap, -num)
+        
+        # Move largest from max heap to min heap
+        heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+        
+        # Balance heaps if min heap becomes larger
+        if len(self.min_heap) > len(self.max_heap):
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
     
-    public void addNum(int num) {
-        // Binary search insertion to maintain sorted order
-        int pos = Collections.binarySearch(data, num);
-        if (pos < 0) {
-            pos = -pos - 1;
-        }
-        data.add(pos, num);
-    }
-    
-    public double findMedian() {
-        int n = data.size();
-        if (n % 2 == 1) {
-            return data.get(n / 2);
-        } else {
-            return (data.get(n / 2 - 1) + data.get(n / 2)) / 2.0;
-        }
-    }
-}
+    def findMedian(self):
+        if len(self.max_heap) > len(self.min_heap):
+            return -self.max_heap[0]
+        else:
+            return (-self.max_heap[0] + self.min_heap[0]) / 2.0
 
-// Approach 4: Custom Balanced Binary Search Tree
-class MedianFinder {
-    private TreeNode root;
-    private int totalCount;
+# Approach 2: Alternative Balancing Strategy
+class MedianFinder:
+    def __init__(self):
+        self.max_heap = []  # Left half (negate for max heap)
+        self.min_heap = []  # Right half
     
-    class TreeNode {
-        int val;
-        int count;
-        int leftSubtreeSize;
-        TreeNode left, right;
+    def addNum(self, num):
+        if not self.max_heap or num <= -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -num)
+        else:
+            heapq.heappush(self.min_heap, num)
         
-        TreeNode(int val) {
-            this.val = val;
-            this.count = 1;
-            this.leftSubtreeSize = 0;
-        }
-    }
+        # Rebalance heaps
+        if len(self.max_heap) > len(self.min_heap) + 1:
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+        elif len(self.min_heap) > len(self.max_heap) + 1:
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
     
-    public MedianFinder() {
-        root = null;
-        totalCount = 0;
-    }
-    
-    public void addNum(int num) {
-        root = insert(root, num);
-        totalCount++;
-    }
-    
-    private TreeNode insert(TreeNode node, int val) {
-        if (node == null) {
-            return new TreeNode(val);
-        }
-        
-        if (val == node.val) {
-            node.count++;
-        } else if (val < node.val) {
-            node.leftSubtreeSize++;
-            node.left = insert(node.left, val);
-        } else {
-            node.right = insert(node.right, val);
-        }
-        
-        return node;
-    }
-    
-    public double findMedian() {
-        if (totalCount % 2 == 1) {
-            return findKthElement(root, totalCount / 2 + 1);
-        } else {
-            int k1 = totalCount / 2;
-            int k2 = totalCount / 2 + 1;
-            return (findKthElement(root, k1) + findKthElement(root, k2)) / 2.0;
-        }
-    }
-    
-    private double findKthElement(TreeNode node, int k) {
-        if (node == null) return 0;
-        
-        if (k <= node.leftSubtreeSize) {
-            return findKthElement(node.left, k);
-        } else if (k <= node.leftSubtreeSize + node.count) {
-            return node.val;
-        } else {
-            return findKthElement(node.right, k - node.leftSubtreeSize - node.count);
-        }
-    }
-}
+    def findMedian(self):
+        if len(self.max_heap) == len(self.min_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2.0
+        elif len(self.max_heap) > len(self.min_heap):
+            return -self.max_heap[0]
+        else:
+            return self.min_heap[0]
 
-// Approach 5: Using Multiset (TreeMap simulation)
-class MedianFinder {
-    private TreeMap<Integer, Integer> treeMap;
-    private int totalCount;
+# Approach 3: Using Custom Heap Classes
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
     
-    public MedianFinder() {
-        treeMap = new TreeMap<>();
-        totalCount = 0;
+    def push(self, val):
+        heapq.heappush(self.heap, -val)
+    
+    def pop(self):
+        return -heapq.heappop(self.heap)
+    
+    def peek(self):
+        return -self.heap[0] if self.heap else None
+    
+    def size(self):
+        return len(self.heap)
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def push(self, val):
+        heapq.heappush(self.heap, val)
+    
+    def pop(self):
+        return heapq.heappop(self.heap)
+    
+    def peek(self):
+        return self.heap[0] if self.heap else None
+    
+    def size(self):
+        return len(self.heap)
+
+class MedianFinder:
+    def __init__(self):
+        self.max_heap = MaxHeap()  # Left half
+        self.min_heap = MinHeap()  # Right half
+    
+    def addNum(self, num):
+        self.max_heap.push(num)
+        self.min_heap.push(self.max_heap.pop())
+        
+        if self.min_heap.size() > self.max_heap.size():
+            self.max_heap.push(self.min_heap.pop())
+    
+    def findMedian(self):
+        if self.max_heap.size() > self.min_heap.size():
+            return float(self.max_heap.peek())
+        else:
+            return (self.max_heap.peek() + self.min_heap.peek()) / 2.0
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Approach 1: Two Heaps (Optimal)
+class MaxHeap {
+    constructor() {
+        this.heap = [];
     }
     
-    public void addNum(int num) {
-        treeMap.put(num, treeMap.getOrDefault(num, 0) + 1);
-        totalCount++;
+    push(val) {
+        this.heap.push(val);
+        this._bubbleUp(this.heap.length - 1);
     }
     
-    public double findMedian() {
-        int target1 = (totalCount + 1) / 2;
-        int target2 = (totalCount + 2) / 2;
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
         
-        int count = 0;
-        Integer median1 = null, median2 = null;
-        
-        for (Map.Entry<Integer, Integer> entry : treeMap.entrySet()) {
-            count += entry.getValue();
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    peek() { return this.heap[0]; }
+    size() { return this.heap.length; }
+    isEmpty() { return this.heap.length === 0; }
+    
+    _bubbleUp(index) {
+        while (index > 0) {
+            const parent = Math.floor((index - 1) / 2);
+            if (this.heap[index] <= this.heap[parent]) break;
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
+        }
+    }
+    
+    _bubbleDown(index) {
+        while (2 * index + 1 < this.heap.length) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let largest = leftChild;
             
-            if (median1 == null && count >= target1) {
-                median1 = entry.getKey();
+            if (rightChild < this.heap.length && 
+                this.heap[rightChild] > this.heap[leftChild]) {
+                largest = rightChild;
             }
-            if (median2 == null && count >= target2) {
-                median2 = entry.getKey();
-                break;
+            
+            if (this.heap[index] >= this.heap[largest]) break;
+            [this.heap[index], this.heap[largest]] = [this.heap[largest], this.heap[index]];
+            index = largest;
+        }
+    }
+}
+
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(val) {
+        this.heap.push(val);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    peek() { return this.heap[0]; }
+    size() { return this.heap.length; }
+    isEmpty() { return this.heap.length === 0; }
+    
+    _bubbleUp(index) {
+        while (index > 0) {
+            const parent = Math.floor((index - 1) / 2);
+            if (this.heap[index] >= this.heap[parent]) break;
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
+        }
+    }
+    
+    _bubbleDown(index) {
+        while (2 * index + 1 < this.heap.length) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let smallest = leftChild;
+            
+            if (rightChild < this.heap.length && 
+                this.heap[rightChild] < this.heap[leftChild]) {
+                smallest = rightChild;
             }
+            
+            if (this.heap[index] <= this.heap[smallest]) break;
+            [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+            index = smallest;
+        }
+    }
+}
+
+class MedianFinder {
+    constructor() {
+        this.maxHeap = new MaxHeap(); // Left half (smaller elements)
+        this.minHeap = new MinHeap(); // Right half (larger elements)
+    }
+    
+    addNum(num) {
+        // Add to max heap first
+        this.maxHeap.push(num);
+        
+        // Move largest from max heap to min heap
+        this.minHeap.push(this.maxHeap.pop());
+        
+        // Balance heaps if min heap becomes larger
+        if (this.minHeap.size() > this.maxHeap.size()) {
+            this.maxHeap.push(this.minHeap.pop());
+        }
+    }
+    
+    findMedian() {
+        if (this.maxHeap.size() > this.minHeap.size()) {
+            return this.maxHeap.peek();
+        } else {
+            return (this.maxHeap.peek() + this.minHeap.peek()) / 2.0;
+        }
+    }
+}
+
+// Approach 2: Alternative Balancing Strategy
+class MedianFinder2 {
+    constructor() {
+        this.maxHeap = new MaxHeap();
+        this.minHeap = new MinHeap();
+    }
+    
+    addNum(num) {
+        if (this.maxHeap.isEmpty() || num <= this.maxHeap.peek()) {
+            this.maxHeap.push(num);
+        } else {
+            this.minHeap.push(num);
         }
         
-        return (median1 + median2) / 2.0;
+        // Rebalance heaps
+        if (this.maxHeap.size() > this.minHeap.size() + 1) {
+            this.minHeap.push(this.maxHeap.pop());
+        } else if (this.minHeap.size() > this.maxHeap.size() + 1) {
+            this.maxHeap.push(this.minHeap.pop());
+        }
+    }
+    
+    findMedian() {
+        if (this.maxHeap.size() === this.minHeap.size()) {
+            return (this.maxHeap.peek() + this.minHeap.peek()) / 2.0;
+        } else if (this.maxHeap.size() > this.minHeap.size()) {
+            return this.maxHeap.peek();
+        } else {
+            return this.minHeap.peek();
+        }
     }
 }
 ```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - **Two Heaps**: addNum O(log n), findMedian O(1)
@@ -1158,6 +1707,14 @@ Median: 3
 ## Common Heap Patterns
 
 ### 1. Top K Elements Pattern
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Template for Top K problems
 PriorityQueue<Integer> minHeap = new PriorityQueue<>();
@@ -1170,8 +1727,47 @@ for (int element : elements) {
 }
 // minHeap now contains top K largest elements
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Template for Top K problems
+import heapq
+
+min_heap = []
+for element in elements:
+    heapq.heappush(min_heap, element)
+    if len(min_heap) > k:
+        heapq.heappop(min_heap)  # Remove smallest
+# min_heap now contains top K largest elements
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Template for Top K problems
+const minHeap = new MinHeap();
+
+for (const element of elements) {
+    minHeap.push(element);
+    if (minHeap.size() > k) {
+        minHeap.pop(); // Remove smallest
+    }
+}
+// minHeap now contains top K largest elements
+```
+  </div>
+</div>
 
 ### 2. K-way Merge Pattern
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Template for merging K sorted arrays/lists
 PriorityQueue<Element> minHeap = new PriorityQueue<>((a, b) -> a.value - b.value);
@@ -1197,8 +1793,78 @@ while (!minHeap.isEmpty()) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Template for merging K sorted arrays/lists
+import heapq
+
+min_heap = []
+
+# Initialize with first element from each array
+for i in range(k):
+    if len(arrays[i]) > 0:
+        heapq.heappush(min_heap, (arrays[i][0], i, 0))
+
+result = []
+while min_heap:
+    value, array_id, index = heapq.heappop(min_heap)
+    result.append(value)
+    
+    # Add next element from same array
+    if index + 1 < len(arrays[array_id]):
+        heapq.heappush(min_heap, (
+            arrays[array_id][index + 1], 
+            array_id, 
+            index + 1
+        ))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Template for merging K sorted arrays/lists
+const minHeap = new MinHeap();
+
+// Initialize with first element from each array
+for (let i = 0; i < k; i++) {
+    if (arrays[i].length > 0) {
+        minHeap.push({
+            value: arrays[i][0],
+            arrayId: i,
+            index: 0
+        });
+    }
+}
+
+const result = [];
+while (!minHeap.isEmpty()) {
+    const min = minHeap.pop();
+    result.push(min.value);
+    
+    // Add next element from same array
+    if (min.index + 1 < arrays[min.arrayId].length) {
+        minHeap.push({
+            value: arrays[min.arrayId][min.index + 1],
+            arrayId: min.arrayId,
+            index: min.index + 1
+        });
+    }
+}
+```
+  </div>
+</div>
 
 ### 3. Two Heaps Pattern
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Template for median/balance problems
 PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
@@ -1219,8 +1885,63 @@ public void addElement(int element) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Template for median/balance problems
+import heapq
+
+max_heap = []  # Negate values for max heap
+min_heap = []
+
+def add_element(element):
+    if not max_heap or element <= -max_heap[0]:
+        heapq.heappush(max_heap, -element)
+    else:
+        heapq.heappush(min_heap, element)
+    
+    # Rebalance
+    if len(max_heap) > len(min_heap) + 1:
+        heapq.heappush(min_heap, -heapq.heappop(max_heap))
+    elif len(min_heap) > len(max_heap) + 1:
+        heapq.heappush(max_heap, -heapq.heappop(min_heap))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Template for median/balance problems
+const maxHeap = new MaxHeap();
+const minHeap = new MinHeap();
+
+function addElement(element) {
+    if (maxHeap.isEmpty() || element <= maxHeap.peek()) {
+        maxHeap.push(element);
+    } else {
+        minHeap.push(element);
+    }
+    
+    // Rebalance
+    if (maxHeap.size() > minHeap.size() + 1) {
+        minHeap.push(maxHeap.pop());
+    } else if (minHeap.size() > maxHeap.size() + 1) {
+        maxHeap.push(minHeap.pop());
+    }
+}
+```
+  </div>
+</div>
 
 ### 4. Sliding Window with Heap
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Template for sliding window extremes
 PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);
@@ -1240,8 +1961,61 @@ for (int i = 0; i < nums.length; i++) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Template for sliding window extremes
+import heapq
+
+max_heap = []  # Use negative values for max heap
+
+for i, num in enumerate(nums):
+    # Add current element with its index (negate for max heap)
+    heapq.heappush(max_heap, (-num, i))
+    
+    # Remove elements outside window
+    while max_heap and max_heap[0][1] <= i - k:
+        heapq.heappop(max_heap)
+    
+    # Current window maximum
+    if i >= k - 1:
+        result.append(-max_heap[0][0])
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Template for sliding window extremes
+const maxHeap = new MaxHeap();
+
+for (let i = 0; i < nums.length; i++) {
+    // Add current element with its index
+    maxHeap.push({value: nums[i], index: i});
+    
+    // Remove elements outside window
+    while (!maxHeap.isEmpty() && maxHeap.peek().index <= i - k) {
+        maxHeap.pop();
+    }
+    
+    // Current window maximum
+    if (i >= k - 1) {
+        result.push(maxHeap.peek().value);
+    }
+}
+```
+  </div>
+</div>
 
 ### 5. Custom Priority Objects
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Template for complex priority comparisons
 class Task {
@@ -1263,12 +2037,89 @@ PriorityQueue<Task> taskQueue = new PriorityQueue<>((a, b) -> {
     return a.timestamp - b.timestamp; // Earlier timestamp first
 });
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Template for complex priority comparisons
+import heapq
+from dataclasses import dataclass, field
+from typing import Any
+
+@dataclass
+class Task:
+    priority: int
+    timestamp: int
+    name: str = field(compare=False)
+    
+    def __lt__(self, other):
+        if self.priority != other.priority:
+            return self.priority > other.priority  # Higher priority first
+        return self.timestamp < other.timestamp  # Earlier timestamp first
+
+task_queue = []
+heapq.heappush(task_queue, Task(priority=5, timestamp=100, name="High priority task"))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Template for complex priority comparisons
+class Task {
+    constructor(priority, timestamp, name) {
+        this.priority = priority;
+        this.timestamp = timestamp;
+        this.name = name;
+    }
+}
+
+// Custom comparison heap
+class TaskHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(task) {
+        this.heap.push(task);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    _compare(i, j) {
+        const taskA = this.heap[i];
+        const taskB = this.heap[j];
+        
+        if (taskA.priority !== taskB.priority) {
+            return taskA.priority > taskB.priority; // Higher priority first
+        }
+        return taskA.timestamp < taskB.timestamp; // Earlier timestamp first
+    }
+    
+    _bubbleUp(index) {
+        while (index > 0) {
+            const parent = Math.floor((index - 1) / 2);
+            if (!this._compare(index, parent)) break;
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
+        }
+    }
+}
+```
+  </div>
+</div>
 
 ---
 
 ## Implementation Details and Tips
 
-### Java PriorityQueue Features
+### Priority Queue/Heap Features
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Construction options
 PriorityQueue<Integer> minHeap = new PriorityQueue<>();
@@ -1282,6 +2133,74 @@ heap.peek();           // View min/max without removing - O(1)
 heap.size();           // Get size - O(1)
 heap.isEmpty();        // Check if empty - O(1)
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+import heapq
+
+# Construction and operations
+min_heap = []
+heapq.heappush(min_heap, element)    # Add element - O(log n)
+min_val = heapq.heappop(min_heap)    # Remove and return min - O(log n)
+min_val = min_heap[0]                # View min without removing - O(1)
+size = len(min_heap)                 # Get size - O(1)
+is_empty = len(min_heap) == 0        # Check if empty - O(1)
+
+# Max heap using negation
+max_heap = []
+heapq.heappush(max_heap, -element)
+max_val = -heapq.heappop(max_heap)
+
+# Convert list to heap in-place
+nums = [3, 1, 4, 1, 5]
+heapq.heapify(nums)  # O(n)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Custom heap implementation required
+class Heap {
+    constructor(compareFn = (a, b) => a < b) {
+        this.heap = [];
+        this.compare = compareFn;
+    }
+    
+    push(val) {           // Add element - O(log n)
+        this.heap.push(val);
+        this._bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {              // Remove and return root - O(log n)
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this._bubbleDown(0);
+        return root;
+    }
+    
+    peek() {             // View root without removing - O(1)
+        return this.heap[0];
+    }
+    
+    size() {             // Get size - O(1)
+        return this.heap.length;
+    }
+    
+    isEmpty() {          // Check if empty - O(1)
+        return this.heap.length === 0;
+    }
+}
+
+// Usage
+const minHeap = new Heap((a, b) => a < b);
+const maxHeap = new Heap((a, b) => a > b);
+```
+  </div>
+</div>
 
 ### Common Pitfalls
 1. **Wrong Comparator**: Ensure correct ordering (min vs max heap)
@@ -1291,6 +2210,14 @@ heap.isEmpty();        // Check if empty - O(1)
 5. **Index Tracking**: When elements can be duplicated, track indices separately
 
 ### Performance Considerations
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Space optimization for top K problems
 PriorityQueue<Integer> heap = new PriorityQueue<>(k + 1);
@@ -1305,8 +2232,64 @@ while (!heap.isEmpty()) {
     results.add(heap.poll());
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Space optimization for top K problems
+import heapq
+
+heap = []
+# Limit heap size manually in loop
+
+# Batch operations - heapify existing list
+elements = [1, 2, 3, 4, 5]
+heapq.heapify(elements)  # O(n) - faster than repeated heappush
+
+# Extract multiple results efficiently
+results = []
+while heap:
+    results.append(heapq.heappop(heap))
+
+# For large datasets, consider using heapq.nlargest/nsmallest
+top_k = heapq.nlargest(k, elements)  # More efficient for small k
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Space optimization for top K problems
+const heap = new Heap();
+// Manually manage size in application logic
+
+// Batch operations - build heap from array
+const elements = [1, 2, 3, 4, 5];
+const heap = new Heap();
+for (const element of elements) {
+    heap.push(element);
+}
+
+// Extract multiple results efficiently
+const results = [];
+while (!heap.isEmpty()) {
+    results.push(heap.pop());
+}
+
+// Consider specialized data structures for specific use cases
+// e.g., binary indexed tree for range queries
+```
+  </div>
+</div>
 
 ### Custom Heap Implementation (When Needed)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class MinHeap {
     private int[] heap;
@@ -1379,6 +2362,156 @@ class MinHeap {
     public boolean isEmpty() { return size == 0; }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class MinHeap:
+    def __init__(self, capacity=100):
+        self.heap = [0] * capacity
+        self.size = 0
+        self.capacity = capacity
+    
+    def _parent(self, i):
+        return (i - 1) // 2
+    
+    def _left_child(self, i):
+        return 2 * i + 1
+    
+    def _right_child(self, i):
+        return 2 * i + 2
+    
+    def insert(self, value):
+        if self.size >= self.capacity:
+            raise Exception("Heap overflow")
+        
+        self.heap[self.size] = value
+        current = self.size
+        self.size += 1
+        
+        # Bubble up
+        while (current > 0 and 
+               self.heap[current] < self.heap[self._parent(current)]):
+            self._swap(current, self._parent(current))
+            current = self._parent(current)
+    
+    def extract_min(self):
+        if self.size <= 0:
+            raise Exception("Heap underflow")
+        
+        root = self.heap[0]
+        self.size -= 1
+        self.heap[0] = self.heap[self.size]
+        self._heapify(0)
+        
+        return root
+    
+    def _heapify(self, i):
+        left = self._left_child(i)
+        right = self._right_child(i)
+        smallest = i
+        
+        if left < self.size and self.heap[left] < self.heap[smallest]:
+            smallest = left
+        if right < self.size and self.heap[right] < self.heap[smallest]:
+            smallest = right
+        
+        if smallest != i:
+            self._swap(i, smallest)
+            self._heapify(smallest)
+    
+    def _swap(self, i, j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+    
+    def peek(self):
+        if self.size <= 0:
+            raise Exception("Heap is empty")
+        return self.heap[0]
+    
+    def get_size(self):
+        return self.size
+    
+    def is_empty(self):
+        return self.size == 0
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class MinHeap {
+    constructor(capacity = 100) {
+        this.heap = new Array(capacity);
+        this.size = 0;
+        this.capacity = capacity;
+    }
+    
+    _parent(i) { return Math.floor((i - 1) / 2); }
+    _leftChild(i) { return 2 * i + 1; }
+    _rightChild(i) { return 2 * i + 2; }
+    
+    insert(value) {
+        if (this.size >= this.capacity) {
+            throw new Error("Heap overflow");
+        }
+        
+        this.heap[this.size] = value;
+        let current = this.size++;
+        
+        // Bubble up
+        while (current > 0 && 
+               this.heap[current] < this.heap[this._parent(current)]) {
+            this._swap(current, this._parent(current));
+            current = this._parent(current);
+        }
+    }
+    
+    extractMin() {
+        if (this.size <= 0) {
+            throw new Error("Heap underflow");
+        }
+        
+        const root = this.heap[0];
+        this.heap[0] = this.heap[--this.size];
+        this._heapify(0);
+        
+        return root;
+    }
+    
+    _heapify(i) {
+        const left = this._leftChild(i);
+        const right = this._rightChild(i);
+        let smallest = i;
+        
+        if (left < this.size && this.heap[left] < this.heap[smallest]) {
+            smallest = left;
+        }
+        if (right < this.size && this.heap[right] < this.heap[smallest]) {
+            smallest = right;
+        }
+        
+        if (smallest !== i) {
+            this._swap(i, smallest);
+            this._heapify(smallest);
+        }
+    }
+    
+    _swap(i, j) {
+        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+    }
+    
+    peek() {
+        if (this.size <= 0) {
+            throw new Error("Heap is empty");
+        }
+        return this.heap[0];
+    }
+    
+    getSize() { return this.size; }
+    isEmpty() { return this.size === 0; }
+}
+```
+  </div>
+</div>
 
 ---
 

@@ -14,6 +14,14 @@ render_with_liquid: false
 
 ## Core Data Structure
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 /**
  * Definition for singly-linked list node
@@ -34,6 +42,38 @@ public class ListNode {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Definition for singly-linked list node
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Definition for singly-linked list node
+ */
+class ListNode {
+    constructor(val = 0, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+// Alternative function-based approach
+function ListNode(val, next) {
+    this.val = (val === undefined ? 0 : val);
+    this.next = (next === undefined ? null : next);
+}
+```
+  </div>
+</div>
 
 ## Essential Linked List Patterns
 
@@ -195,6 +235,15 @@ After:  prev <- curr    next -> ...
 ### Multiple Java Solutions
 
 #### Solution 1: Iterative Approach (Recommended)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -222,8 +271,74 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        Iterative reversal using three pointers
+        Time: O(n), Space: O(1)
+        """
+        prev = None    # Previous node (new next pointer target)
+        curr = head    # Current node being processed
+        
+        while curr is not None:
+            # Step 1: Save the next node to avoid losing the rest of the list
+            next_temp = curr.next
+            
+            # Step 2: Reverse the current link
+            curr.next = prev
+            
+            # Step 3: Advance pointers for next iteration
+            prev = curr         # Move prev forward
+            curr = next_temp    # Move curr forward
+        
+        # When curr is None, prev points to the new head
+        return prev
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Iterative reversal using three pointers
+ * Time: O(n), Space: O(1)
+ */
+var reverseList = function(head) {
+    let prev = null;    // Previous node (new next pointer target)
+    let curr = head;    // Current node being processed
+    
+    while (curr !== null) {
+        // Step 1: Save the next node to avoid losing the rest of the list
+        let nextTemp = curr.next;
+        
+        // Step 2: Reverse the current link
+        curr.next = prev;
+        
+        // Step 3: Advance pointers for next iteration
+        prev = curr;         // Move prev forward
+        curr = nextTemp;     // Move curr forward
+    }
+    
+    // When curr is null, prev points to the new head
+    return prev;
+};
+```
+  </div>
+</div>
 
 #### Solution 2: Recursive Approach
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -248,8 +363,68 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        Recursive reversal - builds solution on return path
+        Time: O(n), Space: O(n) due to call stack
+        """
+        # Base case: empty list or single node
+        if head is None or head.next is None:
+            return head
+        
+        # Recursively reverse the rest of the list
+        new_head = self.reverseList(head.next)
+        
+        # Reverse the current link
+        # head.next currently points to the last node of reversed sublist
+        head.next.next = head  # Make the next node point back to current
+        head.next = None       # Break the forward link
+        
+        return new_head        # Return the head of reversed list
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Recursive reversal - builds solution on return path
+ * Time: O(n), Space: O(n) due to call stack
+ */
+var reverseList = function(head) {
+    // Base case: empty list or single node
+    if (head === null || head.next === null) {
+        return head;
+    }
+    
+    // Recursively reverse the rest of the list
+    let newHead = reverseList(head.next);
+    
+    // Reverse the current link
+    // head.next currently points to the last node of reversed sublist
+    head.next.next = head;  // Make the next node point back to current
+    head.next = null;       // Break the forward link
+    
+    return newHead;         // Return the head of reversed list
+};
+```
+  </div>
+</div>
 
 #### Solution 3: Stack-Based Approach (Educational)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -282,6 +457,73 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        Stack-based reversal - demonstrates LIFO nature  
+        Time: O(n), Space: O(n)
+        """
+        if head is None:
+            return None
+        
+        stack = []
+        curr = head
+        
+        # Push all nodes onto stack
+        while curr is not None:
+            stack.append(curr)
+            curr = curr.next
+        
+        # Pop nodes and rebuild links
+        new_head = stack.pop()
+        curr = new_head
+        
+        while stack:
+            curr.next = stack.pop()
+            curr = curr.next
+        curr.next = None  # Important: terminate the list
+        
+        return new_head
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Stack-based reversal - demonstrates LIFO nature
+ * Time: O(n), Space: O(n)
+ */
+var reverseList = function(head) {
+    if (head === null) return null;
+    
+    let stack = [];
+    let curr = head;
+    
+    // Push all nodes onto stack
+    while (curr !== null) {
+        stack.push(curr);
+        curr = curr.next;
+    }
+    
+    // Pop nodes and rebuild links
+    let newHead = stack.pop();
+    curr = newHead;
+    
+    while (stack.length > 0) {
+        curr.next = stack.pop();
+        curr = curr.next;
+    }
+    curr.next = null;  // Important: terminate the list
+    
+    return newHead;
+};
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Iterative**: Time O(n), Space O(1) - optimal solution
@@ -452,6 +694,15 @@ Cycle: slow and fast will meet inside the cycle
 ### Multiple Java Solutions
 
 #### Solution 1: Floyd's Cycle Detection (Two Pointers) - Optimal
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -484,8 +735,82 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        """
+        Floyd's Tortoise and Hare Algorithm
+        Time: O(n), Space: O(1)
+        """
+        # Edge case: empty list or single node
+        if head is None or head.next is None:
+            return False
+        
+        slow = head       # Tortoise: moves 1 step
+        fast = head.next  # Hare: moves 2 steps
+        
+        # Continue until fast pointer reaches end or pointers meet
+        while slow != fast:
+            # If fast reaches None, no cycle exists
+            if fast is None or fast.next is None:
+                return False
+            
+            # Move pointers at different speeds
+            slow = slow.next        # Move 1 step
+            fast = fast.next.next   # Move 2 steps
+        
+        # If we exit the loop, pointers met -> cycle exists
+        return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Floyd's Tortoise and Hare Algorithm
+ * Time: O(n), Space: O(1)
+ */
+var hasCycle = function(head) {
+    // Edge case: empty list or single node
+    if (head === null || head.next === null) {
+        return false;
+    }
+    
+    let slow = head;      // Tortoise: moves 1 step
+    let fast = head.next; // Hare: moves 2 steps
+    
+    // Continue until fast pointer reaches end or pointers meet
+    while (slow !== fast) {
+        // If fast reaches null, no cycle exists
+        if (fast === null || fast.next === null) {
+            return false;
+        }
+        
+        // Move pointers at different speeds
+        slow = slow.next;           // Move 1 step
+        fast = fast.next.next;      // Move 2 steps
+    }
+    
+    // If we exit the loop, pointers met -> cycle exists
+    return true;
+};
+```
+  </div>
+</div>
 
 #### Solution 2: HashSet Approach (Intuitive)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -512,8 +837,71 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        """
+        Track visited nodes using set
+        Time: O(n), Space: O(n)
+        """
+        visited = set()
+        curr = head
+        
+        while curr is not None:
+            # If we've seen this node before, cycle exists
+            if curr in visited:
+                return True
+            
+            # Mark current node as visited
+            visited.add(curr)
+            curr = curr.next
+        
+        # Reached end without revisiting any node
+        return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Track visited nodes using Set
+ * Time: O(n), Space: O(n)
+ */
+var hasCycle = function(head) {
+    let visited = new Set();
+    let curr = head;
+    
+    while (curr !== null) {
+        // If we've seen this node before, cycle exists
+        if (visited.has(curr)) {
+            return true;
+        }
+        
+        // Mark current node as visited
+        visited.add(curr);
+        curr = curr.next;
+    }
+    
+    // Reached end without revisiting any node
+    return false;
+};
+```
+  </div>
+</div>
 
 #### Solution 3: Node Modification Approach (Destructive)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -538,8 +926,67 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        """
+        Modify nodes to mark as visited
+        Time: O(n), Space: O(1) - but modifies original list
+        """
+        curr = head
+        
+        while curr is not None and curr.next is not None:
+            # Use a special marker to indicate visited
+            if curr.next == curr:
+                return True  # Found our marker
+            
+            next_node = curr.next
+            curr.next = curr  # Point to self as marker
+            curr = next_node
+        
+        return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Modify nodes to mark as visited
+ * Time: O(n), Space: O(1) - but modifies original list
+ */
+var hasCycle = function(head) {
+    let curr = head;
+    
+    while (curr !== null && curr.next !== null) {
+        // Use a special marker to indicate visited
+        if (curr.next === curr) {
+            return true;  // Found our marker
+        }
+        
+        let next = curr.next;
+        curr.next = curr;  // Point to self as marker
+        curr = next;
+    }
+    
+    return false;
+};
+```
+  </div>
+</div>
 
 ### Advanced: Finding Cycle Start (LeetCode 142)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -573,6 +1020,77 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        """
+        Find the node where cycle begins
+        Uses Floyd's algorithm + mathematical property
+        """
+        if head is None or head.next is None:
+            return None
+        
+        # Phase 1: Detect if cycle exists
+        slow = fast = head
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                break  # Cycle detected
+        
+        # No cycle found
+        if fast is None or fast.next is None:
+            return None
+        
+        # Phase 2: Find cycle start
+        # Mathematical property: distance from head to cycle start
+        # equals distance from meeting point to cycle start
+        slow = head
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+        
+        return slow  # Cycle start node
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Find the node where cycle begins
+ * Uses Floyd's algorithm + mathematical property
+ */
+var detectCycle = function(head) {
+    if (head === null || head.next === null) return null;
+    
+    // Phase 1: Detect if cycle exists
+    let slow = head, fast = head;
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) break;  // Cycle detected
+    }
+    
+    // No cycle found
+    if (fast === null || fast.next === null) return null;
+    
+    // Phase 2: Find cycle start
+    // Mathematical property: distance from head to cycle start
+    // equals distance from meeting point to cycle start
+    slow = head;
+    while (slow !== fast) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+    
+    return slow;  // Cycle start node
+};
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Floyd's Algorithm**: Time O(n), Space O(1) - optimal
@@ -757,6 +1275,15 @@ Compare a vs x, take smaller, advance pointer
 ### Multiple Java Solutions
 
 #### Solution 1: Iterative with Dummy Node (Recommended)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -788,8 +1315,81 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
+        """
+        Iterative merge using dummy node
+        Time: O(m + n), Space: O(1)
+        """
+        # Create dummy node to simplify edge cases
+        dummy = ListNode(0)
+        tail = dummy  # Points to last node in result
+        
+        # Merge while both lists have nodes
+        while list1 is not None and list2 is not None:
+            if list1.val <= list2.val:
+                tail.next = list1  # Add list1 node to result
+                list1 = list1.next # Advance list1 pointer
+            else:
+                tail.next = list2  # Add list2 node to result
+                list2 = list2.next # Advance list2 pointer
+            tail = tail.next       # Advance result tail
+        
+        # Append remaining nodes (one list is empty, other might have nodes)
+        tail.next = list1 if list1 is not None else list2
+        
+        # Return actual head (skip dummy)
+        return dummy.next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Iterative merge using dummy node
+ * Time: O(m + n), Space: O(1)
+ */
+var mergeTwoLists = function(list1, list2) {
+    // Create dummy node to simplify edge cases
+    let dummy = new ListNode(0);
+    let tail = dummy;  // Points to last node in result
+    
+    // Merge while both lists have nodes
+    while (list1 !== null && list2 !== null) {
+        if (list1.val <= list2.val) {
+            tail.next = list1;  // Add list1 node to result
+            list1 = list1.next; // Advance list1 pointer
+        } else {
+            tail.next = list2;  // Add list2 node to result
+            list2 = list2.next; // Advance list2 pointer
+        }
+        tail = tail.next;       // Advance result tail
+    }
+    
+    // Append remaining nodes (one list is empty, other might have nodes)
+    tail.next = (list1 !== null) ? list1 : list2;
+    
+    // Return actual head (skip dummy)
+    return dummy.next;
+};
+```
+  </div>
+</div>
 
 #### Solution 2: Recursive Approach (Elegant)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -814,8 +1414,70 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
+        """
+        Recursive merge - clean and intuitive
+        Time: O(m + n), Space: O(m + n) due to call stack
+        """
+        # Base cases: if one list is empty, return the other
+        if list1 is None:
+            return list2
+        if list2 is None:
+            return list1
+        
+        # Recursive case: choose smaller head and recurse
+        if list1.val <= list2.val:
+            # list1 head is smaller
+            list1.next = self.mergeTwoLists(list1.next, list2)
+            return list1
+        else:
+            # list2 head is smaller
+            list2.next = self.mergeTwoLists(list1, list2.next)
+            return list2
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Recursive merge - clean and intuitive
+ * Time: O(m + n), Space: O(m + n) due to call stack
+ */
+var mergeTwoLists = function(list1, list2) {
+    // Base cases: if one list is empty, return the other
+    if (list1 === null) return list2;
+    if (list2 === null) return list1;
+    
+    // Recursive case: choose smaller head and recurse
+    if (list1.val <= list2.val) {
+        // list1 head is smaller
+        list1.next = mergeTwoLists(list1.next, list2);
+        return list1;
+    } else {
+        // list2 head is smaller
+        list2.next = mergeTwoLists(list1, list2.next);
+        return list2;
+    }
+};
+```
+  </div>
+</div>
 
 #### Solution 3: In-Place Merge Without Dummy (Educational)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -856,6 +1518,88 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
+        """
+        In-place merge handling head explicitly
+        Time: O(m + n), Space: O(1)
+        """
+        # Handle empty lists
+        if list1 is None:
+            return list2
+        if list2 is None:
+            return list1
+        
+        # Determine the head of result list
+        if list1.val <= list2.val:
+            head = curr = list1
+            list1 = list1.next
+        else:
+            head = curr = list2
+            list2 = list2.next
+        
+        # Merge remaining nodes
+        while list1 is not None and list2 is not None:
+            if list1.val <= list2.val:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
+        
+        # Append remaining nodes
+        curr.next = list1 if list1 is not None else list2
+        
+        return head
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * In-place merge handling head explicitly
+ * Time: O(m + n), Space: O(1)
+ */
+var mergeTwoLists = function(list1, list2) {
+    // Handle empty lists
+    if (list1 === null) return list2;
+    if (list2 === null) return list1;
+    
+    // Determine the head of result list
+    let head, curr;
+    if (list1.val <= list2.val) {
+        head = curr = list1;
+        list1 = list1.next;
+    } else {
+        head = curr = list2;
+        list2 = list2.next;
+    }
+    
+    // Merge remaining nodes
+    while (list1 !== null && list2 !== null) {
+        if (list1.val <= list2.val) {
+            curr.next = list1;
+            list1 = list1.next;
+        } else {
+            curr.next = list2;
+            list2 = list2.next;
+        }
+        curr = curr.next;
+    }
+    
+    // Append remaining nodes
+    curr.next = (list1 !== null) ? list1 : list2;
+    
+    return head;
+};
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Time Complexity**: O(m + n) where m, n are lengths of input lists
@@ -1041,6 +1785,15 @@ Level 2: [1,1,2,3,4,4,5,6]
 ### Multiple Java Solutions
 
 #### Solution 1: Divide and Conquer (Optimal)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -1094,8 +1847,126 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        """
+        Divide and conquer approach
+        Time: O(N log k), Space: O(log k)
+        where N = total number of nodes, k = number of lists
+        """
+        if not lists or len(lists) == 0:
+            return None
+        
+        return self.merge_k_lists_helper(lists, 0, len(lists) - 1)
+    
+    def merge_k_lists_helper(self, lists: List[ListNode], start: int, end: int) -> ListNode:
+        # Base case: single list
+        if start == end:
+            return lists[start]
+        
+        # Base case: two lists
+        if start + 1 == end:
+            return self.merge_two_lists(lists[start], lists[end])
+        
+        # Divide: split the range in half
+        mid = start + (end - start) // 2
+        left = self.merge_k_lists_helper(lists, start, mid)
+        right = self.merge_k_lists_helper(lists, mid + 1, end)
+        
+        # Conquer: merge the two halves
+        return self.merge_two_lists(left, right)
+    
+    def merge_two_lists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """
+        Helper method: merge two sorted lists
+        Time: O(m + n), Space: O(1)
+        """
+        dummy = ListNode(0)
+        tail = dummy
+        
+        while l1 is not None and l2 is not None:
+            if l1.val <= l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        
+        tail.next = l1 if l1 is not None else l2
+        return dummy.next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Divide and conquer approach
+ * Time: O(N log k), Space: O(log k)
+ * where N = total number of nodes, k = number of lists
+ */
+var mergeKLists = function(lists) {
+    if (!lists || lists.length === 0) return null;
+    
+    return mergeKListsHelper(lists, 0, lists.length - 1);
+};
+
+function mergeKListsHelper(lists, start, end) {
+    // Base case: single list
+    if (start === end) return lists[start];
+    
+    // Base case: two lists
+    if (start + 1 === end) return mergeTwoLists(lists[start], lists[end]);
+    
+    // Divide: split the range in half
+    let mid = start + Math.floor((end - start) / 2);
+    let left = mergeKListsHelper(lists, start, mid);
+    let right = mergeKListsHelper(lists, mid + 1, end);
+    
+    // Conquer: merge the two halves
+    return mergeTwoLists(left, right);
+}
+
+/**
+ * Helper function: merge two sorted lists
+ * Time: O(m + n), Space: O(1)
+ */
+function mergeTwoLists(l1, l2) {
+    let dummy = new ListNode(0);
+    let tail = dummy;
+    
+    while (l1 !== null && l2 !== null) {
+        if (l1.val <= l2.val) {
+            tail.next = l1;
+            l1 = l1.next;
+        } else {
+            tail.next = l2;
+            l2 = l2.next;
+        }
+        tail = tail.next;
+    }
+    
+    tail.next = (l1 !== null) ? l1 : l2;
+    return dummy.next;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Priority Queue (Min-Heap)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -1135,6 +2006,141 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+import heapq
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        """
+        Priority queue approach using min-heap
+        Time: O(N log k), Space: O(k)
+        """
+        if not lists or len(lists) == 0:
+            return None
+        
+        # Create min-heap with (value, index, node) tuples
+        # Index prevents comparison between nodes with same values
+        heap = []
+        
+        # Add first node of each non-empty list to heap
+        for i, lst in enumerate(lists):
+            if lst is not None:
+                heapq.heappush(heap, (lst.val, i, lst))
+        
+        dummy = ListNode(0)
+        tail = dummy
+        
+        # Process nodes in sorted order
+        while heap:
+            # Get the smallest node
+            val, idx, smallest = heapq.heappop(heap)
+            tail.next = smallest
+            tail = tail.next
+            
+            # Add next node from the same list if exists
+            if smallest.next is not None:
+                heapq.heappush(heap, (smallest.next.val, idx, smallest.next))
+        
+        return dummy.next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Priority queue approach using min-heap
+ * Time: O(N log k), Space: O(k)
+ */
+var mergeKLists = function(lists) {
+    if (!lists || lists.length === 0) return null;
+    
+    // MinPriorityQueue implementation using array
+    class MinHeap {
+        constructor() {
+            this.heap = [];
+        }
+        
+        push(node) {
+            this.heap.push(node);
+            this.bubbleUp();
+        }
+        
+        pop() {
+            if (this.heap.length === 0) return null;
+            if (this.heap.length === 1) return this.heap.pop();
+            
+            const min = this.heap[0];
+            this.heap[0] = this.heap.pop();
+            this.bubbleDown();
+            return min;
+        }
+        
+        bubbleUp() {
+            let idx = this.heap.length - 1;
+            while (idx > 0) {
+                const parentIdx = Math.floor((idx - 1) / 2);
+                if (this.heap[parentIdx].val <= this.heap[idx].val) break;
+                [this.heap[parentIdx], this.heap[idx]] = [this.heap[idx], this.heap[parentIdx]];
+                idx = parentIdx;
+            }
+        }
+        
+        bubbleDown() {
+            let idx = 0;
+            while (2 * idx + 1 < this.heap.length) {
+                const leftIdx = 2 * idx + 1;
+                const rightIdx = 2 * idx + 2;
+                let minIdx = leftIdx;
+                
+                if (rightIdx < this.heap.length && 
+                    this.heap[rightIdx].val < this.heap[leftIdx].val) {
+                    minIdx = rightIdx;
+                }
+                
+                if (this.heap[idx].val <= this.heap[minIdx].val) break;
+                [this.heap[idx], this.heap[minIdx]] = [this.heap[minIdx], this.heap[idx]];
+                idx = minIdx;
+            }
+        }
+        
+        isEmpty() {
+            return this.heap.length === 0;
+        }
+    }
+    
+    const pq = new MinHeap();
+    
+    // Add first node of each non-empty list to heap
+    for (let list of lists) {
+        if (list !== null) {
+            pq.push(list);
+        }
+    }
+    
+    let dummy = new ListNode(0);
+    let tail = dummy;
+    
+    // Process nodes in sorted order
+    while (!pq.isEmpty()) {
+        // Get the smallest node
+        let smallest = pq.pop();
+        tail.next = smallest;
+        tail = tail.next;
+        
+        // Add next node from the same list if exists
+        if (smallest.next !== null) {
+            pq.push(smallest.next);
+        }
+    }
+    
+    return dummy.next;
+};
+```
+  </div>
+</div>
 
 #### Solution 3: Sequential Merge (Brute Force)
 ```java
@@ -1412,6 +2418,15 @@ Now slow.next is the target node to remove
 ### Multiple Java Solutions
 
 #### Solution 1: Two Pointers with Dummy Node (Optimal)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -1445,6 +2460,74 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        """
+        Two pointers with n+1 gap for one-pass removal
+        Time: O(L), Space: O(1) where L is list length
+        """
+        # Use dummy node to handle edge case where head is removed
+        dummy = ListNode(0)
+        dummy.next = head
+        
+        slow = dummy  # Will point to node before target
+        fast = dummy  # Will reach end first
+        
+        # Create gap of n+1 between slow and fast
+        # This ensures slow stops at node before target
+        for i in range(n + 1):
+            fast = fast.next
+        
+        # Move both pointers until fast reaches end
+        while fast is not None:
+            slow = slow.next
+            fast = fast.next
+        
+        # Remove the target node
+        slow.next = slow.next.next
+        
+        return dummy.next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Two pointers with n+1 gap for one-pass removal
+ * Time: O(L), Space: O(1) where L is list length
+ */
+var removeNthFromEnd = function(head, n) {
+    // Use dummy node to handle edge case where head is removed
+    let dummy = new ListNode(0);
+    dummy.next = head;
+    
+    let slow = dummy;  // Will point to node before target
+    let fast = dummy;  // Will reach end first
+    
+    // Create gap of n+1 between slow and fast
+    // This ensures slow stops at node before target
+    for (let i = 0; i <= n; i++) {
+        fast = fast.next;
+    }
+    
+    // Move both pointers until fast reaches end
+    while (fast !== null) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+    
+    // Remove the target node
+    slow.next = slow.next.next;
+    
+    return dummy.next;
+};
+```
+  </div>
+</div>
 
 #### Solution 2: Two-Pass Solution (Straightforward)
 ```java
@@ -1752,6 +2835,15 @@ result: 1->6->2->5->3->4
 ### Multiple Java Solutions
 
 #### Solution 1: Three-Phase Approach (Optimal)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public class Solution {
     /**
@@ -1826,6 +2918,154 @@ public class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def reorderList(self, head: ListNode) -> None:
+        """
+        Three-phase solution: split, reverse, merge
+        Time: O(n), Space: O(1)
+        Do not return anything, modify head in-place instead.
+        """
+        if head is None or head.next is None:
+            return
+        
+        # Phase 1: Find middle and split list
+        middle = self.find_middle(head)
+        second_half = middle.next
+        middle.next = None  # Split the list
+        
+        # Phase 2: Reverse second half
+        reversed_second = self.reverse_list(second_half)
+        
+        # Phase 3: Merge alternating
+        self.merge_lists(head, reversed_second)
+    
+    def find_middle(self, head: ListNode) -> ListNode:
+        """
+        Find middle using slow/fast pointers
+        For even length, returns first middle
+        """
+        slow = head
+        fast = head
+        
+        # Move fast 2 steps, slow 1 step
+        while fast.next is not None and fast.next.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+        
+        return slow
+    
+    def reverse_list(self, head: ListNode) -> ListNode:
+        """
+        Reverse linked list iteratively
+        """
+        prev = None
+        curr = head
+        
+        while curr is not None:
+            next_temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_temp
+        
+        return prev
+    
+    def merge_lists(self, first: ListNode, second: ListNode) -> None:
+        """
+        Merge two lists alternating between first and second
+        """
+        while second is not None:
+            first_next = first.next
+            second_next = second.next
+            
+            # Insert second node after first
+            first.next = second
+            second.next = first_next
+            
+            # Move to next pair
+            first = first_next
+            second = second_next
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+/**
+ * Three-phase solution: split, reverse, merge
+ * Time: O(n), Space: O(1)
+ */
+var reorderList = function(head) {
+    if (head === null || head.next === null) return;
+    
+    // Phase 1: Find middle and split list
+    let middle = findMiddle(head);
+    let secondHalf = middle.next;
+    middle.next = null;  // Split the list
+    
+    // Phase 2: Reverse second half
+    let reversedSecond = reverseList(secondHalf);
+    
+    // Phase 3: Merge alternating
+    mergeLists(head, reversedSecond);
+};
+
+/**
+ * Find middle using slow/fast pointers
+ * For even length, returns first middle
+ */
+function findMiddle(head) {
+    let slow = head;
+    let fast = head;
+    
+    // Move fast 2 steps, slow 1 step
+    while (fast.next !== null && fast.next.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    return slow;
+}
+
+/**
+ * Reverse linked list iteratively
+ */
+function reverseList(head) {
+    let prev = null;
+    let curr = head;
+    
+    while (curr !== null) {
+        let nextTemp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nextTemp;
+    }
+    
+    return prev;
+}
+
+/**
+ * Merge two lists alternating between first and second
+ */
+function mergeLists(first, second) {
+    while (second !== null) {
+        let firstNext = first.next;
+        let secondNext = second.next;
+        
+        // Insert second node after first
+        first.next = second;
+        second.next = firstNext;
+        
+        // Move to next pair
+        first = firstNext;
+        second = secondNext;
+    }
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Inline Implementation (Compact)
 ```java
