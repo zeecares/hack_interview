@@ -149,6 +149,15 @@ The core concept is maintaining a window of unique characters and expanding/cont
 ### Multiple Java Solutions
 
 #### Solution 1: Brute Force (Intuitive)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int lengthOfLongestSubstring(String s) {
     int n = s.length();
@@ -170,8 +179,63 @@ public int lengthOfLongestSubstring(String s) {
     return maxLength;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def lengthOfLongestSubstring(self, s: str) -> int:
+    n = len(s)
+    max_length = 0
+    
+    # Check all possible substrings
+    for i in range(n):
+        seen = set()
+        for j in range(i, n):
+            c = s[j]
+            if c in seen:
+                break  # Found duplicate, break inner loop
+            seen.add(c)
+            max_length = max(max_length, j - i + 1)
+    
+    return max_length
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function lengthOfLongestSubstring(s) {
+    const n = s.length;
+    let maxLength = 0;
+    
+    // Check all possible substrings
+    for (let i = 0; i < n; i++) {
+        const seen = new Set();
+        for (let j = i; j < n; j++) {
+            const c = s[j];
+            if (seen.has(c)) {
+                break; // Found duplicate, break inner loop
+            }
+            seen.add(c);
+            maxLength = Math.max(maxLength, j - i + 1);
+        }
+    }
+    
+    return maxLength;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Sliding Window with HashSet
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int lengthOfLongestSubstring(String s) {
     Set<Character> window = new HashSet<>();
@@ -193,8 +257,66 @@ public int lengthOfLongestSubstring(String s) {
     return maxLength;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def lengthOfLongestSubstring(self, s: str) -> int:
+    window = set()
+    left = 0
+    max_length = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        
+        # Shrink window until no duplicate
+        while right_char in window:
+            window.remove(s[left])
+            left += 1
+        
+        window.add(right_char)
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function lengthOfLongestSubstring(s) {
+    const window = new Set();
+    let left = 0;
+    let maxLength = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        
+        // Shrink window until no duplicate
+        while (window.has(rightChar)) {
+            window.delete(s[left]);
+            left++;
+        }
+        
+        window.add(rightChar);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+    
+    return maxLength;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Optimized Sliding Window with HashMap (Most Efficient)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int lengthOfLongestSubstring(String s) {
     Map<Character, Integer> charIndex = new HashMap<>();
@@ -215,6 +337,53 @@ public int lengthOfLongestSubstring(String s) {
     return maxLength;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def lengthOfLongestSubstring(self, s: str) -> int:
+    char_index = {}
+    left = 0
+    max_length = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        
+        # If character seen before and within current window
+        if right_char in char_index and char_index[right_char] >= left:
+            left = char_index[right_char] + 1
+        
+        char_index[right_char] = right
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function lengthOfLongestSubstring(s) {
+    const charIndex = new Map();
+    let left = 0;
+    let maxLength = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        
+        // If character seen before and within current window
+        if (charIndex.has(rightChar) && charIndex.get(rightChar) >= left) {
+            left = charIndex.get(rightChar) + 1;
+        }
+        
+        charIndex.set(rightChar, right);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+    
+    return maxLength;
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Brute Force**: Time O(n³), Space O(min(m,n)) where m is charset size
@@ -366,6 +535,15 @@ The key insight is that we want to find the longest window where we can make all
 ### Multiple Java Solutions
 
 #### Solution 1: Basic Sliding Window
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int characterReplacement(String s, int k) {
     Map<Character, Integer> count = new HashMap<>();
@@ -391,8 +569,76 @@ public int characterReplacement(String s, int k) {
     return maxLength;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def characterReplacement(self, s: str, k: int) -> int:
+    count = {}
+    left = 0
+    max_length = 0
+    max_freq = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        count[right_char] = count.get(right_char, 0) + 1
+        max_freq = max(max_freq, count[right_char])
+        
+        # If window is invalid, shrink it
+        while right - left + 1 - max_freq > k:
+            left_char = s[left]
+            count[left_char] -= 1
+            left += 1
+            # Recalculate max_freq (expensive)
+            max_freq = max(count.values()) if count else 0
+        
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function characterReplacement(s, k) {
+    const count = new Map();
+    let left = 0;
+    let maxLength = 0;
+    let maxFreq = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        count.set(rightChar, (count.get(rightChar) || 0) + 1);
+        maxFreq = Math.max(maxFreq, count.get(rightChar));
+        
+        // If window is invalid, shrink it
+        while (right - left + 1 - maxFreq > k) {
+            const leftChar = s[left];
+            count.set(leftChar, count.get(leftChar) - 1);
+            left++;
+            // Recalculate maxFreq (expensive)
+            maxFreq = Math.max(...count.values());
+        }
+        
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+    
+    return maxLength;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Optimized Sliding Window
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int characterReplacement(String s, int k) {
     int[] count = new int[26]; // For uppercase English letters
@@ -417,8 +663,74 @@ public int characterReplacement(String s, int k) {
     return maxLength;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def characterReplacement(self, s: str, k: int) -> int:
+    count = [0] * 26  # For uppercase English letters
+    left = 0
+    max_length = 0
+    max_freq = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        count[ord(right_char) - ord('A')] += 1
+        max_freq = max(max_freq, count[ord(right_char) - ord('A')])
+        
+        # If window is invalid, shrink it
+        while right - left + 1 - max_freq > k:
+            left_char = s[left]
+            count[ord(left_char) - ord('A')] -= 1
+            left += 1
+            # Note: We don't update max_freq here for optimization
+        
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function characterReplacement(s, k) {
+    const count = new Array(26).fill(0); // For uppercase English letters
+    let left = 0;
+    let maxLength = 0;
+    let maxFreq = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        count[rightChar.charCodeAt(0) - 'A'.charCodeAt(0)]++;
+        maxFreq = Math.max(maxFreq, count[rightChar.charCodeAt(0) - 'A'.charCodeAt(0)]);
+        
+        // If window is invalid, shrink it
+        while (right - left + 1 - maxFreq > k) {
+            const leftChar = s[left];
+            count[leftChar.charCodeAt(0) - 'A'.charCodeAt(0)]--;
+            left++;
+            // Note: We don't update maxFreq here for optimization
+        }
+        
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+    
+    return maxLength;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Most Optimized (No While Loop)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int characterReplacement(String s, int k) {
     int[] count = new int[26];
@@ -440,6 +752,55 @@ public int characterReplacement(String s, int k) {
     return s.length() - left;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def characterReplacement(self, s: str, k: int) -> int:
+    count = [0] * 26
+    left = 0
+    max_freq = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        count[ord(right_char) - ord('A')] += 1
+        max_freq = max(max_freq, count[ord(right_char) - ord('A')])
+        
+        # If window is invalid, shrink by one
+        if right - left + 1 - max_freq > k:
+            left_char = s[left]
+            count[ord(left_char) - ord('A')] -= 1
+            left += 1
+    
+    return len(s) - left
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function characterReplacement(s, k) {
+    const count = new Array(26).fill(0);
+    let left = 0;
+    let maxFreq = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        count[rightChar.charCodeAt(0) - 'A'.charCodeAt(0)]++;
+        maxFreq = Math.max(maxFreq, count[rightChar.charCodeAt(0) - 'A'.charCodeAt(0)]);
+        
+        // If window is invalid, shrink by one
+        if (right - left + 1 - maxFreq > k) {
+            const leftChar = s[left];
+            count[leftChar.charCodeAt(0) - 'A'.charCodeAt(0)]--;
+            left++;
+        }
+    }
+    
+    return s.length - left;
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) for optimized solutions
@@ -596,6 +957,15 @@ This is a sliding window problem where we need to find the smallest window conta
 ### Multiple Java Solutions
 
 #### Solution 1: Two HashMap Approach
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public String minWindow(String s, String t) {
     if (s.length() < t.length()) return "";
@@ -642,8 +1012,111 @@ public String minWindow(String s, String t) {
     return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def minWindow(self, s: str, t: str) -> str:
+    if len(s) < len(t):
+        return ""
+    
+    required = {}
+    window_counts = {}
+    
+    # Build required frequency map
+    for c in t:
+        required[c] = required.get(c, 0) + 1
+    
+    left = 0
+    formed = 0
+    required_size = len(required)
+    min_len = float('inf')
+    min_left = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        window_counts[right_char] = window_counts.get(right_char, 0) + 1
+        
+        # Check if current character's frequency matches requirement
+        if right_char in required and window_counts[right_char] == required[right_char]:
+            formed += 1
+        
+        # Contract window if valid
+        while left <= right and formed == required_size:
+            if right - left + 1 < min_len:
+                min_len = right - left + 1
+                min_left = left
+            
+            left_char = s[left]
+            window_counts[left_char] -= 1
+            if left_char in required and window_counts[left_char] < required[left_char]:
+                formed -= 1
+            left += 1
+    
+    return "" if min_len == float('inf') else s[min_left:min_left + min_len]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function minWindow(s, t) {
+    if (s.length < t.length) return "";
+    
+    const required = new Map();
+    const windowCounts = new Map();
+    
+    // Build required frequency map
+    for (const c of t) {
+        required.set(c, (required.get(c) || 0) + 1);
+    }
+    
+    let left = 0;
+    let formed = 0;
+    const requiredSize = required.size;
+    let minLen = Infinity;
+    let minLeft = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        windowCounts.set(rightChar, (windowCounts.get(rightChar) || 0) + 1);
+        
+        // Check if current character's frequency matches requirement
+        if (required.has(rightChar) && windowCounts.get(rightChar) === required.get(rightChar)) {
+            formed++;
+        }
+        
+        // Contract window if valid
+        while (left <= right && formed === requiredSize) {
+            if (right - left + 1 < minLen) {
+                minLen = right - left + 1;
+                minLeft = left;
+            }
+            
+            const leftChar = s[left];
+            windowCounts.set(leftChar, windowCounts.get(leftChar) - 1);
+            if (required.has(leftChar) && windowCounts.get(leftChar) < required.get(leftChar)) {
+                formed--;
+            }
+            left++;
+        }
+    }
+    
+    return minLen === Infinity ? "" : s.substring(minLeft, minLeft + minLen);
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Array-based (for ASCII characters)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public String minWindow(String s, String t) {
     if (s.length() < t.length()) return "";
@@ -687,6 +1160,101 @@ public String minWindow(String s, String t) {
     return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def minWindow(self, s: str, t: str) -> str:
+    if len(s) < len(t):
+        return ""
+    
+    required = [0] * 128
+    window = [0] * 128
+    required_chars = 0
+    
+    # Build required frequency array
+    for c in t:
+        if required[ord(c)] == 0:
+            required_chars += 1
+        required[ord(c)] += 1
+    
+    left = 0
+    formed = 0
+    min_len = float('inf')
+    min_left = 0
+    
+    for right in range(len(s)):
+        right_char = s[right]
+        window[ord(right_char)] += 1
+        
+        if required[ord(right_char)] > 0 and window[ord(right_char)] == required[ord(right_char)]:
+            formed += 1
+        
+        while formed == required_chars:
+            if right - left + 1 < min_len:
+                min_len = right - left + 1
+                min_left = left
+            
+            left_char = s[left]
+            window[ord(left_char)] -= 1
+            if required[ord(left_char)] > 0 and window[ord(left_char)] < required[ord(left_char)]:
+                formed -= 1
+            left += 1
+    
+    return "" if min_len == float('inf') else s[min_left:min_left + min_len]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function minWindow(s, t) {
+    if (s.length < t.length) return "";
+    
+    const required = new Array(128).fill(0);
+    const window = new Array(128).fill(0);
+    let requiredChars = 0;
+    
+    // Build required frequency array
+    for (const c of t) {
+        if (required[c.charCodeAt(0)] === 0) requiredChars++;
+        required[c.charCodeAt(0)]++;
+    }
+    
+    let left = 0;
+    let formed = 0;
+    let minLen = Infinity;
+    let minLeft = 0;
+    
+    for (let right = 0; right < s.length; right++) {
+        const rightChar = s[right];
+        window[rightChar.charCodeAt(0)]++;
+        
+        if (required[rightChar.charCodeAt(0)] > 0 && 
+            window[rightChar.charCodeAt(0)] === required[rightChar.charCodeAt(0)]) {
+            formed++;
+        }
+        
+        while (formed === requiredChars) {
+            if (right - left + 1 < minLen) {
+                minLen = right - left + 1;
+                minLeft = left;
+            }
+            
+            const leftChar = s[left];
+            window[leftChar.charCodeAt(0)]--;
+            if (required[leftChar.charCodeAt(0)] > 0 && 
+                window[leftChar.charCodeAt(0)] < required[leftChar.charCodeAt(0)]) {
+                formed--;
+            }
+            left++;
+        }
+    }
+    
+    return minLen === Infinity ? "" : s.substring(minLeft, minLeft + minLen);
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Optimized with Character Filtering
 ```java

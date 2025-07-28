@@ -52,6 +52,15 @@ Trees are hierarchical data structures consisting of nodes connected by edges. I
 ## Core Tree Concepts
 
 ### Tree Node Definition
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class TreeNode {
     int val;
@@ -67,8 +76,48 @@ class TreeNode {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+// Alternative function constructor approach
+function TreeNode(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+}
+```
+  </div>
+</div>
 
 ### Trie Node Definition
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class TrieNode {
     TrieNode[] children;
@@ -80,12 +129,57 @@ class TrieNode {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = [None] * 26  # for lowercase letters
+        self.is_end = False
+
+# Alternative using dictionary
+class TrieNode:
+    def __init__(self):
+        self.children = {}  # character -> TrieNode
+        self.is_end = False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class TrieNode {
+    constructor() {
+        this.children = new Array(26).fill(null); // for lowercase letters
+        this.isEnd = false;
+    }
+}
+
+// Alternative using Map
+class TrieNode {
+    constructor() {
+        this.children = new Map(); // character -> TrieNode
+        this.isEnd = false;
+    }
+}
+```
+  </div>
+</div>
 
 ---
 
 ## Tree Traversal Patterns
 
 ### 1. Depth-First Search (DFS) Recursion
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 void dfs(TreeNode node) {
     if (node == null) return;
@@ -96,8 +190,45 @@ void dfs(TreeNode node) {
     dfs(node.right);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def dfs(node):
+    if node is None:
+        return
+    
+    # Pre-order: process node before children
+    process(node)
+    dfs(node.left)
+    dfs(node.right)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function dfs(node) {
+    if (node === null) return;
+    
+    // Pre-order: process node before children
+    process(node);
+    dfs(node.left);
+    dfs(node.right);
+}
+```
+  </div>
+</div>
 
 ### 2. Breadth-First Search (BFS) Level Order
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 void bfs(TreeNode root) {
     if (root == null) return;
@@ -114,8 +245,58 @@ void bfs(TreeNode root) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+def bfs(root):
+    if root is None:
+        return
+    
+    queue = deque([root])
+    
+    while queue:
+        node = queue.popleft()
+        process(node)
+        
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function bfs(root) {
+    if (root === null) return;
+    
+    const queue = [root];
+    
+    while (queue.length > 0) {
+        const node = queue.shift();
+        process(node);
+        
+        if (node.left !== null) queue.push(node.left);
+        if (node.right !== null) queue.push(node.right);
+    }
+}
+```
+  </div>
+</div>
 
 ### 3. In-order Traversal (for BST)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 void inorder(TreeNode node, List<Integer> result) {
     if (node == null) return;
@@ -125,6 +306,32 @@ void inorder(TreeNode node, List<Integer> result) {
     inorder(node.right, result);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def inorder(node, result):
+    if node is None:
+        return
+    
+    inorder(node.left, result)
+    result.append(node.val)  # Process in sorted order for BST
+    inorder(node.right, result)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function inorder(node, result) {
+    if (node === null) return;
+    
+    inorder(node.left, result);
+    result.push(node.val);  // Process in sorted order for BST
+    inorder(node.right, result);
+}
+```
+  </div>
+</div>
 
 ---
 
@@ -260,6 +467,15 @@ The depth of a tree is determined by:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive DFS (Most Common)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxDepth(TreeNode root) {
     if (root == null) {
@@ -272,8 +488,47 @@ public int maxDepth(TreeNode root) {
     return 1 + Math.max(leftDepth, rightDepth);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxDepth(self, root):
+    if root is None:
+        return 0
+    
+    left_depth = self.maxDepth(root.left)
+    right_depth = self.maxDepth(root.right)
+    
+    return 1 + max(left_depth, right_depth)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxDepth(root) {
+    if (root === null) {
+        return 0;
+    }
+    
+    const leftDepth = maxDepth(root.left);
+    const rightDepth = maxDepth(root.right);
+    
+    return 1 + Math.max(leftDepth, rightDepth);
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Iterative BFS with Level Tracking
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxDepth(TreeNode root) {
     if (root == null) return 0;
@@ -297,8 +552,71 @@ public int maxDepth(TreeNode root) {
     return depth;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+def maxDepth(self, root):
+    if root is None:
+        return 0
+    
+    queue = deque([root])
+    depth = 0
+    
+    while queue:
+        level_size = len(queue)
+        depth += 1
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+    
+    return depth
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxDepth(root) {
+    if (root === null) return 0;
+    
+    const queue = [root];
+    let depth = 0;
+    
+    while (queue.length > 0) {
+        const levelSize = queue.length;
+        depth++;
+        
+        for (let i = 0; i < levelSize; i++) {
+            const node = queue.shift();
+            
+            if (node.left !== null) queue.push(node.left);
+            if (node.right !== null) queue.push(node.right);
+        }
+    }
+    
+    return depth;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Iterative DFS with Stack
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxDepth(TreeNode root) {
     if (root == null) return 0;
@@ -329,6 +647,65 @@ public int maxDepth(TreeNode root) {
     return maxDepth;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxDepth(self, root):
+    if root is None:
+        return 0
+    
+    node_stack = [root]
+    depth_stack = [1]
+    max_depth = 0
+    
+    while node_stack:
+        node = node_stack.pop()
+        current_depth = depth_stack.pop()
+        
+        max_depth = max(max_depth, current_depth)
+        
+        if node.left:
+            node_stack.append(node.left)
+            depth_stack.append(current_depth + 1)
+        if node.right:
+            node_stack.append(node.right)
+            depth_stack.append(current_depth + 1)
+    
+    return max_depth
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxDepth(root) {
+    if (root === null) return 0;
+    
+    const nodeStack = [root];
+    const depthStack = [1];
+    let maxDepth = 0;
+    
+    while (nodeStack.length > 0) {
+        const node = nodeStack.pop();
+        const currentDepth = depthStack.pop();
+        
+        maxDepth = Math.max(maxDepth, currentDepth);
+        
+        if (node.left !== null) {
+            nodeStack.push(node.left);
+            depthStack.push(currentDepth + 1);
+        }
+        if (node.right !== null) {
+            nodeStack.push(node.right);
+            depthStack.push(currentDepth + 1);
+        }
+    }
+    
+    return maxDepth;
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Recursive DFS**: Time O(n), Space O(h) where h is height
@@ -489,6 +866,15 @@ Two trees are identical if:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive Approach (Optimal)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean isSameTree(TreeNode p, TreeNode q) {
     // Base case: both are null
@@ -507,8 +893,58 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
            isSameTree(p.right, q.right);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def isSameTree(self, p, q):
+    # Base case: both are None
+    if p is None and q is None:
+        return True
+    
+    # One is None, other is not
+    if p is None or q is None:
+        return False
+    
+    # Both are non-None: check value and recurse
+    return (p.val == q.val and 
+            self.isSameTree(p.left, q.left) and 
+            self.isSameTree(p.right, q.right))
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function isSameTree(p, q) {
+    // Base case: both are null
+    if (p === null && q === null) {
+        return true;
+    }
+    
+    // One is null, other is not
+    if (p === null || q === null) {
+        return false;
+    }
+    
+    // Both are non-null: check value and recurse
+    return p.val === q.val && 
+           isSameTree(p.left, q.left) && 
+           isSameTree(p.right, q.right);
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Iterative with Stack
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean isSameTree(TreeNode p, TreeNode q) {
     Stack<TreeNode> stack = new Stack<>();
@@ -532,8 +968,65 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     return true;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def isSameTree(self, p, q):
+    stack = [(p, q)]
+    
+    while stack:
+        node1, node2 = stack.pop()
+        
+        if node1 is None and node2 is None:
+            continue
+        if node1 is None or node2 is None:
+            return False
+        if node1.val != node2.val:
+            return False
+        
+        stack.append((node1.left, node2.left))
+        stack.append((node1.right, node2.right))
+    
+    return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function isSameTree(p, q) {
+    const stack = [p, q];
+    
+    while (stack.length > 0) {
+        const node2 = stack.pop();
+        const node1 = stack.pop();
+        
+        if (node1 === null && node2 === null) continue;
+        if (node1 === null || node2 === null) return false;
+        if (node1.val !== node2.val) return false;
+        
+        stack.push(node1.left);
+        stack.push(node2.left);
+        stack.push(node1.right);
+        stack.push(node2.right);
+    }
+    
+    return true;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: BFS with Queue
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean isSameTree(TreeNode p, TreeNode q) {
     Queue<TreeNode> queue = new LinkedList<>();
@@ -557,8 +1050,67 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     return true;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+def isSameTree(self, p, q):
+    queue = deque([(p, q)])
+    
+    while queue:
+        node1, node2 = queue.popleft()
+        
+        if node1 is None and node2 is None:
+            continue
+        if node1 is None or node2 is None:
+            return False
+        if node1.val != node2.val:
+            return False
+        
+        queue.append((node1.left, node2.left))
+        queue.append((node1.right, node2.right))
+    
+    return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function isSameTree(p, q) {
+    const queue = [p, q];
+    
+    while (queue.length > 0) {
+        const node1 = queue.shift();
+        const node2 = queue.shift();
+        
+        if (node1 === null && node2 === null) continue;
+        if (node1 === null || node2 === null) return false;
+        if (node1.val !== node2.val) return false;
+        
+        queue.push(node1.left);
+        queue.push(node2.left);
+        queue.push(node1.right);
+        queue.push(node2.right);
+    }
+    
+    return true;
+}
+```
+  </div>
+</div>
 
 #### Solution 4: Serialization Approach
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean isSameTree(TreeNode p, TreeNode q) {
     return serialize(p).equals(serialize(q));
@@ -569,6 +1121,33 @@ private String serialize(TreeNode node) {
     return node.val + "," + serialize(node.left) + "," + serialize(node.right);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def isSameTree(self, p, q):
+    return self.serialize(p) == self.serialize(q)
+
+def serialize(self, node):
+    if node is None:
+        return "#"
+    return str(node.val) + "," + self.serialize(node.left) + "," + self.serialize(node.right)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function isSameTree(p, q) {
+    return serialize(p) === serialize(q);
+}
+
+function serialize(node) {
+    if (node === null) return "#";
+    return node.val + "," + serialize(node.left) + "," + serialize(node.right);
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Recursive**: Time O(min(m,n)), Space O(min(m,n)) for recursion stack
@@ -743,6 +1322,15 @@ Tree inversion involves:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive (Most Elegant)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public TreeNode invertTree(TreeNode root) {
     if (root == null) {
@@ -761,8 +1349,57 @@ public TreeNode invertTree(TreeNode root) {
     return root;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def invertTree(self, root):
+    if root is None:
+        return None
+    
+    # Swap left and right children
+    root.left, root.right = root.right, root.left
+    
+    # Recursively invert subtrees
+    self.invertTree(root.left)
+    self.invertTree(root.right)
+    
+    return root
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function invertTree(root) {
+    if (root === null) {
+        return null;
+    }
+    
+    // Swap left and right children
+    const temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    
+    // Recursively invert subtrees
+    invertTree(root.left);
+    invertTree(root.right);
+    
+    return root;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Recursive with Direct Swap
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public TreeNode invertTree(TreeNode root) {
     if (root == null) {
@@ -779,8 +1416,55 @@ public TreeNode invertTree(TreeNode root) {
     return root;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def invertTree(self, root):
+    if root is None:
+        return None
+    
+    # Invert subtrees first, then swap
+    left = self.invertTree(root.left)
+    right = self.invertTree(root.right)
+    
+    root.left = right
+    root.right = left
+    
+    return root
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function invertTree(root) {
+    if (root === null) {
+        return null;
+    }
+    
+    // Invert subtrees first, then swap
+    const left = invertTree(root.left);
+    const right = invertTree(root.right);
+    
+    root.left = right;
+    root.right = left;
+    
+    return root;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Iterative with Queue (BFS)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
@@ -804,8 +1488,70 @@ public TreeNode invertTree(TreeNode root) {
     return root;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+def invertTree(self, root):
+    if root is None:
+        return None
+    
+    queue = deque([root])
+    
+    while queue:
+        node = queue.popleft()
+        
+        # Swap children
+        node.left, node.right = node.right, node.left
+        
+        # Add children to queue
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    
+    return root
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function invertTree(root) {
+    if (root === null) return null;
+    
+    const queue = [root];
+    
+    while (queue.length > 0) {
+        const node = queue.shift();
+        
+        // Swap children
+        const temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+        
+        // Add children to queue
+        if (node.left !== null) queue.push(node.left);
+        if (node.right !== null) queue.push(node.right);
+    }
+    
+    return root;
+}
+```
+  </div>
+</div>
 
 #### Solution 4: Iterative with Stack (DFS)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
@@ -829,6 +1575,57 @@ public TreeNode invertTree(TreeNode root) {
     return root;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def invertTree(self, root):
+    if root is None:
+        return None
+    
+    stack = [root]
+    
+    while stack:
+        node = stack.pop()
+        
+        # Swap children
+        node.left, node.right = node.right, node.left
+        
+        # Add children to stack
+        if node.left:
+            stack.append(node.left)
+        if node.right:
+            stack.append(node.right)
+    
+    return root
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function invertTree(root) {
+    if (root === null) return null;
+    
+    const stack = [root];
+    
+    while (stack.length > 0) {
+        const node = stack.pop();
+        
+        // Swap children
+        const temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+        
+        // Add children to stack
+        if (node.left !== null) stack.push(node.left);
+        if (node.right !== null) stack.push(node.right);
+    }
+    
+    return root;
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) - visit each node once
@@ -993,6 +1790,15 @@ Maximum path sum involves:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive with Global Variable (Optimal)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     private int maxSum = Integer.MIN_VALUE;
@@ -1021,8 +1827,80 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def maxPathSum(self, root):
+        self.max_sum = float('-inf')
+        self.max_gain(root)
+        return self.max_sum
+    
+    def max_gain(self, node):
+        if node is None:
+            return 0
+        
+        # Get maximum gain from left and right subtrees
+        # Only take positive gains (ignore negative paths)
+        left_gain = max(self.max_gain(node.left), 0)
+        right_gain = max(self.max_gain(node.right), 0)
+        
+        # Calculate path sum through current node
+        path_through_node = node.val + left_gain + right_gain
+        
+        # Update global maximum
+        self.max_sum = max(self.max_sum, path_through_node)
+        
+        # Return max gain that can be contributed to parent
+        return node.val + max(left_gain, right_gain)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class Solution {
+    constructor() {
+        this.maxSum = -Infinity;
+    }
+    
+    maxPathSum(root) {
+        this.maxGain(root);
+        return this.maxSum;
+    }
+    
+    maxGain(node) {
+        if (node === null) return 0;
+        
+        // Get maximum gain from left and right subtrees
+        // Only take positive gains (ignore negative paths)
+        const leftGain = Math.max(this.maxGain(node.left), 0);
+        const rightGain = Math.max(this.maxGain(node.right), 0);
+        
+        // Calculate path sum through current node
+        const pathThroughNode = node.val + leftGain + rightGain;
+        
+        // Update global maximum
+        this.maxSum = Math.max(this.maxSum, pathThroughNode);
+        
+        // Return max gain that can be contributed to parent
+        return node.val + Math.max(leftGain, rightGain);
+    }
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Using Array to Avoid Global Variable
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxPathSum(TreeNode root) {
     int[] maxSum = {Integer.MIN_VALUE};
@@ -1044,8 +1922,66 @@ private int maxGain(TreeNode node, int[] maxSum) {
     return node.val + Math.max(leftGain, rightGain);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxPathSum(self, root):
+    max_sum = [float('-inf')]
+    self.max_gain(root, max_sum)
+    return max_sum[0]
+
+def max_gain(self, node, max_sum):
+    if node is None:
+        return 0
+    
+    left_gain = max(self.max_gain(node.left, max_sum), 0)
+    right_gain = max(self.max_gain(node.right, max_sum), 0)
+    
+    # Path through current node
+    current_max = node.val + left_gain + right_gain
+    max_sum[0] = max(max_sum[0], current_max)
+    
+    # Return contribution to parent
+    return node.val + max(left_gain, right_gain)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxPathSum(root) {
+    const maxSum = [-Infinity];
+    maxGain(root, maxSum);
+    return maxSum[0];
+}
+
+function maxGain(node, maxSum) {
+    if (node === null) return 0;
+    
+    const leftGain = Math.max(maxGain(node.left, maxSum), 0);
+    const rightGain = Math.max(maxGain(node.right, maxSum), 0);
+    
+    // Path through current node
+    const currentMax = node.val + leftGain + rightGain;
+    maxSum[0] = Math.max(maxSum[0], currentMax);
+    
+    // Return contribution to parent
+    return node.val + Math.max(leftGain, rightGain);
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Bottom-Up with Result Class
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Result {
     int maxPath;    // Maximum path sum in subtree
@@ -1086,6 +2022,82 @@ private Result helper(TreeNode node) {
     return new Result(maxPath, maxGain);
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Result:
+    def __init__(self, max_path, max_gain):
+        self.max_path = max_path    # Maximum path sum in subtree
+        self.max_gain = max_gain    # Maximum gain that can contribute to parent
+
+def maxPathSum(self, root):
+    return self.helper(root).max_path
+
+def helper(self, node):
+    if node is None:
+        return Result(float('-inf'), 0)
+    
+    left = self.helper(node.left)
+    right = self.helper(node.right)
+    
+    # Maximum gain from left and right (at least 0)
+    left_gain = max(left.max_gain, 0)
+    right_gain = max(right.max_gain, 0)
+    
+    # Path through current node
+    path_through_node = node.val + left_gain + right_gain
+    
+    # Maximum path in current subtree
+    max_path = max(path_through_node, max(left.max_path, right.max_path))
+    
+    # Maximum gain that can contribute to parent
+    max_gain = node.val + max(left_gain, right_gain)
+    
+    return Result(max_path, max_gain)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class Result {
+    constructor(maxPath, maxGain) {
+        this.maxPath = maxPath;    // Maximum path sum in subtree
+        this.maxGain = maxGain;    // Maximum gain that can contribute to parent
+    }
+}
+
+function maxPathSum(root) {
+    return helper(root).maxPath;
+}
+
+function helper(node) {
+    if (node === null) {
+        return new Result(-Infinity, 0);
+    }
+    
+    const left = helper(node.left);
+    const right = helper(node.right);
+    
+    // Maximum gain from left and right (at least 0)
+    const leftGain = Math.max(left.maxGain, 0);
+    const rightGain = Math.max(right.maxGain, 0);
+    
+    // Path through current node
+    const pathThroughNode = node.val + leftGain + rightGain;
+    
+    // Maximum path in current subtree
+    const maxPath = Math.max(pathThroughNode, 
+                            Math.max(left.maxPath, right.maxPath));
+    
+    // Maximum gain that can contribute to parent
+    const maxGain = node.val + Math.max(leftGain, rightGain);
+    
+    return new Result(maxPath, maxGain);
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) - visit each node once

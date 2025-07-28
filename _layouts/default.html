@@ -271,6 +271,90 @@
         #theme-toggle:hover {
             background: var(--sidebar-bg);
         }
+
+        /* Multi-Language Code Tabs Styling */
+        .code-tabs {
+            margin: 1.5rem 0;
+            border: 1px solid var(--bs-border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bs-body-bg);
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--bs-body-color);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-right: 1px solid var(--bs-border-color);
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn:hover {
+            background: var(--bs-border-color);
+        }
+
+        .tab-btn.active {
+            background: var(--bs-body-bg);
+            color: #0366d6;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content pre {
+            margin: 0;
+            border-radius: 0;
+            border: none;
+        }
+
+        /* Language-specific styling */
+        .tab-btn[data-lang="java"] {
+            color: #f89820;
+        }
+
+        .tab-btn[data-lang="python"] {
+            color: #3776ab;
+        }
+
+        .tab-btn[data-lang="javascript"] {
+            color: #f7df1e;
+        }
+
+        .tab-btn.active[data-lang="java"] {
+            background: #fff8f0;
+            color: #f89820;
+        }
+
+        .tab-btn.active[data-lang="python"] {
+            background: #f0f8ff;
+            color: #3776ab;
+        }
+
+        .tab-btn.active[data-lang="javascript"] {
+            background: #fffef0;
+            color: #f7df1e;
+        }
     </style>
 </head>
 <body>
@@ -519,6 +603,51 @@
                 }, 2000);
             });
         }
+
+        // Multi-Language Code Tabs Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all code tabs
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    const tabContainer = this.closest('.code-tabs');
+                    
+                    // Remove active class from all buttons in this container
+                    tabContainer.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                    // Remove active class from all content in this container
+                    tabContainer.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    // Add active class to corresponding content
+                    tabContainer.querySelector(`.tab-content.${lang}`).classList.add('active');
+                    
+                    // Save preference in localStorage
+                    localStorage.setItem('preferredLanguage', lang);
+                });
+            });
+            
+            // Set default language based on preference or default to Java
+            const preferredLanguage = localStorage.getItem('preferredLanguage') || 'java';
+            
+            // Apply preferred language to all tabs
+            document.querySelectorAll('.code-tabs').forEach(tabContainer => {
+                const preferredBtn = tabContainer.querySelector(`.tab-btn[data-lang="${preferredLanguage}"]`);
+                const preferredContent = tabContainer.querySelector(`.tab-content.${preferredLanguage}`);
+                
+                if (preferredBtn && preferredContent) {
+                    // Remove all active classes first
+                    tabContainer.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                    tabContainer.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    // Set preferred language as active
+                    preferredBtn.classList.add('active');
+                    preferredContent.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html> 

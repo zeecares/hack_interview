@@ -67,6 +67,14 @@ Instead of asking "what two numbers sum to target?", we can ask "for each number
 <details>
 <summary>💭 Think about it, then click to reveal</summary>
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Brute force: check every pair
 for (int i = 0; i < nums.length; i++) {
@@ -77,6 +85,31 @@ for (int i = 0; i < nums.length; i++) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Brute force: check every pair
+for i in range(len(nums)):
+    for j in range(i + 1, len(nums)):
+        if nums[i] + nums[j] == target:
+            return [i, j]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Brute force: check every pair
+for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+        if (nums[i] + nums[j] === target) {
+            return [i, j];
+        }
+    }
+}
+```
+  </div>
+</div>
 
 **Time Complexity:** O(n²) - for each element, we check all remaining elements
 **Space Complexity:** O(1) - no extra space needed
@@ -123,6 +156,14 @@ The core insight is the **complement relationship**: if we need two numbers that
 ### Multiple Java Solutions
 
 #### Solution 1: Brute Force (Intuitive)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int[] twoSum(int[] nums, int target) {
     // Check every possible pair
@@ -138,9 +179,53 @@ public int[] twoSum(int[] nums, int target) {
     return new int[0];
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def twoSum(nums, target):
+    # Check every possible pair
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            # If current pair sums to target, return their indices
+            if nums[i] + nums[j] == target:
+                return [i, j]
+    # Should never reach here given problem constraints
+    return []
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function twoSum(nums, target) {
+    // Check every possible pair
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            // If current pair sums to target, return their indices
+            if (nums[i] + nums[j] === target) {
+                return [i, j];
+            }
+        }
+    }
+    // Should never reach here given problem constraints
+    return [];
+}
+```
+  </div>
+</div>
 
 #### Solution 2: HashMap - One Pass (Optimal)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public int[] twoSum(int[] nums, int target) {
     // Map to store: value -> index
     Map<Integer, Integer> numToIndex = new HashMap<>();
@@ -163,9 +248,69 @@ public int[] twoSum(int[] nums, int target) {
     return new int[0];
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def twoSum(nums, target):
+    # Dictionary to store: value -> index
+    num_to_index = {}
+    
+    for i, current_num in enumerate(nums):
+        complement = target - current_num
+        
+        # Check if complement exists in our seen numbers
+        if complement in num_to_index:
+            # Found the pair! Return indices
+            return [num_to_index[complement], i]
+        
+        # Store current number and its index for future lookups
+        num_to_index[current_num] = i
+    
+    # Should never reach here given problem constraints
+    return []
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function twoSum(nums, target) {
+    // Map to store: value -> index
+    const numToIndex = new Map();
+    
+    for (let i = 0; i < nums.length; i++) {
+        const currentNum = nums[i];
+        const complement = target - currentNum;
+        
+        // Check if complement exists in our seen numbers
+        if (numToIndex.has(complement)) {
+            // Found the pair! Return indices
+            return [numToIndex.get(complement), i];
+        }
+        
+        // Store current number and its index for future lookups
+        numToIndex.set(currentNum, i);
+    }
+    
+    // Should never reach here given problem constraints
+    return [];
+}
+```
+  </div>
+</div>
 
 #### Solution 3: HashMap - Two Pass (Alternative)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public int[] twoSum(int[] nums, int target) {
     Map<Integer, Integer> numToIndex = new HashMap<>();
     
@@ -186,6 +331,52 @@ public int[] twoSum(int[] nums, int target) {
     return new int[0];
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def twoSum(nums, target):
+    num_to_index = {}
+    
+    # First pass: populate the dictionary
+    for i, num in enumerate(nums):
+        num_to_index[num] = i
+    
+    # Second pass: find complement
+    for i, num in enumerate(nums):
+        complement = target - num
+        # Make sure we don't use the same element twice
+        if complement in num_to_index and num_to_index[complement] != i:
+            return [i, num_to_index[complement]]
+    
+    return []
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function twoSum(nums, target) {
+    const numToIndex = new Map();
+    
+    // First pass: populate the map
+    for (let i = 0; i < nums.length; i++) {
+        numToIndex.set(nums[i], i);
+    }
+    
+    // Second pass: find complement
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        // Make sure we don't use the same element twice
+        if (numToIndex.has(complement) && numToIndex.get(complement) !== i) {
+            return [i, numToIndex.get(complement)];
+        }
+    }
+    
+    return [];
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 
@@ -225,6 +416,14 @@ public int[] twoSum(int[] nums, int target) {
 5. **Memory optimization?** Could we solve with O(1) space if array is sorted?
 
 **Sorted Array Two-Pointer Solution:**
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Only works if array is sorted and we can modify return format
 public int[] twoSumSorted(int[] nums, int target) {
@@ -243,6 +442,48 @@ public int[] twoSumSorted(int[] nums, int target) {
     return new int[0];
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Only works if array is sorted and we can modify return format
+def twoSumSorted(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        current_sum = nums[left] + nums[right]
+        if current_sum == target:
+            return [left, right]  # or the actual values
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+    
+    return []
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Only works if array is sorted and we can modify return format
+function twoSumSorted(nums, target) {
+    let left = 0, right = nums.length - 1;
+    
+    while (left < right) {
+        const sum = nums[left] + nums[right];
+        if (sum === target) {
+            return [left, right]; // or the actual values
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return [];
+}
+```
+  </div>
+</div>
 
 ### 🎯 Practice & Self-Assessment
 
@@ -329,6 +570,14 @@ The constraint is: `buy_day < sell_day`
 <details>
 <summary>💭 Think about it, then click to reveal</summary>
 
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Check every possible buy day with every future sell day
 int maxProfit = 0;
@@ -339,6 +588,32 @@ for (int buyDay = 0; buyDay < prices.length; buyDay++) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Check every possible buy day with every future sell day
+max_profit = 0
+for buy_day in range(len(prices)):
+    for sell_day in range(buy_day + 1, len(prices)):
+        profit = prices[sell_day] - prices[buy_day]
+        max_profit = max(max_profit, profit)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Check every possible buy day with every future sell day
+let maxProfit = 0;
+for (let buyDay = 0; buyDay < prices.length; buyDay++) {
+    for (let sellDay = buyDay + 1; sellDay < prices.length; sellDay++) {
+        const profit = prices[sellDay] - prices[buyDay];
+        maxProfit = Math.max(maxProfit, profit);
+    }
+}
+```
+  </div>
+</div>
 
 **Time Complexity:** O(n²) - for each buy day, check all future sell days
 **Space Complexity:** O(1) - only tracking maximum profit
@@ -391,6 +666,14 @@ The key insight is that to maximize profit, we want to **buy at the lowest price
 ### Multiple Java Solutions
 
 #### Solution 1: Brute Force (Intuitive)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxProfit(int[] prices) {
     int maxProfit = 0;
@@ -407,8 +690,53 @@ public int maxProfit(int[] prices) {
     return maxProfit;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxProfit(prices):
+    max_profit = 0
+    
+    # Try every possible buy day
+    for buy_day in range(len(prices)):
+        # For each buy day, try every possible sell day after it
+        for sell_day in range(buy_day + 1, len(prices)):
+            profit = prices[sell_day] - prices[buy_day]
+            max_profit = max(max_profit, profit)
+    
+    return max_profit
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxProfit(prices) {
+    let maxProfit = 0;
+    
+    // Try every possible buy day
+    for (let buyDay = 0; buyDay < prices.length; buyDay++) {
+        // For each buy day, try every possible sell day after it
+        for (let sellDay = buyDay + 1; sellDay < prices.length; sellDay++) {
+            const profit = prices[sellDay] - prices[buyDay];
+            maxProfit = Math.max(maxProfit, profit);
+        }
+    }
+    
+    return maxProfit;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Single Pass with Min Tracking (Optimal)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxProfit(int[] prices) {
     if (prices == null || prices.length < 2) {
@@ -434,8 +762,71 @@ public int maxProfit(int[] prices) {
     return maxProfit;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxProfit(prices):
+    if not prices or len(prices) < 2:
+        return 0  # Need at least 2 days to make a transaction
+    
+    min_price = prices[0]  # Cheapest price seen so far
+    max_profit = 0         # Best profit achieved so far
+    
+    for i in range(1, len(prices)):
+        current_price = prices[i]
+        
+        # Calculate profit if we sell today (bought at min_price)
+        profit_if_sell_today = current_price - min_price
+        
+        # Update maximum profit if today's sale would be better
+        max_profit = max(max_profit, profit_if_sell_today)
+        
+        # Update minimum price if today's price is cheaper
+        min_price = min(min_price, current_price)
+    
+    return max_profit
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxProfit(prices) {
+    if (!prices || prices.length < 2) {
+        return 0; // Need at least 2 days to make a transaction
+    }
+    
+    let minPrice = prices[0];  // Cheapest price seen so far
+    let maxProfit = 0;         // Best profit achieved so far
+    
+    for (let i = 1; i < prices.length; i++) {
+        const currentPrice = prices[i];
+        
+        // Calculate profit if we sell today (bought at minPrice)
+        const profitIfSellToday = currentPrice - minPrice;
+        
+        // Update maximum profit if today's sale would be better
+        maxProfit = Math.max(maxProfit, profitIfSellToday);
+        
+        // Update minimum price if today's price is cheaper
+        minPrice = Math.min(minPrice, currentPrice);
+    }
+    
+    return maxProfit;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Kadane's Algorithm Perspective
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxProfit(int[] prices) {
     if (prices == null || prices.length < 2) {
@@ -460,8 +851,69 @@ public int maxProfit(int[] prices) {
     return maxProfit;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxProfit(prices):
+    if not prices or len(prices) < 2:
+        return 0
+    
+    # Think of this as finding maximum subarray sum in price differences
+    max_profit = 0
+    max_ending_here = 0
+    
+    for i in range(1, len(prices)):
+        # Daily price change (could be profit or loss)
+        daily_change = prices[i] - prices[i - 1]
+        
+        # Either extend previous sequence or start new sequence
+        max_ending_here = max(daily_change, max_ending_here + daily_change)
+        
+        # Track overall maximum
+        max_profit = max(max_profit, max_ending_here)
+    
+    return max_profit
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxProfit(prices) {
+    if (!prices || prices.length < 2) {
+        return 0;
+    }
+    
+    // Think of this as finding maximum subarray sum in price differences
+    let maxProfit = 0;
+    let maxEndingHere = 0;
+    
+    for (let i = 1; i < prices.length; i++) {
+        // Daily price change (could be profit or loss)
+        const dailyChange = prices[i] - prices[i - 1];
+        
+        // Either extend previous sequence or start new sequence
+        maxEndingHere = Math.max(dailyChange, maxEndingHere + dailyChange);
+        
+        // Track overall maximum
+        maxProfit = Math.max(maxProfit, maxEndingHere);
+    }
+    
+    return maxProfit;
+}
+```
+  </div>
+</div>
 
 #### Solution 4: Explicit Buy/Sell State Tracking
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxProfit(int[] prices) {
     if (prices == null || prices.length < 2) {
@@ -487,6 +939,61 @@ public int maxProfit(int[] prices) {
     return sold; // We should end up having sold the stock
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxProfit(prices):
+    if not prices or len(prices) < 2:
+        return 0
+    
+    # hold: maximum profit when holding stock
+    # sold: maximum profit when not holding stock (after selling)
+    hold = -prices[0]  # Bought stock on day 0
+    sold = 0           # Haven't sold anything yet
+    
+    for i in range(1, len(prices)):
+        current_price = prices[i]
+        
+        # Update in specific order to avoid using updated values
+        new_sold = max(sold, hold + current_price)  # Sell today or keep previous
+        new_hold = max(hold, -current_price)        # Keep holding or buy today
+        
+        sold = new_sold
+        hold = new_hold
+    
+    return sold  # We should end up having sold the stock
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxProfit(prices) {
+    if (!prices || prices.length < 2) {
+        return 0;
+    }
+    
+    // hold: maximum profit when holding stock
+    // sold: maximum profit when not holding stock (after selling)
+    let hold = -prices[0];  // Bought stock on day 0
+    let sold = 0;           // Haven't sold anything yet
+    
+    for (let i = 1; i < prices.length; i++) {
+        const currentPrice = prices[i];
+        
+        // Update in specific order to avoid using updated values
+        const newSold = Math.max(sold, hold + currentPrice);  // Sell today or keep previous
+        const newHold = Math.max(hold, -currentPrice);        // Keep holding or buy today
+        
+        sold = newSold;
+        hold = newHold;
+    }
+    
+    return sold; // We should end up having sold the stock
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 
@@ -531,6 +1038,14 @@ public int maxProfit(int[] prices) {
 5. **What if we can predict future prices?** Changes the algorithm entirely
 
 **Multiple Transactions Solution (Buy and Sell Stock II):**
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int maxProfitMultiple(int[] prices) {
     int totalProfit = 0;
@@ -545,6 +1060,39 @@ public int maxProfitMultiple(int[] prices) {
     return totalProfit;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def maxProfitMultiple(prices):
+    total_profit = 0
+    
+    # Capture every profitable opportunity
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i - 1]:
+            total_profit += prices[i] - prices[i - 1]
+    
+    return total_profit
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function maxProfitMultiple(prices) {
+    let totalProfit = 0;
+    
+    // Capture every profitable opportunity
+    for (let i = 1; i < prices.length; i++) {
+        if (prices[i] > prices[i - 1]) {
+            totalProfit += prices[i] - prices[i - 1];
+        }
+    }
+    
+    return totalProfit;
+}
+```
+  </div>
+</div>
 
 ---
 
@@ -655,6 +1203,14 @@ To detect duplicates, we need to remember what elements we've seen before. As we
 ### Multiple Java Solutions
 
 #### Solution 1: Brute Force (Intuitive)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public boolean containsDuplicate(int[] nums) {
     // Check every element against every other element
@@ -671,9 +1227,55 @@ public boolean containsDuplicate(int[] nums) {
     return false;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsDuplicate(nums):
+    # Check every element against every other element
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            # If we find two identical elements, we have a duplicate
+            if nums[i] == nums[j]:
+                return True
+    
+    # No duplicates found after checking all pairs
+    return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsDuplicate(nums) {
+    // Check every element against every other element
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            // If we find two identical elements, we have a duplicate
+            if (nums[i] === nums[j]) {
+                return true;
+            }
+        }
+    }
+    
+    // No duplicates found after checking all pairs
+    return false;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: HashSet (Optimal)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public boolean containsDuplicate(int[] nums) {
     Set<Integer> seen = new HashSet<>();
     
@@ -690,9 +1292,58 @@ public boolean containsDuplicate(int[] nums) {
     return false;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsDuplicate(nums):
+    seen = set()
+    
+    for num in nums:
+        # If we've seen this number before, it's a duplicate
+        if num in seen:
+            return True
+        # Remember this number for future comparisons
+        seen.add(num)
+    
+    # Processed all elements without finding duplicates
+    return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsDuplicate(nums) {
+    const seen = new Set();
+    
+    for (const num of nums) {
+        // If we've seen this number before, it's a duplicate
+        if (seen.has(num)) {
+            return true;
+        }
+        // Remember this number for future comparisons
+        seen.add(num);
+    }
+    
+    // Processed all elements without finding duplicates
+    return false;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: HashSet with Size Check (Alternative)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public boolean containsDuplicate(int[] nums) {
     Set<Integer> uniqueElements = new HashSet<>();
     
@@ -705,9 +1356,51 @@ public boolean containsDuplicate(int[] nums) {
     return uniqueElements.size() < nums.length;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsDuplicate(nums):
+    unique_elements = set()
+    
+    # Add all elements to set
+    for num in nums:
+        unique_elements.add(num)
+    
+    # If set size < array length, there were duplicates
+    return len(unique_elements) < len(nums)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsDuplicate(nums) {
+    const uniqueElements = new Set();
+    
+    // Add all elements to set
+    for (const num of nums) {
+        uniqueElements.add(num);
+    }
+    
+    // If set size < array length, there were duplicates
+    return uniqueElements.size < nums.length;
+}
+```
+  </div>
+</div>
 
 #### Solution 4: Sorting Approach
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public boolean containsDuplicate(int[] nums) {
     // Sort the array first
     Arrays.sort(nums);
@@ -722,9 +1415,55 @@ public boolean containsDuplicate(int[] nums) {
     return false;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsDuplicate(nums):
+    # Sort the array first
+    nums.sort()
+    
+    # Check adjacent elements for duplicates
+    for i in range(1, len(nums)):
+        if nums[i] == nums[i - 1]:
+            return True
+    
+    return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsDuplicate(nums) {
+    // Sort the array first
+    nums.sort((a, b) => a - b);
+    
+    // Check adjacent elements for duplicates
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] === nums[i - 1]) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+```
+  </div>
+</div>
 
 #### Solution 5: Stream API (Functional Style)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+import java.util.stream.*;
+
 public boolean containsDuplicate(int[] nums) {
     // Convert to stream, collect to set, compare sizes
     return Arrays.stream(nums)
@@ -733,6 +1472,25 @@ public boolean containsDuplicate(int[] nums) {
                  .size() < nums.length;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsDuplicate(nums):
+    # Convert to set and compare sizes (Pythonic way)
+    return len(set(nums)) < len(nums)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsDuplicate(nums) {
+    // Convert to Set and compare sizes
+    return new Set(nums).size < nums.length;
+}
+```
+  </div>
+</div>
 
 ### Complexity Analysis
 
@@ -814,7 +1572,17 @@ Rate your confidence (1-5) on:
 5. **What if duplicates must be within k distance?** Use sliding window with HashSet
 
 **Find All Duplicates:**
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public List<Integer> findDuplicates(int[] nums) {
     Map<Integer, Integer> frequency = new HashMap<>();
     List<Integer> duplicates = new ArrayList<>();
@@ -834,9 +1602,61 @@ public List<Integer> findDuplicates(int[] nums) {
     return duplicates;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def findDuplicates(nums):
+    from collections import Counter
+    
+    frequency = Counter(nums)
+    duplicates = []
+    
+    # Collect elements that appear more than once
+    for num, count in frequency.items():
+        if count > 1:
+            duplicates.append(num)
+    
+    return duplicates
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function findDuplicates(nums) {
+    const frequency = new Map();
+    const duplicates = [];
+    
+    // Count frequencies
+    for (const num of nums) {
+        frequency.set(num, (frequency.get(num) || 0) + 1);
+    }
+    
+    // Collect elements that appear more than once
+    for (const [num, count] of frequency.entries()) {
+        if (count > 1) {
+            duplicates.push(num);
+        }
+    }
+    
+    return duplicates;
+}
+```
+  </div>
+</div>
 
 **Contains Duplicate Within K Distance:**
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public boolean containsNearbyDuplicate(int[] nums, int k) {
     Set<Integer> window = new HashSet<>();
     
@@ -858,6 +1678,54 @@ public boolean containsNearbyDuplicate(int[] nums, int k) {
     return false;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def containsNearbyDuplicate(nums, k):
+    window = set()
+    
+    for i in range(len(nums)):
+        # Remove element that's now outside the window
+        if i > k:
+            window.remove(nums[i - k - 1])
+        
+        # Check if current element is in window
+        if nums[i] in window:
+            return True
+        
+        # Add current element to window
+        window.add(nums[i])
+    
+    return False
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function containsNearbyDuplicate(nums, k) {
+    const window = new Set();
+    
+    for (let i = 0; i < nums.length; i++) {
+        // Remove element that's now outside the window
+        if (i > k) {
+            window.delete(nums[i - k - 1]);
+        }
+        
+        // Check if current element is in window
+        if (window.has(nums[i])) {
+            return true;
+        }
+        
+        // Add current element to window
+        window.add(nums[i]);
+    }
+    
+    return false;
+}
+```
+  </div>
+</div>
 
 ---
 
@@ -981,6 +1849,14 @@ For each position `i`, we need the product of all elements except `nums[i]`. Thi
 ### Multiple Java Solutions
 
 #### Solution 1: Separate Left and Right Arrays (Intuitive)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int[] productExceptSelf(int[] nums) {
     int n = nums.length;
@@ -1012,8 +1888,82 @@ public int[] productExceptSelf(int[] nums) {
     return result;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def productExceptSelf(nums):
+    n = len(nums)
+    
+    # Arrays to store left and right products
+    left_products = [0] * n
+    right_products = [0] * n
+    result = [0] * n
+    
+    # Calculate left products
+    # left_products[i] = product of all elements to the left of i
+    left_products[0] = 1  # No elements to the left of first element
+    for i in range(1, n):
+        left_products[i] = left_products[i - 1] * nums[i - 1]
+    
+    # Calculate right products
+    # right_products[i] = product of all elements to the right of i
+    right_products[n - 1] = 1  # No elements to the right of last element
+    for i in range(n - 2, -1, -1):
+        right_products[i] = right_products[i + 1] * nums[i + 1]
+    
+    # Combine left and right products
+    for i in range(n):
+        result[i] = left_products[i] * right_products[i]
+    
+    return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function productExceptSelf(nums) {
+    const n = nums.length;
+    
+    // Arrays to store left and right products
+    const leftProducts = new Array(n);
+    const rightProducts = new Array(n);
+    const result = new Array(n);
+    
+    // Calculate left products
+    // leftProducts[i] = product of all elements to the left of i
+    leftProducts[0] = 1; // No elements to the left of first element
+    for (let i = 1; i < n; i++) {
+        leftProducts[i] = leftProducts[i - 1] * nums[i - 1];
+    }
+    
+    // Calculate right products
+    // rightProducts[i] = product of all elements to the right of i
+    rightProducts[n - 1] = 1; // No elements to the right of last element
+    for (let i = n - 2; i >= 0; i--) {
+        rightProducts[i] = rightProducts[i + 1] * nums[i + 1];
+    }
+    
+    // Combine left and right products
+    for (let i = 0; i < n; i++) {
+        result[i] = leftProducts[i] * rightProducts[i];
+    }
+    
+    return result;
+}
+```
+  </div>
+</div>
 
 #### Solution 2: Space Optimized - Single Result Array (Optimal)
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 public int[] productExceptSelf(int[] nums) {
     int n = nums.length;
@@ -1035,6 +1985,53 @@ public int[] productExceptSelf(int[] nums) {
     return result;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def productExceptSelf(nums):
+    n = len(nums)
+    result = [0] * n
+    
+    # First pass: Calculate left products and store in result
+    result[0] = 1
+    for i in range(1, n):
+        result[i] = result[i - 1] * nums[i - 1]
+    
+    # Second pass: Calculate right products on the fly and multiply
+    right_product = 1
+    for i in range(n - 1, -1, -1):
+        result[i] = result[i] * right_product  # result[i] contains left product
+        right_product *= nums[i]  # Update right_product for next iteration
+    
+    return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function productExceptSelf(nums) {
+    const n = nums.length;
+    const result = new Array(n);
+    
+    // First pass: Calculate left products and store in result
+    result[0] = 1;
+    for (let i = 1; i < n; i++) {
+        result[i] = result[i - 1] * nums[i - 1];
+    }
+    
+    // Second pass: Calculate right products on the fly and multiply
+    let rightProduct = 1;
+    for (let i = n - 1; i >= 0; i--) {
+        result[i] = result[i] * rightProduct; // result[i] contains left product
+        rightProduct *= nums[i]; // Update rightProduct for next iteration
+    }
+    
+    return result;
+}
+```
+  </div>
+</div>
 
 #### Solution 3: Division Approach (Not Allowed but Educational)
 ```java
@@ -1170,7 +2167,17 @@ Rate your confidence (1-5) on:
 5. **What if we need products of subarrays?** Extends to range product queries
 
 **Handling Zeros with Division:**
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
+import java.util.*;
+
 public int[] productExceptSelfWithZeros(int[] nums) {
     int n = nums.length;
     int[] result = new int[n];
@@ -1206,6 +2213,81 @@ public int[] productExceptSelfWithZeros(int[] nums) {
     return result;
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def productExceptSelfWithZeros(nums):
+    n = len(nums)
+    result = [0] * n
+    
+    product = 1
+    zero_count = 0
+    zero_index = -1
+    
+    # Calculate product of non-zero elements and count zeros
+    for i in range(n):
+        if nums[i] == 0:
+            zero_count += 1
+            zero_index = i
+        else:
+            product *= nums[i]
+    
+    if zero_count > 1:
+        # Multiple zeros: all results are 0
+        result = [0] * n
+    elif zero_count == 1:
+        # Exactly one zero: only that position gets the product
+        result = [0] * n
+        result[zero_index] = product
+    else:
+        # No zeros: normal division approach
+        for i in range(n):
+            result[i] = product // nums[i]
+    
+    return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function productExceptSelfWithZeros(nums) {
+    const n = nums.length;
+    let result = new Array(n);
+    
+    let product = 1;
+    let zeroCount = 0;
+    let zeroIndex = -1;
+    
+    // Calculate product of non-zero elements and count zeros
+    for (let i = 0; i < n; i++) {
+        if (nums[i] === 0) {
+            zeroCount++;
+            zeroIndex = i;
+        } else {
+            product *= nums[i];
+        }
+    }
+    
+    if (zeroCount > 1) {
+        // Multiple zeros: all results are 0
+        result.fill(0);
+    } else if (zeroCount === 1) {
+        // Exactly one zero: only that position gets the product
+        result.fill(0);
+        result[zeroIndex] = product;
+    } else {
+        // No zeros: normal division approach
+        for (let i = 0; i < n; i++) {
+            result[i] = Math.floor(product / nums[i]);
+        }
+    }
+    
+    return result;
+}
+```
+  </div>
+</div>
 
 **Range Product Queries:**
 ```java

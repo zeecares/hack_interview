@@ -32,23 +32,93 @@ render_with_liquid: false
 
 ### 1. Adjacency List
 **When to Use**: Sparse graphs, most common for algorithm problems
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 // Using List of Lists
 List<List<Integer>> adj = new ArrayList<>();
 // Using Map for flexibility
 Map<Integer, List<Integer>> adj = new HashMap<>();
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Using list of lists
+adj = [[] for _ in range(n)]
+# Using dictionary for flexibility
+from collections import defaultdict
+adj = defaultdict(list)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Using array of arrays
+const adj = Array.from({length: n}, () => []);
+// Using Map for flexibility
+const adj = new Map();
+// Using object for flexibility
+const adj = {};
+```
+  </div>
+</div>
 
 ### 2. Adjacency Matrix
 **When to Use**: Dense graphs, when checking edge existence frequently
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 boolean[][] adj = new boolean[n][n];
 // or for weighted graphs
 int[][] adj = new int[n][n];
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Boolean matrix
+adj = [[False] * n for _ in range(n)]
+# For weighted graphs
+adj = [[0] * n for _ in range(n)]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Boolean matrix
+const adj = Array.from({length: n}, () => Array(n).fill(false));
+// For weighted graphs
+const adj = Array.from({length: n}, () => Array(n).fill(0));
+```
+  </div>
+</div>
 
 ### 3. Edge List
 **When to Use**: Union-Find problems, minimum spanning tree
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Edge {
     int from, to, weight;
@@ -58,10 +128,50 @@ class Edge {
 }
 List<Edge> edges = new ArrayList<>();
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+# Using tuple
+edges = [(from_node, to_node, weight), ...]
+# Using list
+edges = [[from_node, to_node, weight], ...]
+# Using namedtuple for clarity
+from collections import namedtuple
+Edge = namedtuple('Edge', ['from_node', 'to', 'weight'])
+edges = [Edge(from_node, to, weight), ...]
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+// Using object
+class Edge {
+    constructor(from, to, weight) {
+        this.from = from;
+        this.to = to;
+        this.weight = weight;
+    }
+}
+const edges = [];
+// Using array
+const edges = [[from, to, weight], ...];
+```
+  </div>
+</div>
 
 ## Core Graph Algorithms
 
 ### Depth-First Search (DFS)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 void dfs(int node, boolean[] visited, List<List<Integer>> adj) {
     visited[node] = true;
@@ -74,8 +184,46 @@ void dfs(int node, boolean[] visited, List<List<Integer>> adj) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+def dfs(node, visited, adj):
+    visited[node] = True
+    # Process current node
+    
+    for neighbor in adj[node]:
+        if not visited[neighbor]:
+            dfs(neighbor, visited, adj)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function dfs(node, visited, adj) {
+    visited[node] = true;
+    // Process current node
+    
+    for (const neighbor of adj[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, visited, adj);
+        }
+    }
+}
+```
+  </div>
+</div>
 
 ### Breadth-First Search (BFS)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 void bfs(int start, List<List<Integer>> adj) {
     Queue<Integer> queue = new LinkedList<>();
@@ -97,8 +245,61 @@ void bfs(int start, List<List<Integer>> adj) {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+def bfs(start, adj):
+    queue = deque([start])
+    visited = [False] * len(adj)
+    visited[start] = True
+    
+    while queue:
+        node = queue.popleft()
+        # Process current node
+        
+        for neighbor in adj[node]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                queue.append(neighbor)
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+function bfs(start, adj) {
+    const queue = [start];
+    const visited = Array(adj.length).fill(false);
+    visited[start] = true;
+    
+    while (queue.length > 0) {
+        const node = queue.shift();
+        // Process current node
+        
+        for (const neighbor of adj[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                queue.push(neighbor);
+            }
+        }
+    }
+}
+```
+  </div>
+</div>
 
 ### Union-Find (Disjoint Set)
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class UnionFind {
     private int[] parent, rank;
@@ -138,6 +339,84 @@ class UnionFind {
     public int getComponents() { return components; }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+        self.components = n
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])  # Path compression
+        return self.parent[x]
+    
+    def union(self, x, y):
+        root_x, root_y = self.find(x), self.find(y)
+        if root_x == root_y:
+            return False
+        
+        # Union by rank
+        if self.rank[root_x] < self.rank[root_y]:
+            self.parent[root_x] = root_y
+        elif self.rank[root_x] > self.rank[root_y]:
+            self.parent[root_y] = root_x
+        else:
+            self.parent[root_y] = root_x
+            self.rank[root_x] += 1
+        
+        self.components -= 1
+        return True
+    
+    def get_components(self):
+        return self.components
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+class UnionFind {
+    constructor(n) {
+        this.parent = Array.from({length: n}, (_, i) => i);
+        this.rank = Array(n).fill(0);
+        this.components = n;
+    }
+    
+    find(x) {
+        if (this.parent[x] !== x) {
+            this.parent[x] = this.find(this.parent[x]); // Path compression
+        }
+        return this.parent[x];
+    }
+    
+    union(x, y) {
+        const rootX = this.find(x);
+        const rootY = this.find(y);
+        if (rootX === rootY) return false;
+        
+        // Union by rank
+        if (this.rank[rootX] < this.rank[rootY]) {
+            this.parent[rootX] = rootY;
+        } else if (this.rank[rootX] > this.rank[rootY]) {
+            this.parent[rootY] = rootX;
+        } else {
+            this.parent[rootY] = rootX;
+            this.rank[rootX]++;
+        }
+        this.components--;
+        return true;
+    }
+    
+    getComponents() {
+        return this.components;
+    }
+}
+```
+  </div>
+</div>
 
 ## Problem Solutions
 
@@ -269,6 +548,15 @@ Clone:    1' -- 2'
 **Java Solutions**:
 
 **Solution 1: DFS with HashMap**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     private Map<Node, Node> visited = new HashMap<>();
@@ -294,8 +582,76 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        
+        visited = {}
+        return self.dfs(node, visited)
+    
+    def dfs(self, node, visited):
+        # If already cloned, return the clone
+        if node in visited:
+            return visited[node]
+        
+        # Create clone for current node
+        clone = Node(node.val)
+        visited[node] = clone
+        
+        # Recursively clone neighbors
+        for neighbor in node.neighbors:
+            clone.neighbors.append(self.dfs(neighbor, visited))
+        
+        return clone
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var cloneGraph = function(node) {
+    if (!node) return null;
+    
+    const visited = new Map();
+    
+    function dfs(node) {
+        // If already cloned, return the clone
+        if (visited.has(node)) {
+            return visited.get(node);
+        }
+        
+        // Create clone for current node
+        const clone = new Node(node.val);
+        visited.set(node, clone);
+        
+        // Recursively clone neighbors
+        for (const neighbor of node.neighbors) {
+            clone.neighbors.push(dfs(neighbor));
+        }
+        
+        return clone;
+    }
+    
+    return dfs(node);
+};
+```
+  </div>
+</div>
 
 **Solution 2: BFS with HashMap**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     public Node cloneGraph(Node node) {
@@ -327,6 +683,71 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        
+        visited = {}
+        queue = deque([node])
+        
+        # Create clone for start node
+        clone = Node(node.val)
+        visited[node] = clone
+        
+        while queue:
+            current = queue.popleft()
+            
+            for neighbor in current.neighbors:
+                if neighbor not in visited:
+                    # Create clone for neighbor
+                    visited[neighbor] = Node(neighbor.val)
+                    queue.append(neighbor)
+                
+                # Connect current clone to neighbor clone
+                visited[current].neighbors.append(visited[neighbor])
+        
+        return clone
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var cloneGraph = function(node) {
+    if (!node) return null;
+    
+    const visited = new Map();
+    const queue = [node];
+    
+    // Create clone for start node
+    const clone = new Node(node.val);
+    visited.set(node, clone);
+    
+    while (queue.length > 0) {
+        const current = queue.shift();
+        
+        for (const neighbor of current.neighbors) {
+            if (!visited.has(neighbor)) {
+                // Create clone for neighbor
+                visited.set(neighbor, new Node(neighbor.val));
+                queue.push(neighbor);
+            }
+            // Connect current clone to neighbor clone
+            visited.get(current).neighbors.push(visited.get(neighbor));
+        }
+    }
+    
+    return clone;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - Time: O(V + E) where V = vertices, E = edges
@@ -470,6 +891,15 @@ Graph: 0 ⇄ 1 (cycle detected, cannot finish)
 **Java Solutions**:
 
 **Solution 1: DFS Cycle Detection**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -511,8 +941,95 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # Build adjacency list
+        adj = [[] for _ in range(numCourses)]
+        
+        for prereq in prerequisites:
+            adj[prereq[1]].append(prereq[0])  # prereq[1] -> prereq[0]
+        
+        # 0: unvisited, 1: visiting, 2: visited
+        state = [0] * numCourses
+        
+        def has_cycle(course):
+            if state[course] == 1:
+                return True  # Back edge found (cycle)
+            if state[course] == 2:
+                return False  # Already processed
+            
+            state[course] = 1  # Mark as visiting
+            
+            for next_course in adj[course]:
+                if has_cycle(next_course):
+                    return True
+            
+            state[course] = 2  # Mark as visited
+            return False
+        
+        for i in range(numCourses):
+            if state[i] == 0 and has_cycle(i):
+                return False
+        
+        return True
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var canFinish = function(numCourses, prerequisites) {
+    // Build adjacency list
+    const adj = Array.from({length: numCourses}, () => []);
+    
+    for (const [course, prereq] of prerequisites) {
+        adj[prereq].push(course); // prereq -> course
+    }
+    
+    // 0: unvisited, 1: visiting, 2: visited
+    const state = Array(numCourses).fill(0);
+    
+    function hasCycle(course) {
+        if (state[course] === 1) return true;  // Back edge found (cycle)
+        if (state[course] === 2) return false; // Already processed
+        
+        state[course] = 1; // Mark as visiting
+        
+        for (const nextCourse of adj[course]) {
+            if (hasCycle(nextCourse)) {
+                return true;
+            }
+        }
+        
+        state[course] = 2; // Mark as visited
+        return false;
+    }
+    
+    for (let i = 0; i < numCourses; i++) {
+        if (state[i] === 0 && hasCycle(i)) {
+            return false;
+        }
+    }
+    
+    return true;
+};
+```
+  </div>
+</div>
 
 **Solution 2: Kahn's Algorithm (Topological Sort)**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -555,6 +1072,82 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # Build adjacency list and calculate indegrees
+        adj = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
+        
+        for prereq in prerequisites:
+            adj[prereq[1]].append(prereq[0])
+            indegree[prereq[0]] += 1
+        
+        # Start with courses having no prerequisites
+        queue = deque()
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        completed = 0
+        while queue:
+            course = queue.popleft()
+            completed += 1
+            
+            # Remove this course and update indegrees
+            for next_course in adj[course]:
+                indegree[next_course] -= 1
+                if indegree[next_course] == 0:
+                    queue.append(next_course)
+        
+        return completed == numCourses
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var canFinish = function(numCourses, prerequisites) {
+    // Build adjacency list and calculate indegrees
+    const adj = Array.from({length: numCourses}, () => []);
+    const indegree = Array(numCourses).fill(0);
+    
+    for (const [course, prereq] of prerequisites) {
+        adj[prereq].push(course);
+        indegree[course]++;
+    }
+    
+    // Start with courses having no prerequisites
+    const queue = [];
+    for (let i = 0; i < numCourses; i++) {
+        if (indegree[i] === 0) {
+            queue.push(i);
+        }
+    }
+    
+    let completed = 0;
+    while (queue.length > 0) {
+        const course = queue.shift();
+        completed++;
+        
+        // Remove this course and update indegrees
+        for (const nextCourse of adj[course]) {
+            indegree[nextCourse]--;
+            if (indegree[nextCourse] === 0) {
+                queue.push(nextCourse);
+            }
+        }
+    }
+    
+    return completed === numCourses;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - Time: O(V + E) where V = courses, E = prerequisites
@@ -706,6 +1299,15 @@ Result: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
 **Java Solutions**:
 
 **Solution 1: DFS from Boundaries**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -760,8 +1362,123 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights or not heights[0]:
+            return []
+        
+        m, n = len(heights), len(heights[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        pacific = [[False] * n for _ in range(m)]
+        atlantic = [[False] * n for _ in range(m)]
+        
+        def dfs(i, j, visited, prev_height):
+            if (i < 0 or i >= m or j < 0 or j >= n or 
+                visited[i][j] or heights[i][j] < prev_height):
+                return
+            
+            visited[i][j] = True
+            
+            for di, dj in directions:
+                dfs(i + di, j + dj, visited, heights[i][j])
+        
+        # DFS from Pacific borders (top and left)
+        for i in range(m):
+            dfs(i, 0, pacific, heights[i][0])
+        for j in range(n):
+            dfs(0, j, pacific, heights[0][j])
+        
+        # DFS from Atlantic borders (bottom and right)
+        for i in range(m):
+            dfs(i, n - 1, atlantic, heights[i][n - 1])
+        for j in range(n):
+            dfs(m - 1, j, atlantic, heights[m - 1][j])
+        
+        # Find intersection
+        result = []
+        for i in range(m):
+            for j in range(n):
+                if pacific[i][j] and atlantic[i][j]:
+                    result.append([i, j])
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var pacificAtlantic = function(heights) {
+    if (!heights || heights.length === 0 || heights[0].length === 0) {
+        return [];
+    }
+    
+    const m = heights.length;
+    const n = heights[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    const pacific = Array.from({length: m}, () => Array(n).fill(false));
+    const atlantic = Array.from({length: m}, () => Array(n).fill(false));
+    
+    function dfs(i, j, visited, prevHeight) {
+        if (i < 0 || i >= m || j < 0 || j >= n || 
+            visited[i][j] || heights[i][j] < prevHeight) {
+            return;
+        }
+        
+        visited[i][j] = true;
+        
+        for (const [di, dj] of directions) {
+            dfs(i + di, j + dj, visited, heights[i][j]);
+        }
+    }
+    
+    // DFS from Pacific borders (top and left)
+    for (let i = 0; i < m; i++) {
+        dfs(i, 0, pacific, heights[i][0]);
+    }
+    for (let j = 0; j < n; j++) {
+        dfs(0, j, pacific, heights[0][j]);
+    }
+    
+    // DFS from Atlantic borders (bottom and right)
+    for (let i = 0; i < m; i++) {
+        dfs(i, n - 1, atlantic, heights[i][n - 1]);
+    }
+    for (let j = 0; j < n; j++) {
+        dfs(m - 1, j, atlantic, heights[m - 1][j]);
+    }
+    
+    // Find intersection
+    const result = [];
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (pacific[i][j] && atlantic[i][j]) {
+                result.push([i, j]);
+            }
+        }
+    }
+    
+    return result;
+};
+```
+  </div>
+</div>
 
 **Solution 2: BFS from Boundaries**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -833,6 +1550,142 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights or not heights[0]:
+            return []
+        
+        m, n = len(heights), len(heights[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        pacific = [[False] * n for _ in range(m)]
+        atlantic = [[False] * n for _ in range(m)]
+        
+        pacific_queue = deque()
+        atlantic_queue = deque()
+        
+        # Add Pacific borders
+        for i in range(m):
+            pacific[i][0] = True
+            pacific_queue.append((i, 0))
+        for j in range(n):
+            pacific[0][j] = True
+            pacific_queue.append((0, j))
+        
+        # Add Atlantic borders
+        for i in range(m):
+            atlantic[i][n - 1] = True
+            atlantic_queue.append((i, n - 1))
+        for j in range(n):
+            atlantic[m - 1][j] = True
+            atlantic_queue.append((m - 1, j))
+        
+        def bfs(queue, visited):
+            while queue:
+                i, j = queue.popleft()
+                
+                for di, dj in directions:
+                    ni, nj = i + di, j + dj
+                    
+                    if (0 <= ni < m and 0 <= nj < n and 
+                        not visited[ni][nj] and heights[ni][nj] >= heights[i][j]):
+                        visited[ni][nj] = True
+                        queue.append((ni, nj))
+        
+        # BFS from Pacific and Atlantic
+        bfs(pacific_queue, pacific)
+        bfs(atlantic_queue, atlantic)
+        
+        # Find intersection
+        result = []
+        for i in range(m):
+            for j in range(n):
+                if pacific[i][j] and atlantic[i][j]:
+                    result.append([i, j])
+        
+        return result
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var pacificAtlantic = function(heights) {
+    if (!heights || heights.length === 0 || heights[0].length === 0) {
+        return [];
+    }
+    
+    const m = heights.length;
+    const n = heights[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    const pacific = Array.from({length: m}, () => Array(n).fill(false));
+    const atlantic = Array.from({length: m}, () => Array(n).fill(false));
+    
+    const pacificQueue = [];
+    const atlanticQueue = [];
+    
+    // Add Pacific borders
+    for (let i = 0; i < m; i++) {
+        pacific[i][0] = true;
+        pacificQueue.push([i, 0]);
+    }
+    for (let j = 0; j < n; j++) {
+        pacific[0][j] = true;
+        pacificQueue.push([0, j]);
+    }
+    
+    // Add Atlantic borders
+    for (let i = 0; i < m; i++) {
+        atlantic[i][n - 1] = true;
+        atlanticQueue.push([i, n - 1]);
+    }
+    for (let j = 0; j < n; j++) {
+        atlantic[m - 1][j] = true;
+        atlanticQueue.push([m - 1, j]);
+    }
+    
+    function bfs(queue, visited) {
+        while (queue.length > 0) {
+            const [i, j] = queue.shift();
+            
+            for (const [di, dj] of directions) {
+                const ni = i + di;
+                const nj = j + dj;
+                
+                if (ni >= 0 && ni < m && nj >= 0 && nj < n && 
+                    !visited[ni][nj] && heights[ni][nj] >= heights[i][j]) {
+                    visited[ni][nj] = true;
+                    queue.push([ni, nj]);
+                }
+            }
+        }
+    }
+    
+    // BFS from Pacific and Atlantic
+    bfs(pacificQueue, pacific);
+    bfs(atlanticQueue, atlantic);
+    
+    // Find intersection
+    const result = [];
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (pacific[i][j] && atlantic[i][j]) {
+                result.push([i, j]);
+            }
+        }
+    }
+    
+    return result;
+};
+```
+  </div>
+</div>
 
 **Complexity Analysis**:
 - Time: O(m × n) - visit each cell at most twice
@@ -988,6 +1841,15 @@ Output: 3
 **Java Solutions**:
 
 **Solution 1: DFS with Grid Modification**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     public int numIslands(char[][] grid) {
@@ -1025,8 +1887,91 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        count = 0
+        m, n = len(grid), len(grid[0])
+        
+        def dfs(i, j):
+            if (i < 0 or i >= m or j < 0 or j >= n or 
+                grid[i][j] != '1'):
+                return
+            
+            grid[i][j] = '0'  # Mark as visited
+            
+            # Explore 4 directions
+            dfs(i - 1, j)
+            dfs(i + 1, j)
+            dfs(i, j - 1)
+            dfs(i, j + 1)
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    count += 1
+                    dfs(i, j)
+        
+        return count
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var numIslands = function(grid) {
+    if (!grid || grid.length === 0 || grid[0].length === 0) {
+        return 0;
+    }
+    
+    let count = 0;
+    const m = grid.length;
+    const n = grid[0].length;
+    
+    function dfs(i, j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] !== '1') {
+            return;
+        }
+        
+        grid[i][j] = '0'; // Mark as visited
+        
+        // Explore 4 directions
+        dfs(i - 1, j);
+        dfs(i + 1, j);
+        dfs(i, j - 1);
+        dfs(i, j + 1);
+    }
+    
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (grid[i][j] === '1') {
+                count++;
+                dfs(i, j);
+            }
+        }
+    }
+    
+    return count;
+};
+```
+  </div>
+</div>
 
 **Solution 2: BFS with Queue**
+
+<div class="code-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-lang="java">Java</button>
+    <button class="tab-btn" data-lang="python">Python</button>
+    <button class="tab-btn" data-lang="javascript">JavaScript</button>
+  </div>
+  
+  <div class="tab-content java active">
 ```java
 class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -1072,6 +2017,92 @@ class Solution {
     }
 }
 ```
+  </div>
+  
+  <div class="tab-content python">
+```python
+from collections import deque
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        count = 0
+        m, n = len(grid), len(grid[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        def bfs(start_i, start_j):
+            queue = deque([(start_i, start_j)])
+            grid[start_i][start_j] = '0'
+            
+            while queue:
+                i, j = queue.popleft()
+                
+                for di, dj in directions:
+                    ni, nj = i + di, j + dj
+                    
+                    if (0 <= ni < m and 0 <= nj < n and 
+                        grid[ni][nj] == '1'):
+                        grid[ni][nj] = '0'
+                        queue.append((ni, nj))
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    count += 1
+                    bfs(i, j)
+        
+        return count
+```
+  </div>
+  
+  <div class="tab-content javascript">
+```javascript
+var numIslands = function(grid) {
+    if (!grid || grid.length === 0 || grid[0].length === 0) {
+        return 0;
+    }
+    
+    let count = 0;
+    const m = grid.length;
+    const n = grid[0].length;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    
+    function bfs(startI, startJ) {
+        const queue = [[startI, startJ]];
+        grid[startI][startJ] = '0';
+        
+        while (queue.length > 0) {
+            const [i, j] = queue.shift();
+            
+            for (const [di, dj] of directions) {
+                const ni = i + di;
+                const nj = j + dj;
+                
+                if (ni >= 0 && ni < m && nj >= 0 && nj < n && 
+                    grid[ni][nj] === '1') {
+                    grid[ni][nj] = '0';
+                    queue.push([ni, nj]);
+                }
+            }
+        }
+    }
+    
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (grid[i][j] === '1') {
+                count++;
+                bfs(i, j);
+            }
+        }
+    }
+    
+    return count;
+};
+```
+  </div>
+</div>
 
 **Solution 3: Union-Find**
 ```java
