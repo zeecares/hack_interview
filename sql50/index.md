@@ -17,12 +17,12 @@ SQL is the universal language of data. Whether you're a software engineer, data 
   <div class="path-section beginner">
     <h3>🌱 Foundation (Week 1-2)</h3>
     <div class="guide-card">
-      <h4><a href="basic_queries_guide.html">Basic Queries</a></h4>
+      <h4><a href="basic_queries_guide">Basic Queries</a></h4>
       <p>8 problems • SELECT, WHERE, DISTINCT</p>
       <span class="difficulty beginner">Beginner</span>
     </div>
     <div class="guide-card">
-      <h4><a href="sorting_aggregation_guide.html">Sorting & Aggregation</a></h4>
+      <h4><a href="sorting_aggregation_guide">Sorting & Aggregation</a></h4>
       <p>8 problems • ORDER BY, GROUP BY, COUNT, SUM</p>
       <span class="difficulty beginner-intermediate">Beginner-Intermediate</span>
     </div>
@@ -31,17 +31,17 @@ SQL is the universal language of data. Whether you're a software engineer, data 
   <div class="path-section intermediate">
     <h3>🚀 Core Skills (Week 3-4)</h3>
     <div class="guide-card">
-      <h4><a href="joins_guide.html">Joins</a></h4>
+      <h4><a href="joins_guide">Joins</a></h4>
       <p>9 problems • INNER, LEFT, RIGHT, FULL OUTER</p>
       <span class="difficulty intermediate">Intermediate</span>
     </div>
     <div class="guide-card">
-      <h4><a href="subqueries_guide.html">Subqueries</a></h4>
+      <h4><a href="subqueries_guide">Subqueries</a></h4>
       <p>7 problems • Nested Queries, EXISTS, IN</p>
       <span class="difficulty intermediate">Intermediate</span>
     </div>
     <div class="guide-card">
-      <h4><a href="string_date_guide.html">String & Date Functions</a></h4>
+      <h4><a href="string_date_guide">String & Date Functions</a></h4>
       <p>6 problems • String Manipulation, Date Arithmetic</p>
       <span class="difficulty intermediate">Intermediate</span>
     </div>
@@ -50,12 +50,12 @@ SQL is the universal language of data. Whether you're a software engineer, data 
   <div class="path-section advanced">
     <h3>🏆 Advanced (Week 5-6)</h3>
     <div class="guide-card">
-      <h4><a href="window_functions_guide.html">Window Functions</a></h4>
+      <h4><a href="window_functions_guide">Window Functions</a></h4>
       <p>8 problems • ROW_NUMBER, RANK, LEAD/LAG</p>
       <span class="difficulty advanced">Advanced</span>
     </div>
     <div class="guide-card">
-      <h4><a href="advanced_sql_guide.html">Advanced SQL</a></h4>
+      <h4><a href="advanced_sql_guide">Advanced SQL</a></h4>
       <p>4 problems • CTEs, CASE, UNION, Complex Queries</p>
       <span class="difficulty advanced">Advanced</span>
     </div>
@@ -129,7 +129,7 @@ All examples use **standard SQL** compatible with:
 ```
 
 ### 2. Start Learning
-1. **Begin**: [Basic Queries Guide](basic_queries_guide.html)
+1. **Begin**: [Basic Queries Guide](basic_queries_guide)
 2. **Practice**: Work through problems systematically
 3. **Reflect**: Use confidence ratings to track progress
 4. **Connect**: Join study groups or forums
@@ -149,23 +149,23 @@ All examples use **standard SQL** compatible with:
 ## 🔗 Additional Resources
 
 ### Learning Support
-- [SQL Enhanced Learning Template](SQL_ENHANCED_LEARNING_TEMPLATE.html) - For educators and self-learners
+- [SQL Enhanced Learning Template](SQL_ENHANCED_LEARNING_TEMPLATE) - For educators and self-learners
 - [Database Schema Collection](schemas/) - Practice datasets
-- [Performance Optimization Guide](optimization_guide.html) - Query tuning tips
+- [Performance Optimization Guide](optimization_guide) - Query tuning tips
 
 ### Community
 - [Discussion Forum](https://github.com/zeecares/hack_interview/discussions) - Ask questions and share insights
-- [Study Group Finder](study_groups.html) - Connect with other learners
-- [Interview Preparation](interview_prep.html) - SQL interview patterns
+- [Study Group Finder](study_groups) - Connect with other learners
+- [Interview Preparation](interview_prep) - SQL interview patterns
 
 ## 🎯 Ready to Start?
 
 <div class="cta-section">
-  <a href="basic_queries_guide.html" class="cta-button primary">
+  <a href="basic_queries_guide" class="cta-button primary">
     🚀 Start with Basic Queries
   </a>
   
-  <a href="README.html" class="cta-button secondary">
+  <a href="README" class="cta-button secondary">
     📚 Read Full Documentation
   </a>
 </div>
