@@ -224,7 +224,8 @@ function twoSum(nums, target) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public int[] twoSum(int[] nums, int target) {
     // Map to store: value -> index
@@ -309,7 +310,8 @@ function twoSum(nums, target) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public int[] twoSum(int[] nums, int target) {
     Map<Integer, Integer> numToIndex = new HashMap<>();
@@ -1274,7 +1276,8 @@ function containsDuplicate(nums) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public boolean containsDuplicate(int[] nums) {
     Set<Integer> seen = new HashSet<>();
@@ -1342,7 +1345,8 @@ function containsDuplicate(nums) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public boolean containsDuplicate(int[] nums) {
     Set<Integer> uniqueElements = new HashSet<>();
@@ -1399,7 +1403,7 @@ function containsDuplicate(nums) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.Arrays;
 
 public boolean containsDuplicate(int[] nums) {
     // Sort the array first
@@ -1461,8 +1465,8 @@ function containsDuplicate(nums) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
-import java.util.stream.*;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public boolean containsDuplicate(int[] nums) {
     // Convert to stream, collect to set, compare sizes
@@ -1581,7 +1585,10 @@ Rate your confidence (1-5) on:
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public List<Integer> findDuplicates(int[] nums) {
     Map<Integer, Integer> frequency = new HashMap<>();
@@ -1655,7 +1662,8 @@ function findDuplicates(nums) {
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public boolean containsNearbyDuplicate(int[] nums, int k) {
     Set<Integer> window = new HashSet<>();
@@ -2176,8 +2184,6 @@ Rate your confidence (1-5) on:
   
   <div class="tab-content java active">
 ```java
-import java.util.*;
-
 public int[] productExceptSelfWithZeros(int[] nums) {
     int n = nums.length;
     int[] result = new int[n];

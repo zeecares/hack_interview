@@ -42,6 +42,11 @@ render_with_liquid: false
   
   <div class="tab-content java active">
 ```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 // Using List of Lists
 List<List<Integer>> adj = new ArrayList<>();
 // Using Map for flexibility
@@ -120,10 +125,15 @@ const adj = Array.from({length: n}, () => Array(n).fill(0));
   
   <div class="tab-content java active">
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 class Edge {
     int from, to, weight;
     Edge(int from, int to, int weight) {
-        this.from = from; this.to = to; this.weight = weight;
+        this.from = from;
+        this.to = to;
+        this.weight = weight;
     }
 }
 List<Edge> edges = new ArrayList<>();
@@ -173,6 +183,8 @@ const edges = [[from, to, weight], ...];
   
   <div class="tab-content java active">
 ```java
+import java.util.List;
+
 void dfs(int node, boolean[] visited, List<List<Integer>> adj) {
     visited[node] = true;
     // Process current node
@@ -225,6 +237,10 @@ function dfs(node, visited, adj) {
   
   <div class="tab-content java active">
 ```java
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 void bfs(int start, List<List<Integer>> adj) {
     Queue<Integer> queue = new LinkedList<>();
     boolean[] visited = new boolean[adj.size()];
@@ -558,6 +574,9 @@ Clone:    1' -- 2'
   
   <div class="tab-content java active">
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     private Map<Node, Node> visited = new HashMap<>();
     

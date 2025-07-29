@@ -159,6 +159,9 @@ The core concept is maintaining a window of unique characters and expanding/cont
   
   <div class="tab-content java active">
 ```java
+import java.util.HashSet;
+import java.util.Set;
+
 public int lengthOfLongestSubstring(String s) {
     int n = s.length();
     int maxLength = 0;
@@ -237,6 +240,9 @@ function lengthOfLongestSubstring(s) {
   
   <div class="tab-content java active">
 ```java
+import java.util.HashSet;
+import java.util.Set;
+
 public int lengthOfLongestSubstring(String s) {
     Set<Character> window = new HashSet<>();
     int left = 0, maxLength = 0;
@@ -318,6 +324,9 @@ function lengthOfLongestSubstring(s) {
   
   <div class="tab-content java active">
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 public int lengthOfLongestSubstring(String s) {
     Map<Character, Integer> charIndex = new HashMap<>();
     int left = 0, maxLength = 0;
@@ -545,6 +554,9 @@ The key insight is that we want to find the longest window where we can make all
   
   <div class="tab-content java active">
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 public int characterReplacement(String s, int k) {
     Map<Character, Integer> count = new HashMap<>();
     int left = 0, maxLength = 0, maxFreq = 0;
@@ -967,6 +979,9 @@ This is a sliding window problem where we need to find the smallest window conta
   
   <div class="tab-content java active">
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 public String minWindow(String s, String t) {
     if (s.length() < t.length()) return "";
     
@@ -1473,6 +1488,9 @@ public boolean isAnagram(String s, String t) {
 
 #### Solution 2: HashMap Frequency Counting
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 public boolean isAnagram(String s, String t) {
     if (s.length() != t.length()) {
         return false;
@@ -1700,6 +1718,12 @@ Anagrams have the same characters with the same frequencies, so they can be grou
 
 #### Solution 1: Sorting-based Grouping
 ```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public List<List<String>> groupAnagrams(String[] strs) {
     Map<String, List<String>> groups = new HashMap<>();
     
@@ -1719,6 +1743,11 @@ public List<List<String>> groupAnagrams(String[] strs) {
 
 #### Solution 2: Frequency Counting with Prime Numbers
 ```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public List<List<String>> groupAnagrams(String[] strs) {
     // Prime numbers for each letter (a-z)
     int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 
@@ -1741,6 +1770,11 @@ public List<List<String>> groupAnagrams(String[] strs) {
 
 #### Solution 3: Character Count Array as Key
 ```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public List<List<String>> groupAnagrams(String[] strs) {
     Map<String, List<String>> groups = new HashMap<>();
     
@@ -1768,6 +1802,11 @@ public List<List<String>> groupAnagrams(String[] strs) {
 
 #### Solution 4: Optimized Character Count Key
 ```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public List<List<String>> groupAnagrams(String[] strs) {
     Map<String, List<String>> groups = new HashMap<>();
     
@@ -1957,6 +1996,10 @@ The problem requires checking proper nesting and matching of brackets:
 
 #### Solution 1: Stack with HashMap
 ```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
 public boolean isValid(String s) {
     Stack<Character> stack = new Stack<>();
     Map<Character, Character> mapping = new HashMap<>();
@@ -3089,6 +3132,9 @@ Need to encode multiple strings into one string such that:
 
 #### Solution 1: Length-based Encoding (Recommended)
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class Codec {
     
     // Encodes a list of strings to a single string.
@@ -3125,6 +3171,9 @@ public class Codec {
 
 #### Solution 2: Escape-based Encoding
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class Codec {
     private static final String DELIMITER = ":;";
     private static final String ESCAPE = "\\";
@@ -3178,6 +3227,9 @@ public class Codec {
 
 #### Solution 3: Non-ASCII Delimiter
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public class Codec {
     private static final char DELIMITER = '\u0001'; // Non-printable ASCII character
     
@@ -3215,7 +3267,9 @@ public class Codec {
 
 #### Solution 4: Base64 with Length Prefix
 ```java
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class Codec {
     

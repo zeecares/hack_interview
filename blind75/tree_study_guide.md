@@ -67,8 +67,12 @@ class TreeNode {
     TreeNode left;
     TreeNode right;
     
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
+    TreeNode() {
+    }
+    
+    TreeNode(int val) {
+        this.val = val;
+    }
     TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
@@ -230,6 +234,9 @@ function dfs(node) {
   
   <div class="tab-content java active">
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
+
 void bfs(TreeNode root) {
     if (root == null) return;
     
@@ -298,6 +305,8 @@ function bfs(root) {
   
   <div class="tab-content java active">
 ```java
+import java.util.List;
+
 void inorder(TreeNode node, List<Integer> result) {
     if (node == null) return;
     
@@ -530,6 +539,9 @@ function maxDepth(root) {
   
   <div class="tab-content java active">
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
+
 public int maxDepth(TreeNode root) {
     if (root == null) return 0;
     
@@ -1028,6 +1040,9 @@ function isSameTree(p, q) {
   
   <div class="tab-content java active">
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
+
 public boolean isSameTree(TreeNode p, TreeNode q) {
     Queue<TreeNode> queue = new LinkedList<>();
     queue.offer(p);
@@ -1466,6 +1481,9 @@ function invertTree(root) {
   
   <div class="tab-content java active">
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
+
 public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
     
@@ -2265,6 +2283,11 @@ Level order traversal means:
 
 #### Solution 1: BFS with Level Size Tracking (Optimal)
 ```java
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
     if (root == null) return result;
@@ -2295,6 +2318,11 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 
 #### Solution 2: BFS with Null Delimiter
 ```java
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
     if (root == null) return result;
@@ -2330,6 +2358,9 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 
 #### Solution 3: Recursive DFS with Level Tracking
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
     dfs(root, 0, result);
@@ -2355,6 +2386,11 @@ private void dfs(TreeNode node, int level, List<List<Integer>> result) {
 
 #### Solution 4: Two Queue Approach
 ```java
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
     if (root == null) return result;
@@ -2544,6 +2580,10 @@ Serialization requires:
 
 #### Solution 1: Preorder Traversal (Optimal)
 ```java
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Codec {
     private static final String NULL_MARKER = "#";
     private static final String DELIMITER = ",";
@@ -2590,6 +2630,9 @@ public class Codec {
 
 #### Solution 2: Level Order Traversal
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Codec {
     public String serialize(TreeNode root) {
         if (root == null) return "";
@@ -3169,6 +3212,9 @@ class Solution {
 
 #### Solution 2: Without Global Variables
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 public TreeNode buildTree(int[] preorder, int[] inorder) {
     Map<Integer, Integer> inorderMap = new HashMap<>();
     for (int i = 0; i < inorder.length; i++) {
@@ -3482,6 +3528,9 @@ class Solution {
 
 #### Solution 3: In-order with List
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public boolean isValidBST(TreeNode root) {
     List<Integer> inorderList = new ArrayList<>();
     inorder(root, inorderList);
@@ -3813,6 +3862,9 @@ public int kthSmallest(TreeNode root, int k) {
 
 #### Solution 4: Collect All Then Sort (Less Efficient)
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public int kthSmallest(TreeNode root, int k) {
     List<Integer> values = new ArrayList<>();
     inorder(root, values);
@@ -4047,6 +4099,9 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 
 #### Solution 3: Path-based Approach
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     List<TreeNode> pathToP = getPath(root, p);
     List<TreeNode> pathToQ = getPath(root, q);
@@ -5230,6 +5285,9 @@ Efficient word search requires:
 
 #### Solution 1: Trie + DFS with Backtracking (Optimal)
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
     class TrieNode {
         TrieNode[] children;
