@@ -2688,6 +2688,8 @@ class Solution {
 
 **Solution 2: DFS Topological Sort**
 ```java
+import java.util.*;
+
 class Solution {
     public String alienOrder(String[] words) {
         Map<Character, Set<Character>> adj = new HashMap<>();

@@ -1388,6 +1388,8 @@ Several approaches work:
   
   <div class="tab-content java active">
 ```java
+import java.util.*;
+
 // Approach 1: XOR (Most Elegant)
 class MissingNumber {
     public int missingNumber(int[] nums) {
