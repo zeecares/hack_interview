@@ -785,8 +785,50 @@
                     const language = markdownMatch[1];
                     const code = markdownMatch[2];
                     
-                    // Create proper pre/code structure for Prism
-                    tabContent.innerHTML = `<pre><code class="language-${language}">${code}</code></pre>`;
+                    // HTML escape the code content
+                    const escapedCode = code
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;');
+                    
+                    // Create proper pre/code structure for Prism with copy button support
+                    tabContent.innerHTML = `<pre class="language-${language}" tabindex="0"><code class="language-${language}">${escapedCode}</code></pre>`;
+                    
+                    // Add copy button functionality to the new pre element
+                    const newPreElement = tabContent.querySelector('pre');
+                    if (newPreElement) {
+                        // Create header container for copy button
+                        const header = document.createElement('div');
+                        header.className = 'code-header';
+                        
+                        // Create language label
+                        const languageLabel = document.createElement('span');
+                        languageLabel.className = 'code-language';
+                        languageLabel.textContent = language.toUpperCase();
+                        
+                        // Create copy button
+                        const copyButton = document.createElement('button');
+                        copyButton.className = 'copy-button';
+                        copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                        copyButton.onclick = () => copyCodeToClipboard(copyButton, newPreElement);
+                        
+                        // Add elements to header
+                        header.appendChild(languageLabel);
+                        header.appendChild(copyButton);
+                        
+                        // Add header to code block
+                        newPreElement.appendChild(header);
+                    }
+                    
+                    // Re-trigger Prism highlighting if available
+                    if (window.Prism && window.Prism.highlightElement) {
+                        const codeElement = tabContent.querySelector('code');
+                        if (codeElement) {
+                            window.Prism.highlightElement(codeElement);
+                        }
+                    }
                 }
             });
             
