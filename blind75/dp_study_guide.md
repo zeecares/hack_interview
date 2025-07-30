@@ -200,8 +200,7 @@ This gives us: `ways(n) = ways(n-1) + ways(n-2)`
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Recursive with Memoization (Top-Down)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Recursive with Memoization (Top-Down)
 class ClimbingStairs {
     public int climbStairs(int n) {
         int[] memo = new int[n + 1];
@@ -210,7 +209,7 @@ class ClimbingStairs {
     
     private int helper(int n, int[] memo) {
         // Base cases
-        if (n <= 1) return 1;
+        if (n &lt;= 1) return 1;
         
         // Check memo
         if (memo[n] != 0) return memo[n];
@@ -224,13 +223,13 @@ class ClimbingStairs {
 // Approach 2: Iterative Bottom-Up (Tabulation)
 class ClimbingStairs {
     public int climbStairs(int n) {
-        if (n <= 1) return 1;
+        if (n &lt;= 1) return 1;
         
         int[] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = 1;
         
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i &lt;= n; i++) {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         
@@ -241,11 +240,11 @@ class ClimbingStairs {
 // Approach 3: Space Optimized
 class ClimbingStairs {
     public int climbStairs(int n) {
-        if (n <= 1) return 1;
+        if (n &lt;= 1) return 1;
         
         int prev2 = 1, prev1 = 1;
         
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i &lt;= n; i++) {
             int current = prev1 + prev2;
             prev2 = prev1;
             prev1 = current;
@@ -254,8 +253,8 @@ class ClimbingStairs {
         return prev1;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -508,8 +507,7 @@ For each amount, try using each coin and take the minimum:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Recursive with Memoization (Top-Down)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Recursive with Memoization (Top-Down)
 class CoinChange {
     public int coinChange(int[] coins, int amount) {
         int[] memo = new int[amount + 1];
@@ -522,7 +520,7 @@ class CoinChange {
     private int helper(int[] coins, int amount, int[] memo) {
         // Base cases
         if (amount == 0) return 0;
-        if (amount < 0) return Integer.MAX_VALUE;
+        if (amount &lt; 0) return Integer.MAX_VALUE;
         
         // Check memo
         if (memo[amount] != -1) return memo[amount];
@@ -549,19 +547,19 @@ class CoinChange {
         Arrays.fill(dp, amount + 1); // Initialize with impossible value
         dp[0] = 0;
         
-        for (int i = 1; i <= amount; i++) {
+        for (int i = 1; i &lt;= amount; i++) {
             for (int coin : coins) {
-                if (coin <= i) {
+                if (coin &lt;= i) {
                     dp[i] = Math.min(dp[i], dp[i - coin] + 1);
                 }
             }
         }
         
-        return dp[amount] > amount ? -1 : dp[amount];
+        return dp[amount] &gt; amount ? -1 : dp[amount];
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -815,8 +813,7 @@ For each element, we can either:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: DP Solution O(n²)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: DP Solution O(n²)
 class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
         if (nums.length == 0) return 0;
@@ -825,9 +822,9 @@ class LongestIncreasingSubsequence {
         Arrays.fill(dp, 1);
         int maxLength = 1;
         
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
+        for (int i = 1; i &lt; nums.length; i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (nums[j] &lt; nums[i]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
@@ -841,7 +838,7 @@ class LongestIncreasingSubsequence {
 // Approach 2: Binary Search + DP O(n log n)
 class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
-        List<Integer> tails = new ArrayList<>();
+        List&lt;Integer&gt; tails = new ArrayList&lt;&gt;();
         
         for (int num : nums) {
             int pos = binarySearch(tails, num);
@@ -856,12 +853,12 @@ class LongestIncreasingSubsequence {
         return tails.size();
     }
     
-    private int binarySearch(List<Integer> tails, int target) {
+    private int binarySearch(List&lt;Integer&gt; tails, int target) {
         int left = 0, right = tails.size();
         
-        while (left < right) {
+        while (left &lt; right) {
             int mid = left + (right - left) / 2;
-            if (tails.get(mid) < target) {
+            if (tails.get(mid) &lt; target) {
                 left = mid + 1;
             } else {
                 right = mid;
@@ -871,8 +868,8 @@ class LongestIncreasingSubsequence {
         return left;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1116,15 +1113,14 @@ For each character in both strings:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: 2D DP
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: 2D DP
 class LongestCommonSubsequence {
     public int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length(), n = text2.length();
         int[][] dp = new int[m + 1][n + 1];
         
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
+        for (int i = 1; i &lt;= m; i++) {
+            for (int j = 1; j &lt;= n; j++) {
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
@@ -1143,15 +1139,15 @@ class LongestCommonSubsequence {
         int m = text1.length(), n = text2.length();
         
         // Use shorter string for space optimization
-        if (m < n) {
+        if (m &lt; n) {
             return longestCommonSubsequence(text2, text1);
         }
         
         int[] dp = new int[n + 1];
         
-        for (int i = 1; i <= m; i++) {
+        for (int i = 1; i &lt;= m; i++) {
             int prev = 0;
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j &lt;= n; j++) {
                 int temp = dp[j];
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     dp[j] = prev + 1;
@@ -1197,8 +1193,8 @@ class LongestCommonSubsequence {
         return memo[i][j];
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1494,17 +1490,16 @@ A string can be broken if:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Bottom-Up DP
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Bottom-Up DP
 class WordBreak {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> wordSet = new HashSet<>(wordDict);
+    public boolean wordBreak(String s, List&lt;String&gt; wordDict) {
+        Set&lt;String&gt; wordSet = new HashSet&lt;&gt;(wordDict);
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
         
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && wordSet.contains(s.substring(j, i))) {
+        for (int i = 1; i &lt;= s.length(); i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (dp[j] &amp;&amp; wordSet.contains(s.substring(j, i))) {
                     dp[i] = true;
                     break;
                 }
@@ -1517,13 +1512,13 @@ class WordBreak {
 
 // Approach 2: Top-Down with Memoization
 class WordBreak {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> wordSet = new HashSet<>(wordDict);
+    public boolean wordBreak(String s, List&lt;String&gt; wordDict) {
+        Set&lt;String&gt; wordSet = new HashSet&lt;&gt;(wordDict);
         Boolean[] memo = new Boolean[s.length()];
         return helper(s, 0, wordSet, memo);
     }
     
-    private boolean helper(String s, int start, Set<String> wordSet, Boolean[] memo) {
+    private boolean helper(String s, int start, Set&lt;String&gt; wordSet, Boolean[] memo) {
         if (start == s.length()) {
             return true;
         }
@@ -1532,9 +1527,9 @@ class WordBreak {
             return memo[start];
         }
         
-        for (int end = start + 1; end <= s.length(); end++) {
+        for (int end = start + 1; end &lt;= s.length(); end++) {
             String prefix = s.substring(start, end);
-            if (wordSet.contains(prefix) && helper(s, end, wordSet, memo)) {
+            if (wordSet.contains(prefix) &amp;&amp; helper(s, end, wordSet, memo)) {
                 memo[start] = true;
                 return true;
             }
@@ -1547,8 +1542,8 @@ class WordBreak {
 
 // Approach 3: Optimized with Max Word Length
 class WordBreak {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> wordSet = new HashSet<>(wordDict);
+    public boolean wordBreak(String s, List&lt;String&gt; wordDict) {
+        Set&lt;String&gt; wordSet = new HashSet&lt;&gt;(wordDict);
         int maxLen = 0;
         for (String word : wordDict) {
             maxLen = Math.max(maxLen, word.length());
@@ -1557,9 +1552,9 @@ class WordBreak {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
         
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = Math.max(0, i - maxLen); j < i; j++) {
-                if (dp[j] && wordSet.contains(s.substring(j, i))) {
+        for (int i = 1; i &lt;= s.length(); i++) {
+            for (int j = Math.max(0, i - maxLen); j &lt; i; j++) {
+                if (dp[j] &amp;&amp; wordSet.contains(s.substring(j, i))) {
                     dp[i] = true;
                     break;
                 }
@@ -1569,8 +1564,8 @@ class WordBreak {
         return dp[s.length()];
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1864,25 +1859,24 @@ This is primarily a backtracking problem, but DP can be used for counting combin
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Backtracking (Standard Solution)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Backtracking (Standard Solution)
 class CombinationSum {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> current = new ArrayList<>();
+    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; current = new ArrayList&lt;&gt;();
         backtrack(candidates, target, 0, current, result);
         return result;
     }
     
     private void backtrack(int[] candidates, int target, int start, 
-                          List<Integer> current, List<List<Integer>> result) {
+                          List&lt;Integer&gt; current, List&lt;List&lt;Integer&gt;&gt; result) {
         if (target == 0) {
-            result.add(new ArrayList<>(current));
+            result.add(new ArrayList&lt;&gt;(current));
             return;
         }
         
-        for (int i = start; i < candidates.length; i++) {
-            if (candidates[i] <= target) {
+        for (int i = start; i &lt; candidates.length; i++) {
+            if (candidates[i] &lt;= target) {
                 current.add(candidates[i]);
                 backtrack(candidates, target - candidates[i], i, current, result);
                 current.remove(current.size() - 1);
@@ -1897,9 +1891,9 @@ class CombinationSum {
         int[] dp = new int[target + 1];
         dp[0] = 1;
         
-        for (int i = 1; i <= target; i++) {
+        for (int i = 1; i &lt;= target; i++) {
             for (int num : nums) {
-                if (num <= i) {
+                if (num &lt;= i) {
                     dp[i] += dp[i - num];
                 }
             }
@@ -1916,7 +1910,7 @@ class CombinationSum {
         dp[0] = true;
         
         for (int num : nums) {
-            for (int i = target; i >= num; i--) {
+            for (int i = target; i &gt;= num; i--) {
                 dp[i] = dp[i] || dp[i - num];
             }
         }
@@ -1924,8 +1918,8 @@ class CombinationSum {
         return dp[target];
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -2186,8 +2180,7 @@ For each house, we have two choices:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Standard DP
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Standard DP
 class HouseRobber {
     public int rob(int[] nums) {
         if (nums.length == 0) return 0;
@@ -2197,7 +2190,7 @@ class HouseRobber {
         dp[0] = nums[0];
         dp[1] = Math.max(nums[0], nums[1]);
         
-        for (int i = 2; i < nums.length; i++) {
+        for (int i = 2; i &lt; nums.length; i++) {
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
         }
         
@@ -2214,7 +2207,7 @@ class HouseRobber {
         int prev2 = nums[0];
         int prev1 = Math.max(nums[0], nums[1]);
         
-        for (int i = 2; i < nums.length; i++) {
+        for (int i = 2; i &lt; nums.length; i++) {
             int current = Math.max(prev1, prev2 + nums[i]);
             prev2 = prev1;
             prev1 = current;
@@ -2233,7 +2226,7 @@ class HouseRobber {
     }
     
     private int helper(int[] nums, int i, int[] memo) {
-        if (i >= nums.length) return 0;
+        if (i &gt;= nums.length) return 0;
         
         if (memo[i] != -1) return memo[i];
         
@@ -2245,8 +2238,8 @@ class HouseRobber {
         return memo[i];
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -2525,8 +2518,7 @@ In a circle, we can't rob both first and last house. So we solve two subproblems
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Two Linear Robberies
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Two Linear Robberies
 class HouseRobberII {
     public int rob(int[] nums) {
         if (nums.length == 1) return nums[0];
@@ -2544,7 +2536,7 @@ class HouseRobberII {
     private int robLinear(int[] nums, int start, int end) {
         int prev2 = 0, prev1 = 0;
         
-        for (int i = start; i <= end; i++) {
+        for (int i = start; i &lt;= end; i++) {
             int current = Math.max(prev1, prev2 + nums[i]);
             prev2 = prev1;
             prev1 = current;
@@ -2577,8 +2569,8 @@ class HouseRobberII {
         return Math.max(rob, notRob);
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -2848,8 +2840,7 @@ At each position, we can:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Standard DP
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Standard DP
 class DecodeWays {
     public int numDecodings(String s) {
         if (s == null || s.length() == 0 || s.charAt(0) == '0') {
@@ -2861,7 +2852,7 @@ class DecodeWays {
         dp[0] = 1;
         dp[1] = 1;
         
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i &lt;= n; i++) {
             // Single digit
             if (s.charAt(i - 1) != '0') {
                 dp[i] += dp[i - 1];
@@ -2869,7 +2860,7 @@ class DecodeWays {
             
             // Two digits
             int twoDigit = Integer.parseInt(s.substring(i - 2, i));
-            if (twoDigit >= 10 && twoDigit <= 26) {
+            if (twoDigit &gt;= 10 &amp;&amp; twoDigit &lt;= 26) {
                 dp[i] += dp[i - 2];
             }
         }
@@ -2887,7 +2878,7 @@ class DecodeWays {
         
         int prev2 = 1, prev1 = 1;
         
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 1; i &lt; s.length(); i++) {
             int current = 0;
             
             // Single digit
@@ -2897,7 +2888,7 @@ class DecodeWays {
             
             // Two digits
             int twoDigit = Integer.parseInt(s.substring(i - 1, i + 1));
-            if (twoDigit >= 10 && twoDigit <= 26) {
+            if (twoDigit &gt;= 10 &amp;&amp; twoDigit &lt;= 26) {
                 current += prev2;
             }
             
@@ -2924,9 +2915,9 @@ class DecodeWays {
         
         int result = helper(s, index + 1, memo);
         
-        if (index + 1 < s.length()) {
+        if (index + 1 &lt; s.length()) {
             int twoDigit = Integer.parseInt(s.substring(index, index + 2));
-            if (twoDigit <= 26) {
+            if (twoDigit &lt;= 26) {
                 result += helper(s, index + 2, memo);
             }
         }
@@ -2935,8 +2926,8 @@ class DecodeWays {
         return result;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -3270,19 +3261,18 @@ To reach any cell (i,j), robot must come from either:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: 2D DP
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: 2D DP
 class UniquePaths {
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
         
         // Initialize first row and column
-        for (int i = 0; i < m; i++) dp[i][0] = 1;
-        for (int j = 0; j < n; j++) dp[0][j] = 1;
+        for (int i = 0; i &lt; m; i++) dp[i][0] = 1;
+        for (int j = 0; j &lt; n; j++) dp[0][j] = 1;
         
         // Fill the dp table
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
+        for (int i = 1; i &lt; m; i++) {
+            for (int j = 1; j &lt; n; j++) {
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }
         }
@@ -3297,8 +3287,8 @@ class UniquePaths {
         int[] dp = new int[n];
         Arrays.fill(dp, 1);
         
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
+        for (int i = 1; i &lt; m; i++) {
+            for (int j = 1; j &lt; n; j++) {
                 dp[j] += dp[j - 1];
             }
         }
@@ -3317,15 +3307,15 @@ class UniquePaths {
         int moves = m + n - 2;
         int down = m - 1;
         
-        for (int i = 1; i <= down; i++) {
+        for (int i = 1; i &lt;= down; i++) {
             result = result * (moves - down + i) / i;
         }
         
         return (int) result;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -3600,16 +3590,15 @@ We can reach the last index if we can reach any position from which the last ind
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: DP Solution
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: DP Solution
 class JumpGame {
     public boolean canJump(int[] nums) {
         boolean[] dp = new boolean[nums.length];
         dp[0] = true;
         
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && j + nums[j] >= i) {
+        for (int i = 1; i &lt; nums.length; i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (dp[j] &amp;&amp; j + nums[j] &gt;= i) {
                     dp[i] = true;
                     break;
                 }
@@ -3625,10 +3614,10 @@ class JumpGame {
     public boolean canJump(int[] nums) {
         int maxReach = 0;
         
-        for (int i = 0; i < nums.length; i++) {
-            if (i > maxReach) return false;
+        for (int i = 0; i &lt; nums.length; i++) {
+            if (i &gt; maxReach) return false;
             maxReach = Math.max(maxReach, i + nums[i]);
-            if (maxReach >= nums.length - 1) return true;
+            if (maxReach &gt;= nums.length - 1) return true;
         }
         
         return true;
@@ -3640,8 +3629,8 @@ class JumpGame {
     public boolean canJump(int[] nums) {
         int lastGoodIndex = nums.length - 1;
         
-        for (int i = nums.length - 2; i >= 0; i--) {
-            if (i + nums[i] >= lastGoodIndex) {
+        for (int i = nums.length - 2; i &gt;= 0; i--) {
+            if (i + nums[i] &gt;= lastGoodIndex) {
                 lastGoodIndex = i;
             }
         }
@@ -3658,12 +3647,12 @@ class JumpGame {
     }
     
     private boolean helper(int[] nums, int pos, Boolean[] memo) {
-        if (pos >= nums.length - 1) return true;
+        if (pos &gt;= nums.length - 1) return true;
         
         if (memo[pos] != null) return memo[pos];
         
         int maxJump = Math.min(pos + nums[pos], nums.length - 1);
-        for (int nextPos = pos + 1; nextPos <= maxJump; nextPos++) {
+        for (int nextPos = pos + 1; nextPos &lt;= maxJump; nextPos++) {
             if (helper(nums, nextPos, memo)) {
                 memo[pos] = true;
                 return true;
@@ -3674,8 +3663,8 @@ class JumpGame {
         return false;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -3880,47 +3869,43 @@ dp[i] = OR over all j where dp[j] = true AND j + nums[j] >= i
 
 ### 1. Rolling Array
 When current state only depends on previous few states:
-```java
-// Instead of: dp[i] = dp[i-1] + dp[i-2]
+<pre class="language-java" tabindex="0"><code class="language-java">// Instead of: dp[i] = dp[i-1] + dp[i-2]
 int prev2 = dp[0], prev1 = dp[1];
-for (int i = 2; i <= n; i++) {
+for (int i = 2; i &lt;= n; i++) {
     int current = prev1 + prev2;
     prev2 = prev1;
     prev1 = current;
 }
-```
+</code></pre>
 
 ### 2. 1D Array for 2D Problems
 When 2D DP only needs previous row:
-```java
-// Instead of: dp[i][j] = dp[i-1][j] + dp[i][j-1]
+<pre class="language-java" tabindex="0"><code class="language-java">// Instead of: dp[i][j] = dp[i-1][j] + dp[i][j-1]
 int[] dp = new int[n];
-for (int i = 0; i < m; i++) {
-    for (int j = 1; j < n; j++) {
+for (int i = 0; i &lt; m; i++) {
+    for (int j = 1; j &lt; n; j++) {
         dp[j] += dp[j-1];
     }
 }
-```
+</code></pre>
 
 ### 3. In-Place Modification
 When input array can be modified:
-```java
-// Use original array as DP table if constraints allow
-for (int i = 1; i < nums.length; i++) {
+<pre class="language-java" tabindex="0"><code class="language-java">// Use original array as DP table if constraints allow
+for (int i = 1; i &lt; nums.length; i++) {
     nums[i] = Math.max(nums[i-1], nums[i-2] + nums[i]);
 }
-```
+</code></pre>
 
 ### 4. Variable Swapping
 For problems requiring only 2-3 previous states:
-```java
-int a = 0, b = 1;
-for (int i = 2; i <= n; i++) {
+<pre class="language-java" tabindex="0"><code class="language-java">int a = 0, b = 1;
+for (int i = 2; i &lt;= n; i++) {
     int temp = a + b;
     a = b;
     b = temp;
 }
-```
+</code></pre>
 
 ---
 
