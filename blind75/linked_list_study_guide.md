@@ -22,8 +22,7 @@ render_with_liquid: false
   </div>
   
   <div class="tab-content java active">
-```java
-/**
+<pre class="language-java" tabindex="0"><code class="language-java">/**
  * Definition for singly-linked list node
  */
 public class ListNode {
@@ -41,8 +40,7 @@ public class ListNode {
         this.val = val;
         this.next = next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -245,8 +243,7 @@ After:  prev <- curr    next -> ...
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Iterative reversal using three pointers
      * Time: O(n), Space: O(1)
@@ -270,8 +267,7 @@ public class Solution {
         // When curr is null, prev points to the new head
         return prev;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -340,8 +336,7 @@ var reverseList = function(head) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Recursive reversal - builds solution on return path
      * Time: O(n), Space: O(n) due to call stack
@@ -362,8 +357,7 @@ public class Solution {
         
         return newHead;         // Return the head of reversed list
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -426,8 +420,7 @@ var reverseList = function(head) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Stack-based reversal - demonstrates LIFO nature
      * Time: O(n), Space: O(n)
@@ -435,7 +428,7 @@ public class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null) return null;
         
-        Stack<ListNode> stack = new Stack<>();
+        Stack&lt;ListNode&gt; stack = new Stack&lt;&gt;();
         ListNode curr = head;
         
         // Push all nodes onto stack
@@ -456,8 +449,7 @@ public class Solution {
         
         return newHead;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -704,10 +696,9 @@ Cycle: slow and fast will meet inside the cycle
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
-     * Floyd's Tortoise and Hare Algorithm
+     * Floyd&#x27;s Tortoise and Hare Algorithm
      * Time: O(n), Space: O(1)
      */
     public boolean hasCycle(ListNode head) {
@@ -731,11 +722,10 @@ public class Solution {
             fast = fast.next.next;      // Move 2 steps
         }
         
-        // If we exit the loop, pointers met -> cycle exists
+        // If we exit the loop, pointers met -&gt; cycle exists
         return true;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -812,18 +802,17 @@ var hasCycle = function(head) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Track visited nodes using HashSet
      * Time: O(n), Space: O(n)
      */
     public boolean hasCycle(ListNode head) {
-        Set<ListNode> visited = new HashSet<>();
+        Set&lt;ListNode&gt; visited = new HashSet&lt;&gt;();
         ListNode curr = head;
         
         while (curr != null) {
-            // If we've seen this node before, cycle exists
+            // If we&#x27;ve seen this node before, cycle exists
             if (visited.contains(curr)) {
                 return true;
             }
@@ -836,8 +825,7 @@ public class Solution {
         // Reached end without revisiting any node
         return false;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -903,8 +891,7 @@ var hasCycle = function(head) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Modify nodes to mark as visited
      * Time: O(n), Space: O(1) - but modifies original list
@@ -912,7 +899,7 @@ public class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode curr = head;
         
-        while (curr != null && curr.next != null) {
+        while (curr != null &amp;&amp; curr.next != null) {
             // Use a special marker to indicate visited
             if (curr.next == curr) {
                 return true;  // Found our marker
@@ -925,8 +912,7 @@ public class Solution {
         
         return false;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -988,18 +974,17 @@ var hasCycle = function(head) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Find the node where cycle begins
-     * Uses Floyd's algorithm + mathematical property
+     * Uses Floyd&#x27;s algorithm + mathematical property
      */
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null) return null;
         
         // Phase 1: Detect if cycle exists
         ListNode slow = head, fast = head;
-        while (fast != null && fast.next != null) {
+        while (fast != null &amp;&amp; fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
             if (slow == fast) break;  // Cycle detected
@@ -1019,8 +1004,7 @@ public class Solution {
         
         return slow;  // Cycle start node
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1285,8 +1269,7 @@ Compare a vs x, take smaller, advance pointer
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Iterative merge using dummy node
      * Time: O(m + n), Space: O(1)
@@ -1297,8 +1280,8 @@ public class Solution {
         ListNode tail = dummy;  // Points to last node in result
         
         // Merge while both lists have nodes
-        while (list1 != null && list2 != null) {
-            if (list1.val <= list2.val) {
+        while (list1 != null &amp;&amp; list2 != null) {
+            if (list1.val &lt;= list2.val) {
                 tail.next = list1;  // Add list1 node to result
                 list1 = list1.next; // Advance list1 pointer
             } else {
@@ -1314,8 +1297,7 @@ public class Solution {
         // Return actual head (skip dummy)
         return dummy.next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1391,8 +1373,7 @@ var mergeTwoLists = function(list1, list2) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Recursive merge - clean and intuitive
      * Time: O(m + n), Space: O(m + n) due to call stack
@@ -1403,7 +1384,7 @@ public class Solution {
         if (list2 == null) return list1;
         
         // Recursive case: choose smaller head and recurse
-        if (list1.val <= list2.val) {
+        if (list1.val &lt;= list2.val) {
             // list1 head is smaller
             list1.next = mergeTwoLists(list1.next, list2);
             return list1;
@@ -1413,8 +1394,7 @@ public class Solution {
             return list2;
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1479,8 +1459,7 @@ var mergeTwoLists = function(list1, list2) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * In-place merge handling head explicitly
      * Time: O(m + n), Space: O(1)
@@ -1492,7 +1471,7 @@ public class Solution {
         
         // Determine the head of result list
         ListNode head, curr;
-        if (list1.val <= list2.val) {
+        if (list1.val &lt;= list2.val) {
             head = curr = list1;
             list1 = list1.next;
         } else {
@@ -1501,8 +1480,8 @@ public class Solution {
         }
         
         // Merge remaining nodes
-        while (list1 != null && list2 != null) {
-            if (list1.val <= list2.val) {
+        while (list1 != null &amp;&amp; list2 != null) {
+            if (list1.val &lt;= list2.val) {
                 curr.next = list1;
                 list1 = list1.next;
             } else {
@@ -1517,8 +1496,7 @@ public class Solution {
         
         return head;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1795,8 +1773,7 @@ Level 2: [1,1,2,3,4,4,5,6]
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Divide and conquer approach
      * Time: O(N log k), Space: O(log k)
@@ -1832,8 +1809,8 @@ public class Solution {
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
         
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
+        while (l1 != null &amp;&amp; l2 != null) {
+            if (l1.val &lt;= l2.val) {
                 tail.next = l1;
                 l1 = l1.next;
             } else {
@@ -1846,8 +1823,7 @@ public class Solution {
         tail.next = (l1 != null) ? l1 : l2;
         return dummy.next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1968,8 +1944,7 @@ function mergeTwoLists(l1, l2) {
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Priority queue approach using min-heap
      * Time: O(N log k), Space: O(k)
@@ -1978,7 +1953,7 @@ public class Solution {
         if (lists == null || lists.length == 0) return null;
         
         // Create min-heap based on node values
-        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+        PriorityQueue&lt;ListNode&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a.val - b.val);
         
         // Add first node of each non-empty list to heap
         for (ListNode list : lists) {
@@ -2005,8 +1980,7 @@ public class Solution {
         
         return dummy.next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2428,8 +2402,7 @@ Now slow.next is the target node to remove
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Two pointers with n+1 gap for one-pass removal
      * Time: O(L), Space: O(1) where L is list length
@@ -2444,7 +2417,7 @@ public class Solution {
         
         // Create gap of n+1 between slow and fast
         // This ensures slow stops at node before target
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i &lt;= n; i++) {
             fast = fast.next;
         }
         
@@ -2459,8 +2432,7 @@ public class Solution {
         
         return dummy.next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2845,8 +2817,7 @@ result: 1->6->2->5->3->4
   </div>
   
   <div class="tab-content java active">
-```java
-public class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Solution {
     /**
      * Three-phase solution: split, reverse, merge
      * Time: O(n), Space: O(1)
@@ -2875,7 +2846,7 @@ public class Solution {
         ListNode fast = head;
         
         // Move fast 2 steps, slow 1 step
-        while (fast.next != null && fast.next.next != null) {
+        while (fast.next != null &amp;&amp; fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -2917,8 +2888,7 @@ public class Solution {
             second = secondNext;
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">

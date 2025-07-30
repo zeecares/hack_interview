@@ -61,8 +61,7 @@ Trees are hierarchical data structures consisting of nodes connected by edges. I
   </div>
   
   <div class="tab-content java active">
-```java
-class TreeNode {
+<pre class="language-java" tabindex="0"><code class="language-java">class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -84,8 +83,8 @@ class TreeNode {
         this.right = right;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -127,8 +126,7 @@ function TreeNode(val, left, right) {
   </div>
   
   <div class="tab-content java active">
-```java
-class TrieNode {
+<pre class="language-java" tabindex="0"><code class="language-java">class TrieNode {
     TrieNode[] children;
     boolean isEnd;
     
@@ -137,8 +135,8 @@ class TrieNode {
         isEnd = false;
     }
 }
-```
-  </div>
+</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -189,8 +187,7 @@ class TrieNode {
   </div>
   
   <div class="tab-content java active">
-```java
-void dfs(TreeNode node) {
+<pre class="language-java" tabindex="0"><code class="language-java">void dfs(TreeNode node) {
     if (node == null) return;
     
     // Pre-order: process node before children
@@ -198,7 +195,7 @@ void dfs(TreeNode node) {
     dfs(node.left);
     dfs(node.right);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -238,14 +235,13 @@ function dfs(node) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.Queue;
 
 void bfs(TreeNode root) {
     if (root == null) return;
     
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(root);
     
     while (!queue.isEmpty()) {
@@ -256,7 +252,7 @@ void bfs(TreeNode root) {
         if (node.right != null) queue.offer(node.right);
     }
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">

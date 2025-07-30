@@ -74,28 +74,26 @@ How negative numbers are represented:
   </div>
   
   <div class="tab-content java active">
-```java
-// Check if number is odd
-(n & 1) == 1
+<pre class="language-java" tabindex="0"><code class="language-java">// Check if number is odd
+(n &amp; 1) == 1
 
 // Check if number is power of 2
-(n & (n - 1)) == 0
+(n &amp; (n - 1)) == 0
 
 // Get rightmost set bit
-n & (-n)
+n &amp; (-n)
 
 // Clear rightmost set bit
-n & (n - 1)
+n &amp; (n - 1)
 
 // Set bit at position i
-n | (1 << i)
+n | (1 &lt;&lt; i)
 
 // Clear bit at position i
-n & ~(1 << i)
+n &amp; ~(1 &lt;&lt; i)
 
 // Toggle bit at position i
-n ^ (1 << i)
-```
+n ^ (1 &lt;&lt; i)</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -183,12 +181,10 @@ n ^ (1 << i)
   </div>
   
   <div class="tab-content java active">
-```java
-// Identity: a ^ 0 = a
+<pre class="language-java" tabindex="0"><code class="language-java">// Identity: a ^ 0 = a
 // Self-inverse: a ^ a = 0
 // Commutative: a ^ b = b ^ a
-// Associative: (a ^ b) ^ c = a ^ (b ^ c)
-```
+// Associative: (a ^ b) ^ c = a ^ (b ^ c)</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -220,13 +216,11 @@ n ^ (1 << i)
   </div>
   
   <div class="tab-content java active">
-```java
-// Left shift: multiply by 2^n
-5 << 2 = 20  // 5 * 2^2 = 5 * 4 = 20
+<pre class="language-java" tabindex="0"><code class="language-java">// Left shift: multiply by 2^n
+5 &lt;&lt; 2 = 20  // 5 * 2^2 = 5 * 4 = 20
 
 // Right shift: divide by 2^n
-20 >> 2 = 5  // 20 / 2^2 = 20 / 4 = 5
-```
+20 &gt;&gt; 2 = 5  // 20 / 2^2 = 20 / 4 = 5</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -393,19 +387,18 @@ Binary addition works as:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Iterative Bit Manipulation
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Iterative Bit Manipulation
 class SumTwoIntegers {
     public int getSum(int a, int b) {
         while (b != 0) {
             // Calculate carry
-            int carry = a & b;
+            int carry = a &amp; b;
             
             // Sum without carry
             a = a ^ b;
             
             // Shift carry to left by 1
-            b = carry << 1;
+            b = carry &lt;&lt; 1;
         }
         
         return a;
@@ -421,7 +414,7 @@ class SumTwoIntegers {
         int sum = a ^ b;
         
         // Carry shifted left
-        int carry = (a & b) << 1;
+        int carry = (a &amp; b) &lt;&lt; 1;
         
         return getSum(sum, carry);
     }
@@ -434,7 +427,7 @@ class SumTwoIntegers {
         
         do {
             sum = a ^ b;      // XOR for sum without carry
-            carry = (a & b) << 1;  // AND and shift for carry
+            carry = (a &amp; b) &lt;&lt; 1;  // AND and shift for carry
             
             a = sum;
             b = carry;
@@ -442,8 +435,7 @@ class SumTwoIntegers {
         
         return sum;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -708,28 +700,27 @@ Count set bits by either:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Simple Bit Checking
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Simple Bit Checking
 class NumberOf1Bits {
     public int hammingWeight(int n) {
         int count = 0;
         
         while (n != 0) {
-            count += n & 1;  // Check if rightmost bit is 1
-            n >>>= 1;        // Unsigned right shift
+            count += n &amp; 1;  // Check if rightmost bit is 1
+            n &gt;&gt;&gt;= 1;        // Unsigned right shift
         }
         
         return count;
     }
 }
 
-// Approach 2: Brian Kernighan's Algorithm (Optimal)
+// Approach 2: Brian Kernighan&#x27;s Algorithm (Optimal)
 class NumberOf1Bits {
     public int hammingWeight(int n) {
         int count = 0;
         
         while (n != 0) {
-            n &= (n - 1);  // Clear the rightmost set bit
+            n &amp;= (n - 1);  // Clear the rightmost set bit
             count++;
         }
         
@@ -747,7 +738,7 @@ class NumberOf1Bits {
 // Approach 4: Using String Conversion
 class NumberOf1Bits {
     public int hammingWeight(int n) {
-        return Integer.toBinaryString(n).replaceAll("0", "").length();
+        return Integer.toBinaryString(n).replaceAll(&quot;0&quot;, &quot;&quot;).length();
     }
 }
 
@@ -756,19 +747,18 @@ class NumberOf1Bits {
     private static final int[] BIT_COUNT = new int[256];
     
     static {
-        for (int i = 0; i < 256; i++) {
-            BIT_COUNT[i] = (i & 1) + BIT_COUNT[i >>> 1];
+        for (int i = 0; i &lt; 256; i++) {
+            BIT_COUNT[i] = (i &amp; 1) + BIT_COUNT[i &gt;&gt;&gt; 1];
         }
     }
     
     public int hammingWeight(int n) {
-        return BIT_COUNT[n & 0xFF] +
-               BIT_COUNT[(n >>> 8) & 0xFF] +
-               BIT_COUNT[(n >>> 16) & 0xFF] +
-               BIT_COUNT[(n >>> 24) & 0xFF];
+        return BIT_COUNT[n &amp; 0xFF] +
+               BIT_COUNT[(n &gt;&gt;&gt; 8) &amp; 0xFF] +
+               BIT_COUNT[(n &gt;&gt;&gt; 16) &amp; 0xFF] +
+               BIT_COUNT[(n &gt;&gt;&gt; 24) &amp; 0xFF];
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1034,15 +1024,14 @@ For each number i, count of 1-bits relates to previously computed values:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: DP with Brian Kernighan's Algorithm
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: DP with Brian Kernighan&#x27;s Algorithm
 class CountingBits {
     public int[] countBits(int n) {
         int[] ans = new int[n + 1];
         
-        for (int i = 1; i <= n; i++) {
-            // ans[i & (i-1)] is count for i with rightmost bit cleared
-            ans[i] = ans[i & (i - 1)] + 1;
+        for (int i = 1; i &lt;= n; i++) {
+            // ans[i &amp; (i-1)] is count for i with rightmost bit cleared
+            ans[i] = ans[i &amp; (i - 1)] + 1;
         }
         
         return ans;
@@ -1054,9 +1043,9 @@ class CountingBits {
     public int[] countBits(int n) {
         int[] ans = new int[n + 1];
         
-        for (int i = 1; i <= n; i++) {
-            // ans[i >> 1] is count for i/2, plus 1 if i is odd
-            ans[i] = ans[i >> 1] + (i & 1);
+        for (int i = 1; i &lt;= n; i++) {
+            // ans[i &gt;&gt; 1] is count for i/2, plus 1 if i is odd
+            ans[i] = ans[i &gt;&gt; 1] + (i &amp; 1);
         }
         
         return ans;
@@ -1068,7 +1057,7 @@ class CountingBits {
     public int[] countBits(int n) {
         int[] ans = new int[n + 1];
         
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i &lt;= n; i++) {
             // If i is even: same as i/2
             // If i is odd: i/2 + 1
             ans[i] = ans[i / 2] + (i % 2);
@@ -1084,7 +1073,7 @@ class CountingBits {
         int[] ans = new int[n + 1];
         int offset = 1;
         
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i &lt;= n; i++) {
             if (offset * 2 == i) {
                 offset = i;
             }
@@ -1100,14 +1089,13 @@ class CountingBits {
     public int[] countBits(int n) {
         int[] ans = new int[n + 1];
         
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i &lt;= n; i++) {
             ans[i] = Integer.bitCount(i);
         }
         
         return ans;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1399,15 +1387,14 @@ Several approaches work:
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.*;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.*;
 
 // Approach 1: XOR (Most Elegant)
 class MissingNumber {
     public int missingNumber(int[] nums) {
         int missing = nums.length;  // Start with n
         
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i &lt; nums.length; i++) {
             missing ^= i ^ nums[i];  // XOR index and value
         }
         
@@ -1421,7 +1408,7 @@ class MissingNumber {
         int result = 0;
         
         // XOR all indices 0 to n
-        for (int i = 1; i <= nums.length; i++) {
+        for (int i = 1; i &lt;= nums.length; i++) {
             result ^= i;
         }
         
@@ -1455,7 +1442,7 @@ class MissingNumber {
         Arrays.sort(nums);
         int left = 0, right = nums.length;
         
-        while (left < right) {
+        while (left &lt; right) {
             int mid = left + (right - left) / 2;
             
             if (nums[mid] == mid) {
@@ -1472,12 +1459,12 @@ class MissingNumber {
 // Approach 5: HashSet
 class MissingNumber {
     public int missingNumber(int[] nums) {
-        Set<Integer> numSet = new HashSet<>();
+        Set&lt;Integer&gt; numSet = new HashSet&lt;&gt;();
         for (int num : nums) {
             numSet.add(num);
         }
         
-        for (int i = 0; i <= nums.length; i++) {
+        for (int i = 0; i &lt;= nums.length; i++) {
             if (!numSet.contains(i)) {
                 return i;
             }
@@ -1485,8 +1472,7 @@ class MissingNumber {
         
         return -1; // Should never reach here
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1797,21 +1783,20 @@ To reverse bits:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Bit by Bit Reversal
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Bit by Bit Reversal
 class ReverseBits {
     public int reverseBits(int n) {
         int result = 0;
         
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i &lt; 32; i++) {
             // Shift result left to make room for next bit
-            result <<= 1;
+            result &lt;&lt;= 1;
             
             // Add the rightmost bit of n to result
-            result |= (n & 1);
+            result |= (n &amp; 1);
             
             // Shift n right to process next bit
-            n >>= 1;
+            n &gt;&gt;= 1;
         }
         
         return result;
@@ -1823,12 +1808,12 @@ class ReverseBits {
     public int reverseBits(int n) {
         int result = 0;
         
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i &lt; 32; i++) {
             // Extract bit at position i from right
-            int bit = (n >> i) & 1;
+            int bit = (n &gt;&gt; i) &amp; 1;
             
             // Place bit at position (31-i) from right
-            result |= (bit << (31 - i));
+            result |= (bit &lt;&lt; (31 - i));
         }
         
         return result;
@@ -1839,19 +1824,19 @@ class ReverseBits {
 class ReverseBits {
     public int reverseBits(int n) {
         // Swap every two consecutive bits
-        n = ((n & 0xAAAAAAAA) >>> 1) | ((n & 0x55555555) << 1);
+        n = ((n &amp; 0xAAAAAAAA) &gt;&gt;&gt; 1) | ((n &amp; 0x55555555) &lt;&lt; 1);
         
         // Swap every two consecutive pairs
-        n = ((n & 0xCCCCCCCC) >>> 2) | ((n & 0x33333333) << 2);
+        n = ((n &amp; 0xCCCCCCCC) &gt;&gt;&gt; 2) | ((n &amp; 0x33333333) &lt;&lt; 2);
         
         // Swap every two consecutive quartets
-        n = ((n & 0xF0F0F0F0) >>> 4) | ((n & 0x0F0F0F0F) << 4);
+        n = ((n &amp; 0xF0F0F0F0) &gt;&gt;&gt; 4) | ((n &amp; 0x0F0F0F0F) &lt;&lt; 4);
         
         // Swap every two consecutive bytes
-        n = ((n & 0xFF00FF00) >>> 8) | ((n & 0x00FF00FF) << 8);
+        n = ((n &amp; 0xFF00FF00) &gt;&gt;&gt; 8) | ((n &amp; 0x00FF00FF) &lt;&lt; 8);
         
         // Swap the two halves
-        n = (n >>> 16) | (n << 16);
+        n = (n &gt;&gt;&gt; 16) | (n &lt;&lt; 16);
         
         return n;
     }
@@ -1862,9 +1847,9 @@ class ReverseBits {
     public int reverseBits(int n) {
         StringBuilder binary = new StringBuilder();
         
-        for (int i = 0; i < 32; i++) {
-            binary.append(n & 1);
-            n >>= 1;
+        for (int i = 0; i &lt; 32; i++) {
+            binary.append(n &amp; 1);
+            n &gt;&gt;= 1;
         }
         
         return (int) Long.parseLong(binary.toString(), 2);
@@ -1876,25 +1861,24 @@ class ReverseBits {
     private static final int[] REVERSED = new int[256];
     
     static {
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i &lt; 256; i++) {
             int reversed = 0;
             int temp = i;
-            for (int j = 0; j < 8; j++) {
-                reversed = (reversed << 1) | (temp & 1);
-                temp >>= 1;
+            for (int j = 0; j &lt; 8; j++) {
+                reversed = (reversed &lt;&lt; 1) | (temp &amp; 1);
+                temp &gt;&gt;= 1;
             }
             REVERSED[i] = reversed;
         }
     }
     
     public int reverseBits(int n) {
-        return (REVERSED[n & 0xFF] << 24) |
-               (REVERSED[(n >>> 8) & 0xFF] << 16) |
-               (REVERSED[(n >>> 16) & 0xFF] << 8) |
-               (REVERSED[(n >>> 24) & 0xFF]);
+        return (REVERSED[n &amp; 0xFF] &lt;&lt; 24) |
+               (REVERSED[(n &gt;&gt;&gt; 8) &amp; 0xFF] &lt;&lt; 16) |
+               (REVERSED[(n &gt;&gt;&gt; 16) &amp; 0xFF] &lt;&lt; 8) |
+               (REVERSED[(n &gt;&gt;&gt; 24) &amp; 0xFF]);
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2105,13 +2089,11 @@ Each step processes larger groups, achieving O(log n) levels
   </div>
   
   <div class="tab-content java active">
-```java
-0xAAAAAAAA = 10101010... (even positions)
+<pre class="language-java" tabindex="0"><code class="language-java">0xAAAAAAAA = 10101010... (even positions)
 0x55555555 = 01010101... (odd positions)
 0xCCCCCCCC = 11001100... (pairs starting at multiples of 4)
 0x33333333 = 00110011... (other pairs)
-// And so on...
-```
+// And so on...</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2149,8 +2131,7 @@ Each step processes larger groups, achieving O(log n) levels
   </div>
   
   <div class="tab-content java active">
-```java
-// Find single number (others appear twice)
+<pre class="language-java" tabindex="0"><code class="language-java">// Find single number (others appear twice)
 int findSingle(int[] nums) {
     int result = 0;
     for (int num : nums) {
@@ -2164,8 +2145,7 @@ void swap(int a, int b) {
     a ^= b;
     b ^= a;  // b = b ^ (a ^ b) = a
     a ^= b;  // a = (a ^ b) ^ a = b
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2218,18 +2198,16 @@ function swap(a, b) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Check if number is power of 2
+<pre class="language-java" tabindex="0"><code class="language-java">// Check if number is power of 2
 boolean isPowerOfTwo(int n) {
-    return n > 0 && (n & (n - 1)) == 0;
+    return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0;
 }
 
 // Count trailing zeros (position of rightmost set bit)
 int trailingZeros(int n) {
     return Integer.numberOfTrailingZeros(n);
-    // Or: Integer.numberOfTrailingZeros(n & -n)
-}
-```
+    // Or: Integer.numberOfTrailingZeros(n &amp; -n)
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2276,27 +2254,25 @@ function trailingZeros(n) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Set bit at position i
+<pre class="language-java" tabindex="0"><code class="language-java">// Set bit at position i
 int setBit(int n, int i) {
-    return n | (1 << i);
+    return n | (1 &lt;&lt; i);
 }
 
 // Clear bit at position i
 int clearBit(int n, int i) {
-    return n & ~(1 << i);
+    return n &amp; ~(1 &lt;&lt; i);
 }
 
 // Toggle bit at position i
 int toggleBit(int n, int i) {
-    return n ^ (1 << i);
+    return n ^ (1 &lt;&lt; i);
 }
 
 // Check if bit at position i is set
 boolean isSet(int n, int i) {
-    return (n & (1 << i)) != 0;
-}
-```
+    return (n &amp; (1 &lt;&lt; i)) != 0;
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2354,11 +2330,10 @@ function isSet(n, i) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Count set bits in range [0, n]
+<pre class="language-java" tabindex="0"><code class="language-java">// Count set bits in range [0, n]
 int countBitsInRange(int n) {
     int count = 0;
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i &lt;= n; i++) {
         count += Integer.bitCount(i);
     }
     return count;
@@ -2371,9 +2346,8 @@ int rightmostSetBit(int n) {
 
 // Isolate rightmost set bit
 int isolateRightmostSetBit(int n) {
-    return n & (-n);
-}
-```
+    return n &amp; (-n);
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2472,25 +2446,23 @@ function isolateRightmostSetBit(n) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Clear rightmost set bit
-n & (n - 1)
+<pre class="language-java" tabindex="0"><code class="language-java">// Clear rightmost set bit
+n &amp; (n - 1)
 
 // Isolate rightmost set bit
-n & (-n)
+n &amp; (-n)
 
 // Check if power of 2
-(n & (n - 1)) == 0 && n > 0
+(n &amp; (n - 1)) == 0 &amp;&amp; n &gt; 0
 
 // Toggle case of alphabet character
-c ^= 32  // or c ^= ' '
+c ^= 32  // or c ^= &#x27; &#x27;
 
 // Check if two numbers have opposite signs
-(a ^ b) < 0
+(a ^ b) &lt; 0
 
 // Compute max without branching
-max(a, b) = a ^ ((a ^ b) & -(a < b))
-```
+max(a, b) = a ^ ((a ^ b) &amp; -(a &lt; b))</code></pre>
   </div>
   
   <div class="tab-content python">

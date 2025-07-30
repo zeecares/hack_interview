@@ -65,12 +65,10 @@ Min Heap Example:       Max Heap Example:
   </div>
   
   <div class="tab-content java active">
-```java
-// For node at index i:
+<pre class="language-java" tabindex="0"><code class="language-java">// For node at index i:
 int parent = (i - 1) / 2;
 int leftChild = 2 * i + 1;
-int rightChild = 2 * i + 2;
-```
+int rightChild = 2 * i + 2;</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -107,18 +105,16 @@ const rightChild = 2 * i + 2;
   </div>
   
   <div class="tab-content java active">
-```java
-// Min heap (default)
-PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+<pre class="language-java" tabindex="0"><code class="language-java">// Min heap (default)
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
 
 // Max heap
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
 // OR
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; b - a);
 
 // Custom comparator
-PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-```
+PriorityQueue&lt;int[]&gt; heap = new PriorityQueue&lt;&gt;((a, b) -&gt; a[0] - b[0]);</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -200,16 +196,14 @@ class MaxHeap extends MinHeap {
   </div>
   
   <div class="tab-content java active">
-```java
-private void bubbleUp(int index) {
-    while (index > 0) {
+<pre class="language-java" tabindex="0"><code class="language-java">private void bubbleUp(int index) {
+    while (index &gt; 0) {
         int parent = (index - 1) / 2;
-        if (heap[index] >= heap[parent]) break;
+        if (heap[index] &gt;= heap[parent]) break;
         swap(index, parent);
         index = parent;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -247,23 +241,21 @@ _bubbleUp(index) {
   </div>
   
   <div class="tab-content java active">
-```java
-private void bubbleDown(int index) {
-    while (2 * index + 1 < size) {
+<pre class="language-java" tabindex="0"><code class="language-java">private void bubbleDown(int index) {
+    while (2 * index + 1 &lt; size) {
         int leftChild = 2 * index + 1;
         int rightChild = 2 * index + 2;
         int smallest = leftChild;
         
-        if (rightChild < size && heap[rightChild] < heap[leftChild]) {
+        if (rightChild &lt; size &amp;&amp; heap[rightChild] &lt; heap[leftChild]) {
             smallest = rightChild;
         }
         
-        if (heap[index] <= heap[smallest]) break;
+        if (heap[index] &lt;= heap[smallest]) break;
         swap(index, smallest);
         index = smallest;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -454,14 +446,13 @@ At each step, we need to find the minimum among K current elements (one from eac
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Min Heap with ListNode Objects
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Min Heap with ListNode Objects
 class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
         
         // Min heap ordered by node values
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+        PriorityQueue&lt;ListNode&gt; minHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; a.val - b.val);
         
         // Add first node from each non-empty list
         for (ListNode list : lists) {
@@ -513,8 +504,8 @@ class MergeKSortedLists {
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
         
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
+        while (l1 != null &amp;&amp; l2 != null) {
+            if (l1.val &lt;= l2.val) {
                 current.next = l1;
                 l1 = l1.next;
             } else {
@@ -527,8 +518,7 @@ class MergeKSortedLists {
         current.next = (l1 != null) ? l1 : l2;
         return dummy.next;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -904,31 +894,30 @@ We need to find elements with highest frequencies. A max-heap of frequencies wou
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Min Heap of Size K (Space Efficient)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Min Heap of Size K (Space Efficient)
 class TopKFrequentElements {
     public int[] topKFrequent(int[] nums, int k) {
         // Count frequencies
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        Map&lt;Integer, Integer&gt; frequencyMap = new HashMap&lt;&gt;();
         for (int num : nums) {
             frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
         
         // Min heap to keep top k frequent elements
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        PriorityQueue&lt;int[]&gt; minHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);
         
-        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+        for (Map.Entry&lt;Integer, Integer&gt; entry : frequencyMap.entrySet()) {
             minHeap.offer(new int[]{entry.getKey(), entry.getValue()});
             
             // Keep only k elements in heap
-            if (minHeap.size() > k) {
+            if (minHeap.size() &gt; k) {
                 minHeap.poll();
             }
         }
         
         // Extract results
         int[] result = new int[k];
-        for (int i = k - 1; i >= 0; i--) {
+        for (int i = k - 1; i &gt;= 0; i--) {
             result[i] = minHeap.poll()[0];
         }
         
@@ -939,36 +928,35 @@ class TopKFrequentElements {
 // Approach 2: Bucket Sort (Optimal O(n) Time)
 class TopKFrequentElements {
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        Map&lt;Integer, Integer&gt; frequencyMap = new HashMap&lt;&gt;();
         for (int num : nums) {
             frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
         
         // Create buckets for each possible frequency
-        List<Integer>[] buckets = new List[nums.length + 1];
-        for (int i = 0; i <= nums.length; i++) {
-            buckets[i] = new ArrayList<>();
+        List&lt;Integer&gt;[] buckets = new List[nums.length + 1];
+        for (int i = 0; i &lt;= nums.length; i++) {
+            buckets[i] = new ArrayList&lt;&gt;();
         }
         
         // Place numbers in buckets based on frequency
-        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+        for (Map.Entry&lt;Integer, Integer&gt; entry : frequencyMap.entrySet()) {
             buckets[entry.getValue()].add(entry.getKey());
         }
         
         // Collect top k elements from highest frequency buckets
-        List<Integer> result = new ArrayList<>();
-        for (int i = buckets.length - 1; i >= 0 && result.size() < k; i--) {
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        for (int i = buckets.length - 1; i &gt;= 0 &amp;&amp; result.size() &lt; k; i--) {
             for (int num : buckets[i]) {
-                if (result.size() < k) {
+                if (result.size() &lt; k) {
                     result.add(num);
                 }
             }
         }
         
-        return result.stream().mapToInt(i -> i).toArray();
+        return result.stream().mapToInt(i -&gt; i).toArray();
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1317,15 +1305,14 @@ To find median efficiently, we need quick access to middle element(s). Using two
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Two Heaps (Optimal)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Two Heaps (Optimal)
 class MedianFinder {
-    private PriorityQueue<Integer> maxHeap; // Left half (smaller elements)
-    private PriorityQueue<Integer> minHeap; // Right half (larger elements)
+    private PriorityQueue&lt;Integer&gt; maxHeap; // Left half (smaller elements)
+    private PriorityQueue&lt;Integer&gt; minHeap; // Right half (larger elements)
     
     public MedianFinder() {
-        maxHeap = new PriorityQueue<>(Collections.reverseOrder()); // Max heap
-        minHeap = new PriorityQueue<>(); // Min heap (default)
+        maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder()); // Max heap
+        minHeap = new PriorityQueue&lt;&gt;(); // Min heap (default)
     }
     
     public void addNum(int num) {
@@ -1336,13 +1323,13 @@ class MedianFinder {
         minHeap.offer(maxHeap.poll());
         
         // Balance heaps if min heap becomes larger
-        if (minHeap.size() > maxHeap.size()) {
+        if (minHeap.size() &gt; maxHeap.size()) {
             maxHeap.offer(minHeap.poll());
         }
     }
     
     public double findMedian() {
-        if (maxHeap.size() > minHeap.size()) {
+        if (maxHeap.size() &gt; minHeap.size()) {
             return maxHeap.peek();
         } else {
             return (maxHeap.peek() + minHeap.peek()) / 2.0;
@@ -1352,25 +1339,25 @@ class MedianFinder {
 
 // Approach 2: Alternative Balancing Strategy
 class MedianFinder {
-    private PriorityQueue<Integer> maxHeap;
-    private PriorityQueue<Integer> minHeap;
+    private PriorityQueue&lt;Integer&gt; maxHeap;
+    private PriorityQueue&lt;Integer&gt; minHeap;
     
     public MedianFinder() {
-        maxHeap = new PriorityQueue<>((a, b) -> b - a); // Max heap
-        minHeap = new PriorityQueue<>(); // Min heap
+        maxHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; b - a); // Max heap
+        minHeap = new PriorityQueue&lt;&gt;(); // Min heap
     }
     
     public void addNum(int num) {
-        if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+        if (maxHeap.isEmpty() || num &lt;= maxHeap.peek()) {
             maxHeap.offer(num);
         } else {
             minHeap.offer(num);
         }
         
         // Rebalance heaps
-        if (maxHeap.size() > minHeap.size() + 1) {
+        if (maxHeap.size() &gt; minHeap.size() + 1) {
             minHeap.offer(maxHeap.poll());
-        } else if (minHeap.size() > maxHeap.size() + 1) {
+        } else if (minHeap.size() &gt; maxHeap.size() + 1) {
             maxHeap.offer(minHeap.poll());
         }
     }
@@ -1378,14 +1365,13 @@ class MedianFinder {
     public double findMedian() {
         if (maxHeap.size() == minHeap.size()) {
             return (maxHeap.peek() + minHeap.peek()) / 2.0;
-        } else if (maxHeap.size() > minHeap.size()) {
+        } else if (maxHeap.size() &gt; minHeap.size()) {
             return maxHeap.peek();
         } else {
             return minHeap.peek();
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1721,18 +1707,16 @@ Median: 3
   </div>
   
   <div class="tab-content java active">
-```java
-// Template for Top K problems
-PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+<pre class="language-java" tabindex="0"><code class="language-java">// Template for Top K problems
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
 
 for (int element : elements) {
     minHeap.offer(element);
-    if (minHeap.size() > k) {
+    if (minHeap.size() &gt; k) {
         minHeap.poll(); // Remove smallest
     }
 }
-// minHeap now contains top K largest elements
-```
+// minHeap now contains top K largest elements</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1774,13 +1758,12 @@ for (const element of elements) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Template for merging K sorted arrays/lists
-PriorityQueue<Element> minHeap = new PriorityQueue<>((a, b) -> a.value - b.value);
+<pre class="language-java" tabindex="0"><code class="language-java">// Template for merging K sorted arrays/lists
+PriorityQueue&lt;Element&gt; minHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; a.value - b.value);
 
 // Initialize with first element from each array
-for (int i = 0; i < k; i++) {
-    if (arrays[i].length > 0) {
+for (int i = 0; i &lt; k; i++) {
+    if (arrays[i].length &gt; 0) {
         minHeap.offer(new Element(arrays[i][0], i, 0));
     }
 }
@@ -1790,15 +1773,14 @@ while (!minHeap.isEmpty()) {
     result.add(min.value);
     
     // Add next element from same array
-    if (min.index + 1 < arrays[min.arrayId].length) {
+    if (min.index + 1 &lt; arrays[min.arrayId].length) {
         minHeap.offer(new Element(
             arrays[min.arrayId][min.index + 1], 
             min.arrayId, 
             min.index + 1
         ));
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1871,26 +1853,24 @@ while (!minHeap.isEmpty()) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Template for median/balance problems
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+<pre class="language-java" tabindex="0"><code class="language-java">// Template for median/balance problems
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
 
 public void addElement(int element) {
-    if (maxHeap.isEmpty() || element <= maxHeap.peek()) {
+    if (maxHeap.isEmpty() || element &lt;= maxHeap.peek()) {
         maxHeap.offer(element);
     } else {
         minHeap.offer(element);
     }
     
     // Rebalance
-    if (maxHeap.size() > minHeap.size() + 1) {
+    if (maxHeap.size() &gt; minHeap.size() + 1) {
         minHeap.offer(maxHeap.poll());
-    } else if (minHeap.size() > maxHeap.size() + 1) {
+    } else if (minHeap.size() &gt; maxHeap.size() + 1) {
         maxHeap.offer(minHeap.poll());
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1948,25 +1928,23 @@ function addElement(element) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Template for sliding window extremes
-PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+<pre class="language-java" tabindex="0"><code class="language-java">// Template for sliding window extremes
+PriorityQueue&lt;int[]&gt; maxHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; b[0] - a[0]);
 
-for (int i = 0; i < nums.length; i++) {
+for (int i = 0; i &lt; nums.length; i++) {
     // Add current element with its index
     maxHeap.offer(new int[]{nums[i], i});
     
     // Remove elements outside window
-    while (!maxHeap.isEmpty() && maxHeap.peek()[1] <= i - k) {
+    while (!maxHeap.isEmpty() &amp;&amp; maxHeap.peek()[1] &lt;= i - k) {
         maxHeap.poll();
     }
     
     // Current window maximum
-    if (i >= k - 1) {
+    if (i &gt;= k - 1) {
         result.add(maxHeap.peek()[0]);
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2022,8 +2000,7 @@ for (let i = 0; i < nums.length; i++) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Template for complex priority comparisons
+<pre class="language-java" tabindex="0"><code class="language-java">// Template for complex priority comparisons
 class Task {
     int priority;
     int timestamp;
@@ -2036,13 +2013,12 @@ class Task {
     }
 }
 
-PriorityQueue<Task> taskQueue = new PriorityQueue<>((a, b) -> {
+PriorityQueue&lt;Task&gt; taskQueue = new PriorityQueue&lt;&gt;((a, b) -&gt; {
     if (a.priority != b.priority) {
         return b.priority - a.priority; // Higher priority first
     }
     return a.timestamp - b.timestamp; // Earlier timestamp first
-});
-```
+});</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2126,19 +2102,17 @@ class TaskHeap {
   </div>
   
   <div class="tab-content java active">
-```java
-// Construction options
-PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-PriorityQueue<Integer> customHeap = new PriorityQueue<>((a, b) -> a - b);
+<pre class="language-java" tabindex="0"><code class="language-java">// Construction options
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+PriorityQueue&lt;Integer&gt; customHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; a - b);
 
 // Key operations
 heap.offer(element);    // Add element - O(log n)
 heap.poll();           // Remove and return min/max - O(log n)
 heap.peek();           // View min/max without removing - O(1)
 heap.size();           // Get size - O(1)
-heap.isEmpty();        // Check if empty - O(1)
-```
+heap.isEmpty();        // Check if empty - O(1)</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2224,20 +2198,18 @@ const maxHeap = new Heap((a, b) => a > b);
   </div>
   
   <div class="tab-content java active">
-```java
-// Space optimization for top K problems
-PriorityQueue<Integer> heap = new PriorityQueue<>(k + 1);
+<pre class="language-java" tabindex="0"><code class="language-java">// Space optimization for top K problems
+PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;(k + 1);
 
 // Batch operations
-List<Integer> elements = Arrays.asList(1, 2, 3, 4, 5);
-PriorityQueue<Integer> heap = new PriorityQueue<>(elements);
+List&lt;Integer&gt; elements = Arrays.asList(1, 2, 3, 4, 5);
+PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;(elements);
 
 // Avoid repeated polling for multiple results
-List<Integer> results = new ArrayList<>();
+List&lt;Integer&gt; results = new ArrayList&lt;&gt;();
 while (!heap.isEmpty()) {
     results.add(heap.poll());
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2296,8 +2268,7 @@ while (!heap.isEmpty()) {
   </div>
   
   <div class="tab-content java active">
-```java
-class MinHeap {
+<pre class="language-java" tabindex="0"><code class="language-java">class MinHeap {
     private int[] heap;
     private int size;
     private int capacity;
@@ -2313,20 +2284,20 @@ class MinHeap {
     private int rightChild(int i) { return 2 * i + 2; }
     
     public void insert(int value) {
-        if (size >= capacity) throw new RuntimeException("Heap overflow");
+        if (size &gt;= capacity) throw new RuntimeException(&quot;Heap overflow&quot;);
         
         heap[size] = value;
         int current = size++;
         
         // Bubble up
-        while (current > 0 && heap[current] < heap[parent(current)]) {
+        while (current &gt; 0 &amp;&amp; heap[current] &lt; heap[parent(current)]) {
             swap(current, parent(current));
             current = parent(current);
         }
     }
     
     public int extractMin() {
-        if (size <= 0) throw new RuntimeException("Heap underflow");
+        if (size &lt;= 0) throw new RuntimeException(&quot;Heap underflow&quot;);
         
         int root = heap[0];
         heap[0] = heap[--size];
@@ -2340,10 +2311,10 @@ class MinHeap {
         int right = rightChild(i);
         int smallest = i;
         
-        if (left < size && heap[left] < heap[smallest]) {
+        if (left &lt; size &amp;&amp; heap[left] &lt; heap[smallest]) {
             smallest = left;
         }
-        if (right < size && heap[right] < heap[smallest]) {
+        if (right &lt; size &amp;&amp; heap[right] &lt; heap[smallest]) {
             smallest = right;
         }
         
@@ -2360,14 +2331,13 @@ class MinHeap {
     }
     
     public int peek() {
-        if (size <= 0) throw new RuntimeException("Heap is empty");
+        if (size &lt;= 0) throw new RuntimeException(&quot;Heap is empty&quot;);
         return heap[0];
     }
     
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">

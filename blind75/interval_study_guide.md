@@ -51,8 +51,7 @@ Interval problems involve working with ranges of values, typically represented a
   </div>
   
   <div class="tab-content java active">
-```java
-class Interval {
+<pre class="language-java" tabindex="0"><code class="language-java">class Interval {
     int start;
     int end;
     Interval(int start, int end) {
@@ -61,9 +60,8 @@ class Interval {
     }
 }
 
-// Often represented as int[][] or List<int[]>
-int[][] intervals = { {1,3}, {2,6}, {8,10} };
-```
+// Often represented as int[][] or List&lt;int[]&gt;
+int[][] intervals = { {1,3}, {2,6}, {8,10} };</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -264,22 +262,21 @@ To insert an interval into a sorted non-overlapping array:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Three-Phase Processing
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Three-Phase Processing
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> result = new ArrayList<>();
+        List&lt;int[]&gt; result = new ArrayList&lt;&gt;();
         int i = 0;
         int n = intervals.length;
         
         // Phase 1: Add all intervals that end before newInterval starts
-        while (i < n && intervals[i][1] < newInterval[0]) {
+        while (i &lt; n &amp;&amp; intervals[i][1] &lt; newInterval[0]) {
             result.add(intervals[i]);
             i++;
         }
         
         // Phase 2: Merge all overlapping intervals with newInterval
-        while (i < n && intervals[i][0] <= newInterval[1]) {
+        while (i &lt; n &amp;&amp; intervals[i][0] &lt;= newInterval[1]) {
             newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
             newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
             i++;
@@ -287,7 +284,7 @@ class Solution {
         result.add(newInterval);
         
         // Phase 3: Add all remaining intervals
-        while (i < n) {
+        while (i &lt; n) {
             result.add(intervals[i]);
             i++;
         }
@@ -303,26 +300,26 @@ class Solution {
             return new int[][]{newInterval};
         }
         
-        List<int[]> result = new ArrayList<>();
+        List&lt;int[]&gt; result = new ArrayList&lt;&gt;();
         
         // Binary search for insertion point
         int start = findInsertPosition(intervals, newInterval[0]);
         int end = findMergeEnd(intervals, newInterval[1]);
         
         // Add intervals before merge region
-        for (int i = 0; i < start; i++) {
+        for (int i = 0; i &lt; start; i++) {
             result.add(intervals[i]);
         }
         
         // Create merged interval
         int mergeStart = Math.min(newInterval[0], 
-                                 start < intervals.length ? intervals[start][0] : newInterval[0]);
+                                 start &lt; intervals.length ? intervals[start][0] : newInterval[0]);
         int mergeEnd = Math.max(newInterval[1],
-                               end >= 0 ? intervals[end][1] : newInterval[1]);
+                               end &gt;= 0 ? intervals[end][1] : newInterval[1]);
         result.add(new int[]{mergeStart, mergeEnd});
         
         // Add intervals after merge region
-        for (int i = end + 1; i < intervals.length; i++) {
+        for (int i = end + 1; i &lt; intervals.length; i++) {
             result.add(intervals[i]);
         }
         
@@ -331,9 +328,9 @@ class Solution {
     
     private int findInsertPosition(int[][] intervals, int target) {
         int left = 0, right = intervals.length;
-        while (left < right) {
+        while (left &lt; right) {
             int mid = left + (right - left) / 2;
-            if (intervals[mid][0] < target) {
+            if (intervals[mid][0] &lt; target) {
                 left = mid + 1;
             } else {
                 right = mid;
@@ -344,8 +341,8 @@ class Solution {
     
     private int findMergeEnd(int[][] intervals, int target) {
         int result = -1;
-        for (int i = 0; i < intervals.length; i++) {
-            if (intervals[i][0] <= target) {
+        for (int i = 0; i &lt; intervals.length; i++) {
+            if (intervals[i][0] &lt;= target) {
                 result = i;
             } else {
                 break;
@@ -358,18 +355,18 @@ class Solution {
 // Approach 3: In-Place with ArrayList Conversion
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> merged = new ArrayList<>();
+        List&lt;int[]&gt; merged = new ArrayList&lt;&gt;();
         boolean inserted = false;
         
         for (int[] current : intervals) {
-            if (newInterval[1] < current[0]) {
+            if (newInterval[1] &lt; current[0]) {
                 // New interval ends before current starts
                 if (!inserted) {
                     merged.add(newInterval);
                     inserted = true;
                 }
                 merged.add(current);
-            } else if (newInterval[0] > current[1]) {
+            } else if (newInterval[0] &gt; current[1]) {
                 // New interval starts after current ends
                 merged.add(current);
             } else {
@@ -386,8 +383,7 @@ class Solution {
         
         return merged.toArray(new int[merged.size()][]);
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -766,25 +762,24 @@ To merge overlapping intervals:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Sort and Merge
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Sort and Merge
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) {
+        if (intervals.length &lt;= 1) {
             return intervals;
         }
         
         // Sort by start time
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(intervals, (a, b) -&gt; Integer.compare(a[0], b[0]));
         
-        List<int[]> merged = new ArrayList<>();
+        List&lt;int[]&gt; merged = new ArrayList&lt;&gt;();
         int[] currentInterval = intervals[0];
         merged.add(currentInterval);
         
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 1; i &lt; intervals.length; i++) {
             int[] nextInterval = intervals[i];
             
-            if (currentInterval[1] >= nextInterval[0]) {
+            if (currentInterval[1] &gt;= nextInterval[0]) {
                 // Overlapping intervals - merge them
                 currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
             } else {
@@ -801,18 +796,18 @@ class Solution {
 // Approach 2: Stack-based Approach
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
+        if (intervals.length &lt;= 1) return intervals;
         
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
-        Stack<int[]> stack = new Stack<>();
+        Stack&lt;int[]&gt; stack = new Stack&lt;&gt;();
         stack.push(intervals[0]);
         
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 1; i &lt; intervals.length; i++) {
             int[] top = stack.peek();
             int[] current = intervals[i];
             
-            if (top[1] >= current[0]) {
+            if (top[1] &gt;= current[0]) {
                 // Merge intervals
                 top[1] = Math.max(top[1], current[1]);
             } else {
@@ -828,14 +823,14 @@ class Solution {
 // Approach 3: In-Place Modification (when modification allowed)
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
+        if (intervals.length &lt;= 1) return intervals;
         
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
         int writeIndex = 0;
         
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[writeIndex][1] >= intervals[i][0]) {
+        for (int i = 1; i &lt; intervals.length; i++) {
+            if (intervals[writeIndex][1] &gt;= intervals[i][0]) {
                 // Merge with previous interval
                 intervals[writeIndex][1] = Math.max(intervals[writeIndex][1], intervals[i][1]);
             } else {
@@ -861,23 +856,23 @@ class Solution {
     }
     
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
+        if (intervals.length &lt;= 1) return intervals;
         
-        List<Interval> intervalList = new ArrayList<>();
+        List&lt;Interval&gt; intervalList = new ArrayList&lt;&gt;();
         for (int[] interval : intervals) {
             intervalList.add(new Interval(interval[0], interval[1]));
         }
         
-        intervalList.sort((a, b) -> a.start - b.start);
+        intervalList.sort((a, b) -&gt; a.start - b.start);
         
-        List<Interval> merged = new ArrayList<>();
+        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
         merged.add(intervalList.get(0));
         
-        for (int i = 1; i < intervalList.size(); i++) {
+        for (int i = 1; i &lt; intervalList.size(); i++) {
             Interval current = intervalList.get(i);
             Interval last = merged.get(merged.size() - 1);
             
-            if (last.end >= current.start) {
+            if (last.end &gt;= current.start) {
                 last.end = Math.max(last.end, current.end);
             } else {
                 merged.add(current);
@@ -885,15 +880,14 @@ class Solution {
         }
         
         int[][] result = new int[merged.size()][2];
-        for (int i = 0; i < merged.size(); i++) {
+        for (int i = 0; i &lt; merged.size(); i++) {
             result[i][0] = merged.get(i).start;
             result[i][1] = merged.get(i).end;
         }
         
         return result;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1262,21 +1256,20 @@ This is the classic "Activity Selection Problem":
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Classic Activity Selection (Sort by End Time)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Classic Activity Selection (Sort by End Time)
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length <= 1) return 0;
+        if (intervals.length &lt;= 1) return 0;
         
         // Sort by end time (key insight for activity selection)
-        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+        Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
         
         int count = 1; // First interval is always selected
         int lastEnd = intervals[0][1];
         
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 1; i &lt; intervals.length; i++) {
             // If current interval starts after last selected interval ends
-            if (intervals[i][0] >= lastEnd) {
+            if (intervals[i][0] &gt;= lastEnd) {
                 count++;
                 lastEnd = intervals[i][1];
             }
@@ -1290,15 +1283,15 @@ class Solution {
 // Approach 2: Sort by Start Time (Alternative Approach)
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length <= 1) return 0;
+        if (intervals.length &lt;= 1) return 0;
         
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
         int removals = 0;
         int lastEnd = intervals[0][1];
         
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] < lastEnd) {
+        for (int i = 1; i &lt; intervals.length; i++) {
+            if (intervals[i][0] &lt; lastEnd) {
                 // Overlap detected - remove interval with later end time
                 removals++;
                 lastEnd = Math.min(lastEnd, intervals[i][1]);
@@ -1315,22 +1308,22 @@ class Solution {
 // Approach 3: Greedy with Detailed Tracking
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length <= 1) return 0;
+        if (intervals.length &lt;= 1) return 0;
         
         // Sort by end time for optimal greedy selection
-        Arrays.sort(intervals, (a, b) -> {
+        Arrays.sort(intervals, (a, b) -&gt; {
             if (a[1] != b[1]) return a[1] - b[1];
             return a[0] - b[0]; // Break ties by start time
         });
         
-        List<int[]> selected = new ArrayList<>();
+        List&lt;int[]&gt; selected = new ArrayList&lt;&gt;();
         selected.add(intervals[0]);
         
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 1; i &lt; intervals.length; i++) {
             int[] lastSelected = selected.get(selected.size() - 1);
             
-            // No overlap: start >= end of last selected
-            if (intervals[i][0] >= lastSelected[1]) {
+            // No overlap: start &gt;= end of last selected
+            if (intervals[i][0] &gt;= lastSelected[1]) {
                 selected.add(intervals[i]);
             }
             // Overlap: skip current interval (count as removal)
@@ -1343,20 +1336,20 @@ class Solution {
 // Approach 4: Dynamic Programming (Less Efficient but Educational)
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length <= 1) return 0;
+        if (intervals.length &lt;= 1) return 0;
         
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
         // dp[i] = maximum non-overlapping intervals ending at or before i
         int[] dp = new int[intervals.length];
         dp[0] = 1;
         
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 1; i &lt; intervals.length; i++) {
             dp[i] = 1; // At least current interval
             
-            for (int j = 0; j < i; j++) {
-                // If intervals[j] doesn't overlap with intervals[i]
-                if (intervals[j][1] <= intervals[i][0]) {
+            for (int j = 0; j &lt; i; j++) {
+                // If intervals[j] doesn&#x27;t overlap with intervals[i]
+                if (intervals[j][1] &lt;= intervals[i][0]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
@@ -1369,8 +1362,7 @@ class Solution {
         
         return intervals.length - maxNonOverlapping;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1712,18 +1704,17 @@ For a person to attend all meetings, no two meetings can overlap:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Sort and Check Consecutive Pairs
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Sort and Check Consecutive Pairs
 class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
-        if (intervals.length <= 1) return true;
+        if (intervals.length &lt;= 1) return true;
         
         // Sort by start time
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
         // Check consecutive meetings for overlap
-        for (int i = 0; i < intervals.length - 1; i++) {
-            if (intervals[i][1] > intervals[i + 1][0]) {
+        for (int i = 0; i &lt; intervals.length - 1; i++) {
+            if (intervals[i][1] &gt; intervals[i + 1][0]) {
                 return false; // Overlap detected
             }
         }
@@ -1735,12 +1726,12 @@ class Solution {
 // Approach 2: Sort by End Time (Alternative)
 class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
-        if (intervals.length <= 1) return true;
+        if (intervals.length &lt;= 1) return true;
         
-        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+        Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
         
-        for (int i = 0; i < intervals.length - 1; i++) {
-            if (intervals[i][1] > intervals[i + 1][0]) {
+        for (int i = 0; i &lt; intervals.length - 1; i++) {
+            if (intervals[i][1] &gt; intervals[i + 1][0]) {
                 return false;
             }
         }
@@ -1752,17 +1743,17 @@ class Solution {
 // Approach 3: Sweep Line Algorithm
 class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
-        if (intervals.length <= 1) return true;
+        if (intervals.length &lt;= 1) return true;
         
         // Create events: +1 for start, -1 for end
-        List<int[]> events = new ArrayList<>();
+        List&lt;int[]&gt; events = new ArrayList&lt;&gt;();
         for (int[] interval : intervals) {
             events.add(new int[]{interval[0], 1});  // Meeting starts
             events.add(new int[]{interval[1], -1}); // Meeting ends
         }
         
         // Sort events by time, with ends before starts at same time
-        events.sort((a, b) -> {
+        events.sort((a, b) -&gt; {
             if (a[0] != b[0]) return a[0] - b[0];
             return a[1] - b[1]; // End events (-1) before start events (1)
         });
@@ -1770,7 +1761,7 @@ class Solution {
         int activeCount = 0;
         for (int[] event : events) {
             activeCount += event[1];
-            if (activeCount > 1) {
+            if (activeCount &gt; 1) {
                 return false; // More than one meeting active
             }
         }
@@ -1782,8 +1773,8 @@ class Solution {
 // Approach 4: Brute Force (For Comparison)
 class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
-        for (int i = 0; i < intervals.length; i++) {
-            for (int j = i + 1; j < intervals.length; j++) {
+        for (int i = 0; i &lt; intervals.length; i++) {
+            for (int j = i + 1; j &lt; intervals.length; j++) {
                 if (isOverlapping(intervals[i], intervals[j])) {
                     return false;
                 }
@@ -1793,13 +1784,13 @@ class Solution {
     }
     
     private boolean isOverlapping(int[] interval1, int[] interval2) {
-        return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
+        return Math.max(interval1[0], interval2[0]) &lt; Math.min(interval1[1], interval2[1]);
     }
 }
 
 // Approach 5: Custom Interval Class with Validation
 class Solution {
-    class Meeting implements Comparable<Meeting> {
+    class Meeting implements Comparable&lt;Meeting&gt; {
         int start, end;
         
         Meeting(int start, int end) {
@@ -1813,19 +1804,19 @@ class Solution {
         }
         
         public boolean overlapsWith(Meeting other) {
-            return this.end > other.start && other.end > this.start;
+            return this.end &gt; other.start &amp;&amp; other.end &gt; this.start;
         }
     }
     
     public boolean canAttendMeetings(int[][] intervals) {
-        List<Meeting> meetings = new ArrayList<>();
+        List&lt;Meeting&gt; meetings = new ArrayList&lt;&gt;();
         for (int[] interval : intervals) {
             meetings.add(new Meeting(interval[0], interval[1]));
         }
         
         Collections.sort(meetings);
         
-        for (int i = 0; i < meetings.size() - 1; i++) {
+        for (int i = 0; i &lt; meetings.size() - 1; i++) {
             if (meetings.get(i).overlapsWith(meetings.get(i + 1))) {
                 return false;
             }
@@ -1833,8 +1824,7 @@ class Solution {
         
         return true;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2193,25 +2183,24 @@ This is a resource allocation problem:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Min-Heap for Room End Times
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Min-Heap for Room End Times
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
         
         // Sort meetings by start time
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
         
         // Min-heap to track end times of ongoing meetings
-        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;();
         
         for (int[] meeting : intervals) {
             // If earliest meeting ends before current starts, reuse that room
-            if (!heap.isEmpty() && heap.peek() <= meeting[0]) {
+            if (!heap.isEmpty() &amp;&amp; heap.peek() &lt;= meeting[0]) {
                 heap.poll(); // Remove the ended meeting
             }
             
-            // Add current meeting's end time
+            // Add current meeting&#x27;s end time
             heap.offer(meeting[1]);
         }
         
@@ -2224,7 +2213,7 @@ class Solution {
     public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
         
-        List<int[]> events = new ArrayList<>();
+        List&lt;int[]&gt; events = new ArrayList&lt;&gt;();
         
         // Create start and end events
         for (int[] interval : intervals) {
@@ -2233,7 +2222,7 @@ class Solution {
         }
         
         // Sort events: by time, then end events before start events at same time
-        events.sort((a, b) -> {
+        events.sort((a, b) -&gt; {
             if (a[0] != b[0]) return a[0] - b[0];
             return a[1] - b[1]; // -1 (end) comes before +1 (start)
         });
@@ -2260,7 +2249,7 @@ class Solution {
         int[] ends = new int[n];
         
         // Extract start and end times
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i &lt; n; i++) {
             starts[i] = intervals[i][0];
             ends[i] = intervals[i][1];
         }
@@ -2272,8 +2261,8 @@ class Solution {
         int startPtr = 0, endPtr = 0;
         int activeRooms = 0, maxRooms = 0;
         
-        while (startPtr < n) {
-            if (starts[startPtr] < ends[endPtr]) {
+        while (startPtr &lt; n) {
+            if (starts[startPtr] &lt; ends[endPtr]) {
                 // A meeting starts before any ends
                 activeRooms++;
                 startPtr++;
@@ -2292,7 +2281,7 @@ class Solution {
 // Approach 4: TreeMap for Time Tracking
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
-        TreeMap<Integer, Integer> timeMap = new TreeMap<>();
+        TreeMap&lt;Integer, Integer&gt; timeMap = new TreeMap&lt;&gt;();
         
         // Count events at each time point
         for (int[] interval : intervals) {
@@ -2325,7 +2314,7 @@ class Solution {
     }
     
     public int minMeetingRooms(int[][] intervals) {
-        List<Event> events = new ArrayList<>();
+        List&lt;Event&gt; events = new ArrayList&lt;&gt;();
         
         for (int[] interval : intervals) {
             events.add(new Event(interval[0], 1));  // Start event
@@ -2333,7 +2322,7 @@ class Solution {
         }
         
         // Sort by time, with end events before start events at same time
-        events.sort((a, b) -> {
+        events.sort((a, b) -&gt; {
             if (a.time != b.time) return a.time - b.time;
             return a.type - b.type; // -1 before 1
         });
@@ -2348,8 +2337,7 @@ class Solution {
         
         return maxConcurrent;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2752,19 +2740,18 @@ Maximum heap size = minimum rooms needed
   </div>
   
   <div class="tab-content java active">
-```java
-public int[][] mergeIntervals(int[][] intervals) {
-    if (intervals.length <= 1) return intervals;
+<pre class="language-java" tabindex="0"><code class="language-java">public int[][] mergeIntervals(int[][] intervals) {
+    if (intervals.length &lt;= 1) return intervals;
     
-    Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-    List<int[]> merged = new ArrayList<>();
+    Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
+    List&lt;int[]&gt; merged = new ArrayList&lt;&gt;();
     merged.add(intervals[0]);
     
-    for (int i = 1; i < intervals.length; i++) {
+    for (int i = 1; i &lt; intervals.length; i++) {
         int[] last = merged.get(merged.size() - 1);
         int[] current = intervals[i];
         
-        if (last[1] >= current[0]) {
+        if (last[1] &gt;= current[0]) {
             // Merge overlapping intervals
             last[1] = Math.max(last[1], current[1]);
         } else {
@@ -2774,8 +2761,7 @@ public int[][] mergeIntervals(int[][] intervals) {
     }
     
     return merged.toArray(new int[merged.size()][]);
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2839,26 +2825,24 @@ function mergeIntervals(intervals) {
   </div>
   
   <div class="tab-content java active">
-```java
-public int maxNonOverlapping(int[][] intervals) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int maxNonOverlapping(int[][] intervals) {
     if (intervals.length == 0) return 0;
     
     // Sort by end time for greedy selection
-    Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+    Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
     
     int count = 1;
     int lastEnd = intervals[0][1];
     
-    for (int i = 1; i < intervals.length; i++) {
-        if (intervals[i][0] >= lastEnd) {
+    for (int i = 1; i &lt; intervals.length; i++) {
+        if (intervals[i][0] &gt;= lastEnd) {
             count++;
             lastEnd = intervals[i][1];
         }
     }
     
     return count;
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2916,23 +2900,21 @@ function maxNonOverlapping(intervals) {
   </div>
   
   <div class="tab-content java active">
-```java
-public int minResources(int[][] intervals) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int minResources(int[][] intervals) {
     if (intervals.length == 0) return 0;
     
-    Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-    PriorityQueue<Integer> heap = new PriorityQueue<>();
+    Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
+    PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;();
     
     for (int[] interval : intervals) {
-        if (!heap.isEmpty() && heap.peek() <= interval[0]) {
+        if (!heap.isEmpty() &amp;&amp; heap.peek() &lt;= interval[0]) {
             heap.poll(); // Reuse resource
         }
         heap.offer(interval[1]); // Allocate resource
     }
     
     return heap.size();
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -3043,16 +3025,15 @@ function minResources(intervals) {
   </div>
   
   <div class="tab-content java active">
-```java
-public int maxOverlap(int[][] intervals) {
-    List<int[]> events = new ArrayList<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public int maxOverlap(int[][] intervals) {
+    List&lt;int[]&gt; events = new ArrayList&lt;&gt;();
     
     for (int[] interval : intervals) {
         events.add(new int[]{interval[0], 1});  // Start event
         events.add(new int[]{interval[1], -1}); // End event
     }
     
-    events.sort((a, b) -> {
+    events.sort((a, b) -&gt; {
         if (a[0] != b[0]) return a[0] - b[0];
         return a[1] - b[1]; // End before start at same time
     });
@@ -3064,8 +3045,7 @@ public int maxOverlap(int[][] intervals) {
     }
     
     return maxActive;
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -3127,23 +3107,21 @@ function maxOverlap(intervals) {
   </div>
   
   <div class="tab-content java active">
-```java
-public boolean hasOverlap(int[] interval1, int[] interval2) {
-    return Math.max(interval1[0], interval2[0]) < Math.min(interval1[1], interval2[1]);
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean hasOverlap(int[] interval1, int[] interval2) {
+    return Math.max(interval1[0], interval2[0]) &lt; Math.min(interval1[1], interval2[1]);
 }
 
 public boolean canScheduleAll(int[][] intervals) {
-    Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+    Arrays.sort(intervals, (a, b) -&gt; a[0] - b[0]);
     
-    for (int i = 0; i < intervals.length - 1; i++) {
-        if (intervals[i][1] > intervals[i + 1][0]) {
+    for (int i = 0; i &lt; intervals.length - 1; i++) {
+        if (intervals[i][1] &gt; intervals[i + 1][0]) {
             return false; // Overlap detected
         }
     }
     
     return true;
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">

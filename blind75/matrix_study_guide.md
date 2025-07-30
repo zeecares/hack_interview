@@ -49,8 +49,7 @@ Matrix problems involve manipulating 2D arrays and grids, which are fundamental 
   </div>
   
   <div class="tab-content java active">
-```java
-// Standard 2D array representation
+<pre class="language-java" tabindex="0"><code class="language-java">// Standard 2D array representation
 int[][] matrix = new int[rows][cols];
 
 // Access patterns
@@ -60,10 +59,9 @@ int cols = matrix[0].length;         // Number of columns (assuming non-empty)
 
 // Boundary checking
 boolean isValid(int row, int col, int[][] matrix) {
-    return row >= 0 && row < matrix.length && 
-           col >= 0 && col < matrix[0].length;
-}
-```
+    return row &gt;= 0 &amp;&amp; row &lt; matrix.length &amp;&amp; 
+           col &gt;= 0 &amp;&amp; col &lt; matrix[0].length;
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -110,27 +108,25 @@ function isValid(row, col, matrix) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Row-wise traversal
-for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
+<pre class="language-java" tabindex="0"><code class="language-java">// Row-wise traversal
+for (int i = 0; i &lt; rows; i++) {
+    for (int j = 0; j &lt; cols; j++) {
         // Process matrix[i][j]
     }
 }
 
 // Column-wise traversal
-for (int j = 0; j < cols; j++) {
-    for (int i = 0; i < rows; i++) {
+for (int j = 0; j &lt; cols; j++) {
+    for (int i = 0; i &lt; rows; i++) {
         // Process matrix[i][j]
     }
 }
 
 // Diagonal traversal
-for (int i = 0; i < Math.min(rows, cols); i++) {
+for (int i = 0; i &lt; Math.min(rows, cols); i++) {
     // Main diagonal: matrix[i][i]
     // Anti-diagonal: matrix[i][cols-1-i]
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -189,8 +185,7 @@ for (let i = 0; i < Math.min(rows, cols); i++) {
   </div>
   
   <div class="tab-content java active">
-```java
-// 4-directional movement (up, right, down, left)
+<pre class="language-java" tabindex="0"><code class="language-java">// 4-directional movement (up, right, down, left)
 int[][] directions = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
 
 // 8-directional movement (including diagonals)
@@ -207,8 +202,7 @@ for (int[] dir : directions) {
     if (isValid(newRow, newCol, matrix)) {
         // Process neighbor
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -266,22 +260,20 @@ for (const [dr, dc] of directions) {
   </div>
   
   <div class="tab-content java active">
-```java
-// 90-degree clockwise rotation
-// (i, j) -> (j, n-1-i)
+<pre class="language-java" tabindex="0"><code class="language-java">// 90-degree clockwise rotation
+// (i, j) -&gt; (j, n-1-i)
 
 // 90-degree counterclockwise rotation  
-// (i, j) -> (n-1-j, i)
+// (i, j) -&gt; (n-1-j, i)
 
 // Horizontal flip (reflection across vertical axis)
-// (i, j) -> (i, n-1-j)
+// (i, j) -&gt; (i, n-1-j)
 
 // Vertical flip (reflection across horizontal axis)
-// (i, j) -> (n-1-i, j)
+// (i, j) -&gt; (n-1-i, j)
 
 // Transpose (reflection across main diagonal)
-// (i, j) -> (j, i)
-```
+// (i, j) -&gt; (j, i)</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -332,18 +324,16 @@ for (const [dr, dc] of directions) {
   </div>
   
   <div class="tab-content java active">
-```java
-// Using markers for state tracking
+<pre class="language-java" tabindex="0"><code class="language-java">// Using markers for state tracking
 final int MARKED = Integer.MAX_VALUE;
 
 // Bit manipulation for flags
 matrix[i][j] |= FLAG_BIT;  // Set flag
-boolean hasFlag = (matrix[i][j] & FLAG_BIT) != 0;  // Check flag
+boolean hasFlag = (matrix[i][j] &amp; FLAG_BIT) != 0;  // Check flag
 
 // Using first row/column as metadata storage
 // Store information in matrix[0][j] for column j
-// Store information in matrix[i][0] for row i
-```
+// Store information in matrix[i][0] for row i</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -541,8 +531,7 @@ To set entire rows and columns to zero:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: O(1) Space - Using First Row and Column as Flags
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: O(1) Space - Using First Row and Column as Flags
 class Solution {
     public void setZeroes(int[][] matrix) {
         int rows = matrix.length;
@@ -553,7 +542,7 @@ class Solution {
         boolean firstColZero = false;
         
         // Check first column
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i &lt; rows; i++) {
             if (matrix[i][0] == 0) {
                 firstColZero = true;
                 break;
@@ -561,7 +550,7 @@ class Solution {
         }
         
         // Check first row
-        for (int j = 0; j < cols; j++) {
+        for (int j = 0; j &lt; cols; j++) {
             if (matrix[0][j] == 0) {
                 firstRowZero = true;
                 break;
@@ -569,8 +558,8 @@ class Solution {
         }
         
         // Use first row and column as flags for the rest of the matrix
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
+        for (int i = 1; i &lt; rows; i++) {
+            for (int j = 1; j &lt; cols; j++) {
                 if (matrix[i][j] == 0) {
                     matrix[i][0] = 0;  // Mark row
                     matrix[0][j] = 0;  // Mark column
@@ -579,8 +568,8 @@ class Solution {
         }
         
         // Set zeros based on flags (skip first row and column for now)
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
+        for (int i = 1; i &lt; rows; i++) {
+            for (int j = 1; j &lt; cols; j++) {
                 if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
@@ -589,14 +578,14 @@ class Solution {
         
         // Handle first row
         if (firstRowZero) {
-            for (int j = 0; j < cols; j++) {
+            for (int j = 0; j &lt; cols; j++) {
                 matrix[0][j] = 0;
             }
         }
         
         // Handle first column
         if (firstColZero) {
-            for (int i = 0; i < rows; i++) {
+            for (int i = 0; i &lt; rows; i++) {
                 matrix[i][0] = 0;
             }
         }
@@ -613,8 +602,8 @@ class Solution {
         boolean[] zeroCols = new boolean[cols];
         
         // First pass: identify zero positions
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; cols; j++) {
                 if (matrix[i][j] == 0) {
                     zeroRows[i] = true;
                     zeroCols[j] = true;
@@ -623,16 +612,15 @@ class Solution {
         }
         
         // Second pass: set zeros
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; cols; j++) {
                 if (zeroRows[i] || zeroCols[j]) {
                     matrix[i][j] = 0;
                 }
             }
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -936,40 +924,39 @@ Spiral traversal follows a pattern:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Layer-by-Layer with Boundary Pointers
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Layer-by-Layer with Boundary Pointers
 class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> result = new ArrayList<>();
+    public List&lt;Integer&gt; spiralOrder(int[][] matrix) {
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
         if (matrix.length == 0 || matrix[0].length == 0) return result;
         
         int top = 0, bottom = matrix.length - 1;
         int left = 0, right = matrix[0].length - 1;
         
-        while (top <= bottom && left <= right) {
+        while (top &lt;= bottom &amp;&amp; left &lt;= right) {
             // Traverse right along top row
-            for (int col = left; col <= right; col++) {
+            for (int col = left; col &lt;= right; col++) {
                 result.add(matrix[top][col]);
             }
             top++;
             
             // Traverse down along right column
-            for (int row = top; row <= bottom; row++) {
+            for (int row = top; row &lt;= bottom; row++) {
                 result.add(matrix[row][right]);
             }
             right--;
             
             // Traverse left along bottom row (if we still have rows)
-            if (top <= bottom) {
-                for (int col = right; col >= left; col--) {
+            if (top &lt;= bottom) {
+                for (int col = right; col &gt;= left; col--) {
                     result.add(matrix[bottom][col]);
                 }
                 bottom--;
             }
             
             // Traverse up along left column (if we still have columns)
-            if (left <= right) {
-                for (int row = bottom; row >= top; row--) {
+            if (left &lt;= right) {
+                for (int row = bottom; row &gt;= top; row--) {
                     result.add(matrix[row][left]);
                 }
                 left++;
@@ -982,8 +969,8 @@ class Solution {
 
 // Approach 2: Direction Vector with State Machine
 class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> result = new ArrayList<>();
+    public List&lt;Integer&gt; spiralOrder(int[][] matrix) {
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
         if (matrix.length == 0) return result;
         
         int rows = matrix.length, cols = matrix[0].length;
@@ -995,7 +982,7 @@ class Solution {
         
         int row = 0, col = 0;
         
-        for (int i = 0; i < rows * cols; i++) {
+        for (int i = 0; i &lt; rows * cols; i++) {
             result.add(matrix[row][col]);
             visited[row][col] = true;
             
@@ -1004,7 +991,7 @@ class Solution {
             int nextCol = col + directions[currentDirection][1];
             
             // Check if we need to turn (hit boundary or visited cell)
-            if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols || 
+            if (nextRow &lt; 0 || nextRow &gt;= rows || nextCol &lt; 0 || nextCol &gt;= cols || 
                 visited[nextRow][nextCol]) {
                 currentDirection = (currentDirection + 1) % 4;
                 nextRow = row + directions[currentDirection][0];
@@ -1017,8 +1004,7 @@ class Solution {
         
         return result;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1343,15 +1329,14 @@ Input:  [[1,2,3],      Output: [[7,4,1],
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Transpose + Horizontal Flip (Most Intuitive)
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Transpose + Horizontal Flip (Most Intuitive)
 class Solution {
     public void rotate(int[][] matrix) {
         int n = matrix.length;
         
         // Step 1: Transpose the matrix (flip along main diagonal)
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
                 // Swap matrix[i][j] with matrix[j][i]
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
@@ -1360,8 +1345,8 @@ class Solution {
         }
         
         // Step 2: Flip horizontally (reverse each row)
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n / 2; j++) {
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n / 2; j++) {
                 // Swap matrix[i][j] with matrix[i][n-1-j]
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[i][n - 1 - j];
@@ -1377,12 +1362,12 @@ class Solution {
         int n = matrix.length;
         
         // Process each layer (concentric squares)
-        for (int layer = 0; layer < n / 2; layer++) {
+        for (int layer = 0; layer &lt; n / 2; layer++) {
             int first = layer;
             int last = n - 1 - layer;
             
             // Rotate elements in current layer
-            for (int i = first; i < last; i++) {
+            for (int i = first; i &lt; last; i++) {
                 int offset = i - first;
                 
                 // Save top element
@@ -1402,8 +1387,7 @@ class Solution {
             }
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1701,8 +1685,7 @@ Word search in a grid requires:
   </div>
   
   <div class="tab-content java active">
-```java
-// Approach 1: Standard DFS with Backtracking
+<pre class="language-java" tabindex="0"><code class="language-java">// Approach 1: Standard DFS with Backtracking
 class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
@@ -1715,8 +1698,8 @@ class Solution {
         int cols = board[0].length;
         
         // Try starting from each cell
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; cols; j++) {
                 if (board[i][j] == word.charAt(0)) {
                     if (dfs(board, word, i, j, 0)) {
                         return true;
@@ -1735,14 +1718,14 @@ class Solution {
         }
         
         // Boundary check and character match
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length ||
+        if (row &lt; 0 || row &gt;= board.length || col &lt; 0 || col &gt;= board[0].length ||
             board[row][col] != word.charAt(index)) {
             return false;
         }
         
         // Mark current cell as visited
         char temp = board[row][col];
-        board[row][col] = '#'; // Mark as visited
+        board[row][col] = &#x27;#&#x27;; // Mark as visited
         
         // Explore all 4 directions
         for (int[] dir : directions) {
@@ -1770,8 +1753,8 @@ class Solution {
         int cols = board[0].length;
         boolean[][] visited = new boolean[rows][cols];
         
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; cols; j++) {
                 if (board[i][j] == word.charAt(0)) {
                     if (dfs(board, word, i, j, 0, visited)) {
                         return true;
@@ -1787,7 +1770,7 @@ class Solution {
                        int index, boolean[][] visited) {
         if (index == word.length()) return true;
         
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length ||
+        if (row &lt; 0 || row &gt;= board.length || col &lt; 0 || col &gt;= board[0].length ||
             visited[row][col] || board[row][col] != word.charAt(index)) {
             return false;
         }
@@ -1807,8 +1790,7 @@ class Solution {
         visited[row][col] = false; // Backtrack
         return false;
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2169,13 +2151,12 @@ For each starting position matching word[0]:
   </div>
   
   <div class="tab-content java active">
-```java
-public void processMatrix(int[][] matrix) {
+<pre class="language-java" tabindex="0"><code class="language-java">public void processMatrix(int[][] matrix) {
     int rows = matrix.length;
     int cols = matrix[0].length;
     
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
             // Process matrix[i][j]
             processCell(matrix, i, j);
         }
@@ -2183,10 +2164,9 @@ public void processMatrix(int[][] matrix) {
 }
 
 private boolean isValid(int row, int col, int[][] matrix) {
-    return row >= 0 && row < matrix.length && 
-           col >= 0 && col < matrix[0].length;
-}
-```
+    return row &gt;= 0 &amp;&amp; row &lt; matrix.length &amp;&amp; 
+           col &gt;= 0 &amp;&amp; col &lt; matrix[0].length;
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2236,13 +2216,12 @@ function isValid(row, col, matrix) {
   </div>
   
   <div class="tab-content java active">
-```java
-public void modifyInPlace(int[][] matrix) {
+<pre class="language-java" tabindex="0"><code class="language-java">public void modifyInPlace(int[][] matrix) {
     int rows = matrix.length, cols = matrix[0].length;
     
     // Phase 1: Mark elements that need modification
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
             if (shouldModify(matrix[i][j])) {
                 markForModification(matrix, i, j);
             }
@@ -2250,15 +2229,14 @@ public void modifyInPlace(int[][] matrix) {
     }
     
     // Phase 2: Apply modifications based on marks
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
             if (isMarked(matrix[i][j])) {
                 applyModification(matrix, i, j);
             }
         }
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2316,11 +2294,10 @@ function modifyInPlace(matrix) {
   </div>
   
   <div class="tab-content java active">
-```java
-public void processLayers(int[][] matrix) {
+<pre class="language-java" tabindex="0"><code class="language-java">public void processLayers(int[][] matrix) {
     int n = matrix.length;
     
-    for (int layer = 0; layer < n / 2; layer++) {
+    for (int layer = 0; layer &lt; n / 2; layer++) {
         int first = layer;
         int last = n - 1 - layer;
         
@@ -2330,14 +2307,13 @@ public void processLayers(int[][] matrix) {
 }
 
 private void processLayer(int[][] matrix, int first, int last) {
-    for (int i = first; i < last; i++) {
+    for (int i = first; i &lt; last; i++) {
         int offset = i - first;
         
         // Process 4 elements in the layer cycle
         processLayerElements(matrix, first, last, i, offset);
     }
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2396,12 +2372,11 @@ function processLayer(matrix, first, last) {
   </div>
   
   <div class="tab-content java active">
-```java
-public boolean searchMatrix(char[][] board, String target) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean searchMatrix(char[][] board, String target) {
     int rows = board.length, cols = board[0].length;
     
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
             if (dfs(board, target, i, j, 0)) {
                 return true;
             }
@@ -2420,7 +2395,7 @@ private boolean dfs(char[][] board, String target, int row, int col, int index) 
     
     // Mark as visited
     char temp = board[row][col];
-    board[row][col] = '#';
+    board[row][col] = &#x27;#&#x27;;
     
     // Explore 4 directions
     int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -2434,8 +2409,7 @@ private boolean dfs(char[][] board, String target, int row, int col, int index) 
     // Backtrack
     board[row][col] = temp;
     return false;
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2527,38 +2501,37 @@ function searchMatrix(board, target) {
   </div>
   
   <div class="tab-content java active">
-```java
-public List<Integer> spiralTraversal(int[][] matrix) {
-    List<Integer> result = new ArrayList<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public List&lt;Integer&gt; spiralTraversal(int[][] matrix) {
+    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
     if (matrix.length == 0) return result;
     
     int top = 0, bottom = matrix.length - 1;
     int left = 0, right = matrix[0].length - 1;
     
-    while (top <= bottom && left <= right) {
+    while (top &lt;= bottom &amp;&amp; left &lt;= right) {
         // Traverse right
-        for (int col = left; col <= right; col++) {
+        for (int col = left; col &lt;= right; col++) {
             result.add(matrix[top][col]);
         }
         top++;
         
         // Traverse down
-        for (int row = top; row <= bottom; row++) {
+        for (int row = top; row &lt;= bottom; row++) {
             result.add(matrix[row][right]);
         }
         right--;
         
         // Traverse left (if still have rows)
-        if (top <= bottom) {
-            for (int col = right; col >= left; col--) {
+        if (top &lt;= bottom) {
+            for (int col = right; col &gt;= left; col--) {
                 result.add(matrix[bottom][col]);
             }
             bottom--;
         }
         
         // Traverse up (if still have columns)
-        if (left <= right) {
-            for (int row = bottom; row >= top; row--) {
+        if (left &lt;= right) {
+            for (int row = bottom; row &gt;= top; row--) {
                 result.add(matrix[row][left]);
             }
             left++;
@@ -2566,8 +2539,7 @@ public List<Integer> spiralTraversal(int[][] matrix) {
     }
     
     return result;
-}
-```
+}</code></pre>
   </div>
   
   <div class="tab-content python">
