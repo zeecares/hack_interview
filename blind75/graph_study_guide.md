@@ -768,9 +768,13 @@ var cloneGraph = function(node) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(V + E) where V = vertices, E = edges
 - Space: O(V) for the hash map and recursion stack
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Use hash map to track original → clone mapping
@@ -1168,9 +1172,13 @@ var canFinish = function(numCourses, prerequisites) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(V + E) where V = courses, E = prerequisites
 - Space: O(V + E) for adjacency list
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Cycle detection is key to solving prerequisite problems
@@ -1706,9 +1714,13 @@ var pacificAtlantic = function(heights) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(m × n) - visit each cell at most twice
 - Space: O(m × n) - for visited arrays
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Reverse thinking: start from oceans, not from each cell
@@ -2189,9 +2201,13 @@ class Solution {
 }
 ```
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(m × n) for DFS/BFS, O(m × n × α(mn)) for Union-Find
 - Space: O(min(m, n)) for BFS queue, O(mn) for Union-Find
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Connected components problem in disguise
@@ -2461,9 +2477,13 @@ class Solution {
 }
 ```
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(n) for all solutions
 - Space: O(n) for hash set/map
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Think of consecutive numbers as forming an implicit graph
@@ -2763,9 +2783,13 @@ class Solution {
 }
 ```
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(C) where C = total length of all words
 - Space: O(1) since alphabet size is bounded (at most 26 characters)
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Only first differing character between adjacent words gives ordering info
@@ -3079,9 +3103,13 @@ class Solution {
 }
 ```
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Time: O(n) since we have at most n-1 edges
 - Space: O(n) for adjacency list and visited array
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Trees have exactly n-1 edges (quick elimination test)
@@ -3416,9 +3444,13 @@ class Solution {
 }
 ```
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - Union-Find: Time O(E × α(n)), Space O(n)
 - DFS/BFS: Time O(V + E), Space O(V + E)
+
+{::options parse_block_html="false" /}
 
 **Key Insights**:
 - Union-Find is optimal for this type of connectivity problem

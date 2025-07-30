@@ -370,10 +370,14 @@ class ClimbingStairs {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Memoization**: Time O(n), Space O(n)
 - **Tabulation**: Time O(n), Space O(n)
 - **Space Optimized**: Time O(n), Space O(1)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - This is the classic Fibonacci pattern
@@ -663,9 +667,13 @@ class CoinChange {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(amount × coins.length)
 - **Space**: O(amount)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Classic "unbounded knapsack" variant
@@ -968,6 +976,8 @@ class LongestIncreasingSubsequence {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **DP Approach**: Time O(n²), Space O(n)
 - **Binary Search**: Time O(n log n), Space O(n)
@@ -982,6 +992,8 @@ class LongestIncreasingSubsequence {
 dp[i] = max(dp[j] + 1) for all j < i where nums[j] < nums[i]
 ```
 Each position considers extending all valid previous subsequences.
+
+{::options parse_block_html="false" /}
 
 ---
 
@@ -1344,9 +1356,13 @@ class LongestCommonSubsequence {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **2D DP**: Time O(m×n), Space O(m×n)
 - **Space Optimized**: Time O(m×n), Space O(min(m,n))
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Foundation for edit distance and diff algorithms
@@ -1705,10 +1721,14 @@ class WordBreak {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(n² × m) where n = string length, m = average word length
 - **Space**: O(n + W) where W = total characters in dictionary
 - **Optimized**: O(n × maxWordLength × m)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - String partitioning pattern
@@ -2032,9 +2052,13 @@ class CombinationSum {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Backtracking**: O(2^target) in worst case
 - **DP Counting**: Time O(target × nums.length), Space O(target)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Difference between listing solutions vs counting solutions
@@ -2364,9 +2388,13 @@ class HouseRobber {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(n)
 - **Space**: O(n) for DP array, O(1) for optimized version
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Classic constraint-based optimization
@@ -2677,9 +2705,13 @@ class HouseRobberII {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(n)
 - **Space**: O(1)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Circular constraints → multiple linear subproblems
@@ -3096,9 +3128,13 @@ class DecodeWays {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(n)
 - **Space**: O(n) for DP, O(1) for optimized
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Similar to Fibonacci but with validity constraints
@@ -3413,10 +3449,14 @@ class UniquePaths {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **2D DP**: Time O(m×n), Space O(m×n)
 - **1D DP**: Time O(m×n), Space O(n)
 - **Mathematical**: Time O(min(m,n)), Space O(1)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Foundation for obstacle-based path problems
@@ -3804,10 +3844,14 @@ class JumpGame {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **DP**: Time O(n²), Space O(n)
 - **Greedy**: Time O(n), Space O(1)
 - **Backward**: Time O(n), Space O(1)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Sometimes greedy is better than DP

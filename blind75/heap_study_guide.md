@@ -745,10 +745,14 @@ class MergeKSortedLists {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Heap Approach**: Time O(N log k), Space O(k) where N = total nodes, k = number of lists
 - **Divide & Conquer**: Time O(N log k), Space O(log k) for recursion
 - **Iterative Merging**: Time O(N log k), Space O(1)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Min-heap naturally handles K-way minimum selection
@@ -1154,11 +1158,15 @@ class TopKFrequentElements {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Min Heap**: Time O(N log k), Space O(N + k)
 - **Max Heap**: Time O(N log N), Space O(N)
 - **Bucket Sort**: Time O(N), Space O(N)
 - **Quick Select**: Time O(N) average, Space O(N)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Min-heap of size K saves space when K << N
@@ -1659,11 +1667,15 @@ class MedianFinder2 {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Two Heaps**: addNum O(log n), findMedian O(1)
 - **ArrayList**: addNum O(n), findMedian O(1)
 - **BST**: addNum O(log n), findMedian O(log n)
 - **TreeMap**: addNum O(log n), findMedian O(log n)
+
+{::options parse_block_html="false" /}
 
 **Key Insights & Patterns**:
 - Two heaps maintain balance while providing O(log n) operations

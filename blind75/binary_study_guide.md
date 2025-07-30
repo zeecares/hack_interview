@@ -548,6 +548,8 @@ var getSum = function(a, b) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Time**: O(log max(a,b)) - maximum 32 iterations for 32-bit integers
 - **Space**: O(1)
@@ -555,6 +557,8 @@ var getSum = function(a, b) {
 **Key Insights & Patterns**:
 - XOR operation simulates addition without carry
 - AND + left shift handles carry propagation
+
+{::options parse_block_html="false" /}
 - Pattern applicable to building arithmetic operations from basic logic
 - Foundation for understanding computer arithmetic at hardware level
 
@@ -872,6 +876,8 @@ var hammingWeight = (function() {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Simple**: Time O(32) = O(1), Space O(1)
 - **Brian Kernighan**: Time O(number of set bits), Space O(1)
@@ -879,6 +885,8 @@ var hammingWeight = (function() {
 
 **Key Insights & Patterns**:
 - Brian Kernighan's algorithm: n & (n-1) clears rightmost set bit
+
+{::options parse_block_html="false" /}
 - Only need to iterate through set bits, not all bit positions
 - Pattern useful for problems involving bit counting and manipulation
 
@@ -1231,6 +1239,8 @@ var countBits = function(n) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **DP approaches**: Time O(n), Space O(1) extra (excluding output array)
 - **Brute force**: Time O(n × log n), Space O(1) extra
@@ -1238,6 +1248,8 @@ var countBits = function(n) {
 **Key Insights & Patterns**:
 - Each number's bit count relates to a previously computed number
 - Multiple DP transitions possible: i & (i-1), i >> 1, power of 2 offsets
+
+{::options parse_block_html="false" /}
 - Pattern fundamental to many bit manipulation DP problems
 
 **DP Transition Explanations**:
@@ -1615,6 +1627,8 @@ var missingNumber = function(nums) {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **XOR**: Time O(n), Space O(1)
 - **Sum**: Time O(n), Space O(1) (but potential overflow)
@@ -1622,6 +1636,8 @@ var missingNumber = function(nums) {
 - **HashSet**: Time O(n), Space O(n)
 
 **Key Insights & Patterns**:
+
+{::options parse_block_html="false" /}
 - XOR's self-canceling property: a ⊕ a = 0
 - Mathematical approach using arithmetic series
 - Pattern applicable to finding single missing/duplicate elements
@@ -2049,6 +2065,8 @@ var reverseBits = (function() {
   </div>
 </div>
 
+{::options parse_block_html="true" /}
+
 **Complexity Analysis**:
 - **Bit by bit**: Time O(32) = O(1), Space O(1)
 - **Divide and conquer**: Time O(1), Space O(1)
@@ -2056,6 +2074,8 @@ var reverseBits = (function() {
 
 **Key Insights & Patterns**:
 - Divide and conquer approach swaps bits in larger and larger groups
+
+{::options parse_block_html="false" /}
 - Lookup table optimization for repeated calls
 - Pattern useful for any bit reversal/swapping problems
 
