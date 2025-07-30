@@ -183,6 +183,10 @@ Combine both tracks for comprehensive technical interview preparation
   border-left: 4px solid #28a745;
 }
 
+.collection-card.cheatsheet {
+  border-left: 4px solid #6f42c1;
+}
+
 .collection-card h3 {
   margin: 0 0 1rem 0;
   color: #333;
