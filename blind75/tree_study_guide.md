@@ -305,17 +305,16 @@ function bfs(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.List;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.List;
 
-void inorder(TreeNode node, List<Integer> result) {
+void inorder(TreeNode node, List&lt;Integer&gt; result) {
     if (node == null) return;
     
     inorder(node.left, result);
     result.add(node.val);  // Process in sorted order for BST
     inorder(node.right, result);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -486,8 +485,7 @@ The depth of a tree is determined by:
   </div>
   
   <div class="tab-content java active">
-```java
-public int maxDepth(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int maxDepth(TreeNode root) {
     if (root == null) {
         return 0;
     }
@@ -497,7 +495,7 @@ public int maxDepth(TreeNode root) {
     
     return 1 + Math.max(leftDepth, rightDepth);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -539,14 +537,13 @@ function maxDepth(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.Queue;
 
 public int maxDepth(TreeNode root) {
     if (root == null) return 0;
     
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(root);
     int depth = 0;
     
@@ -554,7 +551,7 @@ public int maxDepth(TreeNode root) {
         int levelSize = queue.size();
         depth++;
         
-        for (int i = 0; i < levelSize; i++) {
+        for (int i = 0; i &lt; levelSize; i++) {
             TreeNode node = queue.poll();
             
             if (node.left != null) queue.offer(node.left);
@@ -564,7 +561,7 @@ public int maxDepth(TreeNode root) {
     
     return depth;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -630,12 +627,11 @@ function maxDepth(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-public int maxDepth(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int maxDepth(TreeNode root) {
     if (root == null) return 0;
     
-    Stack<TreeNode> nodeStack = new Stack<>();
-    Stack<Integer> depthStack = new Stack<>();
+    Stack&lt;TreeNode&gt; nodeStack = new Stack&lt;&gt;();
+    Stack&lt;Integer&gt; depthStack = new Stack&lt;&gt;();
     
     nodeStack.push(root);
     depthStack.push(1);
@@ -659,7 +655,7 @@ public int maxDepth(TreeNode root) {
     
     return maxDepth;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -888,10 +884,9 @@ Two trees are identical if:
   </div>
   
   <div class="tab-content java active">
-```java
-public boolean isSameTree(TreeNode p, TreeNode q) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSameTree(TreeNode p, TreeNode q) {
     // Base case: both are null
-    if (p == null && q == null) {
+    if (p == null &amp;&amp; q == null) {
         return true;
     }
     
@@ -901,11 +896,11 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     }
     
     // Both are non-null: check value and recurse
-    return p.val == q.val && 
-           isSameTree(p.left, q.left) && 
+    return p.val == q.val &amp;&amp; 
+           isSameTree(p.left, q.left) &amp;&amp; 
            isSameTree(p.right, q.right);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -958,9 +953,8 @@ function isSameTree(p, q) {
   </div>
   
   <div class="tab-content java active">
-```java
-public boolean isSameTree(TreeNode p, TreeNode q) {
-    Stack<TreeNode> stack = new Stack<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSameTree(TreeNode p, TreeNode q) {
+    Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();
     stack.push(p);
     stack.push(q);
     
@@ -968,7 +962,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
         TreeNode node1 = stack.pop();
         TreeNode node2 = stack.pop();
         
-        if (node1 == null && node2 == null) continue;
+        if (node1 == null &amp;&amp; node2 == null) continue;
         if (node1 == null || node2 == null) return false;
         if (node1.val != node2.val) return false;
         
@@ -980,7 +974,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     
     return true;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1040,12 +1034,11 @@ function isSameTree(p, q) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.Queue;
 
 public boolean isSameTree(TreeNode p, TreeNode q) {
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(p);
     queue.offer(q);
     
@@ -1053,7 +1046,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
         TreeNode node1 = queue.poll();
         TreeNode node2 = queue.poll();
         
-        if (node1 == null && node2 == null) continue;
+        if (node1 == null &amp;&amp; node2 == null) continue;
         if (node1 == null || node2 == null) return false;
         if (node1.val != node2.val) return false;
         
@@ -1065,7 +1058,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
     
     return true;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1127,16 +1120,15 @@ function isSameTree(p, q) {
   </div>
   
   <div class="tab-content java active">
-```java
-public boolean isSameTree(TreeNode p, TreeNode q) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSameTree(TreeNode p, TreeNode q) {
     return serialize(p).equals(serialize(q));
 }
 
 private String serialize(TreeNode node) {
-    if (node == null) return "#";
-    return node.val + "," + serialize(node.left) + "," + serialize(node.right);
+    if (node == null) return &quot;#&quot;;
+    return node.val + &quot;,&quot; + serialize(node.left) + &quot;,&quot; + serialize(node.right);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1243,19 +1235,17 @@ This ensures every subtree gets inverted, and then we fix the current level.
 Both approaches work, but they're slightly different:
 
 **Approach 1 - Swap first**: 
-```java
-temp = root.left;
+<pre class="language-java" tabindex="0"><code class="language-java">temp = root.left;
 root.left = invert(root.right);
 root.right = invert(temp);
-```
+</code></pre>
 
 **Approach 2 - Recurse first**:
-```java
-left = invert(root.left);
+<pre class="language-java" tabindex="0"><code class="language-java">left = invert(root.left);
 right = invert(root.right);
 root.left = right;
 root.right = left;
-```
+</code></pre>
 
 The second approach is often clearer because you're explicitly saying "invert both children, then swap them."
 </details>
@@ -1347,8 +1337,7 @@ Tree inversion involves:
   </div>
   
   <div class="tab-content java active">
-```java
-public TreeNode invertTree(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode invertTree(TreeNode root) {
     if (root == null) {
         return null;
     }
@@ -1364,7 +1353,7 @@ public TreeNode invertTree(TreeNode root) {
     
     return root;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1416,8 +1405,7 @@ function invertTree(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-public TreeNode invertTree(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode invertTree(TreeNode root) {
     if (root == null) {
         return null;
     }
@@ -1431,7 +1419,7 @@ public TreeNode invertTree(TreeNode root) {
     
     return root;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1481,14 +1469,13 @@ function invertTree(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.Queue;
 
 public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
     
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(root);
     
     while (!queue.isEmpty()) {
@@ -1506,7 +1493,7 @@ public TreeNode invertTree(TreeNode root) {
     
     return root;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1571,11 +1558,10 @@ function invertTree(root) {
   </div>
   
   <div class="tab-content java active">
-```java
-public TreeNode invertTree(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
     
-    Stack<TreeNode> stack = new Stack<>();
+    Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();
     stack.push(root);
     
     while (!stack.isEmpty()) {
@@ -1593,7 +1579,7 @@ public TreeNode invertTree(TreeNode root) {
     
     return root;
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1818,8 +1804,7 @@ Maximum path sum involves:
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int maxSum = Integer.MIN_VALUE;
     
     public int maxPathSum(TreeNode root) {
@@ -1845,7 +1830,7 @@ class Solution {
         return node.val + Math.max(leftGain, rightGain);
     }
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -1920,8 +1905,7 @@ class Solution {
   </div>
   
   <div class="tab-content java active">
-```java
-public int maxPathSum(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int maxPathSum(TreeNode root) {
     int[] maxSum = {Integer.MIN_VALUE};
     maxGain(root, maxSum);
     return maxSum[0];
@@ -1940,7 +1924,7 @@ private int maxGain(TreeNode node, int[] maxSum) {
     // Return contribution to parent
     return node.val + Math.max(leftGain, rightGain);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2001,8 +1985,7 @@ function maxGain(node, maxSum) {
   </div>
   
   <div class="tab-content java active">
-```java
-class Result {
+<pre class="language-java" tabindex="0"><code class="language-java">class Result {
     int maxPath;    // Maximum path sum in subtree
     int maxGain;    // Maximum gain that can contribute to parent
     
@@ -2040,7 +2023,7 @@ private Result helper(TreeNode node) {
     
     return new Result(maxPath, maxGain);
 }
-```
+</code></pre>
   </div>
   
   <div class="tab-content python">
@@ -2283,25 +2266,24 @@ Level order traversal means:
 ### Multiple Java Solutions
 
 #### Solution 1: BFS with Level Size Tracking (Optimal)
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
     if (root == null) return result;
     
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(root);
     
     while (!queue.isEmpty()) {
         int levelSize = queue.size();
-        List<Integer> currentLevel = new ArrayList<>();
+        List&lt;Integer&gt; currentLevel = new ArrayList&lt;&gt;();
         
         // Process all nodes at current level
-        for (int i = 0; i < levelSize; i++) {
+        for (int i = 0; i &lt; levelSize; i++) {
             TreeNode node = queue.poll();
             currentLevel.add(node.val);
             
@@ -2315,31 +2297,30 @@ public List<List<Integer>> levelOrder(TreeNode root) {
     
     return result;
 }
-```
+</code></pre>
 
 #### Solution 2: BFS with Null Delimiter
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
     if (root == null) return result;
     
-    Queue<TreeNode> queue = new LinkedList<>();
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
     queue.offer(root);
     queue.offer(null); // Level delimiter
     
-    List<Integer> currentLevel = new ArrayList<>();
+    List&lt;Integer&gt; currentLevel = new ArrayList&lt;&gt;();
     
     while (!queue.isEmpty()) {
         TreeNode node = queue.poll();
         
         if (node == null) {
             // End of current level
-            result.add(new ArrayList<>(currentLevel));
+            result.add(new ArrayList&lt;&gt;(currentLevel));
             currentLevel.clear();
             
             if (!queue.isEmpty()) {
@@ -2355,25 +2336,24 @@ public List<List<Integer>> levelOrder(TreeNode root) {
     
     return result;
 }
-```
+</code></pre>
 
 #### Solution 3: Recursive DFS with Level Tracking
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
-public List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
     dfs(root, 0, result);
     return result;
 }
 
-private void dfs(TreeNode node, int level, List<List<Integer>> result) {
+private void dfs(TreeNode node, int level, List&lt;List&lt;Integer&gt;&gt; result) {
     if (node == null) return;
     
     // Create new level if needed
-    if (level >= result.size()) {
-        result.add(new ArrayList<>());
+    if (level &gt;= result.size()) {
+        result.add(new ArrayList&lt;&gt;());
     }
     
     // Add current node to its level
@@ -2383,26 +2363,25 @@ private void dfs(TreeNode node, int level, List<List<Integer>> result) {
     dfs(node.left, level + 1, result);
     dfs(node.right, level + 1, result);
 }
-```
+</code></pre>
 
 #### Solution 4: Two Queue Approach
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
+public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
     if (root == null) return result;
     
-    Queue<TreeNode> currentLevel = new LinkedList<>();
-    Queue<TreeNode> nextLevel = new LinkedList<>();
+    Queue&lt;TreeNode&gt; currentLevel = new LinkedList&lt;&gt;();
+    Queue&lt;TreeNode&gt; nextLevel = new LinkedList&lt;&gt;();
     
     currentLevel.offer(root);
     
     while (!currentLevel.isEmpty()) {
-        List<Integer> levelValues = new ArrayList<>();
+        List&lt;Integer&gt; levelValues = new ArrayList&lt;&gt;();
         
         while (!currentLevel.isEmpty()) {
             TreeNode node = currentLevel.poll();
@@ -2415,14 +2394,14 @@ public List<List<Integer>> levelOrder(TreeNode root) {
         result.add(levelValues);
         
         // Swap queues
-        Queue<TreeNode> temp = currentLevel;
+        Queue&lt;TreeNode&gt; temp = currentLevel;
         currentLevel = nextLevel;
         nextLevel = temp;
     }
     
     return result;
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) - visit each node once
@@ -2580,14 +2559,13 @@ Serialization requires:
 ### Multiple Java Solutions
 
 #### Solution 1: Preorder Traversal (Optimal)
-```java
-import java.util.Arrays;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Codec {
-    private static final String NULL_MARKER = "#";
-    private static final String DELIMITER = ",";
+    private static final String NULL_MARKER = &quot;#&quot;;
+    private static final String DELIMITER = &quot;,&quot;;
     
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -2609,11 +2587,11 @@ public class Codec {
     
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(DELIMITER)));
+        Queue&lt;String&gt; queue = new LinkedList&lt;&gt;(Arrays.asList(data.split(DELIMITER)));
         return deserializeHelper(queue);
     }
     
-    private TreeNode deserializeHelper(Queue<String> queue) {
+    private TreeNode deserializeHelper(Queue&lt;String&gt; queue) {
         String val = queue.poll();
         
         if (NULL_MARKER.equals(val)) {
@@ -2627,28 +2605,27 @@ public class Codec {
         return node;
     }
 }
-```
+</code></pre>
 
 #### Solution 2: Level Order Traversal
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.Queue;
 
 public class Codec {
     public String serialize(TreeNode root) {
-        if (root == null) return "";
+        if (root == null) return &quot;&quot;;
         
         StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
         queue.offer(root);
         
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             
             if (node == null) {
-                sb.append("#,");
+                sb.append(&quot;#,&quot;);
             } else {
-                sb.append(node.val).append(",");
+                sb.append(node.val).append(&quot;,&quot;);
                 queue.offer(node.left);
                 queue.offer(node.right);
             }
@@ -2660,24 +2637,24 @@ public class Codec {
     public TreeNode deserialize(String data) {
         if (data.isEmpty()) return null;
         
-        String[] vals = data.split(",");
+        String[] vals = data.split(&quot;,&quot;);
         TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
         queue.offer(root);
         
         int i = 1;
-        while (!queue.isEmpty() && i < vals.length) {
+        while (!queue.isEmpty() &amp;&amp; i &lt; vals.length) {
             TreeNode node = queue.poll();
             
             // Process left child
-            if (!"#".equals(vals[i])) {
+            if (!&quot;#&quot;.equals(vals[i])) {
                 node.left = new TreeNode(Integer.parseInt(vals[i]));
                 queue.offer(node.left);
             }
             i++;
             
             // Process right child
-            if (i < vals.length && !"#".equals(vals[i])) {
+            if (i &lt; vals.length &amp;&amp; !&quot;#&quot;.equals(vals[i])) {
                 node.right = new TreeNode(Integer.parseInt(vals[i]));
                 queue.offer(node.right);
             }
@@ -2687,11 +2664,10 @@ public class Codec {
         return root;
     }
 }
-```
+</code></pre>
 
 #### Solution 3: Postorder Traversal
-```java
-public class Codec {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Codec {
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
         serializePost(root, sb);
@@ -2700,26 +2676,26 @@ public class Codec {
     
     private void serializePost(TreeNode node, StringBuilder sb) {
         if (node == null) {
-            sb.append("#,");
+            sb.append(&quot;#,&quot;);
             return;
         }
         
         serializePost(node.left, sb);
         serializePost(node.right, sb);
-        sb.append(node.val).append(",");
+        sb.append(node.val).append(&quot;,&quot;);
     }
     
     public TreeNode deserialize(String data) {
-        Stack<String> stack = new Stack<>();
-        for (String s : data.split(",")) {
+        Stack&lt;String&gt; stack = new Stack&lt;&gt;();
+        for (String s : data.split(&quot;,&quot;)) {
             stack.push(s);
         }
         return deserializePost(stack);
     }
     
-    private TreeNode deserializePost(Stack<String> stack) {
+    private TreeNode deserializePost(Stack&lt;String&gt; stack) {
         String val = stack.pop();
-        if ("#".equals(val)) {
+        if (&quot;#&quot;.equals(val)) {
             return null;
         }
         
@@ -2730,20 +2706,19 @@ public class Codec {
         return node;
     }
 }
-```
+</code></pre>
 
 #### Solution 4: Compact Encoding with Parent Pointers
-```java
-public class Codec {
+<pre class="language-java" tabindex="0"><code class="language-java">public class Codec {
     public String serialize(TreeNode root) {
-        List<String> result = new ArrayList<>();
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
         serializeHelper(root, result);
-        return String.join(",", result);
+        return String.join(&quot;,&quot;, result);
     }
     
-    private void serializeHelper(TreeNode node, List<String> result) {
+    private void serializeHelper(TreeNode node, List&lt;String&gt; result) {
         if (node == null) {
-            result.add("#");
+            result.add(&quot;#&quot;);
             return;
         }
         
@@ -2755,13 +2730,13 @@ public class Codec {
     public TreeNode deserialize(String data) {
         if (data.isEmpty()) return null;
         
-        Iterator<String> iter = Arrays.asList(data.split(",")).iterator();
+        Iterator&lt;String&gt; iter = Arrays.asList(data.split(&quot;,&quot;)).iterator();
         return deserializeHelper(iter);
     }
     
-    private TreeNode deserializeHelper(Iterator<String> iter) {
+    private TreeNode deserializeHelper(Iterator&lt;String&gt; iter) {
         String val = iter.next();
-        if ("#".equals(val)) return null;
+        if (&quot;#&quot;.equals(val)) return null;
         
         TreeNode node = new TreeNode(Integer.parseInt(val));
         node.left = deserializeHelper(iter);
@@ -2770,7 +2745,7 @@ public class Codec {
         return node;
     }
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) for both serialize and deserialize
@@ -2929,8 +2904,7 @@ Subtree checking involves:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive Traversal with Tree Comparison (Optimal)
-```java
-public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSubtree(TreeNode root, TreeNode subRoot) {
     if (root == null) return false;
     
     // Check if current tree matches subRoot
@@ -2943,18 +2917,17 @@ public boolean isSubtree(TreeNode root, TreeNode subRoot) {
 }
 
 private boolean isSameTree(TreeNode p, TreeNode q) {
-    if (p == null && q == null) return true;
+    if (p == null &amp;&amp; q == null) return true;
     if (p == null || q == null) return false;
     
-    return p.val == q.val && 
-           isSameTree(p.left, q.left) && 
+    return p.val == q.val &amp;&amp; 
+           isSameTree(p.left, q.left) &amp;&amp; 
            isSameTree(p.right, q.right);
 }
-```
+</code></pre>
 
 #### Solution 2: Serialization Approach
-```java
-public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSubtree(TreeNode root, TreeNode subRoot) {
     String rootStr = serialize(root);
     String subStr = serialize(subRoot);
     
@@ -2962,19 +2935,18 @@ public boolean isSubtree(TreeNode root, TreeNode subRoot) {
 }
 
 private String serialize(TreeNode node) {
-    if (node == null) return "#";
+    if (node == null) return &quot;#&quot;;
     
     // Use unique delimiters to avoid false matches
-    return "^" + node.val + "#" + 
+    return &quot;^&quot; + node.val + &quot;#&quot; + 
            serialize(node.left) + serialize(node.right);
 }
-```
+</code></pre>
 
 #### Solution 3: Preorder Traversal with String Matching
-```java
-public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-    List<String> rootPreorder = new ArrayList<>();
-    List<String> subPreorder = new ArrayList<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    List&lt;String&gt; rootPreorder = new ArrayList&lt;&gt;();
+    List&lt;String&gt; subPreorder = new ArrayList&lt;&gt;();
     
     preorder(root, rootPreorder);
     preorder(subRoot, subPreorder);
@@ -2982,39 +2954,38 @@ public boolean isSubtree(TreeNode root, TreeNode subRoot) {
     return Collections.indexOfSubList(rootPreorder, subPreorder) != -1;
 }
 
-private void preorder(TreeNode node, List<String> result) {
+private void preorder(TreeNode node, List&lt;String&gt; result) {
     if (node == null) {
-        result.add("#");
+        result.add(&quot;#&quot;);
         return;
     }
     
-    result.add("^" + node.val);  // Use prefix to avoid false matches
+    result.add(&quot;^&quot; + node.val);  // Use prefix to avoid false matches
     preorder(node.left, result);
     preorder(node.right, result);
 }
-```
+</code></pre>
 
 #### Solution 4: Hash-based Approach
-```java
-public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-    Set<String> rootHashes = new HashSet<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    Set&lt;String&gt; rootHashes = new HashSet&lt;&gt;();
     String subHash = getHash(subRoot, rootHashes);
     
     return rootHashes.contains(subHash);
 }
 
-private String getHash(TreeNode node, Set<String> hashes) {
-    if (node == null) return "#";
+private String getHash(TreeNode node, Set&lt;String&gt; hashes) {
+    if (node == null) return &quot;#&quot;;
     
     String leftHash = getHash(node.left, hashes);
     String rightHash = getHash(node.right, hashes);
     
-    String currentHash = node.val + "," + leftHash + "," + rightHash;
+    String currentHash = node.val + &quot;,&quot; + leftHash + &quot;,&quot; + rightHash;
     hashes.add(currentHash);
     
     return currentHash;
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Recursive approach**: Time O(m×n), Space O(max(m,n)) where m,n are tree sizes
@@ -3178,14 +3149,13 @@ Tree reconstruction uses traversal properties:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive with HashMap (Optimal)
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int preorderIndex = 0;
-    private Map<Integer, Integer> inorderMap = new HashMap<>();
+    private Map&lt;Integer, Integer&gt; inorderMap = new HashMap&lt;&gt;();
     
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         // Build map for O(1) lookup of root positions
-        for (int i = 0; i < inorder.length; i++) {
+        for (int i = 0; i &lt; inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
         
@@ -3193,7 +3163,7 @@ class Solution {
     }
     
     private TreeNode buildTreeHelper(int[] preorder, int left, int right) {
-        if (left > right) return null;
+        if (left &gt; right) return null;
         
         // Pick current root from preorder
         int rootVal = preorder[preorderIndex++];
@@ -3209,16 +3179,15 @@ class Solution {
         return root;
     }
 }
-```
+</code></pre>
 
 #### Solution 2: Without Global Variables
-```java
-import java.util.HashMap;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.HashMap;
 import java.util.Map;
 
 public TreeNode buildTree(int[] preorder, int[] inorder) {
-    Map<Integer, Integer> inorderMap = new HashMap<>();
-    for (int i = 0; i < inorder.length; i++) {
+    Map&lt;Integer, Integer&gt; inorderMap = new HashMap&lt;&gt;();
+    for (int i = 0; i &lt; inorder.length; i++) {
         inorderMap.put(inorder[i], i);
     }
     
@@ -3227,8 +3196,8 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
 
 private TreeNode buildTreeHelper(int[] preorder, int preStart, 
                                 int inStart, int inEnd, 
-                                Map<Integer, Integer> inorderMap) {
-    if (preStart >= preorder.length || inStart > inEnd) {
+                                Map&lt;Integer, Integer&gt; inorderMap) {
+    if (preStart &gt;= preorder.length || inStart &gt; inEnd) {
         return null;
     }
     
@@ -3243,20 +3212,19 @@ private TreeNode buildTreeHelper(int[] preorder, int preStart,
     
     return root;
 }
-```
+</code></pre>
 
 #### Solution 3: Iterative with Stack
-```java
-public TreeNode buildTree(int[] preorder, int[] inorder) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode buildTree(int[] preorder, int[] inorder) {
     if (preorder.length == 0) return null;
     
     TreeNode root = new TreeNode(preorder[0]);
-    Stack<TreeNode> stack = new Stack<>();
+    Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();
     stack.push(root);
     
     int preIndex = 1, inIndex = 0;
     
-    while (preIndex < preorder.length) {
+    while (preIndex &lt; preorder.length) {
         TreeNode node = stack.peek();
         
         if (node.val != inorder[inIndex]) {
@@ -3265,12 +3233,12 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
             stack.push(node.left);
         } else {
             // Found root in inorder, process right subtree
-            while (!stack.isEmpty() && stack.peek().val == inorder[inIndex]) {
+            while (!stack.isEmpty() &amp;&amp; stack.peek().val == inorder[inIndex]) {
                 node = stack.pop();
                 inIndex++;
             }
             
-            if (preIndex < preorder.length) {
+            if (preIndex &lt; preorder.length) {
                 node.right = new TreeNode(preorder[preIndex++]);
                 stack.push(node.right);
             }
@@ -3279,18 +3247,17 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
     
     return root;
 }
-```
+</code></pre>
 
 #### Solution 4: Recursive with Array Copying (Less Efficient)
-```java
-public TreeNode buildTree(int[] preorder, int[] inorder) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode buildTree(int[] preorder, int[] inorder) {
     if (preorder.length == 0) return null;
     
     TreeNode root = new TreeNode(preorder[0]);
     
     // Find root in inorder
     int rootIndex = 0;
-    for (int i = 0; i < inorder.length; i++) {
+    for (int i = 0; i &lt; inorder.length; i++) {
         if (inorder[i] == preorder[0]) {
             rootIndex = i;
             break;
@@ -3309,7 +3276,7 @@ public TreeNode buildTree(int[] preorder, int[] inorder) {
     
     return root;
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) with HashMap, O(n²) without
@@ -3481,8 +3448,7 @@ BST validation requires:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive with Bounds (Optimal)
-```java
-public boolean isValidBST(TreeNode root) {
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isValidBST(TreeNode root) {
     return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
 }
 
@@ -3490,19 +3456,18 @@ private boolean validate(TreeNode node, long min, long max) {
     if (node == null) return true;
     
     // Check if current node violates BST property
-    if (node.val <= min || node.val >= max) {
+    if (node.val &lt;= min || node.val &gt;= max) {
         return false;
     }
     
     // Recursively validate left and right subtrees with updated bounds
-    return validate(node.left, min, node.val) && 
+    return validate(node.left, min, node.val) &amp;&amp; 
            validate(node.right, node.val, max);
 }
-```
+</code></pre>
 
 #### Solution 2: In-order Traversal Validation
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private Integer prev = null;
     
     public boolean isValidBST(TreeNode root) {
@@ -3516,7 +3481,7 @@ class Solution {
         if (!inorder(node.left)) return false;
         
         // Check current node
-        if (prev != null && node.val <= prev) {
+        if (prev != null &amp;&amp; node.val &lt;= prev) {
             return false;
         }
         prev = node.val;
@@ -3525,20 +3490,19 @@ class Solution {
         return inorder(node.right);
     }
 }
-```
+</code></pre>
 
 #### Solution 3: In-order with List
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
 public boolean isValidBST(TreeNode root) {
-    List<Integer> inorderList = new ArrayList<>();
+    List&lt;Integer&gt; inorderList = new ArrayList&lt;&gt;();
     inorder(root, inorderList);
     
     // Check if list is strictly increasing
-    for (int i = 1; i < inorderList.size(); i++) {
-        if (inorderList.get(i) <= inorderList.get(i - 1)) {
+    for (int i = 1; i &lt; inorderList.size(); i++) {
+        if (inorderList.get(i) &lt;= inorderList.get(i - 1)) {
             return false;
         }
     }
@@ -3546,19 +3510,18 @@ public boolean isValidBST(TreeNode root) {
     return true;
 }
 
-private void inorder(TreeNode node, List<Integer> result) {
+private void inorder(TreeNode node, List&lt;Integer&gt; result) {
     if (node == null) return;
     
     inorder(node.left, result);
     result.add(node.val);
     inorder(node.right, result);
 }
-```
+</code></pre>
 
 #### Solution 4: Iterative In-order
-```java
-public boolean isValidBST(TreeNode root) {
-    Stack<TreeNode> stack = new Stack<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public boolean isValidBST(TreeNode root) {
+    Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();
     Integer prev = null;
     TreeNode current = root;
     
@@ -3571,7 +3534,7 @@ public boolean isValidBST(TreeNode root) {
         
         // Process current node
         current = stack.pop();
-        if (prev != null && current.val <= prev) {
+        if (prev != null &amp;&amp; current.val &lt;= prev) {
             return false;
         }
         prev = current.val;
@@ -3582,7 +3545,7 @@ public boolean isValidBST(TreeNode root) {
     
     return true;
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(n) - visit each node once
@@ -3763,8 +3726,7 @@ Finding kth smallest in BST leverages:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive In-order with Counter (Optimal)
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int count = 0;
     private int result = 0;
     
@@ -3774,7 +3736,7 @@ class Solution {
     }
     
     private void inorder(TreeNode node, int k) {
-        if (node == null || count >= k) return;
+        if (node == null || count &gt;= k) return;
         
         // Traverse left subtree
         inorder(node.left, k);
@@ -3790,12 +3752,11 @@ class Solution {
         inorder(node.right, k);
     }
 }
-```
+</code></pre>
 
 #### Solution 2: Iterative In-order (Most Practical)
-```java
-public int kthSmallest(TreeNode root, int k) {
-    Stack<TreeNode> stack = new Stack<>();
+<pre class="language-java" tabindex="0"><code class="language-java">public int kthSmallest(TreeNode root, int k) {
+    Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();
     TreeNode current = root;
     
     while (current != null || !stack.isEmpty()) {
@@ -3818,11 +3779,10 @@ public int kthSmallest(TreeNode root, int k) {
     
     return -1; // Should never reach here if k is valid
 }
-```
+</code></pre>
 
 #### Solution 3: Morris In-order (Constant Space)
-```java
-public int kthSmallest(TreeNode root, int k) {
+<pre class="language-java" tabindex="0"><code class="language-java">public int kthSmallest(TreeNode root, int k) {
     TreeNode current = root;
     int count = 0;
     
@@ -3837,7 +3797,7 @@ public int kthSmallest(TreeNode root, int k) {
         } else {
             // Find predecessor
             TreeNode predecessor = current.left;
-            while (predecessor.right != null && predecessor.right != current) {
+            while (predecessor.right != null &amp;&amp; predecessor.right != current) {
                 predecessor = predecessor.right;
             }
             
@@ -3859,27 +3819,26 @@ public int kthSmallest(TreeNode root, int k) {
     
     return -1;
 }
-```
+</code></pre>
 
 #### Solution 4: Collect All Then Sort (Less Efficient)
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
 public int kthSmallest(TreeNode root, int k) {
-    List<Integer> values = new ArrayList<>();
+    List&lt;Integer&gt; values = new ArrayList&lt;&gt;();
     inorder(root, values);
     return values.get(k - 1);
 }
 
-private void inorder(TreeNode node, List<Integer> values) {
+private void inorder(TreeNode node, List&lt;Integer&gt; values) {
     if (node == null) return;
     
     inorder(node.left, values);
     values.add(node.val);
     inorder(node.right, values);
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Recursive/Iterative**: Time O(h + k), Space O(h) where h is height
@@ -4060,34 +4019,32 @@ LCA in BST leverages ordering property:
 ### Multiple Java Solutions
 
 #### Solution 1: Recursive (Elegant)
-```java
-public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     if (root == null) return null;
     
     // If both nodes are in left subtree
-    if (p.val < root.val && q.val < root.val) {
+    if (p.val &lt; root.val &amp;&amp; q.val &lt; root.val) {
         return lowestCommonAncestor(root.left, p, q);
     }
     
     // If both nodes are in right subtree
-    if (p.val > root.val && q.val > root.val) {
+    if (p.val &gt; root.val &amp;&amp; q.val &gt; root.val) {
         return lowestCommonAncestor(root.right, p, q);
     }
     
     // Otherwise, root is the LCA
     return root;
 }
-```
+</code></pre>
 
 #### Solution 2: Iterative (Optimal)
-```java
-public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     TreeNode current = root;
     
     while (current != null) {
-        if (p.val < current.val && q.val < current.val) {
+        if (p.val &lt; current.val &amp;&amp; q.val &lt; current.val) {
             current = current.left;
-        } else if (p.val > current.val && q.val > current.val) {
+        } else if (p.val &gt; current.val &amp;&amp; q.val &gt; current.val) {
             current = current.right;
         } else {
             return current;
@@ -4096,20 +4053,19 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     
     return null; // Should never reach here if p and q exist in tree
 }
-```
+</code></pre>
 
 #### Solution 3: Path-based Approach
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
 public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    List<TreeNode> pathToP = getPath(root, p);
-    List<TreeNode> pathToQ = getPath(root, q);
+    List&lt;TreeNode&gt; pathToP = getPath(root, p);
+    List&lt;TreeNode&gt; pathToQ = getPath(root, q);
     
     TreeNode lca = null;
     int i = 0;
-    while (i < pathToP.size() && i < pathToQ.size() && 
+    while (i &lt; pathToP.size() &amp;&amp; i &lt; pathToQ.size() &amp;&amp; 
            pathToP.get(i) == pathToQ.get(i)) {
         lca = pathToP.get(i);
         i++;
@@ -4118,15 +4074,15 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     return lca;
 }
 
-private List<TreeNode> getPath(TreeNode root, TreeNode target) {
-    List<TreeNode> path = new ArrayList<>();
+private List&lt;TreeNode&gt; getPath(TreeNode root, TreeNode target) {
+    List&lt;TreeNode&gt; path = new ArrayList&lt;&gt;();
     TreeNode current = root;
     
     while (current != null) {
         path.add(current);
         if (current.val == target.val) {
             break;
-        } else if (target.val < current.val) {
+        } else if (target.val &lt; current.val) {
             current = current.left;
         } else {
             current = current.right;
@@ -4135,26 +4091,25 @@ private List<TreeNode> getPath(TreeNode root, TreeNode target) {
     
     return path;
 }
-```
+</code></pre>
 
 #### Solution 4: Recursive with Value Comparison
-```java
-public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+<pre class="language-java" tabindex="0"><code class="language-java">public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     return findLCA(root, Math.min(p.val, q.val), Math.max(p.val, q.val));
 }
 
 private TreeNode findLCA(TreeNode node, int minVal, int maxVal) {
     if (node == null) return null;
     
-    if (node.val > maxVal) {
+    if (node.val &gt; maxVal) {
         return findLCA(node.left, minVal, maxVal);
-    } else if (node.val < minVal) {
+    } else if (node.val &lt; minVal) {
         return findLCA(node.right, minVal, maxVal);
     } else {
         return node;
     }
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(h) where h is height of tree
@@ -4362,14 +4317,13 @@ Trie structure provides:
 ### Multiple Java Solutions
 
 #### Solution 1: Array-based Children (Optimal for lowercase letters)
-```java
-class Trie {
+<pre class="language-java" tabindex="0"><code class="language-java">class Trie {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
         
         TrieNode() {
-            children = new TrieNode[26]; // for 'a' to 'z'
+            children = new TrieNode[26]; // for &#x27;a&#x27; to &#x27;z&#x27;
             isEnd = false;
         }
     }
@@ -4383,7 +4337,7 @@ class Trie {
     public void insert(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4394,7 +4348,7 @@ class Trie {
     
     public boolean search(String word) {
         TrieNode node = searchNode(word);
-        return node != null && node.isEnd;
+        return node != null &amp;&amp; node.isEnd;
     }
     
     public boolean startsWith(String prefix) {
@@ -4404,7 +4358,7 @@ class Trie {
     private TrieNode searchNode(String str) {
         TrieNode current = root;
         for (char c : str.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 return null;
             }
@@ -4413,17 +4367,16 @@ class Trie {
         return current;
     }
 }
-```
+</code></pre>
 
 #### Solution 2: HashMap-based Children (Flexible for any characters)
-```java
-class Trie {
+<pre class="language-java" tabindex="0"><code class="language-java">class Trie {
     class TrieNode {
-        Map<Character, TrieNode> children;
+        Map&lt;Character, TrieNode&gt; children;
         boolean isEnd;
         
         TrieNode() {
-            children = new HashMap<>();
+            children = new HashMap&lt;&gt;();
             isEnd = false;
         }
     }
@@ -4445,7 +4398,7 @@ class Trie {
     
     public boolean search(String word) {
         TrieNode node = searchNode(word);
-        return node != null && node.isEnd;
+        return node != null &amp;&amp; node.isEnd;
     }
     
     public boolean startsWith(String prefix) {
@@ -4463,11 +4416,10 @@ class Trie {
         return current;
     }
 }
-```
+</code></pre>
 
 #### Solution 3: Optimized with Size Tracking
-```java
-class Trie {
+<pre class="language-java" tabindex="0"><code class="language-java">class Trie {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -4489,7 +4441,7 @@ class Trie {
     public void insert(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4501,7 +4453,7 @@ class Trie {
     
     public boolean search(String word) {
         TrieNode node = searchNode(word);
-        return node != null && node.isEnd;
+        return node != null &amp;&amp; node.isEnd;
     }
     
     public boolean startsWith(String prefix) {
@@ -4517,7 +4469,7 @@ class Trie {
     private TrieNode searchNode(String str) {
         TrieNode current = root;
         for (char c : str.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 return null;
             }
@@ -4526,11 +4478,10 @@ class Trie {
         return current;
     }
 }
-```
+</code></pre>
 
 #### Solution 4: With Delete Operation
-```java
-class Trie {
+<pre class="language-java" tabindex="0"><code class="language-java">class Trie {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -4557,7 +4508,7 @@ class Trie {
     public void insert(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4568,7 +4519,7 @@ class Trie {
     
     public boolean search(String word) {
         TrieNode node = searchNode(word);
-        return node != null && node.isEnd;
+        return node != null &amp;&amp; node.isEnd;
     }
     
     public boolean startsWith(String prefix) {
@@ -4581,20 +4532,20 @@ class Trie {
     
     private boolean deleteHelper(TrieNode node, String word, int index) {
         if (index == word.length()) {
-            if (!node.isEnd) return false; // Word doesn't exist
+            if (!node.isEnd) return false; // Word doesn&#x27;t exist
             node.isEnd = false;
             return node.hasNoChildren(); // Return true if node can be deleted
         }
         
-        int charIndex = word.charAt(index) - 'a';
+        int charIndex = word.charAt(index) - &#x27;a&#x27;;
         TrieNode child = node.children[charIndex];
-        if (child == null) return false; // Word doesn't exist
+        if (child == null) return false; // Word doesn&#x27;t exist
         
         boolean shouldDeleteChild = deleteHelper(child, word, index + 1);
         
         if (shouldDeleteChild) {
             node.children[charIndex] = null;
-            return !node.isEnd && node.hasNoChildren();
+            return !node.isEnd &amp;&amp; node.hasNoChildren();
         }
         
         return false;
@@ -4603,7 +4554,7 @@ class Trie {
     private TrieNode searchNode(String str) {
         TrieNode current = root;
         for (char c : str.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 return null;
             }
@@ -4612,7 +4563,7 @@ class Trie {
         return current;
     }
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Insert**: Time O(m), Space O(m) where m is word length
@@ -4808,8 +4759,7 @@ Wildcard search in Trie requires:
 ### Multiple Java Solutions
 
 #### Solution 1: Trie with Recursive Wildcard Search (Optimal)
-```java
-class WordDictionary {
+<pre class="language-java" tabindex="0"><code class="language-java">class WordDictionary {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -4829,7 +4779,7 @@ class WordDictionary {
     public void addWord(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4849,10 +4799,10 @@ class WordDictionary {
         
         char c = word.charAt(index);
         
-        if (c == '.') {
+        if (c == &#x27;.&#x27;) {
             // Try all possible children
-            for (int i = 0; i < 26; i++) {
-                if (node.children[i] != null && 
+            for (int i = 0; i &lt; 26; i++) {
+                if (node.children[i] != null &amp;&amp; 
                     searchHelper(word, index + 1, node.children[i])) {
                     return true;
                 }
@@ -4860,7 +4810,7 @@ class WordDictionary {
             return false;
         } else {
             // Regular character
-            int charIndex = c - 'a';
+            int charIndex = c - &#x27;a&#x27;;
             if (node.children[charIndex] == null) {
                 return false;
             }
@@ -4868,11 +4818,10 @@ class WordDictionary {
         }
     }
 }
-```
+</code></pre>
 
 #### Solution 2: Trie with Iterative Approach for Regular Search
-```java
-class WordDictionary {
+<pre class="language-java" tabindex="0"><code class="language-java">class WordDictionary {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -4892,7 +4841,7 @@ class WordDictionary {
     public void addWord(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4903,7 +4852,7 @@ class WordDictionary {
     
     public boolean search(String word) {
         // Check if word contains wildcard
-        if (word.contains(".")) {
+        if (word.contains(&quot;.&quot;)) {
             return searchWithWildcard(word, 0, root);
         } else {
             return searchExact(word);
@@ -4913,7 +4862,7 @@ class WordDictionary {
     private boolean searchExact(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 return false;
             }
@@ -4929,16 +4878,16 @@ class WordDictionary {
         
         char c = word.charAt(index);
         
-        if (c == '.') {
-            for (int i = 0; i < 26; i++) {
-                if (node.children[i] != null && 
+        if (c == &#x27;.&#x27;) {
+            for (int i = 0; i &lt; 26; i++) {
+                if (node.children[i] != null &amp;&amp; 
                     searchWithWildcard(word, index + 1, node.children[i])) {
                     return true;
                 }
             }
             return false;
         } else {
-            int charIndex = c - 'a';
+            int charIndex = c - &#x27;a&#x27;;
             if (node.children[charIndex] == null) {
                 return false;
             }
@@ -4946,11 +4895,10 @@ class WordDictionary {
         }
     }
 }
-```
+</code></pre>
 
 #### Solution 3: Using Stack for Iterative DFS
-```java
-class WordDictionary {
+<pre class="language-java" tabindex="0"><code class="language-java">class WordDictionary {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -4980,7 +4928,7 @@ class WordDictionary {
     public void addWord(String word) {
         TrieNode current = root;
         for (char c : word.toCharArray()) {
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode();
             }
@@ -4990,7 +4938,7 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        Stack<SearchState> stack = new Stack<>();
+        Stack&lt;SearchState&gt; stack = new Stack&lt;&gt;();
         stack.push(new SearchState(root, 0));
         
         while (!stack.isEmpty()) {
@@ -5005,14 +4953,14 @@ class WordDictionary {
             
             char c = word.charAt(index);
             
-            if (c == '.') {
-                for (int i = 0; i < 26; i++) {
+            if (c == &#x27;.&#x27;) {
+                for (int i = 0; i &lt; 26; i++) {
                     if (node.children[i] != null) {
                         stack.push(new SearchState(node.children[i], index + 1));
                     }
                 }
             } else {
-                int charIndex = c - 'a';
+                int charIndex = c - &#x27;a&#x27;;
                 if (node.children[charIndex] != null) {
                     stack.push(new SearchState(node.children[charIndex], index + 1));
                 }
@@ -5022,11 +4970,10 @@ class WordDictionary {
         return false;
     }
 }
-```
+</code></pre>
 
 #### Solution 4: Optimized with Early Pruning
-```java
-class WordDictionary {
+<pre class="language-java" tabindex="0"><code class="language-java">class WordDictionary {
     class TrieNode {
         TrieNode[] children;
         boolean isEnd;
@@ -5050,9 +4997,9 @@ class WordDictionary {
     public void addWord(String word) {
         maxLength = Math.max(maxLength, word.length());
         TrieNode current = root;
-        for (int i = 0; i < word.length(); i++) {
+        for (int i = 0; i &lt; word.length(); i++) {
             char c = word.charAt(i);
-            int index = c - 'a';
+            int index = c - &#x27;a&#x27;;
             if (current.children[index] == null) {
                 current.children[index] = new TrieNode(i + 1);
             }
@@ -5063,7 +5010,7 @@ class WordDictionary {
     
     public boolean search(String word) {
         // Early pruning
-        if (word.length() > maxLength) {
+        if (word.length() &gt; maxLength) {
             return false;
         }
         
@@ -5077,16 +5024,16 @@ class WordDictionary {
         
         char c = word.charAt(index);
         
-        if (c == '.') {
-            for (int i = 0; i < 26; i++) {
-                if (node.children[i] != null && 
+        if (c == &#x27;.&#x27;) {
+            for (int i = 0; i &lt; 26; i++) {
+                if (node.children[i] != null &amp;&amp; 
                     searchHelper(word, index + 1, node.children[i])) {
                     return true;
                 }
             }
             return false;
         } else {
-            int charIndex = c - 'a';
+            int charIndex = c - &#x27;a&#x27;;
             if (node.children[charIndex] == null) {
                 return false;
             }
@@ -5094,7 +5041,7 @@ class WordDictionary {
         }
     }
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **addWord**: Time O(m), Space O(m) where m is word length
@@ -5285,8 +5232,7 @@ Efficient word search requires:
 ### Multiple Java Solutions
 
 #### Solution 1: Trie + DFS with Backtracking (Optimal)
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
@@ -5300,16 +5246,16 @@ class Solution {
         }
     }
     
-    public List<String> findWords(char[][] board, String[] words) {
+    public List&lt;String&gt; findWords(char[][] board, String[] words) {
         // Build Trie
         TrieNode root = buildTrie(words);
         
-        List<String> result = new ArrayList<>();
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
         int m = board.length, n = board[0].length;
         
         // Try starting from each cell
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
                 dfs(board, i, j, root, result);
             }
         }
@@ -5317,17 +5263,17 @@ class Solution {
         return result;
     }
     
-    private void dfs(char[][] board, int i, int j, TrieNode node, List<String> result) {
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
+    private void dfs(char[][] board, int i, int j, TrieNode node, List&lt;String&gt; result) {
+        if (i &lt; 0 || i &gt;= board.length || j &lt; 0 || j &gt;= board[0].length) {
             return;
         }
         
         char c = board[i][j];
-        if (c == '#' || node.children[c - 'a'] == null) {
+        if (c == &#x27;#&#x27; || node.children[c - &#x27;a&#x27;] == null) {
             return; // Already visited or no matching path in Trie
         }
         
-        node = node.children[c - 'a'];
+        node = node.children[c - &#x27;a&#x27;];
         
         // Found a word
         if (node.word != null) {
@@ -5336,7 +5282,7 @@ class Solution {
         }
         
         // Mark as visited
-        board[i][j] = '#';
+        board[i][j] = &#x27;#&#x27;;
         
         // Explore 4 directions
         dfs(board, i + 1, j, node, result);
@@ -5353,7 +5299,7 @@ class Solution {
         for (String word : words) {
             TrieNode current = root;
             for (char c : word.toCharArray()) {
-                int index = c - 'a';
+                int index = c - &#x27;a&#x27;;
                 if (current.children[index] == null) {
                     current.children[index] = new TrieNode();
                 }
@@ -5364,11 +5310,10 @@ class Solution {
         return root;
     }
 }
-```
+</code></pre>
 
 #### Solution 2: Optimized with Trie Pruning
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     class TrieNode {
         TrieNode[] children;
         String word;
@@ -5381,12 +5326,12 @@ class Solution {
         }
     }
     
-    public List<String> findWords(char[][] board, String[] words) {
+    public List&lt;String&gt; findWords(char[][] board, String[] words) {
         TrieNode root = buildTrie(words);
-        List<String> result = new ArrayList<>();
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
         
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+        for (int i = 0; i &lt; board.length; i++) {
+            for (int j = 0; j &lt; board[0].length; j++) {
                 dfs(board, i, j, root, result);
             }
         }
@@ -5394,16 +5339,16 @@ class Solution {
         return result;
     }
     
-    private void dfs(char[][] board, int i, int j, TrieNode node, List<String> result) {
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
+    private void dfs(char[][] board, int i, int j, TrieNode node, List&lt;String&gt; result) {
+        if (i &lt; 0 || i &gt;= board.length || j &lt; 0 || j &gt;= board[0].length) {
             return;
         }
         
         char c = board[i][j];
-        if (c == '#') return;
+        if (c == &#x27;#&#x27;) return;
         
-        TrieNode child = node.children[c - 'a'];
-        if (child == null || child.refs < 1) {
+        TrieNode child = node.children[c - &#x27;a&#x27;];
+        if (child == null || child.refs &lt; 1) {
             return; // No words use this path
         }
         
@@ -5413,7 +5358,7 @@ class Solution {
             child.refs--; // Reduce reference count
         }
         
-        board[i][j] = '#';
+        board[i][j] = &#x27;#&#x27;;
         
         dfs(board, i + 1, j, child, result);
         dfs(board, i - 1, j, child, result);
@@ -5428,7 +5373,7 @@ class Solution {
         for (String word : words) {
             TrieNode current = root;
             for (char c : word.toCharArray()) {
-                int index = c - 'a';
+                int index = c - &#x27;a&#x27;;
                 if (current.children[index] == null) {
                     current.children[index] = new TrieNode();
                 }
@@ -5440,11 +5385,10 @@ class Solution {
         return root;
     }
 }
-```
+</code></pre>
 
 #### Solution 3: With Visited Array (Alternative Approach)
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     class TrieNode {
         TrieNode[] children;
         String word;
@@ -5456,33 +5400,33 @@ class Solution {
     
     private int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
     
-    public List<String> findWords(char[][] board, String[] words) {
+    public List&lt;String&gt; findWords(char[][] board, String[] words) {
         TrieNode root = buildTrie(words);
-        Set<String> result = new HashSet<>(); // Use Set to avoid duplicates
+        Set&lt;String&gt; result = new HashSet&lt;&gt;(); // Use Set to avoid duplicates
         boolean[][] visited = new boolean[board.length][board[0].length];
         
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+        for (int i = 0; i &lt; board.length; i++) {
+            for (int j = 0; j &lt; board[0].length; j++) {
                 dfs(board, i, j, root, visited, result);
             }
         }
         
-        return new ArrayList<>(result);
+        return new ArrayList&lt;&gt;(result);
     }
     
     private void dfs(char[][] board, int i, int j, TrieNode node, 
-                     boolean[][] visited, Set<String> result) {
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || 
+                     boolean[][] visited, Set&lt;String&gt; result) {
+        if (i &lt; 0 || i &gt;= board.length || j &lt; 0 || j &gt;= board[0].length || 
             visited[i][j]) {
             return;
         }
         
         char c = board[i][j];
-        if (node.children[c - 'a'] == null) {
+        if (node.children[c - &#x27;a&#x27;] == null) {
             return;
         }
         
-        node = node.children[c - 'a'];
+        node = node.children[c - &#x27;a&#x27;];
         if (node.word != null) {
             result.add(node.word);
         }
@@ -5503,7 +5447,7 @@ class Solution {
         for (String word : words) {
             TrieNode current = root;
             for (char c : word.toCharArray()) {
-                int index = c - 'a';
+                int index = c - &#x27;a&#x27;;
                 if (current.children[index] == null) {
                     current.children[index] = new TrieNode();
                 }
@@ -5514,11 +5458,10 @@ class Solution {
         return root;
     }
 }
-```
+</code></pre>
 
 #### Solution 4: Iterative Approach with Stack
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     class TrieNode {
         TrieNode[] children;
         String word;
@@ -5531,29 +5474,29 @@ class Solution {
     class SearchState {
         int row, col;
         TrieNode node;
-        Set<String> path; // Track visited cells
+        Set&lt;String&gt; path; // Track visited cells
         
-        SearchState(int row, int col, TrieNode node, Set<String> path) {
+        SearchState(int row, int col, TrieNode node, Set&lt;String&gt; path) {
             this.row = row;
             this.col = col;
             this.node = node;
-            this.path = new HashSet<>(path);
+            this.path = new HashSet&lt;&gt;(path);
         }
     }
     
-    public List<String> findWords(char[][] board, String[] words) {
+    public List&lt;String&gt; findWords(char[][] board, String[] words) {
         TrieNode root = buildTrie(words);
-        Set<String> result = new HashSet<>();
+        Set&lt;String&gt; result = new HashSet&lt;&gt;();
         int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
         
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+        for (int i = 0; i &lt; board.length; i++) {
+            for (int j = 0; j &lt; board[0].length; j++) {
                 char c = board[i][j];
-                if (root.children[c - 'a'] != null) {
-                    Stack<SearchState> stack = new Stack<>();
-                    Set<String> visited = new HashSet<>();
-                    visited.add(i + "," + j);
-                    stack.push(new SearchState(i, j, root.children[c - 'a'], visited));
+                if (root.children[c - &#x27;a&#x27;] != null) {
+                    Stack&lt;SearchState&gt; stack = new Stack&lt;&gt;();
+                    Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+                    visited.add(i + &quot;,&quot; + j);
+                    stack.push(new SearchState(i, j, root.children[c - &#x27;a&#x27;], visited));
                     
                     while (!stack.isEmpty()) {
                         SearchState state = stack.pop();
@@ -5565,18 +5508,18 @@ class Solution {
                         for (int[] dir : directions) {
                             int newRow = state.row + dir[0];
                             int newCol = state.col + dir[1];
-                            String newKey = newRow + "," + newCol;
+                            String newKey = newRow + &quot;,&quot; + newCol;
                             
-                            if (newRow >= 0 && newRow < board.length && 
-                                newCol >= 0 && newCol < board[0].length && 
+                            if (newRow &gt;= 0 &amp;&amp; newRow &lt; board.length &amp;&amp; 
+                                newCol &gt;= 0 &amp;&amp; newCol &lt; board[0].length &amp;&amp; 
                                 !state.path.contains(newKey)) {
                                 
                                 char nextChar = board[newRow][newCol];
-                                if (state.node.children[nextChar - 'a'] != null) {
-                                    Set<String> newPath = new HashSet<>(state.path);
+                                if (state.node.children[nextChar - &#x27;a&#x27;] != null) {
+                                    Set&lt;String&gt; newPath = new HashSet&lt;&gt;(state.path);
                                     newPath.add(newKey);
                                     stack.push(new SearchState(newRow, newCol, 
-                                        state.node.children[nextChar - 'a'], newPath));
+                                        state.node.children[nextChar - &#x27;a&#x27;], newPath));
                                 }
                             }
                         }
@@ -5585,7 +5528,7 @@ class Solution {
             }
         }
         
-        return new ArrayList<>(result);
+        return new ArrayList&lt;&gt;(result);
     }
     
     private TrieNode buildTrie(String[] words) {
@@ -5593,7 +5536,7 @@ class Solution {
         for (String word : words) {
             TrieNode current = root;
             for (char c : word.toCharArray()) {
-                int index = c - 'a';
+                int index = c - &#x27;a&#x27;;
                 if (current.children[index] == null) {
                     current.children[index] = new TrieNode();
                 }
@@ -5604,7 +5547,7 @@ class Solution {
         return root;
     }
 }
-```
+</code></pre>
 
 ### Complexity Analysis
 - **Time Complexity**: O(M×N×4^L) where M×N is board size, L is max word length
