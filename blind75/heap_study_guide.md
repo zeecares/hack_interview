@@ -745,14 +745,12 @@ class MergeKSortedLists {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Heap Approach**: Time O(N log k), Space O(k) where N = total nodes, k = number of lists
-- **Divide & Conquer**: Time O(N log k), Space O(log k) for recursion
-- **Iterative Merging**: Time O(N log k), Space O(1)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Heap Approach</strong>: Time O(N log k), Space O(k) where N = total nodes, k = number of lists</li>
+<li><strong>Divide &amp; Conquer</strong>: Time O(N log k), Space O(log k) for recursion</li>
+<li><strong>Iterative Merging</strong>: Time O(N log k), Space O(1)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Min-heap naturally handles K-way minimum selection
@@ -1158,15 +1156,13 @@ class TopKFrequentElements {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Min Heap**: Time O(N log k), Space O(N + k)
-- **Max Heap**: Time O(N log N), Space O(N)
-- **Bucket Sort**: Time O(N), Space O(N)
-- **Quick Select**: Time O(N) average, Space O(N)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Min Heap</strong>: Time O(N log k), Space O(N + k)</li>
+<li><strong>Max Heap</strong>: Time O(N log N), Space O(N)</li>
+<li><strong>Bucket Sort</strong>: Time O(N), Space O(N)</li>
+<li><strong>Quick Select</strong>: Time O(N) average, Space O(N)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Min-heap of size K saves space when K << N
@@ -1667,15 +1663,13 @@ class MedianFinder2 {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Two Heaps**: addNum O(log n), findMedian O(1)
-- **ArrayList**: addNum O(n), findMedian O(1)
-- **BST**: addNum O(log n), findMedian O(log n)
-- **TreeMap**: addNum O(log n), findMedian O(log n)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Two Heaps</strong>: addNum O(log n), findMedian O(1)</li>
+<li><strong>ArrayList</strong>: addNum O(n), findMedian O(1)</li>
+<li><strong>BST</strong>: addNum O(log n), findMedian O(log n)</li>
+<li><strong>TreeMap</strong>: addNum O(log n), findMedian O(log n)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Two heaps maintain balance while providing O(log n) operations

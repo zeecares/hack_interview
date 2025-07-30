@@ -775,13 +775,11 @@ var setZeroes = function(matrix) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(m × n) for all approaches
-- **Space**: O(1) for optimized approaches, O(m + n) for basic approach
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(m × n) for all approaches</li>
+<li><strong>Space</strong>: O(1) for optimized approaches, O(m + n) for basic approach</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Use first row/column as metadata storage to achieve O(1) space
@@ -1183,13 +1181,11 @@ var spiralOrder = function(matrix) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(m × n) - visit each element once
-- **Space**: O(1) excluding output array, O(m × n) for direction vector approach with visited array
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(m × n) - visit each element once</li>
+<li><strong>Space</strong>: O(1) excluding output array, O(m × n) for direction vector approach with visited array</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Layer-by-layer processing with boundary updates
@@ -1545,13 +1541,11 @@ function reverseRows(matrix) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(n²) for all approaches
-- **Space**: O(1) for most approaches, O(n²) for visited tracking approach
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(n²) for all approaches</li>
+<li><strong>Space</strong>: O(1) for most approaches, O(n²) for visited tracking approach</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Two-step rotation: transpose + horizontal flip is most intuitive
@@ -2107,13 +2101,11 @@ var exist = function(board, word) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(m × n × 4^L) where L is word length (worst case explores all paths)
-- **Space**: O(L) for recursion stack depth
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(m × n × 4^L) where L is word length (worst case explores all paths)</li>
+<li><strong>Space</strong>: O(L) for recursion stack depth</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Classic DFS with backtracking pattern in 2D grids

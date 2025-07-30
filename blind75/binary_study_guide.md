@@ -548,17 +548,17 @@ var getSum = function(a, b) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(log max(a,b)) - maximum 32 iterations for 32-bit integers</li>
+<li><strong>Space</strong>: O(1)</li>
+</ul>
 
-**Complexity Analysis**:
-- **Time**: O(log max(a,b)) - maximum 32 iterations for 32-bit integers
-- **Space**: O(1)
-
-**Key Insights & Patterns**:
-- XOR operation simulates addition without carry
-- AND + left shift handles carry propagation
-
-{::options parse_block_html="false" /}
+<p><strong>Key Insights &amp; Patterns</strong>:</p>
+<ul>
+<li>XOR operation simulates addition without carry</li>
+<li>AND + left shift handles carry propagation</li>
+</ul>
 - Pattern applicable to building arithmetic operations from basic logic
 - Foundation for understanding computer arithmetic at hardware level
 
@@ -876,17 +876,17 @@ var hammingWeight = (function() {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Simple</strong>: Time O(32) = O(1), Space O(1)</li>
+<li><strong>Brian Kernighan</strong>: Time O(number of set bits), Space O(1)</li>
+<li><strong>Built-in</strong>: Time O(1), Space O(1)</li>
+</ul>
 
-**Complexity Analysis**:
-- **Simple**: Time O(32) = O(1), Space O(1)
-- **Brian Kernighan**: Time O(number of set bits), Space O(1)
-- **Built-in**: Time O(1), Space O(1)
-
-**Key Insights & Patterns**:
-- Brian Kernighan's algorithm: n & (n-1) clears rightmost set bit
-
-{::options parse_block_html="false" /}
+<p><strong>Key Insights &amp; Patterns</strong>:</p>
+<ul>
+<li>Brian Kernighan's algorithm: n &amp; (n-1) clears rightmost set bit</li>
+</ul>
 - Only need to iterate through set bits, not all bit positions
 - Pattern useful for problems involving bit counting and manipulation
 
@@ -1239,17 +1239,17 @@ var countBits = function(n) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>DP approaches</strong>: Time O(n), Space O(1) extra (excluding output array)</li>
+<li><strong>Brute force</strong>: Time O(n × log n), Space O(1) extra</li>
+</ul>
 
-**Complexity Analysis**:
-- **DP approaches**: Time O(n), Space O(1) extra (excluding output array)
-- **Brute force**: Time O(n × log n), Space O(1) extra
-
-**Key Insights & Patterns**:
-- Each number's bit count relates to a previously computed number
-- Multiple DP transitions possible: i & (i-1), i >> 1, power of 2 offsets
-
-{::options parse_block_html="false" /}
+<p><strong>Key Insights &amp; Patterns</strong>:</p>
+<ul>
+<li>Each number's bit count relates to a previously computed number</li>
+<li>Multiple DP transitions possible: i &amp; (i-1), i >> 1, power of 2 offsets</li>
+</ul>
 - Pattern fundamental to many bit manipulation DP problems
 
 **DP Transition Explanations**:
@@ -1627,21 +1627,21 @@ var missingNumber = function(nums) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>XOR</strong>: Time O(n), Space O(1)</li>
+<li><strong>Sum</strong>: Time O(n), Space O(1) (but potential overflow)</li>
+<li><strong>Binary Search</strong>: Time O(n log n), Space O(1)</li>
+<li><strong>HashSet</strong>: Time O(n), Space O(n)</li>
+</ul>
 
-**Complexity Analysis**:
-- **XOR**: Time O(n), Space O(1)
-- **Sum**: Time O(n), Space O(1) (but potential overflow)
-- **Binary Search**: Time O(n log n), Space O(1)
-- **HashSet**: Time O(n), Space O(n)
-
-**Key Insights & Patterns**:
-
-{::options parse_block_html="false" /}
-- XOR's self-canceling property: a ⊕ a = 0
-- Mathematical approach using arithmetic series
-- Pattern applicable to finding single missing/duplicate elements
-- XOR approach prevents integer overflow issues
+<p><strong>Key Insights &amp; Patterns</strong>:</p>
+<ul>
+<li>XOR's self-canceling property: a ⊕ a = 0</li>
+<li>Mathematical approach using arithmetic series</li>
+<li>Pattern applicable to finding single missing/duplicate elements</li>
+<li>XOR approach prevents integer overflow issues</li>
+</ul>
 
 **XOR Solution Explanation**:
 ```
@@ -2065,17 +2065,17 @@ var reverseBits = (function() {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Bit by bit</strong>: Time O(32) = O(1), Space O(1)</li>
+<li><strong>Divide and conquer</strong>: Time O(1), Space O(1)</li>
+<li><strong>Lookup table</strong>: Time O(1), Space O(256) for preprocessing</li>
+</ul>
 
-**Complexity Analysis**:
-- **Bit by bit**: Time O(32) = O(1), Space O(1)
-- **Divide and conquer**: Time O(1), Space O(1)
-- **Lookup table**: Time O(1), Space O(256) for preprocessing
-
-**Key Insights & Patterns**:
-- Divide and conquer approach swaps bits in larger and larger groups
-
-{::options parse_block_html="false" /}
+<p><strong>Key Insights &amp; Patterns</strong>:</p>
+<ul>
+<li>Divide and conquer approach swaps bits in larger and larger groups</li>
+</ul>
 - Lookup table optimization for repeated calls
 - Pattern useful for any bit reversal/swapping problems
 

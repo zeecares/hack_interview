@@ -617,13 +617,11 @@ var insert = function(intervals, newInterval) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(n) for linear scan, O(log n) for binary search optimization
-- **Space**: O(n) for result array (can't avoid since we need to return new array)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(n) for linear scan, O(log n) for binary search optimization</li>
+<li><strong>Space</strong>: O(n) for result array (can't avoid since we need to return new array)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Three-phase processing: before, merge, after
@@ -1115,13 +1113,11 @@ var merge = function(intervals) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Time**: O(n log n) due to sorting
-- **Space**: O(n) for result array (O(log n) if in-place sorting)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Time</strong>: O(n log n) due to sorting</li>
+<li><strong>Space</strong>: O(n) for result array (O(log n) if in-place sorting)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Sorting is crucial for efficient merging
@@ -1564,13 +1560,11 @@ var eraseOverlapIntervals = function(intervals) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Greedy**: Time O(n log n), Space O(1)
-- **DP**: Time O(n²), Space O(n)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Greedy</strong>: Time O(n log n), Space O(1)</li>
+<li><strong>DP</strong>: Time O(n²), Space O(n)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Classic activity selection problem in disguise
@@ -2045,14 +2039,12 @@ var canAttendMeetings = function(intervals) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Sorting approach**: Time O(n log n), Space O(1)
-- **Brute force**: Time O(n²), Space O(1)
-- **Sweep line**: Time O(n log n), Space O(n)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Sorting approach</strong>: Time O(n log n), Space O(1)</li>
+<li><strong>Brute force</strong>: Time O(n²), Space O(1)</li>
+<li><strong>Sweep line</strong>: Time O(n log n), Space O(n)</li>
+</ul>
 
 **Key Insights & Patterns**:
 - Fundamental interval conflict detection pattern
@@ -2694,13 +2686,11 @@ var minMeetingRooms = function(intervals) {
   </div>
 </div>
 
-{::options parse_block_html="true" /}
-
-**Complexity Analysis**:
-- **Min-heap**: Time O(n log n), Space O(n)
-- **Sweep line**: Time O(n log n), Space O(n)
-
-{::options parse_block_html="false" /}
+<p><strong>Complexity Analysis</strong>:</p>
+<ul>
+<li><strong>Min-heap</strong>: Time O(n log n), Space O(n)</li>
+<li><strong>Sweep line</strong>: Time O(n log n), Space O(n)</li>
+</ul>
 - **Two pointers**: Time O(n log n), Space O(n)
 
 **Key Insights & Patterns**:
