@@ -27,6 +27,26 @@ Master both **algorithmic problem-solving** and **database querying** through AI
   </div>
 </div>
 
+## 📝 Quick Reference Cheat Sheets
+
+<div class="collection-grid">
+  <div class="collection-card cheatsheet">
+    <h3>☕ <a href="java_coding_interview_cheat_sheet">Java Cheat Sheet</a></h3>
+    <p>Complete Java reference with syntax, data structures, collections framework, and common patterns for coding interviews</p>
+    <div class="stats">
+      <span>Big O Guide</span> • <span>Data Structures</span> • <span>Collections</span> • <span>Common Patterns</span>
+    </div>
+  </div>
+  
+  <div class="collection-card cheatsheet">
+    <h3>🗃️ <a href="SQL_Interview_Cheat_Sheet">SQL Cheat Sheet</a></h3>
+    <p>Comprehensive SQL reference covering LeetCode Top 50 problems, joins, window functions, and advanced concepts</p>
+    <div class="stats">
+      <span>SQL Fundamentals</span> • <span>Advanced Queries</span> • <span>Performance Tips</span> • <span>Best Practices</span>
+    </div>
+  </div>
+</div>
+
 ## 🧠 Revolutionary Learning Methodology
 
 ### Based on "Stop Building AI Tools Backwards" Research
