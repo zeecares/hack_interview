@@ -775,8 +775,28 @@
         
         // Enhanced code block functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Fix tab content that contains raw markdown (minimal processing)
+            document.querySelectorAll('.tab-content').forEach(tabContent => {
+                const content = tabContent.innerHTML.trim();
+                
+                // Only process if it starts with ```lang and ends with ``` (pure markdown block)
+                const markdownMatch = content.match(/^```(\w+)\s*\n([\s\S]*?)\n```$/);
+                if (markdownMatch) {
+                    const language = markdownMatch[1];
+                    const code = markdownMatch[2];
+                    
+                    // Create proper pre/code structure for Prism
+                    tabContent.innerHTML = `<pre><code class="language-${language}">${code}</code></pre>`;
+                }
+            });
+            
+            // Highlight all code blocks (including newly processed ones)
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
             // Add copy buttons and language labels to code blocks
-            const codeBlocks = document.querySelectorAll('pre[class*="language-"]');
+            const codeBlocks = document.querySelectorAll('pre[class*="language-"], .tab-content pre');
             
             codeBlocks.forEach((block, index) => {
                 // Create header container
