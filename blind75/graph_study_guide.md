@@ -41,18 +41,16 @@ render_with_liquid: false
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 // Using List of Lists
-List<List<Integer>> adj = new ArrayList<>();
+List&lt;List&lt;Integer&gt;&gt; adj = new ArrayList&lt;&gt;();
 // Using Map for flexibility
-Map<Integer, List<Integer>> adj = new HashMap<>();
-```
-  </div>
+Map&lt;Integer, List&lt;Integer&gt;&gt; adj = new HashMap&lt;&gt;();</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -87,12 +85,10 @@ const adj = {};
   </div>
   
   <div class="tab-content java active">
-```java
-boolean[][] adj = new boolean[n][n];
+<pre class="language-java" tabindex="0"><code class="language-java">boolean[][] adj = new boolean[n][n];
 // or for weighted graphs
-int[][] adj = new int[n][n];
-```
-  </div>
+int[][] adj = new int[n][n];</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -124,8 +120,7 @@ const adj = Array.from({length: n}, () => Array(n).fill(0));
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.ArrayList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.ArrayList;
 import java.util.List;
 
 class Edge {
@@ -136,9 +131,8 @@ class Edge {
         this.weight = weight;
     }
 }
-List<Edge> edges = new ArrayList<>();
-```
-  </div>
+List&lt;Edge&gt; edges = new ArrayList&lt;&gt;();</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -182,10 +176,9 @@ const edges = [[from, to, weight], ...];
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.List;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.List;
 
-void dfs(int node, boolean[] visited, List<List<Integer>> adj) {
+void dfs(int node, boolean[] visited, List&lt;List&lt;Integer&gt;&gt; adj) {
     visited[node] = true;
     // Process current node
     
@@ -194,9 +187,8 @@ void dfs(int node, boolean[] visited, List<List<Integer>> adj) {
             dfs(neighbor, visited, adj);
         }
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -236,13 +228,12 @@ function dfs(node, visited, adj) {
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.LinkedList;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-void bfs(int start, List<List<Integer>> adj) {
-    Queue<Integer> queue = new LinkedList<>();
+void bfs(int start, List&lt;List&lt;Integer&gt;&gt; adj) {
+    Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
     boolean[] visited = new boolean[adj.size()];
     
     queue.offer(start);
@@ -259,9 +250,8 @@ void bfs(int start, List<List<Integer>> adj) {
             }
         }
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -316,8 +306,7 @@ function bfs(start, adj) {
   </div>
   
   <div class="tab-content java active">
-```java
-class UnionFind {
+<pre class="language-java" tabindex="0"><code class="language-java">class UnionFind {
     private int[] parent, rank;
     private int components;
     
@@ -325,7 +314,7 @@ class UnionFind {
         parent = new int[n];
         rank = new int[n];
         components = n;
-        for (int i = 0; i < n; i++) parent[i] = i;
+        for (int i = 0; i &lt; n; i++) parent[i] = i;
     }
     
     public int find(int x) {
@@ -340,9 +329,9 @@ class UnionFind {
         if (rootX == rootY) return false;
         
         // Union by rank
-        if (rank[rootX] < rank[rootY]) {
+        if (rank[rootX] &lt; rank[rootY]) {
             parent[rootX] = rootY;
-        } else if (rank[rootX] > rank[rootY]) {
+        } else if (rank[rootX] &gt; rank[rootY]) {
             parent[rootY] = rootX;
         } else {
             parent[rootY] = rootX;
@@ -353,9 +342,8 @@ class UnionFind {
     }
     
     public int getComponents() { return components; }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -573,12 +561,11 @@ Clone:    1' -- 2'
   </div>
   
   <div class="tab-content java active">
-```java
-import java.util.HashMap;
+<pre class="language-java" tabindex="0"><code class="language-java">import java.util.HashMap;
 import java.util.Map;
 
 class Solution {
-    private Map<Node, Node> visited = new HashMap<>();
+    private Map&lt;Node, Node&gt; visited = new HashMap&lt;&gt;();
     
     public Node cloneGraph(Node node) {
         if (node == null) return null;
@@ -599,9 +586,8 @@ class Solution {
         
         return clone;
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -671,13 +657,12 @@ var cloneGraph = function(node) {
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     public Node cloneGraph(Node node) {
         if (node == null) return null;
         
-        Map<Node, Node> visited = new HashMap<>();
-        Queue<Node> queue = new LinkedList<>();
+        Map&lt;Node, Node&gt; visited = new HashMap&lt;&gt;();
+        Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
         
         // Create clone for start node
         Node clone = new Node(node.val);
@@ -700,9 +685,8 @@ class Solution {
         
         return clone;
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -921,13 +905,12 @@ Graph: 0 ⇄ 1 (cycle detected, cannot finish)
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // Build adjacency list
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
-            adj.add(new ArrayList<>());
+        List&lt;List&lt;Integer&gt;&gt; adj = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; numCourses; i++) {
+            adj.add(new ArrayList&lt;&gt;());
         }
         
         for (int[] prereq : prerequisites) {
@@ -937,15 +920,15 @@ class Solution {
         // 0: unvisited, 1: visiting, 2: visited
         int[] state = new int[numCourses];
         
-        for (int i = 0; i < numCourses; i++) {
-            if (state[i] == 0 && hasCycle(i, adj, state)) {
+        for (int i = 0; i &lt; numCourses; i++) {
+            if (state[i] == 0 &amp;&amp; hasCycle(i, adj, state)) {
                 return false;
             }
         }
         return true;
     }
     
-    private boolean hasCycle(int course, List<List<Integer>> adj, int[] state) {
+    private boolean hasCycle(int course, List&lt;List&lt;Integer&gt;&gt; adj, int[] state) {
         if (state[course] == 1) return true;  // Back edge found (cycle)
         if (state[course] == 2) return false; // Already processed
         
@@ -960,9 +943,8 @@ class Solution {
         state[course] = 2; // Mark as visited
         return false;
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1051,15 +1033,14 @@ var canFinish = function(numCourses, prerequisites) {
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // Build adjacency list and calculate indegrees
-        List<List<Integer>> adj = new ArrayList<>();
+        List&lt;List&lt;Integer&gt;&gt; adj = new ArrayList&lt;&gt;();
         int[] indegree = new int[numCourses];
         
-        for (int i = 0; i < numCourses; i++) {
-            adj.add(new ArrayList<>());
+        for (int i = 0; i &lt; numCourses; i++) {
+            adj.add(new ArrayList&lt;&gt;());
         }
         
         for (int[] prereq : prerequisites) {
@@ -1068,8 +1049,8 @@ class Solution {
         }
         
         // Start with courses having no prerequisites
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < numCourses; i++) {
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        for (int i = 0; i &lt; numCourses; i++) {
             if (indegree[i] == 0) {
                 queue.offer(i);
             }
@@ -1091,9 +1072,8 @@ class Solution {
         
         return completed == numCourses;
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1331,12 +1311,11 @@ Result: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     private int m, n;
     
-    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+    public List&lt;List&lt;Integer&gt;&gt; pacificAtlantic(int[][] heights) {
         m = heights.length;
         n = heights[0].length;
         
@@ -1344,26 +1323,26 @@ class Solution {
         boolean[][] atlantic = new boolean[m][n];
         
         // DFS from Pacific borders (top and left)
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i &lt; m; i++) {
             dfs(heights, i, 0, pacific, heights[i][0]);
         }
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j &lt; n; j++) {
             dfs(heights, 0, j, pacific, heights[0][j]);
         }
         
         // DFS from Atlantic borders (bottom and right)
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i &lt; m; i++) {
             dfs(heights, i, n - 1, atlantic, heights[i][n - 1]);
         }
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j &lt; n; j++) {
             dfs(heights, m - 1, j, atlantic, heights[m - 1][j]);
         }
         
         // Find intersection
-        List<List<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (pacific[i][j] && atlantic[i][j]) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (pacific[i][j] &amp;&amp; atlantic[i][j]) {
                     result.add(Arrays.asList(i, j));
                 }
             }
@@ -1373,7 +1352,7 @@ class Solution {
     }
     
     private void dfs(int[][] heights, int i, int j, boolean[][] visited, int prevHeight) {
-        if (i < 0 || i >= m || j < 0 || j >= n || visited[i][j] || heights[i][j] < prevHeight) {
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || visited[i][j] || heights[i][j] &lt; prevHeight) {
             return;
         }
         
@@ -1383,9 +1362,8 @@ class Solution {
             dfs(heights, i + dir[0], j + dir[1], visited, heights[i][j]);
         }
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1502,35 +1480,34 @@ var pacificAtlantic = function(heights) {
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
-    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+    public List&lt;List&lt;Integer&gt;&gt; pacificAtlantic(int[][] heights) {
         int m = heights.length, n = heights[0].length;
         
         boolean[][] pacific = new boolean[m][n];
         boolean[][] atlantic = new boolean[m][n];
         
-        Queue<int[]> pacificQueue = new LinkedList<>();
-        Queue<int[]> atlanticQueue = new LinkedList<>();
+        Queue&lt;int[]&gt; pacificQueue = new LinkedList&lt;&gt;();
+        Queue&lt;int[]&gt; atlanticQueue = new LinkedList&lt;&gt;();
         
         // Add Pacific borders
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i &lt; m; i++) {
             pacific[i][0] = true;
             pacificQueue.offer(new int[]{i, 0});
         }
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j &lt; n; j++) {
             pacific[0][j] = true;
             pacificQueue.offer(new int[]{0, j});
         }
         
         // Add Atlantic borders
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i &lt; m; i++) {
             atlantic[i][n - 1] = true;
             atlanticQueue.offer(new int[]{i, n - 1});
         }
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j &lt; n; j++) {
             atlantic[m - 1][j] = true;
             atlanticQueue.offer(new int[]{m - 1, j});
         }
@@ -1541,10 +1518,10 @@ class Solution {
         bfs(heights, atlanticQueue, atlantic);
         
         // Find intersection
-        List<List<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (pacific[i][j] && atlantic[i][j]) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (pacific[i][j] &amp;&amp; atlantic[i][j]) {
                     result.add(Arrays.asList(i, j));
                 }
             }
@@ -1553,7 +1530,7 @@ class Solution {
         return result;
     }
     
-    private void bfs(int[][] heights, Queue<int[]> queue, boolean[][] visited) {
+    private void bfs(int[][] heights, Queue&lt;int[]&gt; queue, boolean[][] visited) {
         int m = heights.length, n = heights[0].length;
         
         while (!queue.isEmpty()) {
@@ -1563,17 +1540,16 @@ class Solution {
             for (int[] dir : directions) {
                 int ni = i + dir[0], nj = j + dir[1];
                 
-                if (ni >= 0 && ni < m && nj >= 0 && nj < n && 
-                    !visited[ni][nj] && heights[ni][nj] >= heights[i][j]) {
+                if (ni &gt;= 0 &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; n &amp;&amp; 
+                    !visited[ni][nj] &amp;&amp; heights[ni][nj] &gt;= heights[i][j]) {
                     visited[ni][nj] = true;
                     queue.offer(new int[]{ni, nj});
                 }
             }
         }
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1875,16 +1851,15 @@ Output: 3
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     public int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) return 0;
         
         int count = 0;
         int m = grid.length, n = grid[0].length;
         
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
                 if (grid[i][j] == '1') {
                     count++;
                     dfs(grid, i, j);
@@ -1898,7 +1873,7 @@ class Solution {
     private void dfs(char[][] grid, int i, int j) {
         int m = grid.length, n = grid[0].length;
         
-        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1') {
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || grid[i][j] != '1') {
             return;
         }
         
@@ -1910,9 +1885,8 @@ class Solution {
         dfs(grid, i, j - 1);
         dfs(grid, i, j + 1);
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
@@ -1997,8 +1971,7 @@ var numIslands = function(grid) {
   </div>
   
   <div class="tab-content java active">
-```java
-class Solution {
+<pre class="language-java" tabindex="0"><code class="language-java">class Solution {
     private int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     
     public int numIslands(char[][] grid) {
@@ -2007,8 +1980,8 @@ class Solution {
         int count = 0;
         int m = grid.length, n = grid[0].length;
         
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
                 if (grid[i][j] == '1') {
                     count++;
                     bfs(grid, i, j);
@@ -2021,7 +1994,7 @@ class Solution {
     
     private void bfs(char[][] grid, int startI, int startJ) {
         int m = grid.length, n = grid[0].length;
-        Queue<int[]> queue = new LinkedList<>();
+        Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
         
         queue.offer(new int[]{startI, startJ});
         grid[startI][startJ] = '0';
@@ -2033,16 +2006,15 @@ class Solution {
             for (int[] dir : directions) {
                 int ni = i + dir[0], nj = j + dir[1];
                 
-                if (ni >= 0 && ni < m && nj >= 0 && nj < n && grid[ni][nj] == '1') {
+                if (ni &gt;= 0 &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; n &amp;&amp; grid[ni][nj] == '1') {
                     grid[ni][nj] = '0';
                     queue.offer(new int[]{ni, nj});
                 }
             }
         }
     }
-}
-```
-  </div>
+}</code></pre>
+</div>
   
   <div class="tab-content python">
 ```python
